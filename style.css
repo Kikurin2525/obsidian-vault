@@ -537,6 +537,10 @@ a {
     background-color: #010101;
 }
 
+.btn-sns.substack {
+    background-color: #FF6719;
+}
+
 .btn-sns.line {
     background-color: #06C755;
 }
