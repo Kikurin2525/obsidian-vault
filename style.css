@@ -59,6 +59,59 @@ a {
     justify-content: flex-start;
 }
 
+/* ===== 案2「バケツから流れ込む」ヒーロー (2026-08-18) ===== */
+.logo-area.hero2 { gap: 44px; align-items: flex-start; }
+.hero-catch {
+    font-family: 'Yusei Magic', sans-serif;
+    font-size: 1.3rem;
+    margin-top: 14px;
+    color: #fff;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, .18);
+}
+.stat-pills { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.stat-pills span {
+    background: rgba(255, 255, 255, .94);
+    color: #2e7d32;
+    font-size: .78rem;
+    font-weight: 700;
+    padding: 5px 13px;
+    border-radius: 999px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
+}
+.hero-duo { position: relative; flex-shrink: 0; }
+.hero-duo-img {
+    width: 230px;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 28px;
+    border: 4px solid #fff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .18);
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+/* バケツから下のティッカーへ注ぐ水流 */
+.hero-stream {
+    position: absolute;
+    left: 42%;
+    transform: translateX(-50%);
+    top: calc(100% - 12px);
+    width: 130px;
+    height: 66px;
+    background: linear-gradient(to bottom, #8ed8f8, #b7e7fb 55%, rgba(183, 231, 251, .25));
+    clip-path: polygon(24% 0, 76% 0, 88% 22%, 80% 40%, 92% 58%, 84% 78%, 96% 100%, 4% 100%, 14% 76%, 6% 56%, 18% 38%, 10% 20%);
+    z-index: 0;
+}
+.header-banner { border-top: 3px solid #a6ddf0; position: relative; z-index: 2; }
+
+@media (max-width: 768px) {
+    .logo-area.hero2 { flex-direction: column; align-items: center; gap: 20px; }
+    .logo-area.hero2 .logo-text { text-align: center; }
+    .logo-area.hero2 .stat-pills, .logo-area.hero2 .sns-icons-header { justify-content: center; }
+    .hero-duo-img { width: 180px; height: 180px; }
+    .hero-stream { height: 46px; }
+}
+
 .header-logo-img-character {
     width: 200px;
     height: auto;
@@ -1041,15 +1094,10 @@ blockquote.tip-box strong {
 .ticker-track { display: inline-block; white-space: nowrap; padding-left: 100%; animation: tickerflow 36s linear infinite; font-weight: 400; }
 @keyframes tickerflow { from { transform: translateX(0); } to { transform: translateX(-100%); } }
 
-/* タイムライン型フィード */
-.post-list { display: flex; flex-direction: column; position: relative; padding-left: 66px; }
-.post-list::before { content: ''; position: absolute; left: 24px; top: 8px; bottom: 8px; width: 3px;
-    background: repeating-linear-gradient(to bottom, #a5d6a7 0 10px, transparent 10px 20px); border-radius: 2px; }
+/* フィード(2026-08-18: 丸アイコン・点線タイムラインを廃止したシンプル版) */
+.post-list { display: flex; flex-direction: column; position: relative; }
 .post-card { position: relative; background: #fff; border: none; border-radius: 16px; padding: 18px 20px;
     margin: 0 0 24px; border-bottom: none; box-shadow: 0 2px 12px rgba(60, 100, 70, .10); flex-direction: row-reverse; }
-.post-card::before { content: ''; position: absolute; left: -60px; top: 4px; width: 46px; height: 46px; border-radius: 50%;
-    background: url('assets/character.jpg') center/cover; border: 3px solid #81c784; box-shadow: 0 1px 4px rgba(0,0,0,.15); z-index: 1; }
-.post-card::after { content: ''; position: absolute; left: -15px; top: 20px; border: 8px solid transparent; border-right-color: #fff; }
 .post-thumb { width: 200px; height: 120px; }
 .post-info { display: flex; flex-direction: column; flex: 1; }
 .post-info time { order: -1; font-family: 'Yusei Magic', sans-serif; font-size: 0.95rem; color: #4e7d5b; margin-bottom: 6px; }
@@ -1059,10 +1107,6 @@ blockquote.tip-box strong {
 .post-info p { font-size: 0.88rem; color: #555; }
 
 @media (max-width: 768px) {
-    .post-list { padding-left: 46px; }
-    .post-list::before { left: 15px; }
     .post-card { flex-direction: column; }
-    .post-card::before { left: -44px; width: 34px; height: 34px; border-width: 2px; }
-    .post-card::after { left: -13px; top: 14px; }
     .post-thumb { width: 100%; height: auto; aspect-ratio: 16/9; }
 }

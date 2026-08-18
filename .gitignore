@@ -10,6 +10,7 @@
 !.nojekyll
 !.gitignore
 !index.html
+!apple-touch-icon.png
 !style.css
 !script.js
 !CNAME
