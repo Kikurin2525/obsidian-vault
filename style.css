@@ -1,10 +1,10 @@
 :root {
-    --primary-color: #4caf50;
-    /* Fresh Green */
-    --accent-color: #81c784;
+    --primary-color: #f57c00;
+    /* Pop Orange */
+    --accent-color: #29b6f6;
     --text-color: #333;
-    --bg-color: #f1f8e9;
-    --header-bg: #4caf50;
+    --bg-color: #fff7e6;
+    --header-bg: #ffa000;
     --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     --border-radius: 12px;
 }
@@ -30,7 +30,7 @@ a {
 
 /* Header */
 .main-header {
-    background-color: var(--header-bg);
+    background: linear-gradient(180deg, #ffb300, #ff9100);
     color: white;
     text-align: center;
 }
@@ -38,7 +38,10 @@ a {
 .header-top {
     font-size: 0.8rem;
     padding: 8px 0;
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: #24345c;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: .06em;
 }
 
 .header-content {
@@ -58,6 +61,23 @@ a {
 .logo-area.minimal {
     justify-content: flex-start;
 }
+
+/* ===== フル幅ヒーロー(2026-08-19・ゲーム告知テイスト) ===== */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.hero-full-img { width: 100%; height: auto; display: block; }
+.hero-strip {
+    background: linear-gradient(180deg, #ff9100, #f57c00);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px 22px;
+    padding: 10px 16px;
+    border-top: 3px solid #fff;
+}
+.hero-strip .stat-pills { margin-top: 0; justify-content: center; }
+.hero-strip .sns-icons-header { margin-top: 0; justify-content: center; }
+.hero-strip .sns-icons-header a { color: #fff; }
 
 /* ===== 案2「バケツから流れ込む」ヒーロー (2026-08-18) ===== */
 .sns-icons-header a { position: relative; }
@@ -79,8 +99,8 @@ a {
 }
 .stat-pills { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
 .stat-pills span {
-    background: rgba(255, 255, 255, .94);
-    color: #2e7d32;
+    background: rgba(255, 255, 255, .96);
+    color: #e65100;
     font-size: .78rem;
     font-weight: 700;
     padding: 5px 13px;
@@ -111,7 +131,7 @@ a {
     clip-path: polygon(24% 0, 76% 0, 88% 22%, 80% 40%, 92% 58%, 84% 78%, 96% 100%, 4% 100%, 14% 76%, 6% 56%, 18% 38%, 10% 20%);
     z-index: 0;
 }
-.header-banner { border-top: 3px solid #a6ddf0; position: relative; z-index: 2; }
+.header-banner { border-top: 3px solid #fff; position: relative; z-index: 2; }
 
 @media (max-width: 768px) {
     .logo-area.hero2 { flex-direction: column; align-items: center; gap: 20px; }
@@ -222,7 +242,7 @@ a {
 }
 
 .header-banner {
-    background-color: #81c784;
+    background: linear-gradient(90deg, #29b6f6, #4fc3f7);
     color: white;
     padding: 8px;
     font-size: 0.9rem;
@@ -276,6 +296,7 @@ a {
 .category-tile {
     position: relative;
     height: 120px;
+    border: 3px solid #fff;
     border-radius: var(--border-radius);
     overflow: hidden;
     cursor: pointer;
@@ -413,14 +434,15 @@ a {
 }
 
 .section-title-tab button {
-    background-color: var(--primary-color);
+    background: linear-gradient(135deg, #ff9100, #f57c00);
     color: white;
-    border: none;
+    border: 3px solid #fff;
     padding: 10px 25px;
     font-weight: 700;
-    border-radius: 5px 5px 0 0;
+    border-radius: 999px;
     font-size: 1rem;
     cursor: pointer;
+    box-shadow: 0 3px 8px rgba(230, 110, 20, .3);
 }
 
 .post-card {
@@ -448,7 +470,9 @@ a {
     padding: 3px 10px;
     font-size: 0.75rem;
     font-weight: 700;
-    border-radius: 3px;
+    border-radius: 8px;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .18);
 }
 
 .post-info h2 {
@@ -657,8 +681,8 @@ a {
 .single-article .article-body h2 {
     font-size: 1.6rem;
     margin: 40px 0 20px;
-    color: var(--primary-color);
-    border-bottom: 2px solid var(--primary-color);
+    color: #e65100;
+    border-bottom: 3px solid var(--accent-color);
     padding-bottom: 8px;
 }
 
@@ -1084,12 +1108,12 @@ blockquote.tip-box strong {
 
 /* フィード(2026-08-18: 丸アイコン・点線タイムラインを廃止したシンプル版) */
 .post-list { display: flex; flex-direction: column; position: relative; }
-.post-card { position: relative; background: #fff; border: none; border-radius: 16px; padding: 18px 20px;
-    margin: 0 0 24px; border-bottom: none; box-shadow: 0 2px 12px rgba(60, 100, 70, .10); flex-direction: row-reverse; }
+.post-card { position: relative; background: #fff; border: 3px solid #fff; border-radius: 16px; padding: 18px 20px;
+    margin: 0 0 24px; border-bottom: none; box-shadow: 0 4px 14px rgba(230, 110, 20, .16); flex-direction: row-reverse; }
 .post-thumb { width: 200px; height: 120px; }
 .post-info { display: flex; flex-direction: column; flex: 1; }
-.post-info time { order: -1; font-family: 'Yusei Magic', sans-serif; font-size: 0.95rem; color: #4e7d5b; margin-bottom: 6px; }
-.post-info time::after { content: ' の垂れ流し'; font-size: 0.8rem; color: #93b59d; }
+.post-info time { order: -1; font-family: 'Yusei Magic', sans-serif; font-size: 0.95rem; color: #e65100; margin-bottom: 6px; }
+.post-info time::after { content: ' の垂れ流し'; font-size: 0.8rem; color: #f4a83d; }
 .post-info h2 { font-size: 1.15rem; }
 .post-info h2 a { background: linear-gradient(transparent 68%, #fff59d 68%); }
 .post-info p { font-size: 0.88rem; color: #555; }
