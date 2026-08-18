@@ -60,6 +60,15 @@ a {
 }
 
 /* ===== 案2「バケツから流れ込む」ヒーロー (2026-08-18) ===== */
+.sns-icons-header a { position: relative; }
+.sns-icons-header .icon-badge {
+    position: absolute;
+    right: -8px;
+    bottom: -7px;
+    font-size: 11px;
+    line-height: 1;
+    text-shadow: 0 0 3px rgba(255,255,255,.9);
+}
 .logo-area.hero2 { gap: 44px; align-items: flex-start; }
 .hero-catch {
     font-family: 'Yusei Magic', sans-serif;
