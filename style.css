@@ -1015,3 +1015,54 @@ blockquote.tip-box strong {
     color: #888;
     font-weight: 600;
 }
+
+
+/* 売上カード */
+.revenue-list { list-style: none; padding: 0; margin: 0; }
+.revenue-list li { display: flex; justify-content: space-between; align-items: center; padding: 10px 4px; border-bottom: 1px dashed #d5ddd5; font-size: 0.88rem; }
+.revenue-list li:last-child { border-bottom: none; }
+.revenue-list li strong { font-size: 1rem; white-space: nowrap; margin-left: 8px; }
+.revenue-list li.revenue-total { border-top: 2px solid #5a8f6a; margin-top: 4px; padding-top: 12px; }
+.revenue-list li.revenue-total span, .revenue-list li.revenue-total strong { font-weight: 800; }
+
+
+/* ===== 垂れ流しスキン（トップページのフィード化） ===== */
+.logo-text h1 { font-family: 'Yusei Magic', 'M PLUS Rounded 1c', sans-serif; }
+.tagline { font-family: 'Yusei Magic', sans-serif; letter-spacing: .08em; }
+.section-title-tab button { font-family: 'Yusei Magic', sans-serif; }
+.profile-header { font-family: 'Yusei Magic', sans-serif; }
+
+/* LIVEバッジ + ティッカー */
+.live-ticker { display: flex; align-items: center; gap: 12px; max-width: 1100px; margin: 0 auto; padding: 0 12px; }
+.live-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.5); border-radius: 999px; padding: 2px 12px; font-family: 'Yusei Magic', sans-serif; white-space: nowrap; }
+.live-dot { width: 9px; height: 9px; border-radius: 50%; background: #ff5252; animation: livepulse 1.6s ease-in-out infinite; }
+@keyframes livepulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .35; transform: scale(.75); } }
+.ticker-viewport { overflow: hidden; flex: 1; }
+.ticker-track { display: inline-block; white-space: nowrap; padding-left: 100%; animation: tickerflow 36s linear infinite; font-weight: 400; }
+@keyframes tickerflow { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+
+/* タイムライン型フィード */
+.post-list { display: flex; flex-direction: column; position: relative; padding-left: 66px; }
+.post-list::before { content: ''; position: absolute; left: 24px; top: 8px; bottom: 8px; width: 3px;
+    background: repeating-linear-gradient(to bottom, #a5d6a7 0 10px, transparent 10px 20px); border-radius: 2px; }
+.post-card { position: relative; background: #fff; border: none; border-radius: 16px; padding: 18px 20px;
+    margin: 0 0 24px; border-bottom: none; box-shadow: 0 2px 12px rgba(60, 100, 70, .10); flex-direction: row-reverse; }
+.post-card::before { content: ''; position: absolute; left: -60px; top: 4px; width: 46px; height: 46px; border-radius: 50%;
+    background: url('assets/character.jpg') center/cover; border: 3px solid #81c784; box-shadow: 0 1px 4px rgba(0,0,0,.15); z-index: 1; }
+.post-card::after { content: ''; position: absolute; left: -15px; top: 20px; border: 8px solid transparent; border-right-color: #fff; }
+.post-thumb { width: 200px; height: 120px; }
+.post-info { display: flex; flex-direction: column; flex: 1; }
+.post-info time { order: -1; font-family: 'Yusei Magic', sans-serif; font-size: 0.95rem; color: #4e7d5b; margin-bottom: 6px; }
+.post-info time::after { content: ' の垂れ流し'; font-size: 0.8rem; color: #93b59d; }
+.post-info h2 { font-size: 1.15rem; }
+.post-info h2 a { background: linear-gradient(transparent 68%, #fff59d 68%); }
+.post-info p { font-size: 0.88rem; color: #555; }
+
+@media (max-width: 768px) {
+    .post-list { padding-left: 46px; }
+    .post-list::before { left: 15px; }
+    .post-card { flex-direction: column; }
+    .post-card::before { left: -44px; width: 34px; height: 34px; border-width: 2px; }
+    .post-card::after { left: -13px; top: 14px; }
+    .post-thumb { width: 100%; height: auto; aspect-ratio: 16/9; }
+}
