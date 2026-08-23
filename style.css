@@ -726,6 +726,19 @@ a {
     line-height: 1.8;
 }
 
+/* 本文リンクは、通常テキストと明確に区別できるようにする */
+.single-article .article-body a {
+    color: #0b63ce;
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 3px;
+    font-weight: 700;
+}
+
+.single-article .article-body a:hover {
+    color: #e65100;
+}
+
 .btn-back {
     display: inline-block;
     background-color: #555;
