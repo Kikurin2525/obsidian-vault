@@ -20,6 +20,8 @@
 !assets/**
 !articles/
 !articles/**
+!mail/
+!mail/**
 
 # ======================
 # 3. macOS固有のファイルは常に除外
