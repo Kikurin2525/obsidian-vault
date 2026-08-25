@@ -31,3 +31,5 @@
 
 # Local Netlify folder
 .netlify
+!tools/
+!tools/**
