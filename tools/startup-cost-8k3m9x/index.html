@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>レンタルスペース 初期費用シミュレーター｜きくりん</title>
+    <link rel="icon" href="../../assets/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&amp;family=M+PLUS+Rounded+1c:wght@700;800&amp;display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #f57c00;
+            --accent: #29b6f6;
+            --text: #333;
+            --bg: #fff7e6;
+            --card: #fff;
+            --line: #f0e2c8;
+            --muted: #8a7d6c;
+            --navy: #24345c;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 0 0 60px;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.75;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        header {
+            background: linear-gradient(180deg, #ffb300, #ff9100);
+            color: #fff;
+            padding: 22px 16px 18px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+            font-size: 21px;
+            margin: 0 0 6px;
+            line-height: 1.4;
+        }
+
+        header p { margin: 0; font-size: 13px; opacity: .95; }
+
+        .wrap { max-width: 720px; margin: 0 auto; padding: 0 14px; }
+
+        .card {
+            background: var(--card);
+            border: 2px solid var(--line);
+            border-radius: 14px;
+            padding: 16px 16px 18px;
+            margin: 16px 0;
+        }
+
+        .step {
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--navy);
+            margin: 0 0 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .step .num {
+            background: var(--primary);
+            color: #fff;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex: 0 0 auto;
+        }
+
+        .hint { font-size: 12px; color: var(--muted); margin: 0 0 12px; }
+
+        .row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 7px 0;
+            border-bottom: 1px dashed #f2e8d5;
+            flex-wrap: wrap;
+        }
+
+        .row:last-child { border-bottom: none; }
+        .row label.name { flex: 1 1 130px; font-size: 14px; }
+
+        input[type=number], select {
+            font-family: inherit;
+            font-size: 15px;
+            padding: 7px 9px;
+            border: 2px solid #e2d6bd;
+            border-radius: 8px;
+            background: #fffdf7;
+            width: 116px;
+            text-align: right;
+        }
+
+        select { width: auto; text-align: left; min-width: 130px; max-width: 100%; }
+        input[type=number]:focus, select:focus { outline: none; border-color: var(--accent); }
+        .unit { font-size: 13px; color: var(--muted); }
+
+        .items .row { border-bottom: 1px dotted #eee2cc; }
+        .items label.name { display: flex; align-items: flex-start; gap: 7px; cursor: pointer; flex: 1 1 150px; }
+        .items input[type=checkbox] { margin-top: 5px; width: 17px; height: 17px; flex: 0 0 auto; accent-color: var(--primary); }
+        .items input[type=number] { width: 104px; }
+        .qty { width: 52px !important; }
+
+        .src {
+            display: inline-block;
+            font-size: 10px;
+            border-radius: 6px;
+            padding: 1px 6px;
+            margin-left: 5px;
+            vertical-align: 2px;
+            white-space: nowrap;
+        }
+        .src.jisseki { background: #e4f6df; color: #2f8c22; }
+        .src.jissei { background: #e8f0ff; color: #2b5fd9; }
+        .src.souba { background: #f6f1e4; color: #8a7d6c; }
+
+        details.adv { margin-top: 10px; }
+        details.adv summary { cursor: pointer; font-size: 13px; color: var(--accent); font-weight: 700; }
+        details.adv .card { margin: 10px 0 0; background: #fffdf7; }
+
+        /* 結果 */
+        .result { border-color: var(--primary); }
+        .total-label { font-size: 13px; color: var(--muted); margin: 0; }
+        .total {
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+            font-size: 38px;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 2px 0 10px;
+            line-height: 1.2;
+        }
+        .total small { font-size: 18px; }
+
+        .bar { display: flex; height: 16px; border-radius: 8px; overflow: hidden; margin: 10px 0 8px; background: #f0e8d8; }
+        .bar span { display: block; height: 100%; }
+        .b1 { background: #ffa000; }
+        .b2 { background: #29b6f6; }
+        .b3 { background: #66bb6a; }
+
+        .legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12.5px; margin-bottom: 10px; }
+        .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 4px; }
+
+        table.detail { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 6px; }
+        table.detail th { text-align: left; color: var(--muted); font-weight: 400; padding: 5px 0; border-bottom: 1px solid #f0e8d8; }
+        table.detail td { padding: 5px 0; border-bottom: 1px solid #f7f1e5; }
+        table.detail td.n { text-align: right; white-space: nowrap; }
+        table.detail tr.sum td { font-weight: 700; border-top: 2px solid var(--line); border-bottom: none; }
+
+        .payback { background: #f6faff; border: 2px solid #d6e9fb; border-radius: 12px; padding: 12px 14px; margin-top: 14px; }
+        .payback h3 { margin: 0 0 8px; font-size: 15px; color: var(--navy); font-family: 'M PLUS Rounded 1c', sans-serif; }
+        .payback .pb { display: flex; justify-content: space-between; align-items: baseline; padding: 4px 0; font-size: 14px; }
+        .payback .pb b { font-size: 20px; color: var(--accent); font-family: 'M PLUS Rounded 1c', sans-serif; }
+
+        .verdict { background: #fffbe9; border-left: 4px solid var(--primary); padding: 10px 12px; margin-top: 14px; border-radius: 0 8px 8px 0; font-size: 14px; }
+
+        .compare { margin-top: 14px; }
+        .compare h3 { font-size: 15px; margin: 0 0 6px; color: var(--navy); font-family: 'M PLUS Rounded 1c', sans-serif; }
+        .compare table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        .compare td { padding: 4px 0; border-bottom: 1px solid #f7f1e5; }
+        .compare td.n { text-align: right; white-space: nowrap; }
+
+        .btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+        button {
+            font-family: inherit;
+            font-size: 14px;
+            padding: 9px 15px;
+            border-radius: 9px;
+            border: 2px solid var(--line);
+            background: #fff;
+            color: var(--text);
+            cursor: pointer;
+            font-weight: 700;
+        }
+        button.pri { background: var(--primary); color: #fff; border-color: var(--primary); }
+        button:active { transform: translateY(1px); }
+
+        .cta {
+            background: linear-gradient(180deg, #fff3d9, #ffe9bf);
+            border: 2px solid #ffc966;
+            border-radius: 14px;
+            padding: 18px 16px;
+            margin: 22px 0 10px;
+            text-align: center;
+        }
+        .cta h2 { font-family: 'M PLUS Rounded 1c', sans-serif; font-size: 18px; margin: 0 0 8px; color: var(--navy); }
+        .cta p { font-size: 14px; margin: 0 0 14px; }
+        .cta a.btn {
+            display: inline-block;
+            background: var(--primary);
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 26px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .note { font-size: 12px; color: var(--muted); margin-top: 14px; line-height: 1.7; }
+        footer { text-align: center; font-size: 12px; color: var(--muted); padding: 20px 14px 0; }
+        footer a { color: var(--accent); }
+        .toast {
+            position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%);
+            background: var(--navy); color: #fff; padding: 10px 18px; border-radius: 20px;
+            font-size: 13px; opacity: 0; pointer-events: none; transition: opacity .25s; z-index: 99;
+        }
+        .toast.on { opacity: 1; }
+        @media (max-width: 480px) {
+            .total { font-size: 32px; }
+            header h1 { font-size: 18px; }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>レンタルスペース<br>初期費用シミュレーター</h1>
+        <p>メール講座 特典版｜5年・23部屋の実額にもとづく計算式</p>
+    </header>
+
+    <div class="wrap">
+
+        <!-- STEP1 物件 -->
+        <div class="card">
+            <p class="step"><span class="num">1</span>物件のこと</p>
+            <p class="hint">気になっている物件の条件を入れてください。金額は1万円単位のざっくりで大丈夫です。</p>
+            <div class="row"><label class="name" for="rent">家賃(月額)</label><input type="number" id="rent" value="100000" step="1000"><span class="unit">円</span></div>
+            <div class="row"><label class="name" for="size">広さ</label><input type="number" id="size" value="20" step="1"><span class="unit">㎡</span></div>
+            <div class="row"><label class="name" for="shiki">敷金</label><input type="number" id="shiki" value="1" step="0.5" min="0" max="6"><span class="unit">ヶ月</span></div>
+            <div class="row"><label class="name" for="rei">礼金</label><input type="number" id="rei" value="1" step="0.5" min="0" max="3"><span class="unit">ヶ月</span></div>
+            <div class="row"><label class="name" for="chukai">仲介手数料</label><input type="number" id="chukai" value="1" step="0.5" min="0" max="1"><span class="unit">ヶ月</span></div>
+            <div class="row"><label class="name" for="hosho">保証会社</label><input type="number" id="hosho" value="1" step="0.5" min="0" max="1"><span class="unit">ヶ月</span></div>
+            <div class="row"><label class="name" for="kasai">火災保険(2年)</label><input type="number" id="kasai" value="2" step="0.5"><span class="unit">万円くらい</span></div>
+            <div class="row items"><label class="name" for="kagi"><input type="checkbox" id="kagi"><span>鍵交換</span></label><input type="number" id="kagiV" value="3" step="0.5"><span class="unit">万円くらい</span></div>
+            <div class="row items"><label class="name" for="maebarai"><input type="checkbox" id="maebarai"><span>前払い家賃(1ヶ月)も足す</span></label><span class="unit">※本来はランニング費用</span></div>
+        </div>
+
+        <!-- STEP2 内装 -->
+        <div class="card">
+            <p class="step"><span class="num">2</span>内装・設備</p>
+            <p class="hint">私のおすすめは「そのまま使う」です。初期費用を抑えて、早く回収するために。</p>
+            <div class="row"><label class="name" for="naiso">内装</label>
+                <select id="naiso">
+                    <option value="none" selected>そのまま使う(0円)</option>
+                    <option value="floor">床だけ張り替える</option>
+                    <option value="full">床+壁紙</option>
+                </select>
+            </div>
+            <div class="row items"><label class="name" for="diy"><input type="checkbox" id="diy"><span>電気工事以外はDIYする</span></label><span class="unit">材料費のみで計算</span></div>
+            <div class="row items"><label class="name" for="light"><input type="checkbox" id="light"><span>照明を替える</span></label><input type="number" id="lightV2" value="3" step="0.5"><span class="unit">万円くらい</span></div>
+            <div class="row items"><label class="name" for="aircon"><input type="checkbox" id="aircon"><span>エアコンを交換する</span></label><input type="number" id="airconV" value="12" step="1"><span class="unit">万円くらい</span></div>
+        </div>
+
+        <!-- STEP3 業態 -->
+        <div class="card">
+            <p class="step"><span class="num">3</span>業態と備品</p>
+            <p class="hint">「だいたいこのくらい」の目安です。いらないものはチェックを外して、金額は自分の想定に書き換えてください。</p>
+            <div class="row"><label class="name" for="genre">業態</label>
+                <select id="genre">
+                    <option value="dance">ダンススタジオ</option>
+                    <option value="meeting">貸し会議室</option>
+                    <option value="party">パーティースペース</option>
+                    <option value="photo">撮影・推し活スタジオ</option>
+                </select>
+            </div>
+            <div id="mirrorBox" style="display:none">
+                <div class="row"><label class="name" for="mirror">鏡</label>
+                    <select id="mirror">
+                        <option value="82000" selected>業者に施工してもらう</option>
+                        <option value="44000">自分で設置(つっぱり)</option>
+                        <option value="33000">自分で設置(パネルミラー)</option>
+                        <option value="0">最初から付いている(0円)</option>
+                    </select>
+                </div>
+                <div class="row"><label class="name" for="mirrorW">鏡を貼る幅</label><input type="number" id="mirrorW" value="6.5" step="0.5"><span class="unit">m</span></div>
+            </div>
+            <div class="items" id="items"></div>
+        </div>
+
+        <!-- STEP4 回収 -->
+        <div class="card">
+            <p class="step"><span class="num">4</span>回収の前提</p>
+            <p class="hint">私の実績では、まともに選んだ物件なら1店舗あたり月10万円が目安です。</p>
+            <div class="row"><label class="name" for="profit">想定の月利益</label><input type="number" id="profit" value="10" step="1"><span class="unit">万円くらい</span></div>
+            <details class="adv">
+                <summary>▼ 計算の裏側もいじる(単価設定)</summary>
+                <div class="card">
+                    <div class="row"><label class="name" for="floorU">床 業者(円/㎡)<span class="src souba">相場</span></label><input type="number" id="floorU" value="3000" step="100"></div>
+                    <div class="row"><label class="name" for="floorD">床 DIY(円/㎡)<span class="src souba">相場</span></label><input type="number" id="floorD" value="1200" step="100"></div>
+                    <div class="row"><label class="name" for="wallU">壁紙 業者(円/㎡)<span class="src souba">相場</span></label><input type="number" id="wallU" value="1300" step="100"></div>
+                    <div class="row"><label class="name" for="wallD">壁紙 DIY(円/㎡)<span class="src souba">相場</span></label><input type="number" id="wallD" value="700" step="100"></div>
+                    <div class="row"><label class="name" for="wallR">壁の面積 = 床 ×</label><input type="number" id="wallR" value="2.7" step="0.1"></div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 結果 -->
+        <div class="card result" id="result">
+            <p class="total-label">初期費用の目安</p>
+            <p class="total" id="total">—</p>
+            <div class="bar"><span class="b1" id="bar1"></span><span class="b2" id="bar2"></span><span class="b3" id="bar3"></span></div>
+            <div class="legend">
+                <span><i class="b1"></i>契約関連 <b id="l1">0</b></span>
+                <span><i class="b2"></i>内装・設備 <b id="l2">0</b></span>
+                <span><i class="b3"></i>家具・備品 <b id="l3">0</b></span>
+            </div>
+            <table class="detail" id="detail"></table>
+
+            <div class="payback">
+                <h3>何ヶ月で戻ってくるか</h3>
+                <div class="pb"><span>用意する現金ベース</span><span><b id="pb1">—</b> ヶ月</span></div>
+                <div class="pb"><span>実質ベース(戻る敷金を除く)</span><span><b id="pb2">—</b> ヶ月</span></div>
+            </div>
+
+            <div class="verdict" id="verdict"></div>
+
+            <div class="compare">
+                <h3>私の実店舗と比べると</h3>
+                <table>
+                    <tr><td>貸し会議室(小箱・敷礼ゼロ)</td><td class="n">30万円くらい</td></tr>
+                    <tr><td>パーティースペース(20㎡くらい)</td><td class="n">90万円くらい</td></tr>
+                    <tr><td>撮影スタジオ(敷礼ゼロ)</td><td class="n">90万円くらい</td></tr>
+                    <tr><td>ダンススタジオ(鏡付きの物件)</td><td class="n">140万円くらい</td></tr>
+                    <tr><td>ダンススタジオ(鏡を新しく貼った)</td><td class="n">210万円くらい</td></tr>
+                </table>
+            </div>
+
+            <div class="btns">
+                <button class="pri" id="share">結果のリンクをコピー</button>
+                <button id="reset">きくりんの相場に戻す</button>
+            </div>
+
+            <p class="note">
+                ※ここに出る金額は、私の23部屋の実額をもとにした<b>ざっくりの目安</b>です。1万円単位で丸めています。何をどれだけ揃えるかは人それぞれなので、自分の想定に合わせて数字を書き換えてください。<br>
+                ※物件によっては、クリーニング代・抗菌消臭代・書類作成費などが別途かかることがあります(私の場合で2〜6万円程度)。契約前に見積書で確認してください。<br>
+                ※競合視察とセットで使うと、備品の精度が上がります。
+            </p>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta">
+            <h2>この計算の考え方も、記事にしています</h2>
+            <p>契約関連の内訳・敷引きの罠・消費税の境目・鏡の実額まで、23部屋分の実額で全部公開しました。</p>
+            <a class="btn" href="https://rental-space.net/articles/2026-08-25-rental-space-startup-cost.html">記事を読む</a>
+        </div>
+
+        <footer>
+            <a href="https://rental-space.net/">きくりんのブログに戻る</a>
+        </footer>
+    </div>
+
+    <div class="toast" id="toast">コピーしました</div>
+
+    <script>
+        // ===== 備品マスタ(実額ベース) =====
+        // src: j=実績(大介さんの店) / s=実勢(販売ページ) / e=推定
+        // 単位は「万円」。1点ずつではなく“カテゴリのざっくり見積もり”
+        const ITEMS = {
+            dance: [
+                { k: 'sound', n: '音響まわり(スピーカー・プレイヤー)', v: 1.5, on: 1 },
+                { k: 'tv', n: 'モニター・テレビ', v: 3, on: 1 },
+                { k: 'mat', n: 'マット類', v: 2, on: 1 },
+                { k: 'air', n: '空気清浄機', v: 3, on: 1 },
+                { k: 'chair', n: '椅子・スツール', v: 1, on: 1 },
+                { k: 'table', n: 'テーブル', v: 0.5, on: 1 },
+                { k: 'rack', n: 'ラック', v: 0.5, on: 1 },
+                { k: 'wb', n: 'ホワイトボード', v: 1, on: 1 },
+                { k: 'tripod', n: 'スマホ三脚', v: 0.5, on: 1 },
+                { k: 'stand', n: '譜面台', v: 0.5, on: 0 },
+                { k: 'chg', n: '着替えスペース', v: 1, on: 1 },
+                { k: 'clean', n: '掃除機', v: 1, on: 1 },
+                { k: 'slip', n: 'スリッパ', v: 0.5, on: 1 },
+                { k: 'ladder', n: '脚立', v: 0.5, on: 1 },
+                { k: 'green', n: 'フェイクグリーン', v: 0.5, on: 1 },
+                { k: 'sign', n: '看板・サイン', v: 1.5, on: 1 },
+                { k: 'cam', n: '防犯カメラ(マイクロSDカード)', v: 0.5, on: 1 },
+                { k: 'msc', n: 'その他', v: 3, on: 1 }
+            ],
+            meeting: [
+                { k: 'table', n: '机・テーブル', v: 1.5, on: 1 },
+                { k: 'chair', n: '椅子', v: 1.5, on: 1 },
+                { k: 'wb', n: 'ホワイトボード', v: 1.5, on: 1 },
+                { k: 'proj', n: 'プロジェクター・モニター', v: 4, on: 1 },
+                { k: 'led', n: 'LEDリングライト', v: 0.5, on: 1 },
+                { k: 'desk', n: 'デスクライト', v: 0.5, on: 1 },
+                { k: 'ind', n: '間接照明', v: 1, on: 1 },
+                { k: 'rack', n: 'ラック', v: 1, on: 1 },
+                { k: 'clean', n: '掃除機', v: 1, on: 1 },
+                { k: 'slip', n: 'スリッパ', v: 0.5, on: 1 },
+                { k: 'green', n: 'フェイクグリーン', v: 0.5, on: 1 },
+                { k: 'cam', n: '防犯カメラ(マイクロSDカード)', v: 1, on: 1 },
+                { k: 'msc', n: 'その他', v: 2.5, on: 1 }
+            ],
+            party: [
+                { k: 'furn', n: '家具(ソファ・テーブル・椅子)', v: 5, on: 1 },
+                { k: 'tv', n: 'テレビ', v: 5, on: 1 },
+                { k: 'game', n: 'ゲーム機・ソフト', v: 4, on: 1 },
+                { k: 'proj', n: 'プロジェクター', v: 4, on: 1 },
+                { k: 'dvd', n: 'DVD・BDプレーヤー', v: 1, on: 1 },
+                { k: 'board', n: 'ボードゲーム類', v: 1, on: 1 },
+                { k: 'curt', n: 'カーテン・ブラインド', v: 1, on: 1 },
+                { k: 'ind', n: '間接照明', v: 1, on: 1 },
+                { k: 'rack', n: '収納・ラック', v: 2, on: 1 },
+                { k: 'fridge', n: '冷蔵庫', v: 2, on: 1 },
+                { k: 'range', n: '電子レンジ', v: 1, on: 1 },
+                { k: 'hot', n: 'ホットプレート・たこ焼き器', v: 1, on: 1 },
+                { k: 'cook', n: 'その他調理器具', v: 1, on: 1 },
+                { k: 'dish', n: '食器類', v: 1, on: 1 },
+                { k: 'clean', n: '掃除機', v: 1, on: 1 },
+                { k: 'slip', n: 'スリッパ', v: 0.5, on: 1 },
+                { k: 'green', n: 'フェイクグリーン', v: 0.5, on: 1 },
+                { k: 'cam', n: '防犯カメラ(マイクロSDカード)', v: 0.5, on: 1 },
+                { k: 'msc', n: 'その他', v: 3, on: 1 }
+            ],
+            photo: [
+                { k: 'sofa', n: 'ソファ', v: 7, on: 1 },
+                { k: 'table', n: 'テーブル', v: 4, on: 1 },
+                { k: 'dresser', n: 'ドレッサー', v: 4, on: 1 },
+                { k: 'mirror', n: '姿見鏡', v: 0.5, on: 1 },
+                { k: 'dress', n: 'ドレス', v: 2, on: 1 },
+                { k: 'curt', n: 'カーテン・レース', v: 8, on: 1 },
+                { k: 'chand', n: 'シャンデリア', v: 5, on: 1 },
+                { k: 'ind', n: '間接照明', v: 2, on: 1 },
+                { k: 'proj', n: 'プロジェクター・モニター', v: 8, on: 1 },
+                { k: 'photo', n: '撮影機材(ライト・三脚・レフ板)', v: 5, on: 1 },
+                { k: 'goods', n: '撮影小物一式', v: 3, on: 1 },
+                { k: 'fridge', n: '冷蔵庫', v: 2, on: 1 },
+                { k: 'range', n: '電子レンジ', v: 1, on: 1 },
+                { k: 'ladder', n: '脚立', v: 1.5, on: 1 },
+                { k: 'cam', n: '防犯カメラ(マイクロSDカード)', v: 0.5, on: 1 },
+                { k: 'msc', n: 'その他', v: 3, on: 1 }
+            ]
+        };
+
+        const SRC_LABEL = { j: ['実績', 'jisseki'], s: ['実勢', 'jissei'], e: ['相場', 'souba'] };
+        const $ = id => document.getElementById(id);
+        // シミュレーションなので万円単位に丸めて出す
+        const man = n => {
+            const m = n / 10000;
+            if (m === 0) return '0万円';
+            if (m < 10) return (Math.round(m * 2) / 2) + '万円';   // 0.5万円刻み
+            return Math.round(m) + '万円';                          // 1万円刻み
+        };
+        const manA = n => '約' + man(n);
+
+        const NUM_IDS = ['rent', 'size', 'shiki', 'rei', 'chukai', 'hosho', 'kasai', 'kagiV', 'airconV',
+            'mirrorW', 'profit', 'floorU', 'floorD', 'wallU', 'wallD', 'wallR', 'lightV2'];
+        const CHK_IDS = ['kagi', 'maebarai', 'diy', 'light', 'aircon'];
+        const SEL_IDS = ['naiso', 'genre', 'mirror'];
+
+        // ===== 備品UIの描画 =====
+        function renderItems(genre, saved) {
+            const box = $('items');
+            box.innerHTML = '';
+            ITEMS[genre].forEach(it => {
+                const id = 'it_' + genre + '_' + it.k;
+                const st = saved && saved[id];
+                const on = st ? st.on : it.on;
+                const v = st ? st.v : it.v;
+                const row = document.createElement('div');
+                row.className = 'row';
+                row.innerHTML =
+                    '<label class="name" for="' + id + '"><input type="checkbox" id="' + id + '"' + (on ? ' checked' : '') +
+                    '><span>' + it.n + '</span></label>' +
+                    '<input type="number" id="' + id + '_v" value="' + v + '" step="0.5" min="0">' +
+                    '<span class="unit">万円くらい</span>';
+                box.appendChild(row);
+            });
+            box.querySelectorAll('input').forEach(el => el.addEventListener('input', calc));
+        }
+
+        // ===== 計算 =====
+        function calc() {
+            const rent = +$('rent').value || 0;
+            const size = +$('size').value || 0;
+            const genre = $('genre').value;
+
+            // 契約関連
+            const shikiY = rent * (+$('shiki').value || 0);
+            const reiY = rent * (+$('rei').value || 0);
+            const chukaiY = rent * (+$('chukai').value || 0);
+            const hoshoY = rent * (+$('hosho').value || 0);
+            const kasaiY = (+$('kasai').value || 0) * 10000;
+            const kagiY = $('kagi').checked ? (+$('kagiV').value || 0) * 10000 : 0;
+            const maeY = $('maebarai').checked ? rent : 0;
+            const keiyaku = shikiY + reiY + chukaiY + hoshoY + kasaiY + kagiY + maeY;
+
+            // 内装・設備
+            const diy = $('diy').checked;
+            const naiso = $('naiso').value;
+            const fU = diy ? (+$('floorD').value || 0) : (+$('floorU').value || 0);
+            const wU = diy ? (+$('wallD').value || 0) : (+$('wallU').value || 0);
+            const wallArea = size * (+$('wallR').value || 2.7);
+            let floorY = 0, wallY = 0, lightY = 0;
+            if (naiso === 'floor') { floorY = size * fU; }
+            if (naiso === 'full') { floorY = size * fU; wallY = wallArea * wU; }
+            lightY = $('light').checked ? (+$('lightV2').value || 0) * 10000 : 0;
+            const airconY = $('aircon').checked ? (+$('airconV').value || 0) * 10000 : 0;
+            const naisoTotal = floorY + wallY + lightY + airconY;
+
+            // 備品
+            let bihinTotal = 0;
+            const bihinRows = [];
+            ITEMS[genre].forEach(it => {
+                const id = 'it_' + genre + '_' + it.k;
+                const c = $(id); if (!c) return;
+                if (!c.checked) return;
+                const sub = (+$(id + '_v').value || 0) * 10000;
+                bihinTotal += sub;
+                if (sub > 0) bihinRows.push([it.n, sub]);
+            });
+            // 鏡(ダンスのみ)
+            let mirrorY = 0;
+            if (genre === 'dance') {
+                mirrorY = (+$('mirror').value || 0) * (+$('mirrorW').value || 0);
+                bihinTotal += mirrorY;
+            }
+
+            const total = keiyaku + naisoTotal + bihinTotal;
+
+            // 表示
+            $('total').innerHTML = '約' + man(total).replace('万円', '') + '<small> 万円</small>';
+            const p = v => total > 0 ? (v / total * 100) : 0;
+            $('bar1').style.width = p(keiyaku) + '%';
+            $('bar2').style.width = p(naisoTotal) + '%';
+            $('bar3').style.width = p(bihinTotal) + '%';
+            $('l1').textContent = man(keiyaku);
+            $('l2').textContent = man(naisoTotal);
+            $('l3').textContent = man(bihinTotal);
+
+            // 明細
+            const rows = [];
+            rows.push(['<th colspan="2">契約関連</th>', '']);
+            if (shikiY) rows.push(['敷金', shikiY]);
+            if (reiY) rows.push(['礼金', reiY]);
+            if (chukaiY) rows.push(['仲介手数料', chukaiY]);
+            if (hoshoY) rows.push(['保証会社', hoshoY]);
+            if (kasaiY) rows.push(['火災保険', kasaiY]);
+            if (kagiY) rows.push(['鍵交換', kagiY]);
+            if (maeY) rows.push(['前払い家賃', maeY]);
+            if (naisoTotal) {
+                rows.push(['<th colspan="2">内装・設備</th>', '']);
+                if (floorY) rows.push(['床' + (diy ? '(DIY)' : ''), floorY]);
+                if (wallY) rows.push(['壁紙' + (diy ? '(DIY)' : ''), wallY]);
+                if (lightY) rows.push(['照明', lightY]);
+                if (airconY) rows.push(['エアコン交換', airconY]);
+            }
+            if (bihinTotal) {
+                rows.push(['<th colspan="2">家具・備品</th>', '']);
+                if (mirrorY) rows.push(['鏡(幅' + $('mirrorW').value + 'm)', mirrorY]);
+                bihinRows.forEach(r => rows.push(r));
+            }
+            let html = '';
+            rows.forEach(r => {
+                if (r[1] === '') { html += '<tr>' + r[0] + '</tr>'; }
+                else { html += '<tr><td>' + r[0] + '</td><td class="n">' + man(r[1]) + '</td></tr>'; }
+            });
+            html += '<tr class="sum"><td>合計</td><td class="n">' + man(total) + '</td></tr>';
+            $('detail').innerHTML = html;
+
+            // 回収
+            const profit = (+$('profit').value || 0) * 10000;
+            const real = total - shikiY; // 敷金は戻る前提
+            if (profit > 0) {
+                $('pb1').textContent = (total / profit).toFixed(1);
+                $('pb2').textContent = (Math.max(real, 0) / profit).toFixed(1);
+            } else { $('pb1').textContent = '—'; $('pb2').textContent = '—'; }
+
+            // ひとこと判定
+            let v = '';
+            if (total === 0) { v = '数字を入れると、ここに目安が出ます。'; }
+            else if (size <= 25 && total <= 1000000) { v = '<b>20平米クラスの小箱なら100万円以内</b>が目安です。そこに収まっています。';}
+            else if (size <= 25) { v = '20平米クラスとしては<b>やや高め</b>です。内装や備品を削れないか見直してみてください。'; }
+            else if (total <= 2000000) { v = '<b>30〜40平米以上なら150〜200万円</b>が目安です。標準的な範囲です。'; }
+            else { v = '<b>200万円を超えました。</b>私のいちばん高い部屋(214万円)と同じ水準です。回収期間をよく確認してください。'; }
+            if (total > 0 && profit > 0) {
+                const m = total / profit;
+                if (m <= 12) v += ' 回収は<b>1年以内</b>。良いペースです。';
+                else if (m <= 18) v += ' 回収は1年半以内。許容範囲です。';
+                else v += ' 回収に<b>1年半以上</b>かかります。家賃か初期費用を見直したほうがいいかもしれません。';
+            }
+            $('verdict').innerHTML = v;
+
+            save();
+        }
+
+        // ===== 保存・復元・共有 =====
+        function collect() {
+            const o = {};
+            NUM_IDS.forEach(id => o[id] = $(id).value);
+            CHK_IDS.forEach(id => o[id] = $(id).checked ? 1 : 0);
+            SEL_IDS.forEach(id => o[id] = $(id).value);
+            const g = $('genre').value;
+            ITEMS[g].forEach(it => {
+                const id = 'it_' + g + '_' + it.k;
+                if ($(id)) o[id] = { on: $(id).checked ? 1 : 0, v: +$(id + '_v').value };
+            });
+            return o;
+        }
+
+        function save() {
+            try { localStorage.setItem('kikurin_startup_cost', JSON.stringify(collect())); } catch (e) { }
+        }
+
+        function apply(o) {
+            if (!o) return;
+            SEL_IDS.forEach(id => { if (o[id] !== undefined) $(id).value = o[id]; });
+            NUM_IDS.forEach(id => { if (o[id] !== undefined) $(id).value = o[id]; });
+            CHK_IDS.forEach(id => { if (o[id] !== undefined) $(id).checked = !!+o[id]; });
+            toggleMirror();
+            renderItems($('genre').value, o);
+        }
+
+        function toggleMirror() {
+            $('mirrorBox').style.display = $('genre').value === 'dance' ? '' : 'none';
+        }
+
+        function fromURL() {
+            const q = new URLSearchParams(location.search);
+            if (![...q].length) return null;
+            const o = {};
+            for (const [k, val] of q) {
+                if (k.startsWith('it_')) { const [on, v] = val.split('-'); o[k] = { on: +on, v: +v }; }
+                else o[k] = val;
+            }
+            return o;
+        }
+
+        function toURL() {
+            const o = collect();
+            const q = new URLSearchParams();
+            Object.keys(o).forEach(k => {
+                const v = o[k];
+                if (v && typeof v === 'object') q.set(k, [v.on, v.v].join('-'));
+                else q.set(k, v);
+            });
+            return location.origin + location.pathname + '?' + q.toString();
+        }
+
+        function toast(msg) {
+            const t = $('toast'); t.textContent = msg; t.classList.add('on');
+            setTimeout(() => t.classList.remove('on'), 1800);
+        }
+
+        // ===== 初期化 =====
+        $('genre').addEventListener('change', () => { toggleMirror(); renderItems($('genre').value, null); calc(); });
+        NUM_IDS.concat(SEL_IDS).forEach(id => $(id).addEventListener('input', calc));
+        CHK_IDS.forEach(id => $(id).addEventListener('change', calc));
+
+        $('reset').addEventListener('click', () => {
+            try { localStorage.removeItem('kikurin_startup_cost'); } catch (e) { }
+            location.href = location.pathname;
+        });
+
+        $('share').addEventListener('click', () => {
+            const url = toURL();
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(url).then(() => toast('リンクをコピーしました'), () => prompt('このURLをコピーしてください', url));
+            } else { prompt('このURLをコピーしてください', url); }
+        });
+
+        (function init() {
+            let saved = fromURL();
+            if (!saved) { try { saved = JSON.parse(localStorage.getItem('kikurin_startup_cost')); } catch (e) { } }
+            if (saved) apply(saved);
+            else { toggleMirror(); renderItems($('genre').value, null); }
+            calc();
+        })();
+    </script>
+</body>
+
+</html>
