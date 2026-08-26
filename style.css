@@ -1135,3 +1135,19 @@ blockquote.tip-box strong {
     .post-card { flex-direction: column; }
     .post-thumb { width: 100%; height: auto; aspect-ratio: 16/9; }
 }
+
+
+/* ===== 教材バナー(kyokasho-banner) ===== */
+.kyokasho-banner { display: flex; gap: 18px; align-items: center; background: #fffaf5; border: 2px solid #f57c00; border-radius: 14px; padding: 18px; margin: 28px 0; box-shadow: 0 2px 10px rgba(230, 81, 0, .10); }
+.kyokasho-banner .kb-thumb { flex-shrink: 0; }
+.kyokasho-banner .kb-thumb img { width: 230px; height: auto; border-radius: 10px; display: block; }
+.kyokasho-banner .kb-title { font-weight: 800; font-size: 1.12rem; margin: 0 0 6px; color: #333; }
+.kyokasho-banner .kb-sub { font-size: .9rem; color: #666; margin: 0 0 12px; line-height: 1.6; }
+.kyokasho-banner .kb-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.kyokasho-banner .kb-btn { background: linear-gradient(135deg, #ff9100, #e65100); color: #fff; padding: 10px 22px; border-radius: 999px; font-weight: 700; text-decoration: none; font-size: .95rem; }
+.kyokasho-banner .kb-btn:hover { opacity: .88; }
+.kyokasho-banner .kb-note { color: #1a73e8; font-size: .9rem; text-decoration: none; }
+.kyokasho-banner .kb-note:hover { text-decoration: underline; }
+@media (max-width: 640px) { .kyokasho-banner { flex-direction: column; align-items: stretch; } .kyokasho-banner .kb-thumb img { width: 100%; } }
+
+.kyokasho-banner .kb-btn-note { background: linear-gradient(135deg, #2cc29c, #14976f); }
