@@ -314,6 +314,7 @@ a {
 /* 2026-08-18: 背景画像を廃止して色分けタイルへ */
 .tile-rental { background: linear-gradient(135deg, #43a047, #66bb6a); }
 .tile-ebay { background: linear-gradient(135deg, #1e88e5, #42a5f5); }
+.tile-ailab { background: linear-gradient(135deg, #111827, #1e3a8a); }
 .tile-info { background: linear-gradient(135deg, #fb8c00, #ffa726); }
 .tile-honmyo { background: linear-gradient(135deg, #7e57c2, #9575cd); }
 
