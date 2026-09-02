@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>ダンスレンタルスタジオ 物件判定ツール</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F4F5F7; --card: #FFFFFF; --line: #E6E8EC; --line-2: #D5D9E0;
+    --ink: #111827; --ink-2: #4B5563; --ink-3: #8A94A6;
+    --brand: #0F172A; --brand-2: #1E293B; --accent: #F97316; --accent-2: #FDBA74;
+    --good: #15803D; --ok: #1D4ED8; --warn: #B45309; --bad: #B91C1C; --unk: #6B7280;
+    --good-bg: #ECFDF3; --ok-bg: #EEF3FF; --warn-bg: #FFF7E6; --bad-bg: #FEF2F2; --unk-bg: #F1F3F6;
+    --radius: 14px; --shadow: 0 1px 2px rgba(17,24,39,.04), 0 8px 24px -12px rgba(17,24,39,.12);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); line-height: 1.65; font-family: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", system-ui, sans-serif; font-feature-settings: "palt"; }
+  a { color: inherit; }
+  .topbar { background: var(--brand); color: #fff; }
+  .topbar .in { max-width: 980px; margin: 0 auto; padding: 18px 24px; display: flex; align-items: center; gap: 14px; }
+  .logo { width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg, var(--accent), #EA580C); display: grid; place-items: center; font-weight: 900; font-size: 16px; color: #fff; flex: none; }
+  .topbar .name { font-size: 17px; font-weight: 700; } .topbar .tag { font-size: 12px; opacity: .72; margin-top: 1px; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 26px 24px 90px; }
+  @media (max-width: 640px) { .wrap { padding: 16px 12px 70px; } .topbar .in { padding: 14px 16px; } .topbar .name { font-size: 15px; } }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+  h2 { font-size: 14px; font-weight: 700; color: var(--ink-2); letter-spacing: .04em; margin: 30px 0 10px; display: flex; align-items: center; gap: 8px; }
+  h2::before { content: ""; width: 4px; height: 16px; border-radius: 2px; background: var(--accent); }
+  .muted { color: var(--ink-3); font-size: 11.5px; }
+
+  /* gate */
+  #gate { max-width: 420px; margin: 60px auto; padding: 28px 26px; text-align: center; }
+  #gate h1 { font-size: 17px; margin: 0 0 6px; } #gate p { font-size: 13px; color: var(--ink-2); margin: 0 0 16px; }
+  #gate input { width: 100%; padding: 12px 14px; font-size: 16px; border: 1px solid var(--line-2); border-radius: 10px; text-align: center; font-family: inherit; }
+  #gate button { margin-top: 10px; width: 100%; padding: 12px; font-size: 14px; font-weight: 700; color: #fff; background: var(--brand); border: none; border-radius: 10px; cursor: pointer; }
+  #gate-error { display: none; color: var(--bad); font-size: 12.5px; margin-top: 8px; }
+  #app { display: none; }
+
+  /* input */
+  .input-card { padding: 18px 20px; }
+  .tabs { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+  .tab { padding: 7px 14px; border-radius: 999px; border: 1px solid var(--line-2); background: #fff; font-size: 12.5px; font-weight: 600; cursor: pointer; color: var(--ink-2); }
+  .tab.on { background: var(--brand); color: #fff; border-color: var(--brand); }
+  .tabpane { display: none; }
+  .row { display: flex; gap: 10px; }
+  input#url { flex: 1; padding: 12px 14px; font-size: 14px; border: 1px solid var(--line-2); border-radius: 10px; outline: none; font-family: inherit; background: #FAFBFC; }
+  input#url:focus { border-color: var(--brand); background: #fff; box-shadow: 0 0 0 3px rgba(15,23,42,.08); }
+  button.go { padding: 0 24px; font-size: 14px; font-weight: 700; color: #fff; background: var(--brand); border: none; border-radius: 10px; cursor: pointer; white-space: nowrap; min-height: 48px; }
+  button.go:disabled { opacity: .5; cursor: wait; }
+  .help { font-size: 12.5px; color: var(--ink-2); margin-top: 10px; line-height: 1.7; }
+  a.bookmarklet { display: inline-block; padding: 9px 18px; background: var(--brand); color: #fff; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 13px; cursor: grab; margin: 6px 0; }
+  .manual { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px 14px; font-size: 12px; }
+  .manual label { display: flex; flex-direction: column; gap: 4px; color: var(--ink-2); font-weight: 500; }
+  .manual input, .manual select { padding: 8px 9px; font-size: 14px; border: 1px solid var(--line-2); border-radius: 8px; font-family: inherit; background: #fff; }
+  .manual .chk { flex-direction: row; align-items: center; gap: 6px; }
+  .manual .full { grid-column: 1 / -1; }
+  @media (max-width: 640px) { .row { flex-direction: column; } }
+  .error, .notice { margin-top: 14px; border-radius: 10px; padding: 12px 14px; font-size: 13.5px; display: none; }
+  .error { background: var(--bad-bg); color: var(--bad); } .notice { background: var(--warn-bg); color: var(--warn); }
+
+  /* result */
+  #result { display: none; margin-top: 28px; }
+  .hero { border-radius: var(--radius); padding: 24px 26px; color: #fff; display: flex; align-items: center; gap: 22px; box-shadow: var(--shadow); }
+  .hero.go { background: linear-gradient(135deg, #166534, #15803D); } .hero.maybe { background: linear-gradient(135deg, #1E3A8A, #1D4ED8); }
+  .hero.cond { background: linear-gradient(135deg, #92400E, #B45309); } .hero.ng { background: linear-gradient(135deg, #7F1D1D, #B91C1C); }
+  .ring { --p: 0; width: 92px; height: 92px; border-radius: 50%; flex: none; display: grid; place-items: center; background: conic-gradient(#fff calc(var(--p) * 1%), rgba(255,255,255,.22) 0); position: relative; }
+  .ring::before { content: ""; position: absolute; inset: 8px; border-radius: 50%; background: rgba(0,0,0,.18); }
+  .ring b { position: relative; font-size: 26px; font-weight: 900; line-height: 1; } .ring small { position: relative; display: block; font-size: 10px; opacity: .8; text-align: center; margin-top: 2px; }
+  .hero .v-label { font-size: 26px; font-weight: 900; line-height: 1.2; } .hero .v-note { font-size: 13.5px; font-weight: 500; margin-top: 6px; opacity: .95; } .hero .v-title { font-size: 12px; opacity: .75; margin-top: 8px; }
+  @media (max-width: 640px) { .hero { padding: 18px 16px; gap: 14px; } .hero .v-label { font-size: 20px; } .ring { width: 74px; height: 74px; } .ring b { font-size: 20px; } }
+  .kpis { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 12px; margin-top: 12px; }
+  @media (max-width: 720px) { .kpis { grid-template-columns: 1fr; } }
+  .kpi { padding: 16px 18px; } .kpi .k-label { font-size: 11.5px; color: var(--ink-3); font-weight: 600; letter-spacing: .04em; }
+  .kpi .k-value { font-size: 26px; font-weight: 900; margin-top: 2px; line-height: 1.15; font-variant-numeric: tabular-nums; } .kpi .k-sub { font-size: 12px; color: var(--ink-2); margin-top: 4px; }
+  .kpi.occ { background: var(--brand); color: #fff; border-color: var(--brand); } .kpi.occ .k-label { color: rgba(255,255,255,.7); } .kpi.occ .k-sub { color: rgba(255,255,255,.8); }
+  .kpi.occ .k-value { font-size: 44px; color: var(--accent-2); } .kpi.occ .k-value span { font-size: 22px; margin-left: 2px; }
+  .grade-chip { display: inline-block; font-weight: 900; font-size: 13px; padding: 0 8px; border-radius: 6px; margin-left: 8px; vertical-align: middle; }
+  .c-good { color: var(--good); background: var(--good-bg); } .c-ok { color: var(--ok); background: var(--ok-bg); } .c-warn { color: var(--warn); background: var(--warn-bg); } .c-bad { color: var(--bad); background: var(--bad-bg); } .c-unk { color: var(--unk); background: var(--unk-bg); }
+  .kpi.occ .grade-chip { background: rgba(255,255,255,.14); color: #fff; }
+  .ngbox { background: var(--bad-bg); border: 1px solid #FECACA; border-radius: var(--radius); padding: 14px 18px; margin-top: 12px; font-size: 13.5px; color: var(--bad); } .ngbox ul { margin: 6px 0 0; padding-left: 18px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; } @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
+  .item { padding: 14px 16px; } .item .i-head { display: flex; align-items: flex-start; gap: 10px; }
+  .badge { font-size: 13px; font-weight: 900; width: 28px; height: 28px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; flex: none; margin-top: 2px; }
+  .b-good { color: var(--good); background: var(--good-bg); } .b-ok { color: var(--ok); background: var(--ok-bg); } .b-warn { color: var(--warn); background: var(--warn-bg); } .b-bad { color: var(--bad); background: var(--bad-bg); } .b-unk { color: var(--unk); background: var(--unk-bg); }
+  .item .i-label { font-size: 11.5px; color: var(--ink-3); font-weight: 600; } .item .i-value { font-size: 14px; font-weight: 700; margin-top: 1px; } .item .i-comment { font-size: 12px; color: var(--ink-2); margin-top: 6px; }
+  .riders-form { margin-top: 10px; display: flex; gap: 6px; align-items: center; font-size: 12px; flex-wrap: wrap; }
+  .riders-form input { width: 120px; padding: 6px 9px; font-size: 13px; border: 1px solid var(--line-2); border-radius: 8px; font-family: inherit; }
+  .riders-form select { padding: 6px 8px; font-size: 12.5px; border: 1px solid var(--line-2); border-radius: 8px; font-family: inherit; background: #fff; }
+  .riders-form button { font-size: 12px; font-weight: 700; padding: 6px 12px; border: none; background: var(--brand); color: #fff; border-radius: 8px; cursor: pointer; }
+  table.score { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; font-size: 13px; box-shadow: var(--shadow); }
+  table.score th, table.score td { text-align: left; padding: 10px 16px; border-bottom: 1px solid var(--line); } table.score th { font-weight: 600; white-space: nowrap; }
+  table.score tr.total th, table.score tr.total td { border-bottom: none; font-weight: 900; font-size: 15px; background: #FAFBFC; }
+  .scorebar { height: 8px; border-radius: 4px; background: #EDEFF3; position: relative; min-width: 100px; } .scorebar > i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 4px; background: linear-gradient(90deg, var(--brand-2), #334155); }
+  button.info { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-left: 6px; border-radius: 8px; border: 1px solid var(--line-2); background: #fff; color: var(--ink-3); font-size: 10px; font-weight: 700; font-style: italic; font-family: Georgia, serif; cursor: pointer; padding: 0; vertical-align: 1px; }
+  table.score tr.desc-row td { font-size: 12px; color: var(--ink-2); background: var(--unk-bg); padding: 8px 16px 10px; line-height: 1.55; }
+  .be-card { padding: 18px 20px; }
+  .sim-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px 14px; background: #FAFBFC; border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; margin-bottom: 16px; font-size: 12px; }
+  .sim-form label { display: flex; flex-direction: column; gap: 4px; color: var(--ink-2); font-weight: 500; } .sim-form label > span { display: flex; align-items: center; }
+  .sim-form input[type=number] { padding: 7px 9px; font-size: 14px; border: 1px solid var(--line-2); border-radius: 8px; font-family: inherit; background: #fff; } .sim-form input[type=number]:disabled { background: #F1F3F6; color: var(--ink-3); }
+  .sim-form .hint { grid-column: 1 / -1; color: var(--ink-3); font-size: 11.5px; font-weight: 400; } .sim-form .auto { grid-column: 1 / -1; flex-direction: row; align-items: center; gap: 8px; color: var(--ink); }
+  .sim-form .field-hint { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; color: var(--ink-2); font-size: 12px; line-height: 1.6; }
+  .be-big { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; padding: 6px 0 12px; } .be-big .num { font-size: 56px; font-weight: 900; letter-spacing: -.02em; line-height: 1; color: var(--brand); font-variant-numeric: tabular-nums; } .be-big .num span { font-size: 26px; margin-left: 2px; }
+  .be-big .lbl { font-size: 13px; color: var(--ink-2); font-weight: 600; } .be-big .lbl b { display: block; font-size: 15px; color: var(--ink); }
+  .be-note { font-size: 12.5px; color: var(--ink-2); background: var(--unk-bg); border-radius: 8px; padding: 10px 12px; } .be-basis { font-size: 11.5px; color: var(--ink-3); margin-top: 8px; }
+  table.sim { width: 100%; border-collapse: collapse; font-size: 12.5px; margin-top: 14px; } table.sim th, table.sim td { padding: 7px 10px; border-bottom: 1px solid var(--line); text-align: right; font-variant-numeric: tabular-nums; }
+  table.sim th { color: var(--ink-3); font-weight: 600; font-size: 11.5px; } table.sim th:first-child, table.sim td:first-child { text-align: left; } table.sim tr.hit td { background: #FFF7ED; font-weight: 700; }
+  .plus { color: var(--good); } .minus { color: var(--bad); }
+  @media (max-width: 640px) { .be-big .num { font-size: 44px; } table.sim th:nth-child(3), table.sim td:nth-child(3) { display: none; } }
+  ol.q { padding: 16px 18px 16px 38px; font-size: 13px; margin: 0; } ol.q li { margin: 5px 0; }
+  button.copy, button.small { margin-top: 10px; font-size: 12px; font-weight: 600; padding: 7px 14px; border: 1px solid var(--line-2); background: var(--card); border-radius: 8px; cursor: pointer; color: var(--ink-2); }
+  table.list { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; font-size: 13px; box-shadow: var(--shadow); }
+  table.list th { text-align: left; padding: 9px 14px; border-bottom: 1px solid var(--line); color: var(--ink-3); font-size: 11.5px; font-weight: 600; } table.list td { padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.list tr:last-child td { border-bottom: none; } table.list tr.clickable { cursor: pointer; } table.list tr.clickable:hover { background: #F8FAFC; }
+  .pill { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; white-space: nowrap; }
+  .p-go { color: var(--good); background: var(--good-bg); } .p-maybe { color: var(--ok); background: var(--ok-bg); } .p-cond { color: var(--warn); background: var(--warn-bg); } .p-ng { color: var(--bad); background: var(--bad-bg); } .p-wait { color: var(--unk); background: var(--unk-bg); }
+  textarea#rec-text { width: 100%; min-height: 70px; padding: 10px 12px; font-size: 13px; border: 1px solid var(--line-2); border-radius: 8px; font-family: inherit; }
+  .footnote { font-size: 11.5px; color: var(--ink-3); margin-top: 34px; border-top: 1px solid var(--line); padding-top: 14px; line-height: 1.7; }
+</style>
+</head>
+<body>
+<header class="topbar"><div class="in">
+  <div class="logo">DS</div>
+  <div><div class="name">ダンスレンタルスタジオ 物件判定ツール</div><div class="tag">athomeのURL・PDF・手入力から、出店基準で◎○△✕・スコア・黒字ラインを即判定</div></div>
+</div></header>
+
+<div class="wrap">
+  <div class="card" id="gate">
+    <h1>合言葉を入力してください</h1>
+    <p>教材・ブログでお伝えしている合言葉です(このブラウザに記憶されます)</p>
+    <input type="text" id="gate-input" placeholder="合言葉" autocomplete="off" autocapitalize="off">
+    <button id="gate-btn">開く</button>
+    <div id="gate-error">合言葉が違います</div>
+  </div>
+
+  <div id="app">
+    <div class="card input-card">
+      <div class="tabs">
+        <span class="tab on" data-tab="url" onclick="showTab('url')">① athomeのURL</span>
+        <span class="tab" data-tab="bml" onclick="showTab('bml')">② ブックマークレット</span>
+        <span class="tab" data-tab="pdf" onclick="showTab('pdf')">③ PDF</span>
+        <span class="tab" data-tab="manual" onclick="showTab('manual')">④ 手入力(他サイトの物件も)</span>
+      </div>
+      <div class="tabpane" id="tab-url" style="display:block">
+        <div class="row">
+          <input type="url" id="url" placeholder="https://www.athome.co.jp/rent_store/…(1件ずつ)" inputmode="url">
+          <button class="go" id="btn">判定する</button>
+        </div>
+        <div class="help">athomeの物件ページのURLを1件貼って「判定する」。取得できないとき(athome側の制限)は②③④をお使いください。</div>
+      </div>
+      <div class="tabpane" id="tab-bml">
+        <div class="help">athomeのページを開いたまま1クリックで取り込む方法です。下のボタンを<b>ブックマークバーにドラッグ</b>して登録(スマホSafariの場合: 任意のページをブックマーク→編集でURLを下のリンクの内容に置き換え)。athomeの物件ページを開いた状態でそのブックマークを押すと、このツールが開いて判定されます。</div>
+        <a class="bookmarklet" href="javascript:(function%20()%20{var%20TOOL%20=%20'https://rental-space.net/tools/bukken/';if%20(!/athome%5C.co%5C.jp$/.test(location.hostname))%20{%20alert('athome%E3%81%AE%E7%89%A9%E4%BB%B6%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92%E9%96%8B%E3%81%84%E3%81%9F%E7%8A%B6%E6%85%8B%E3%81%A7%E5%AE%9F%E8%A1%8C%E3%81%97%E3%81%A6%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84');%20return;%20}var%20pairs%20=%20{};document.querySelectorAll('tr').forEach(function%20(tr)%20{var%20cells%20=%20Array.prototype.filter.call(tr.children,%20function%20(c)%20{%20return%20/^(TH|TD)$/.test(c.tagName);%20});for%20(var%20i%20=%200;%20i%20<%20cells.length%20-%201;%20i++)%20{if%20(cells[i].tagName%20===%20'TH'%20&&%20cells[i%20+%201].tagName%20===%20'TD')%20{var%20key%20=%20cells[i].textContent.replace(/%5Cs+/g,%20'');var%20val%20=%20cells[i%20+%201].textContent.replace(/%5Cs+/g,%20'%20').trim();if%20(key%20&&%20val%20&&%20!(key%20in%20pairs))%20pairs[key]%20=%20val;i++;}}});var%20th%20=%20Array.prototype.find.call(document.querySelectorAll('th'),%20function%20(el)%20{%20return%20el.textContent.indexOf('%E4%BA%A4%E9%80%9A')%20>=%200;%20});var%20trafficText%20=%20'';if%20(th%20&&%20th.nextElementSibling)%20{var%20ps%20=%20th.nextElementSibling.querySelectorAll('p,%20li,%20div');trafficText%20=%20ps.length%20?%20Array.prototype.map.call(ps,%20function%20(p)%20{%20return%20p.textContent;%20}).join('%5Cn')%20:%20th.nextElementSibling.textContent;}var%20dt%20=%20Array.prototype.find.call(document.querySelectorAll('dt'),%20function%20(el)%20{%20return%20el.textContent.indexOf('%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88')%20>=%200;%20});var%20pointText%20=%20dt%20&&%20dt.nextElementSibling%20?%20dt.nextElementSibling.textContent.replace(/%5Cs+/g,%20'%20').trim()%20:%20'';var%20cm%20=%20document.querySelector('.shop-comment__comment');var%20h1%20=%20document.querySelector('h1');var%20cap%20=%20{%20source:%20'athome',%20url:%20location.href.split('?')[0],%20title:%20(h1%20?%20h1.textContent%20:%20document.title).trim(),%20pairs:%20pairs,%20trafficText:%20trafficText,%20pointText:%20pointText,%20comment:%20cm%20?%20cm.textContent.trim()%20:%20null%20};if%20(!Object.keys(pairs).length)%20{%20alert('%E7%89%A9%E4%BB%B6%E6%83%85%E5%A0%B1%E3%81%AE%E8%A1%A8%E3%81%8C%E8%A6%8B%E3%81%A4%E3%81%8B%E3%82%8A%E3%81%BE%E3%81%9B%E3%82%93%E3%80%82%E7%89%A9%E4%BB%B6%E3%81%AE%E8%A9%B3%E7%B4%B0%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%A7%E5%AE%9F%E8%A1%8C%E3%81%97%E3%81%A6%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84');%20return;%20}var%20json%20=%20JSON.stringify(cap);var%20b64%20=%20btoa(unescape(encodeURIComponent(json)));window.open(TOOL%20+%20'#cap='%20+%20b64,%20'_blank');})();">物件判定に送る</a>
+        <div class="muted">ログイン情報には触れません。表示中の物件情報の表を読み取るだけです。</div>
+      </div>
+      <div class="tabpane" id="tab-pdf">
+        <div class="help">athomeの物件ページを「印刷 → PDFで保存」したファイルを選ぶと、ブラウザ内で読み取って判定します(サーバーには送りません)。</div>
+        <input type="file" id="pdf" accept="application/pdf" style="margin-top:8px;font-size:13px">
+      </div>
+      <div class="tabpane" id="tab-manual">
+        <div class="help" style="margin:0 0 10px">SUUMOなど他サイトの物件や、紙の資料でも判定できます。<b>家賃・面積・最寄駅・所在階</b>があれば判定できます。</div>
+        <div class="manual">
+          <label class="full">物件名・メモ<input type="text" id="m-title" placeholder="例: ◯◯ビル地下1階"></label>
+          <label>都道府県<select id="m-pref"><option value="">選択</option></select></label>
+          <label>市区町村<input type="text" id="m-city" placeholder="例: 世田谷区"></label>
+          <label>町名など<input type="text" id="m-addr" placeholder="例: 南烏山6丁目"></label>
+          <label>賃料(万円/月)<input type="number" id="m-rentMan" step="0.1" inputmode="decimal" placeholder="例: 18.5"></label>
+          <label>管理費・共益費(万円/月)<input type="number" id="m-mgmtMan" step="0.1" inputmode="decimal" placeholder="例: 1.1"></label>
+          <label>面積(㎡)<input type="number" id="m-area" step="0.01" inputmode="decimal" placeholder="例: 45.5"></label>
+          <label>敷金(ヶ月)<input type="number" id="m-shikikin" step="0.5" inputmode="decimal" placeholder="例: 3"></label>
+          <label>保証金(ヶ月)<input type="number" id="m-hoshokin" step="0.5" inputmode="decimal" placeholder="例: 0"></label>
+          <label>礼金(ヶ月)<input type="number" id="m-reikin" step="0.5" inputmode="decimal" placeholder="例: 1"></label>
+          <label>路線<input type="text" id="m-line" placeholder="例: 京王線"></label>
+          <label>最寄駅<input type="text" id="m-station" placeholder="例: 千歳烏山"></label>
+          <label>駅徒歩(分)<input type="number" id="m-walk" inputmode="numeric" placeholder="例: 5"></label>
+          <label>建物の階数<input type="number" id="m-building" inputmode="numeric" placeholder="例: 5"></label>
+          <label>所在階<select id="m-floor"><option value="">選択</option><option value="B1">地下1階</option><option value="1">1階</option><option value="M2">中2階</option><option value="2">2階</option><option value="3">3階</option><option value="4">4階</option><option value="5">5階以上</option></select></label>
+          <label>構造<select id="m-structure"><option value="">不明</option><option value="SRC">SRC</option><option value="RC">RC</option><option value="鉄骨">鉄骨</option><option value="木造">木造</option><option value="その他">その他</option></select></label>
+          <label>築年月<input type="text" id="m-built" placeholder="例: 1990年5月"></label>
+          <label>現況<select id="m-genkyo"><option value="">不明</option><option value="空">空室</option><option value="居抜き">居抜き</option><option value="スケルトン">スケルトン</option></select></label>
+          <label>契約期間<input type="text" id="m-contract" placeholder="例: 3年 / 定期借家5年"></label>
+          <label class="chk"><input type="checkbox" id="m-oneTenant">1フロア1テナント</label>
+          <label class="chk"><input type="checkbox" id="m-h24">24時間利用可</label>
+          <div class="full"><button class="go" id="m-btn" style="min-height:44px">この内容で判定する</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="error" id="error"></div>
+    <div class="notice" id="notice"></div>
+
+    <div id="result">
+      <div class="hero" id="verdict"></div>
+      <div class="kpis"><div class="card kpi occ" id="kpi-occ"></div><div class="card kpi" id="kpi-rent"></div><div class="card kpi" id="kpi-init"></div></div>
+      <div class="ngbox" id="ngbox" style="display:none"></div>
+      <h2>項目別判定</h2>
+      <div class="grid" id="items"></div>
+      <h2>スコア内訳(100点満点)</h2>
+      <table class="score" id="score"></table>
+      <h2>損益分岐シミュレーション</h2>
+      <div class="card be-card">
+        <div class="sim-form" id="sim-form">
+          <label class="auto"><input type="checkbox" id="sim-auto" checked style="margin:0"> 単価を広さから自動設定 <span class="muted">(50㎡未満: 平日1,000/休日1,500円、50〜70㎡: 平日1,500/休日2,000円、70㎡以上: 平日2,000/休日2,500円 — 「安い」と言われる=リピートする価格。エリアで変えるときはチェックを外して手入力)</span></label>
+          <label>平日 単価(円/h・公式HP価格)<input type="number" id="sim-wd" min="0" step="50" inputmode="numeric"></label>
+          <label>休日 単価(円/h・公式HP価格)<input type="number" id="sim-we" min="0" step="50" inputmode="numeric"></label>
+          <label><span>ポータル経由の割合(%) <button type="button" class="info" onclick="toggleHint('hint-portal')" aria-label="説明">i</button></span><input type="number" id="sim-portal" min="0" max="100" step="5" inputmode="numeric"></label>
+          <label><span>1日の営業時間(h) <button type="button" class="info" onclick="toggleHint('hint-hours')" aria-label="説明">i</button></span><input type="number" id="sim-hours" min="1" max="24" step="1" inputmode="numeric"></label>
+          <label><span>家賃以外の月次固定費(円) <button type="button" class="info" onclick="toggleHint('hint-other')" aria-label="説明">i</button></span><input type="number" id="sim-other" min="0" step="1000" inputmode="numeric"></label>
+          <div class="hint field-hint" id="hint-portal" style="display:none"><b>ポータル経由の割合:</b> 予約時間のうち、スペースマーケット・インスタベースなどポータル経由の割合。残りは公式HPからの直予約として計算します。ポータルは公式価格の1.1倍で売って手数料35%が引かれるので、手取りは公式直予約のほうが多い。目安: オープン直後はほぼ100%ポータル → リピーターが公式HPに移って半年〜1年で50〜70%に下がる</div>
+          <div class="hint field-hint" id="hint-hours" style="display:none"><b>1日の営業時間:</b> 予約を受け付けている時間(例: 6:00〜24:00なら18)。稼働率はこの時間に対する予約時間の割合で計算します。24時間営業なら24</div>
+          <div class="hint field-hint" id="hint-other" style="display:none"><b>家賃以外の月次固定費:</b> 電気・水道・ガス・インターネット回線・清掃の外注費・消耗品・火災保険・ポータルの月額利用料など、家賃以外に毎月出ていくお金の合計。初期値2万円は小箱1室(清掃は自分)の目安。清掃を外注するなら+2〜4万円が目安</div>
+          <div class="hint">ポータル経由=公式価格の1.1倍で販売・手数料35% / 公式HP経由=手数料3.5%。稼働率=予約時間÷営業時間(平日22日+休日8日で計算)。設定はこのブラウザに保存されます。</div>
+        </div>
+        <div id="be"></div>
+      </div>
+      <h2>不動産屋への確認リスト(この物件用)</h2>
+      <ol class="q card" id="questions"></ol>
+      <button class="copy" onclick="copyQuestions()">質問リストをコピー</button>
+    </div>
+
+    <div id="history-sec" style="display:none">
+      <h2>判定履歴 <span class="muted">(このブラウザにだけ保存・最新50件)</span></h2>
+      <table class="list" id="history-table"></table>
+      <button class="small" onclick="clearHistory()">履歴を消す</button>
+    </div>
+
+    <h2>自分のおすすめ駅(住宅地性に+2点)</h2>
+    <div class="card" style="padding:14px 18px">
+      <div class="help" style="margin:0 0 8px">土地勘のある「住宅街で狙い目」の駅を「、」区切りで登録すると、その駅の住宅地性に+2点します(このブラウザに保存)。</div>
+      <textarea id="rec-text"></textarea>
+      <button class="small" onclick="saveRecommendedFromForm()">保存</button> <span id="rec-saved" class="muted" style="display:none">保存しました</span>
+    </div>
+
+    <div class="footnote">
+      駅の乗降客数・住宅地性は国土数値情報(国土交通省: S12駅別乗降客数2023年・500mメッシュ人口(2020国勢調査ベース)・P29学校・A29用途地域)から算出した全国約9,300駅のデータ(政府標準利用規約)。数値は駅から1km圏(用途地域は500m圏)の集計値・概算です。<br>
+      構造: SRC/RC=◎、鉄骨=○、それ以外=✕。内装費の点は掲載文のキーワードのみで採点(スケルトン=0点+NG / 居抜き=満点近く / 記載なし=中間)。<br>
+      配点(100点): エリア駅力15 / 住宅地性15 / 家賃坪単価15 / 家賃リスク15(家賃10万以下=満点、25万以上=0) / 初期費用10 / 面積12 / 階数音振動12 / 内装費6。各項目のⓘで説明。<br>
+      賃料(管理費込): 20万以内=基準内 / 20〜25万=損益分岐との兼ね合い(必要稼働率 30%以下=◎、35%以下=○、40%以下=△、40%超=✕でNG) / 25万超=NG。総合判定: 80点以上=◎即問い合わせ / 70〜79=○問い合わせる価値あり / 60〜69=△条件次第 / 59以下または必須NG=✕見送り。<br>
+      初期費用の仲介手数料・保証会社・前家賃は各1ヶ月と仮定した概算。判定結果・履歴・設定はお使いのブラウザにだけ保存され、サーバーには送られません(URL判定時の物件ページ取得を除く)。
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>if (window.pdfjsLib) pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';</script>
+<script src="lib/breakeven.js"></script>
+<script src="lib/score.js"></script>
+<script src="lib/parsers.js"></script>
+<script src="lib/app.js"></script>
+</body>
+</html>
