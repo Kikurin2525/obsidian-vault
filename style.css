@@ -549,6 +549,22 @@ a {
     object-position: center top;
 }
 
+.profile-img-link {
+    display: inline-block;
+    line-height: 0;
+    border-radius: 50%;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.profile-img-link:hover {
+    transform: scale(1.04);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+}
+
+.profile-img-link:hover .profile-img {
+    border-color: #fb8c00;
+}
+
 .profile-name {
     font-weight: 700;
     font-size: 1.1rem;
