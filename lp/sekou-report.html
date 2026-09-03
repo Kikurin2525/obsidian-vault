@@ -137,6 +137,23 @@
 
         .cta-note { margin-top: 10px; color: var(--ink-dim); font-size: .85rem; text-align: center; }
 
+        .applyform { background: var(--navy-2); border: 1px solid var(--line); border-radius: 12px; padding: 22px 20px; }
+        .applyform .fld { display: block; margin-bottom: 16px; }
+        .applyform .fld > span { display: block; font-size: .88rem; font-weight: 500; margin-bottom: 6px; color: var(--ink); }
+        .applyform .fld em { font-style: normal; font-size: .72rem; color: var(--navy); background: var(--gold); border-radius: 4px; padding: 1px 6px; margin-left: 6px; vertical-align: 2px; }
+        .applyform input[type=text], .applyform select, .applyform textarea {
+            width: 100%; font-family: inherit; font-size: 1rem; line-height: 1.6;
+            background: var(--navy-3); color: var(--ink);
+            border: 1px solid var(--line); border-radius: 8px; padding: 12px 12px;
+        }
+        .applyform input[type=text]:focus, .applyform select:focus, .applyform textarea:focus { outline: 2px solid var(--gold); outline-offset: 1px; }
+        .applyform input::placeholder, .applyform textarea::placeholder { color: #6f7d9e; }
+        .applyform textarea { resize: vertical; }
+        .applyform button.cta { width: 100%; border: 0; font-family: inherit; font-size: 1.02rem; cursor: pointer; }
+        .applyform .hp { position: absolute; left: -9999px; }
+        .altline { margin-top: 12px; color: var(--ink-dim); font-size: .85rem; text-align: center; }
+        .altline a { color: var(--gold); }
+
         section { padding: 40px 0; border-bottom: 1px solid var(--line); }
 
         h2 {
@@ -273,8 +290,8 @@
             <p class="lede">現場の写真をまとめて送ってください。A4・3ページの施工報告書を、PDFとWordの両方でお返しします。書式はお使いのものを再現します。</p>
 
             <div class="cta-block">
-                <a class="cta" href="https://x.com/rentalspace_k/status/2094523028990459954" target="_blank" rel="noopener">Xで「モニター希望」と送る</a>
-                <p class="cta-note">リプライでもDMでも構いません。ひとことで受け付けます。</p>
+                <a class="cta" href="#apply">無料モニターに申し込む(1分・入力2項目)</a>
+                <p class="cta-note">会社名とご連絡先だけで受け付けます。しつこい営業はしません。</p>
             </div>
         </header>
 
@@ -396,9 +413,36 @@
                     <li>連載でのご紹介そのものが不要であれば、完全に非公開でも承ります</li>
                 </ul>
             </div>
-            <div class="cta-block">
-                <a class="cta" href="https://x.com/rentalspace_k/status/2094523028990459954" target="_blank" rel="noopener">Xで「モニター希望」と送る</a>
-                <p class="cta-note">リプライ・DMどちらでも。返信はAIが書き、送信前に人間が目を通します。</p>
+            <div class="cta-block" id="apply">
+                <form name="sekou-report" method="POST" action="/lp/sekou-report-thanks.html" data-netlify="true" netlify-honeypot="bot-field" class="applyform">
+                    <input type="hidden" name="form-name" value="sekou-report">
+                    <p class="hp"><label>この欄は空のままにしてください <input name="bot-field"></label></p>
+                    <label class="fld">
+                        <span>会社名・お名前<em>必須</em></span>
+                        <input type="text" name="company" required autocomplete="organization" placeholder="例:○○塗装 山田">
+                    </label>
+                    <label class="fld">
+                        <span>ご連絡先(メールまたは電話番号)<em>必須</em></span>
+                        <input type="text" name="contact" required placeholder="例:yamada@example.jp / 090-0000-0000">
+                    </label>
+                    <label class="fld">
+                        <span>ご希望</span>
+                        <select name="plan">
+                            <option>無料モニター(3件まで無料)を試したい</option>
+                            <option>都度(1件¥3,000)を頼みたい</option>
+                            <option>10件パック・月極を相談したい</option>
+                            <option>指定の様式を再現できるか聞きたい</option>
+                            <option>まだ決めていない・まず質問したい</option>
+                        </select>
+                    </label>
+                    <label class="fld">
+                        <span>書類の種類・ご質問(任意)</span>
+                        <textarea name="message" rows="3" placeholder="例:元請け指定の様式があります。これは再現できますか?"></textarea>
+                    </label>
+                    <button type="submit" class="cta">この内容で申し込む</button>
+                    <p class="cta-note">送信後に受付ページが開きます。返信はAIが書き、送信前に人間が目を通します。</p>
+                </form>
+                <p class="altline">フォームを使いたくない方は <a href="https://x.com/rentalspace_k/status/2094523028990459954" target="_blank" rel="noopener">X(@rentalspace_k)のリプライ・DM</a> でも受け付けます。</p>
             </div>
         </section>
 
