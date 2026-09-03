@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CHWF6QKRJ6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-CHWF6QKRJ6');
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="note-hashtags" content="#eBay #古物商 #古物台帳 #AI #副業">
+    <meta name="description" content="eBayで中古品を扱う人向けに、古物商許可と古物台帳の基本、匿名配送・インボイスの論点、注文成立時にAIが2行を自動記帳する実例を紹介します。">
+    <meta property="og:title" content="eBay 古物台帳ちゃんとやってる？">
+    <meta property="og:description" content="古物商許可と古物台帳の基本、匿名配送の悩み、AIによる自動記帳の実例を紹介します。">
+    <meta property="og:image" content="https://rental-space.net/assets/2026_09_03_kobutsu_ledger_eyecatch_20260903.png">
+    <meta property="og:url" content="https://rental-space.net/articles/2026-09-03-ebay-kobutsu-ledger.html">
+    <meta property="og:type" content="article">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>eBay 古物台帳ちゃんとやってる？ - きくりんのノウハウ垂れ流し</title>
+    <link rel="icon" href="../assets/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="../assets/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="stylesheet" href="../style.css?v=1.1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&amp;family=M+PLUS+Rounded+1c:wght@700;800&amp;display=swap" rel="stylesheet">
+    <style>
+        .article-body a {
+            color: #075bc8;
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+            text-underline-offset: 3px;
+            font-weight: 700;
+        }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "eBay 古物台帳ちゃんとやってる？",
+      "datePublished": "2026-09-03",
+      "dateModified": "2026-09-03",
+      "image": "https://rental-space.net/assets/2026_09_03_kobutsu_ledger_eyecatch_20260903.png",
+      "mainEntityOfPage": "https://rental-space.net/articles/2026-09-03-ebay-kobutsu-ledger.html",
+      "author": { "@type": "Person", "name": "きくりん" },
+      "publisher": { "@type": "Organization", "name": "きくりんのノウハウ垂れ流し" },
+      "description": "eBayで中古品を扱う人向けに、古物商許可と古物台帳の基本、匿名配送・インボイスの論点、注文成立時にAIが2行を自動記帳する実例を紹介します。"
+    }
+    </script>
+</head>
+
+<body class="article-page">
+    <header class="main-header">
+        <div class="header-content">
+            <div class="logo-area minimal">
+                <a href="../index.html" class="header-logo-link horiz">
+                    <img src="../assets/duo_tarenagashi.png" alt="きくりん" class="header-logo-img-character small">
+                    <div class="logo-text"><h1>きくりんの<br>ノウハウ垂れ流し</h1></div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <article class="single-article">
+            <header class="article-header">
+                <span class="category-badge">副業② eBay輸出</span>
+                <h1>eBay 古物台帳ちゃんとやってる？</h1>
+                <time datetime="2026-09-03">2026.09.03</time>
+            </header>
+
+            <div class="article-body">
+<div class="article-image"><img src="../assets/2026_09_03_kobutsu_ledger_eyecatch_20260903.png" alt="古物台帳ちゃんとやってる？" width="1536" height="1024"></div>
+
+<p>eBayで中古品を売っているあなたに、ひとつ質問です。</p>
+<p><strong>古物台帳、ちゃんとつけていますか?</strong></p>
+<p>「えっ、何それ」と思った人。</p>
+<p>けっこう危ない状態かもしれません。</p>
+<p>ぼくの店は、AI社員が全部自動でつけています。</p>
+<p>今日はその話をします。</p>
+
+<h2>そもそも、古物商許可は持っていますか</h2>
+<p>日本で中古品を「商売として」仕入れて売るには、古物商許可が必要です(古物営業法)。</p>
+<p>メルカリやヤフオクで買って、eBayで売る。</p>
+<p>このモデルは、まさにこれに当たります。</p>
+<p>「バレなければ…」は、なしです。</p>
+<p>無許可営業には罰則があります。</p>
+<p>取得はそんなに大変ではありません。</p>
+<ul>
+<li>申請先: 主たる営業所を管轄する警察署(防犯係)</li>
+<li>費用: 申請手数料19,000円</li>
+<li>期間: 申請から40日くらい</li>
+</ul>
+<p>長くお店を続けるなら、免許を取って堂々とやりましょう。</p>
+
+<h2>古物台帳に書くこと</h2>
+<div class="article-image"><img src="../assets/2026_09_03_kobutsu_ledger_actual_20260903.png" alt="個人情報をマスクした古物台帳の実物" width="1721" height="985" loading="lazy"></div>
+<p>そして古物商には、取引の記録義務があります。</p>
+<p>これが「古物台帳」です。</p>
+<p>書くのは、ざっくり言うと<strong>「いつ・何を・いくらで・誰から買い、誰に売ったか」</strong>。</p>
+<p>ぼくの店の台帳は、こういう列で作ってあります。</p>
+<ul>
+<li>取引年月日</li>
+<li>区分(買受け/売却)</li>
+<li>品目・商品名・型番</li>
+<li>数量</li>
+<li>特徴(状態・SKU)</li>
+<li>代価</li>
+<li>相手方の氏名/名称・住所</li>
+<li>確認方法</li>
+<li>参照(注文IDなど)</li>
+</ul>
+<p>正直、これを1品ずつ手でつけるのは、地獄です。</p>
+<p>売れれば売れるほど、事務が増えていく。</p>
+<p>だから後回しになって、気づいたら数ヶ月分たまっている——よく聞く話です。</p>
+
+<h2>ぼくの店は、AIが自動でつけています</h2>
+<div class="article-image"><img src="../assets/2026_09_03_kobutsu_ledger_flow_20260903.png" alt="注文成立から買受けと売却の2行をAIが自動記帳する流れ" width="1536" height="1024" loading="lazy"></div>
+<p>ぼくの店では、経理担当(AI)がやっています。</p>
+<p><strong>注文が成立した瞬間に、その1品の「買受け(仕入)」と「売却(eBay販売)」の2行が、台帳に自動で記帳されます。</strong></p>
+<p>ぼくがやることは、ありません。</p>
+<p>無在庫なので「売れてから仕入れた分だけ」を買受けとして記帳する。</p>
+<p>ここを間違えると、仕入れていない出品まで台帳に載ってしまうので、実は無在庫ならではの注意点です。</p>
+<p>深夜にアメリカで売れても、朝には台帳が2行増えている。</p>
+<p>記帳漏れの心配から解放されるのは、想像以上に大きいです。</p>
+
+<h2>フリマ仕入れの悩みどころ: 相手の情報が取れない</h2>
+<p>ここからが、この記事の本題です。</p>
+<p>古物営業法は、買い受けのときに相手方の確認(住所・氏名など)を求めています。</p>
+<p>でも、フリマサイトは匿名配送が主流。</p>
+<p><strong>相手の住所も本名も、そもそも取れないことが多い</strong>んです。</p>
+<p>整理すると、こうなります。</p>
+<ul>
+<li><strong>対価1万円未満の取引は、原則として確認・記帳の義務がありません</strong>(ただしゲームソフト・CD/DVD・書籍などは1万円未満でも対象)</li>
+<li>匿名配送で法定の確認方法をそのまま実行するのが難しいのは、業界全体で公式に指摘されている論点です。きれいな正解を、ぼくが断定することはできません</li>
+</ul>
+<p>だからぼくの運用は、シンプルです。</p>
+<p><strong>記録できる情報(サイト名・取引ID・出品者名・取引画面)は、全部残す。</strong></p>
+<p>そして、細かい運用は管轄の警察署(防犯係)に確認する。</p>
+<p>管轄によって案内が違うことがあるので、「うちの管轄はこう」を確かめておくのが一番確実です。</p>
+
+<h2>もうひとつの確認: インボイスの話</h2>
+<p>古物台帳とは別の軸で、もうひとつ確認していることがあります。</p>
+<p><strong>消費税の還付まわり</strong>です。</p>
+<p>eBay輸出は消費税が免税なので、課税事業者なら仕入にかかった消費税が戻ってくる仕組みがあります。</p>
+<p>このとき、仕入れの相手が「適格請求書(インボイス)発行事業者かどうか」で扱いが変わってきます。</p>
+<p>フリマサイトだと、そこも画面からは分かりません。</p>
+<p>なのでぼくは、必要事項が取れない場合、取引メッセージでこう聞いています。</p>
+<p><strong>「インボイスの登録番号は、お持ちでしょうか?」</strong></p>
+<p>この運用は、以前入っていたコミュニティで教わったものです(講師のかたが税理士さんに確認したうえで案内していました)。</p>
+<p>ただ、このあたりは<strong>見解が分かれる論点</strong>だと思っています。</p>
+<p>制度も変わっていくので、あなたの分の最終判断は、必ずあなたの税理士さんに確認してください。</p>
+<p>ここでは「そういう確認をしている店がある」という実例として、受け取ってもらえたら十分です。</p>
+
+<h2>まとめ</h2>
+<ul>
+<li>中古転売には古物商許可(19,000円・約40日)。eBay輸出も対象</li>
+<li>古物台帳は「いつ・何を・いくらで・誰から・誰に」の記録義務</li>
+<li>ぼくの店は注文成立の瞬間に、AIが1品2行を自動記帳</li>
+<li>フリマの匿名配送は難しい論点。記録は全部残して、管轄警察署に確認</li>
+<li>インボイスの確認メッセージは「そういう運用もある」。最終判断は税理士へ</li>
+</ul>
+<p>面倒に見えますが、最初に仕組みを作れば、あとは全部自動です。</p>
+<p>売ることに集中するためにも、帳簿は先に片づけておきましょう。</p>
+<p>台帳に書いておこう🐹</p>
+<p>※この記事は2026年9月時点の制度・解釈をもとにした、いち事業者の実例です。法務・税務の最終判断は、警察署・税理士など専門家に確認してください。</p>
+
+<hr>
+<p>▼もう1つの副業🏠(レンタルスペース23部屋・売上1.5億)のレンスペ実録<br><a href="https://note.com/rentalspace_kiku" target="_blank" rel="noopener">https://note.com/rentalspace_kiku</a></p>
+<p>▼ブログ(eBay×レンスペ、全記事まとめ)<br><a href="https://rental-space.net">https://rental-space.net</a></p>
+
+<!-- kyokasho-promo start -->
+<hr>
+<p>▼この店のやり方は、ぜんぶ1冊にまとめてあります</p>
+<p>リサーチ・出品・値付け・顧客対応まで、初月利益18万6,673円を出した実店舗の記録と手順を全部書いた教科書です。</p>
+<p>読んだその日から、AI社員の作り方をそのまま真似できます。</p>
+<p>古物台帳の自動記帳のさせ方も、第7章に書きました。</p>
+<p>『AI × eBay輸出の教科書 — 梱包以外、ぜんぶAI』(9,800円)<br><a href="https://brmk.io/pqk3UP" target="_blank" rel="noopener">https://brmk.io/pqk3UP</a></p>
+<p>※20部売れたら、14,800円に値上げします。</p>
+<!-- kyokasho-promo end -->
+
+            </div>
+
+<!-- kyokasho-banner start -->
+<aside class="kyokasho-banner">
+    <a href="https://brmk.io/pqk3UP" target="_blank" rel="noopener" class="kb-thumb">
+        <img src="../assets/kyokasho_ebay_banner.png" alt="AI × eBay輸出の教科書 — 梱包以外、ぜんぶAI" loading="lazy" width="640" height="335">
+    </a>
+    <div class="kb-body">
+        <p class="kb-title">AI × eBay輸出の教科書、発売中🐹</p>
+        <p class="kb-sub">梱包発送以外ぜんぶAIに任せて、初月から利益18万円。開店から月次締めまで、実店舗の記録を全部書きました。</p>
+        <div class="kb-actions">
+            <a href="https://brmk.io/pqk3UP" target="_blank" rel="noopener" class="kb-btn">Brainで読む</a>
+            <a href="https://note.com/cham_ebay/n/nb6672d9c3e10" target="_blank" rel="noopener" class="kb-btn kb-btn-note">noteで読む</a>
+        </div>
+    </div>
+</aside>
+<!-- kyokasho-banner end -->
+
+            <a href="../index.html" class="btn-back">トップページへ戻る</a>
+        </article>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 きくりんのノウハウ垂れ流し. All rights reserved.</p>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+
+</html>
