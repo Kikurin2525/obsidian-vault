@@ -152,6 +152,10 @@
         .applyform button.cta { width: 100%; border: 0; font-family: inherit; font-size: 1.02rem; cursor: pointer; }
         .applyform .hp { position: absolute; left: -9999px; }
         .altline { margin-top: 12px; color: var(--ink-dim); font-size: .85rem; text-align: center; }
+        .fallback { margin-top: 16px; background: var(--navy-2); border: 1px solid var(--gold); border-radius: 12px; padding: 20px 18px; font-size: .92rem; }
+        .fallback p { margin-bottom: 10px; }
+        .fallback textarea { width: 100%; font-family: inherit; font-size: .9rem; background: var(--navy-3); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px; margin: 8px 0; }
+        .fallback button { font-family: inherit; font-size: .9rem; background: var(--gold); color: #101a33; font-weight: 700; border: 0; border-radius: 8px; padding: 10px 16px; cursor: pointer; }
         .altline a { color: var(--gold); }
 
         section { padding: 40px 0; border-bottom: 1px solid var(--line); }
@@ -443,6 +447,12 @@
                     <p class="cta-note">送信後に受付ページが開きます。返信はAIが書き、送信前に人間が目を通します。</p>
                 </form>
                 <p class="altline">フォームを使いたくない方は <a href="https://x.com/rentalspace_k/status/2094523028990459954" target="_blank" rel="noopener">X(@rentalspace_k)のリプライ・DM</a> でも受け付けます。</p>
+                <div id="apply-fallback" class="fallback" hidden>
+                    <p><strong>申し訳ありません。送信がうまく届きませんでした。</strong></p>
+                    <p>入力いただいた内容は下に残してあります。お手数ですが、この文面をコピーして <a href="https://x.com/rentalspace_k/status/2094523028990459954" target="_blank" rel="noopener">X(@rentalspace_k)のリプライまたはDM</a> にお送りください。すぐに対応します。</p>
+                    <textarea id="apply-fallback-text" rows="6" readonly></textarea>
+                    <button type="button" id="apply-fallback-copy">この内容をコピーする</button>
+                </div>
             </div>
         </section>
 
@@ -525,6 +535,52 @@
         <p><a href="../index.html">きくりんのノウハウ垂れ流し</a> / <a href="https://x.com/rentalspace_k" target="_blank" rel="noopener">@rentalspace_k</a></p>
         <p>&copy; 2026 きくりんのノウハウ垂れ流し</p>
     </footer>
+    <script>
+        (function () {
+            var form = document.querySelector('form.applyform');
+            if (!form) return;
+            var box = document.getElementById('apply-fallback');
+            var area = document.getElementById('apply-fallback-text');
+            var copy = document.getElementById('apply-fallback-copy');
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var btn = form.querySelector('button[type=submit]');
+                var data = new FormData(form);
+                if (data.get('bot-field')) { return; }
+                btn.disabled = true;
+                btn.textContent = '送信しています…';
+                var body = new URLSearchParams();
+                data.forEach(function (v, k) { if (k !== 'bot-field') body.append(k, v); });
+                fetch('/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: body.toString()
+                }).then(function (res) {
+                    if (res.ok) {
+                        if (typeof gtag === 'function') { gtag('event', 'generate_lead', { form_name: 'sekou-report' }); }
+                        window.location.href = '/lp/sekou-report-thanks.html';
+                    } else {
+                        showFallback();
+                    }
+                }).catch(showFallback);
+            });
+            function showFallback() {
+                var btn = form.querySelector('button[type=submit]');
+                btn.disabled = false;
+                btn.textContent = 'この内容で申し込む';
+                area.value = '施工報告書 おまかせ便のモニター希望です。\n会社名・お名前: ' + (form.company.value || '') +
+                    '\nご連絡先: ' + (form.contact.value || '') +
+                    '\nご希望: ' + (form.plan.value || '') +
+                    '\nご質問: ' + (form.message.value || '(なし)');
+                box.hidden = false;
+                box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            copy.addEventListener('click', function () {
+                area.select();
+                try { document.execCommand('copy'); copy.textContent = 'コピーしました'; } catch (err) { copy.textContent = '長押しで選択してコピーしてください'; }
+            });
+        })();
+    </script>
 </body>
 
 </html>
