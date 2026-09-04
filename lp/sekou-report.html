@@ -421,8 +421,9 @@
                 </ul>
             </div>
             <div class="cta-block" id="apply">
-                <form name="sekou-report" method="POST" action="/lp/sekou-report-thanks.html" data-netlify="true" netlify-honeypot="bot-field" class="applyform">
-                    <input type="hidden" name="form-name" value="sekou-report">
+                <form name="sekou-report" method="POST" action="https://sekou-form.kikurin.workers.dev/submit" class="applyform">
+                    <input type="hidden" name="t" value="">
+                    <input type="hidden" name="page" value="/lp/sekou-report.html">
                     <p class="hp"><label>この欄は空のままにしてください <input name="bot-field"></label></p>
                     <label class="fld">
                         <span>会社名・お名前<em>必須</em></span>
@@ -544,6 +545,8 @@
         (function () {
             var form = document.querySelector('form.applyform');
             if (!form) return;
+            var shownAt = Date.now();
+            if (form.t) { form.t.value = String(shownAt); }
             var box = document.getElementById('apply-fallback');
             var area = document.getElementById('apply-fallback-text');
             var copy = document.getElementById('apply-fallback-copy');
@@ -554,12 +557,13 @@
                 if (data.get('bot-field')) { return; }
                 btn.disabled = true;
                 btn.textContent = '送信しています…';
-                var body = new URLSearchParams();
-                data.forEach(function (v, k) { if (k !== 'bot-field') body.append(k, v); });
-                fetch('/', {
+                var payload = {};
+                data.forEach(function (v, k) { if (k !== 'bot-field') payload[k] = v; });
+                payload.t = shownAt;
+                fetch('https://sekou-form.kikurin.workers.dev/submit', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: body.toString()
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
                 }).then(function (res) {
                     if (res.ok) {
                         if (typeof gtag === 'function') { gtag('event', 'generate_lead', { form_name: 'sekou-report' }); }
