@@ -521,6 +521,11 @@
             </div>
 
             <div class="qa">
+                <p class="q">Q. このページはアクセスを記録していますか</p>
+                <p>A. しています。どのページが何回見られたか、どこから来たかの件数だけを、自前の集計に残しています。Cookieは使わず、お名前・IPアドレス・入力内容はこの集計には含めません。連載で数字を公開するために、自分たちで測れる形にしています。</p>
+            </div>
+
+            <div class="qa">
                 <p class="q">Q. 途中でやめられますか</p>
                 <p>A. いつでも。都度プランに縛りはありません。月極も翌月から止められます。</p>
             </div>
@@ -596,6 +601,22 @@
             });
         })();
     </script>
+<!-- ai-lab-hit start -->
+<script>
+// AI社長実験室のページだけの自前アクセス計測。1x1のGIFを1回叩くだけ。
+// Cookie・localStorage・個人情報は使わない。保存先は自分のCloudflare Worker(sekou-form)。
+(function () {
+    try {
+        var p = location.pathname;
+        var u = 'https://sekou-form.kikurin.workers.dev/hit?p=' + encodeURIComponent(p) +
+                '&r=' + encodeURIComponent(document.referrer || '') + '&c=' + Date.now();
+        var i = new Image(1, 1);
+        i.referrerPolicy = 'no-referrer';
+        i.src = u;
+    } catch (e) { }
+})();
+</script>
+<!-- ai-lab-hit end -->
 </body>
 
 </html>
