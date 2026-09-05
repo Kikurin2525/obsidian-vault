@@ -579,6 +579,7 @@
                         }),
                     });
                     if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                    if (typeof gtag === 'function') gtag('event', 'mail_signup', { method: 'rondo', page_location: location.href });
                     form.reset();
                     if (window.turnstile) window.turnstile.reset();
                     status.textContent = '確認メールを送りました。受信箱のリンクを開いて登録を完了してください。';
