@@ -127,6 +127,45 @@
 
         .cta h3 { font-size: 19px; margin-bottom: 10px; }
         .cta a { color: var(--gold); }
+        .applyform { margin: 20px 0 6px; }
+        .applyform .fhead { margin: 0 0 14px; font-size: 15px; }
+        .applyform .fld { display: block; margin: 0 0 12px; }
+        .applyform .fld > span { display: block; font-size: 14px; color: var(--ink-dim); margin-bottom: 5px; }
+        .applyform .fld em { font-style: normal; color: var(--gold); font-size: 12px; margin-left: 8px; }
+        .applyform input[type=text], .applyform textarea {
+            width: 100%;
+            background: var(--navy-2);
+            color: var(--ink);
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            padding: 12px;
+            font-size: 16px;
+            font-family: inherit;
+            line-height: 1.6;
+        }
+        .applyform input[type=text]:focus, .applyform textarea:focus { outline: none; border-color: var(--gold); }
+        .applyform button.send {
+            display: block;
+            width: 100%;
+            background: var(--gold);
+            color: #1a1405;
+            font-weight: 700;
+            font-size: 17px;
+            border: 0;
+            border-radius: 6px;
+            padding: 16px 20px;
+            margin-top: 4px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .applyform button.send:hover { filter: brightness(1.08); }
+        .applyform .fnote { font-size: 13px; color: var(--ink-dim); margin: 10px 0 0; }
+        .applyform .hp { position: absolute; left: -9999px; }
+        .applyform .fallback { border: 1px solid var(--gold); border-radius: 6px; padding: 16px; margin-top: 16px; }
+        .applyform .fallback p { margin: 8px 0; font-size: 14px; }
+        .applyform .fbbtn { display: inline-block; background: var(--gold); color: #1a1405; font-weight: 700; text-decoration: none; padding: 12px 18px; border-radius: 5px; }
+        .applyform .fbcopy { background: none; border: 1px solid var(--line); color: var(--ink); border-radius: 5px; padding: 10px 14px; cursor: pointer; font-family: inherit; }
+
 
         .qa { border-top: 1px solid var(--line); padding: 15px 0; }
         .qa:last-of-type { border-bottom: 1px solid var(--line); }
@@ -305,6 +344,34 @@
             <p>「施工報告書 おまかせ便」は、現場写真をまとめて送っていただくと、48時間でPDFとWordの報告書をお返しするサービスです。1件 3,000円。作っているのはAIです。</p>
             <p><strong>いま先着3社さま、各3件まで無料でお試しいただけます。</strong></p>
             <p><a href="sekou-report.html">→ モニター募集の詳細を見る</a><br><a href="sekou-report-sample.html">→ 納品サンプルを全3ページ見る（ダウンロード不要）</a></p>
+            <form class="applyform" name="sekou-report" method="POST" action="https://sekou-form.kikurin.workers.dev/submit">
+                <p class="fhead">このページから、そのままお申し込みいただけます。<strong>入力は2つだけ</strong>です。</p>
+                <input type="hidden" name="t" value="">
+                <input type="hidden" name="page" value="/lp/koji-hokokusho-template.html">
+                <input type="hidden" name="plan" value="無料モニター(3件まで無料)を試したい">
+                <p class="hp"><label>この欄は空のままにしてください <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+                <label class="fld">
+                    <span>会社名・お名前<em>必須</em></span>
+                    <input type="text" name="company" required autocomplete="organization" placeholder="例:○○塗装 山田">
+                </label>
+                <label class="fld">
+                    <span>ご連絡先(メールまたは電話番号)<em>必須</em></span>
+                    <input type="text" name="contact" required placeholder="例:yamada@example.jp / 090-0000-0000">
+                </label>
+                <label class="fld">
+                    <span>書類の種類・ご質問(任意)</span>
+                    <textarea name="message" rows="2" placeholder="例:元請け指定の様式があります。これは再現できますか?"></textarea>
+                </label>
+                <button type="submit" class="send">この内容で申し込む</button>
+                <p class="fnote">送信後に受付ページが開きます。返信はAIが書き、送信前に人間が目を通します。しつこい営業はしません。</p>
+                <div class="fallback" hidden>
+                    <p><strong>申し訳ありません。送信がうまく届きませんでした。</strong></p>
+                    <p>入力いただいた内容は下に残してあります。ボタンを押すと、この内容が入った状態でメールソフトが開きます。そのまま送信していただければ届きます(宛先: info@osara-rock.com)。</p>
+                    <p><a class="fbbtn" href="mailto:info@osara-rock.com">この内容をメールで送る</a></p>
+                    <textarea class="fbtext" rows="6" readonly></textarea>
+                    <p><button type="button" class="fbcopy">この内容をコピーする</button></p>
+                </div>
+            </form>
             <p>「テンプレートを埋める時間もない」という方は、メール（<a href="mailto:info@osara-rock.com?subject=%E6%96%BD%E5%B7%A5%E5%A0%B1%E5%91%8A%E6%9B%B8%20%E3%81%8A%E3%81%BE%E3%81%8B%E3%81%9B%E4%BE%BF%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">info@osara-rock.com</a>）に写真を送っていただくだけでも大丈夫です。会社名とご連絡先だけ添えてください。</p>
         </div>
 
@@ -313,6 +380,58 @@
             <p><a href="../">きくりんブログ</a>　・　<a href="sekou-report.html">施工報告書 おまかせ便</a></p>
         </footer>
     </div>
+    <script>
+        (function () {
+            var form = document.querySelector('form.applyform');
+            if (!form) return;
+            var shownAt = Date.now();
+            if (form.t) { form.t.value = String(shownAt); }
+            var box = form.querySelector('.fallback');
+            var area = form.querySelector('.fbtext');
+            var copy = form.querySelector('.fbcopy');
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var btn = form.querySelector('button.send');
+                var data = new FormData(form);
+                if (data.get('bot-field')) { return; }
+                btn.disabled = true;
+                btn.textContent = '送信しています…';
+                var payload = {};
+                data.forEach(function (v, k) { if (k !== 'bot-field') payload[k] = v; });
+                payload.t = shownAt;
+                fetch('https://sekou-form.kikurin.workers.dev/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                }).then(function (res) {
+                    if (res.ok) {
+                        if (typeof gtag === 'function') { gtag('event', 'generate_lead', { form_name: 'sekou-report' }); }
+                        window.location.href = '/lp/sekou-report-thanks.html';
+                    } else { showFallback(); }
+                }).catch(showFallback);
+            });
+            function showFallback() {
+                var btn = form.querySelector('button.send');
+                btn.disabled = false;
+                btn.textContent = 'この内容で申し込む';
+                area.value = '施工報告書 おまかせ便のモニター希望です。\n会社名・お名前: ' + (form.company.value || '') +
+                    '\nご連絡先: ' + (form.contact.value || '') +
+                    '\nご質問: ' + (form.message.value || '(なし)');
+                var mail = form.querySelector('.fbbtn');
+                if (mail) {
+                    mail.href = 'mailto:info@osara-rock.com?subject=' +
+                        encodeURIComponent('施工報告書 おまかせ便の申し込み') +
+                        '&body=' + encodeURIComponent(area.value);
+                }
+                box.hidden = false;
+                box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            copy.addEventListener('click', function () {
+                area.select();
+                try { document.execCommand('copy'); copy.textContent = 'コピーしました'; } catch (err) { copy.textContent = '長押しで選択してコピーしてください'; }
+            });
+        })();
+    </script>
 </body>
 
 </html>
