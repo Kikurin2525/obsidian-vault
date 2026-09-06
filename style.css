@@ -2,8 +2,8 @@
     --primary-color: #f57c00;
     /* Pop Orange */
     --accent-color: #29b6f6;
-    --text-color: #333;
-    --bg-color: #fff7e6;
+    --text-color: #111;
+    --bg-color: #ffffff;
     --header-bg: #ffa000;
     --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     --border-radius: 12px;
@@ -91,7 +91,7 @@ a {
 }
 .logo-area.hero2 { gap: 44px; align-items: flex-start; }
 .hero-catch {
-    font-family: 'Yusei Magic', sans-serif;
+    font-family: 'Noto Sans JP', sans-serif;
     font-size: 1.3rem;
     margin-top: 14px;
     color: #fff;
@@ -166,7 +166,7 @@ a {
 }
 
 .logo-text h1 {
-    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-family: 'Noto Sans JP', sans-serif;
     font-size: 3.5rem;
     font-weight: 800;
     line-height: 1.1;
@@ -1122,14 +1122,14 @@ blockquote.tip-box strong {
 
 
 /* ===== 垂れ流しスキン（トップページのフィード化） ===== */
-.logo-text h1 { font-family: 'Yusei Magic', 'M PLUS Rounded 1c', sans-serif; }
-.tagline { font-family: 'Yusei Magic', sans-serif; letter-spacing: .08em; }
-.section-title-tab button { font-family: 'Yusei Magic', sans-serif; }
-.profile-header { font-family: 'Yusei Magic', sans-serif; }
+.logo-text h1 { font-family: 'Noto Sans JP', sans-serif; }
+.tagline { font-family: 'Noto Sans JP', sans-serif; letter-spacing: .08em; }
+.section-title-tab button { font-family: 'Noto Sans JP', sans-serif; }
+.profile-header { font-family: 'Noto Sans JP', sans-serif; }
 
 /* LIVEバッジ + ティッカー */
 .live-ticker { display: flex; align-items: center; gap: 12px; max-width: 1100px; margin: 0 auto; padding: 0 12px; }
-.live-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.5); border-radius: 999px; padding: 2px 12px; font-family: 'Yusei Magic', sans-serif; white-space: nowrap; }
+.live-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.5); border-radius: 999px; padding: 2px 12px; font-family: 'Noto Sans JP', sans-serif; white-space: nowrap; }
 .live-dot { width: 9px; height: 9px; border-radius: 50%; background: #ff5252; animation: livepulse 1.6s ease-in-out infinite; }
 @keyframes livepulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .35; transform: scale(.75); } }
 .ticker-viewport { overflow: hidden; flex: 1; }
@@ -1142,7 +1142,7 @@ blockquote.tip-box strong {
     margin: 0 0 24px; border-bottom: none; box-shadow: 0 4px 14px rgba(230, 110, 20, .16); flex-direction: row-reverse; }
 .post-thumb { width: 200px; height: 120px; }
 .post-info { display: flex; flex-direction: column; flex: 1; }
-.post-info time { order: -1; font-family: 'Yusei Magic', sans-serif; font-size: 0.95rem; color: #e65100; margin-bottom: 6px; }
+.post-info time { order: -1; font-family: 'Noto Sans JP', sans-serif; font-size: 0.95rem; color: #e65100; margin-bottom: 6px; }
 .post-info time::after { content: ' の垂れ流し'; font-size: 0.8rem; color: #f4a83d; }
 .post-info h2 { font-size: 1.15rem; }
 .post-info h2 a { background: linear-gradient(transparent 68%, #fff59d 68%); }
