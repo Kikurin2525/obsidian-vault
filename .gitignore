@@ -38,3 +38,5 @@
 .netlify
 !tools/
 !tools/**
+!kyokasho/
+!kyokasho/**
