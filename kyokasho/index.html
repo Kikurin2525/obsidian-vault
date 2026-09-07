@@ -42,6 +42,8 @@ figure{margin:18px 0}figure img{display:block;width:100%;border:1px solid var(--
 .prose p{margin:0 0 1em}.prose strong{font-weight:800}
 .genres{display:grid;grid-template-columns:1fr 1fr;gap:16px}.genre{margin:0}.genre img{aspect-ratio:16/9;object-fit:cover}.genre figcaption{text-align:left;font-size:13px}.genre figcaption strong{font-size:15px;color:var(--ink)}
 @media(max-width:540px){.genres{grid-template-columns:1fr}}
+.badges{display:flex;justify-content:center;gap:12px;margin:0 0 16px;flex-wrap:wrap}.badges div{min-width:150px;padding:12px 18px;border:3px solid var(--blue-dark);border-radius:16px;background:#fff;box-shadow:5px 5px 0 rgba(0,0,0,.08)}.badges b{display:block;font-size:30px;line-height:1.1;color:var(--blue-dark)}.badges span{display:block;margin-top:4px;font-size:12px;font-weight:700}
+.imgnote{display:inline-block;margin-left:8px;padding:1px 8px;border:1px solid var(--line);border-radius:999px;font-size:11px;color:var(--muted);font-weight:700}
 /* eyes */
 .eyes{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.eye{display:block;border:1px solid var(--line);border-radius:12px;overflow:hidden;text-decoration:none;color:var(--ink);background:#fff}.eye img{display:block;width:100%;aspect-ratio:1.9/1;object-fit:cover}.eye span{display:block;padding:8px 10px;font-size:12px;line-height:1.5;font-weight:700;height:58px;overflow:hidden}
 .more{text-align:center;margin-top:18px}.more a{display:inline-block;padding:12px 22px;border:2px solid var(--ink);border-radius:12px;font-weight:800;text-decoration:none;color:var(--ink);background:#fff}
@@ -65,6 +67,7 @@ details.free{border:2px solid var(--ink);border-radius:18px;background:#fff;padd
 .btn2{display:inline-block;margin-top:8px;padding:10px 18px;border:2px solid var(--orange);border-radius:12px;color:var(--orange-dark);font-weight:800;text-decoration:none;font-size:14px;background:#fff}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0 0;padding:0;list-style:none}.steps li{padding:10px 8px;border:1px solid var(--line);border-radius:12px;font-size:13px;font-weight:700;background:var(--soft)}.steps li span{display:inline-grid;place-items:center;width:24px;height:24px;margin-right:6px;border-radius:50%;background:var(--blue);color:#fff;font-size:13px}
 .after{margin:14px 0 0;padding:12px 14px;border-radius:12px;background:#fff7e6;font-size:13px;text-align:left}.or{margin:16px 0 0;font-size:13px;color:var(--muted)}
+.lowest{margin:6px 0 0;display:inline-block;padding:4px 12px;border-radius:999px;background:#fff1f0;color:var(--blue-dark);font-weight:800;font-size:13px}
 /* faq */
 .faq{display:grid;gap:10px;max-width:860px;margin:0 auto}.faq details{border:2px solid var(--ink);border-radius:14px;padding:2px 16px;background:#fff}.faq summary{cursor:pointer;padding:12px 0;font-weight:800;font-size:15px}.faq p{margin:0 0 12px;font-size:14px}
 .fine{max-width:860px;margin:36px auto 0;padding:16px 18px;border-radius:14px;background:var(--soft);font-size:12.5px;color:var(--muted)}.fine ul{margin:6px 0 0;padding-left:18px}
@@ -103,13 +106,13 @@ details.free{border:2px solid var(--ink);border-radius:18px;background:#fff;padd
 </div>
   <div class="two"><figure><img src="/kyokasho/img/z_nikkei.webp" alt="報道の要点(ぼくのまとめ・2026年9月)" loading="lazy" width="1200" height="675"><figcaption>報道の要点(ぼくのまとめ・2026年9月)</figcaption></figure><figure><img src="/kyokasho/img/z_barrier.webp" alt="AIと相性がいい=参入障壁が溶ける" loading="lazy" width="1200" height="675"><figcaption>AIと相性がいい=参入障壁が溶ける</figcaption></figure></div>
   <div class="prose" style="max-width:760px;margin:10px auto 0"><p><strong>AIと相性がいい副業は、明日から誰でもマネできます。</strong>参入者が増えて、競争が激しくなって、利益が薄くなる。だからぼくは、AIと相性がわるい事業を「土台」に置きました。物件を探して、内見に行って、大家さんと話して、鏡を運ぶ。ここはAIにできない=<strong>堀</strong>になります。そして開業したあとの運営は、AIと仕組みに任せる。この二刀流の中身を、教科書で渡します。</p></div>
-  <figure><img src="/kyokasho/img/z_nitou.webp" alt="二刀流の全体図: 入口は物理の堀、運営はAIレバレッジ" loading="lazy" width="1200" height="675"><figcaption>二刀流の全体図: 入口は物理の堀、運営はAIレバレッジ</figcaption></figure>
+  <figure><img src="/kyokasho/img/z_castle.webp" alt="入口(物件・内見・交渉・設営)は人間がやる=物理の堀。開業したあとの運営は、堀の内側でAIに任せる" loading="lazy" width="1200" height="771"><figcaption>入口(物件・内見・交渉・設営)は人間がやる=物理の堀。開業したあとの運営は、堀の内側でAIに任せる</figcaption></figure>
 </section>
 
 <section id="genre" data-sec="genre">
   <div class="sec-head"><p class="kicker">＼ レンタルスペースって、こんな部屋 ／</p><h2>ぼくが出してきた<span>4つのジャンル</span></h2>
-  <p class="lead">時間貸しで借りてもらう部屋です。どのジャンルも、物件は雑居ビルの1室から。教科書の第1部で、4ジャンルをぼくの実数字で比べます。</p></div>
-  <div class="genres"><figure class="genre"><img src="/kyokasho/img/genre_dance.webp" alt="ダンスレンタルスタジオ" loading="lazy" width="1600" height="900"><figcaption><strong>ダンスレンタルスタジオ</strong><br>鏡張りの練習スペース。ぼくの主力ジャンル</figcaption></figure><figure class="genre"><img src="/kyokasho/img/genre_meeting.webp" alt="貸会議室" loading="lazy" width="1600" height="900"><figcaption><strong>貸会議室</strong><br>小箱で始めやすい。手堅いが利益は小さめ</figcaption></figure><figure class="genre"><img src="/kyokasho/img/genre_party.webp" alt="パーティースペース" loading="lazy" width="1600" height="900"><figcaption><strong>パーティースペース</strong><br>需要は王道。内装が9割</figcaption></figure><figure class="genre"><img src="/kyokasho/img/genre_photo.webp" alt="撮影スタジオ(推し活用)" loading="lazy" width="1600" height="900"><figcaption><strong>撮影スタジオ(推し活用)</strong><br>推し活・生誕祭の需要が伸びている</figcaption></figure></div>
+  <p class="lead">時間貸しで借りてもらう部屋です。どのジャンルも、物件は雑居ビルの1室から。教科書の第1部で、4ジャンルをぼくの実数字で比べます。<br><small>※写真はイメージです(ぼくの店舗ではありません)</small></p></div>
+  <div class="genres"><figure class="genre"><img src="/kyokasho/img/genre_dance.webp" alt="ダンスレンタルスタジオ" loading="lazy" width="1600" height="900"><figcaption><strong>ダンスレンタルスタジオ</strong><span class="imgnote">イメージ</span><br>鏡張りの練習スペース。ぼくの主力ジャンル</figcaption></figure><figure class="genre"><img src="/kyokasho/img/genre_meeting.webp" alt="貸会議室" loading="lazy" width="1600" height="900"><figcaption><strong>貸会議室</strong><span class="imgnote">イメージ</span><br>小箱で始めやすい。手堅いが利益は小さめ</figcaption></figure><figure class="genre"><img src="/kyokasho/img/genre_party.webp" alt="パーティースペース" loading="lazy" width="1600" height="900"><figcaption><strong>パーティースペース</strong><span class="imgnote">イメージ</span><br>需要は王道。内装が9割</figcaption></figure><figure class="genre"><img src="/kyokasho/img/genre_photo.webp" alt="撮影スタジオ(推し活用)" loading="lazy" width="1600" height="900"><figcaption><strong>撮影スタジオ(推し活用)</strong><span class="imgnote">イメージ</span><br>推し活・生誕祭の需要が伸びている</figcaption></figure></div>
 </section>
 
 <section id="money" data-sec="money">
@@ -124,8 +127,8 @@ details.free{border:2px solid var(--ink);border-radius:18px;background:#fff;padd
 </section>
 
 <section id="datsusara" data-sec="datsusara">
-  <div class="sec-head"><p class="kicker">＼ 2店舗、3店舗と増やしていくと ／</p><h2>脱サラは、<span>夢ではなく足し算</span>になる</h2>
-  <p class="lead">1部屋=月10万円前後、を基準にすると計画が立ちます。月10万円の副収入なら1部屋。生活費の月30万円なら3部屋。給料超えの月50万円なら5部屋、あるいは2部屋+フロー型の副業の両輪。ぼくはこの積み上げを実際にやって、給料を超えた時点で会社を辞めました。</p></div>
+  <div class="sec-head"><p class="kicker">＼ 2店舗、3店舗と増やしていくと ／</p><h2>脱サラは、<span>夢ではなく現実的</span>になる</h2>
+  <p class="lead">1部屋=月10万円前後、を基準にすると計画が立ちます。月10万円の副収入なら1部屋。生活費の月30万円なら3部屋。給料超えの月50万円なら5部屋、あるいは2部屋+フロー型の副業の両輪。ぼくはこの積み上げを実際にやって、給料を超えた時点で会社を辞めました。<br><strong>さらに、ほかの副業(たとえばeBay輸出)と組み合わせれば、スピードはもっと上がります。</strong>ぼくはいま、その二刀流です。</p></div>
   <div class="two"><figure><img src="/kyokasho/img/z_keisan.webp" alt="脱サラの計算式(教科書 第0部)" loading="lazy" width="1200" height="675"><figcaption>脱サラの計算式(教科書 第0部)</figcaption></figure><figure><img src="/kyokasho/img/z_2nd.webp" alt="1号店から2店舗目までのタイムライン(教科書 第8部)" loading="lazy" width="1200" height="675"><figcaption>1号店から2店舗目までのタイムライン(教科書 第8部)</figcaption></figure></div>
 </section>
 
@@ -134,6 +137,7 @@ details.free{border:2px solid var(--ink);border-radius:18px;background:#fff;padd
   <div class="cta-card">
     <p class="price-now">定価 ¥49,800 のところ、先行3部限定</p>
     <p class="price-big">¥29,800<small>(税込)</small></p>
+    
     <p class="price-rule">3部売れるごとに <strong>+¥2,000</strong>。定価の¥49,800まで戻ります。先行価格で買った人に追加料金はありません。</p>
     <a class="btn" href="https://buy.stripe.com/aFa00ieTI1LJ9GjasF67T03" target="_blank" rel="noopener" data-cta="stripe_rental"><span class="btn-main">このサイトで買う(カード決済・Stripe)</span><span class="btn-sub">メールで受け取り・更新のお知らせが届きます</span></a>
     
@@ -175,7 +179,7 @@ details.free{border:2px solid var(--ink);border-radius:18px;background:#fff;padd
 </section>
 
 <section id="book" data-sec="book">
-  <div class="sec-head"><p class="kicker">＼ 全9部・約11万字・付録15点 ／</p><h2>「読む」教科書ではなく、<span>「使う」教科書</span>です</h2>
+  <div class="sec-head"><div class="badges"><div><b>全9部</b><span>章立て</span></div><div><b>約11万字</b><span>本文</span></div><div><b>付録15点</b><span>ツール・アプリ・テンプレ</span></div></div><h2>「読む」教科書ではなく、<span>「使う」教科書</span>です</h2>
   <p class="lead">ジャンル選び→物件→収支→立ち上げ→集客→運営→数字→拡大と出口まで。図解と実物スクショが49点。付録は、ぼくが自分の店で実際に使っているツールです。</p></div>
   <div class="two">
     <div class="card"><h3 style="margin:0 0 12px;font-size:18px">目次(全9部)</h3><ol class="toc"><li><b>第0部</b><div><strong>AIにできない副業</strong><br><span style="font-size:13px;color:var(--muted)">なぜ今、あえてレンタルスペースなのか。脱サラの計算式</span></div></li><li><b>第1部</b><div><strong>ジャンル選定</strong><br><span style="font-size:13px;color:var(--muted)">ダンス・撮影・パーティー・貸会議室を実数字で比較</span></div></li><li><b>第2部</b><div><strong>物件</strong><br><span style="font-size:13px;color:var(--muted)">30件問い合わせて内見1〜2件。「安い家賃」の掘り当て方。いちばん分厚い部</span></div></li><li><b>第3部</b><div><strong>収支シミュレーション</strong><br><span style="font-size:13px;color:var(--muted)">契約する前に「答え」を出す。参入判定と、契約しない勇気</span></div></li><li><b>第4部</b><div><strong>立ち上げ</strong><br><span style="font-size:13px;color:var(--muted)">初期費用と回収の実際。融資・内装業者・DIYの線引き</span></div></li><li><b>第5部</b><div><strong>集客</strong><br><span style="font-size:13px;color:var(--muted)">手数料35%から3.5%への脱出路。写真・価格・公式HP・広告</span></div></li><li><b>第6部</b><div><strong>運営</strong><br><span style="font-size:13px;color:var(--muted)">実働1日数分の作り方。清掃の外注化・トラブル対応・AI活用</span></div></li><li><b>第7部</b><div><strong>数字の経営</strong><br><span style="font-size:13px;color:var(--muted)">64ヶ月の売上推移を全部見せる。値上げの技術</span></div></li><li><b>第8部</b><div><strong>拡大</strong><br><span style="font-size:13px;color:var(--muted)">2店舗目・法人化・撤退。開業支援やフランチャイズの考え方</span></div></li></ol></div>
@@ -301,6 +305,7 @@ details.free{border:2px solid var(--ink);border-radius:18px;background:#fff;padd
   <div class="cta-card">
     <p class="price-now">定価 ¥49,800 のところ、先行3部限定</p>
     <p class="price-big">¥29,800<small>(税込)</small></p>
+    
     <p class="price-rule">3部売れるごとに <strong>+¥2,000</strong>。定価の¥49,800まで戻ります。先行価格で買った人に追加料金はありません。</p>
     <a class="btn" href="https://buy.stripe.com/aFa00ieTI1LJ9GjasF67T03" target="_blank" rel="noopener" data-cta="stripe_rental"><span class="btn-main">このサイトで買う(カード決済・Stripe)</span><span class="btn-sub">メールで受け取り・更新のお知らせが届きます</span></a>
     <ol class="steps"><li><span>1</span>カードで決済(Stripe)</li><li><span>2</span>メールで受け取りリンク</li><li><span>3</span>すぐ読める(Web版)</li></ol>
