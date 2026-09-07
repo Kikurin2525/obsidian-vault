@@ -275,7 +275,7 @@
             <p class="small dim">5シート入り／表紙・写真ページ・記入例（表紙）・記入例・使い方　※関数もマクロも使っていません</p>
         </div>
 
-        <p class="small dim">自分で作らずに任せたい方へ: <a href="koji-shashin-daicho-sample.html">代行でお返しする台帳の納品サンプル</a>を3ページそのまま公開しています。写真100枚まで5,000円・納期48時間、いま先着3社は無料です。</p>
+        <p class="small dim">写真の枚数が多すぎて今週は手が回らない、という方へ: <a href="koji-shashin-daicho-daiko.html">台帳づくりを代わりに引き受けています</a>（<a href="koji-shashin-daicho-sample.html">納品サンプルを3ページそのまま公開</a>）。写真100枚まで5,000円・納期48時間、いま先着3社は無料です。</p>
 
         <h2>なにが入っているか</h2>
         <table>
@@ -358,15 +358,16 @@
         <p>台帳づくりでいちばん時間を取られるのは、様式を作るところではなく「写真を選んで、貼って、一行ずつ説明を書く」ところでした。だから様式は配ってしまって、しんどい部分だけ引き受けるほうが筋がいいと判断しました。テンプレートで足りる方はそれで十分です。落として、そのまま使ってください。</p>
 
         <div class="cta">
-            <h3>貼るのが面倒なときは、写真を送るだけで代わりに作ります</h3>
-            <p>「施工報告書 おまかせ便」は、現場写真をまとめて送っていただくと、48時間でPDFとWordの報告書をお返しするサービスです。1件 3,000円。作っているのはAIです。</p>
-            <p><strong>いま先着3社さま、各3件まで無料でお試しいただけます。</strong></p>
-            <p><a href="sekou-report.html">→ モニター募集の詳細を見る</a><br><a href="sekou-report-sample.html">→ 納品サンプルを全3ページ見る（ダウンロード不要）</a></p>
+            <h3>提出が明日で、写真がまだフォルダに入ったままのときだけ使ってください</h3>
+            <p>枚数が少ないなら、上のテンプレートに自分で貼るのがいちばん安くて早いです。頼む意味があるのは、<strong>写真が数百枚あって、今夜これを並べる時間がどうしても取れないとき</strong>だけだと思っています。</p>
+            <p>「工事写真台帳の作成代行」は、現場写真をまとめて送っていただくと、48時間でエクセルとPDFの台帳をお返しします。写真100枚まで5,000円（300枚9,000円・500枚14,000円）。作っているのはAIです。</p>
+            <p><strong>いま先着3社さま、写真50枚まで無料でお試しいただけます。</strong>まず1現場だけ出して、使えるかどうか見てください。</p>
+            <p><a href="koji-shashin-daicho-daiko.html">→ 作成代行の詳細と料金を見る</a><br><a href="koji-shashin-daicho-sample.html">→ 納品サンプルを全3ページ見る（ダウンロード不要）</a></p>
             <form class="applyform" name="sekou-report" method="POST" action="https://sekou-form.kikurin.workers.dev/submit">
                 <p class="fhead">このページから、そのままお申し込みいただけます。<strong>入力は2つだけ</strong>です。</p>
                 <input type="hidden" name="t" value="">
                 <input type="hidden" name="page" value="/lp/koji-shashin-daicho-template.html">
-                <input type="hidden" name="plan" value="無料モニター(3件まで無料)を試したい">
+                <input type="hidden" name="plan" value="工事写真台帳の作成代行(無料お試し・50枚まで)">
                 <p class="hp"><label>この欄は空のままにしてください <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
                 <label class="fld">
                     <span>会社名・お名前<em>必須</em></span>
@@ -377,8 +378,8 @@
                     <input type="text" name="contact" required placeholder="例:yamada@example.jp / 090-0000-0000">
                 </label>
                 <label class="fld">
-                    <span>書類の種類・ご質問(任意)</span>
-                    <textarea name="message" rows="2" placeholder="例:元請け指定の様式があります。これは再現できますか?"></textarea>
+                    <span>写真の枚数・ご質問(任意)</span>
+                    <textarea name="message" rows="2" placeholder="例:外壁塗装、写真120枚くらい。元請け指定の様式があります"></textarea>
                 </label>
                 <button type="submit" class="send">この内容で申し込む</button>
                 <p class="fnote">送信後に受付ページが開きます。返信はAIが書き、送信前に人間が目を通します。しつこい営業はしません。</p>
@@ -432,13 +433,13 @@
                 var btn = form.querySelector('button.send');
                 btn.disabled = false;
                 btn.textContent = 'この内容で申し込む';
-                area.value = '施工報告書 おまかせ便のモニター希望です。\n会社名・お名前: ' + (form.company.value || '') +
+                area.value = '工事写真台帳の作成代行(無料お試し)を希望します。\n会社名・お名前: ' + (form.company.value || '') +
                     '\nご連絡先: ' + (form.contact.value || '') +
                     '\nご質問: ' + (form.message.value || '(なし)');
                 var mail = form.querySelector('.fbbtn');
                 if (mail) {
                     mail.href = 'mailto:info@osara-rock.com?subject=' +
-                        encodeURIComponent('施工報告書 おまかせ便の申し込み') +
+                        encodeURIComponent('工事写真台帳の作成代行の申し込み') +
                         '&body=' + encodeURIComponent(area.value);
                 }
                 box.hidden = false;
