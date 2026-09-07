@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CHWF6QKRJ6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CHWF6QKRJ6');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>ご購入ありがとうございます | きくりんの教科書</title>
+<link rel="icon" href="/assets/favicon.png" type="image/png">
+<style>
+body{margin:0;background:#fff;color:#111;font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,'Hiragino Sans',Meiryo,sans-serif;line-height:1.9;font-size:16px}
+.wrap{max-width:680px;margin:0 auto;padding:40px 18px 80px}h1{font-size:26px;margin:0 0 12px}
+.card{border:3px solid #111;border-radius:20px;padding:24px 22px;box-shadow:8px 8px 0 rgba(0,0,0,.08);margin:18px 0}
+.steps{margin:0;padding:0;list-style:none;display:grid;gap:10px}.steps li{display:flex;gap:10px;align-items:flex-start;font-size:15px}.steps li span{flex:0 0 26px;height:26px;display:grid;place-items:center;border-radius:50%;background:#e53935;color:#fff;font-weight:800;font-size:13px}
+.note{font-size:13.5px;color:#333}.note a{color:#b71c1c;font-weight:700}
+.btn{display:inline-block;margin-top:10px;padding:12px 20px;border:2px solid #111;border-radius:12px;background:#fff;color:#111;font-weight:800;text-decoration:none}
+</style>
+</head>
+<body>
+<main class="wrap">
+<h1>ご購入ありがとうございます🙏</h1>
+<p>受け取りリンクを、決済のときに入力したメールアドレスへ自動で送っています(通常は数分以内)。</p>
+<div class="card">
+<ol class="steps">
+<li><span>1</span>メールを開く: 件名「【お届け】…(受け取りリンク)」・送信元 kikurin@news.rental-space.net</li>
+<li><span>2</span>リンクを開くと、教科書のWeb版がすぐ読めます(付録のリンク集つき)</li>
+<li><span>3</span>届かないときは迷惑メールフォルダを確認。それでも無ければ<a href="https://kikurin-shop.kikurin.workers.dev/resend">受け取りリンクの再発行</a>へ</li>
+</ol>
+</div>
+<p class="note">改訂や付録の追加は、同じリンク先で最新版に差し替わり、更新のお知らせもメールで届きます。質問・不具合は<a id="form-link" href="https://rental-space.net/form/">購入者フォーム</a>へ(回答はFAQで全員に還元します)。</p>
+<p class="note">領収書はStripeから届く決済完了メールをご利用ください。</p>
+<a class="btn" href="/">← ブログへ戻る</a>
+</main>
+<script>
+(function(){
+  var q=new URLSearchParams(location.search);var p=q.get('p')||'';var s=q.get('s')||'';
+  var f=document.getElementById('form-link');if(f&&(p==='rental'||p==='ebay'))f.href='https://rental-space.net/form/?p='+p;
+  var val={rental:28800,ebay:8800}[p]||0;var name={rental:'レンタルスペース経営の教科書',ebay:'AI × eBay輸出の教科書'}[p]||'教科書';
+  try{var key='kyokasho_purchase_'+(s||p);if(s&&localStorage.getItem(key))return;if(s)localStorage.setItem(key,'1');}catch(e){}
+  if(typeof gtag==='function'&&val){gtag('event','purchase',{transaction_id:s||('t'+Date.now()),value:val,currency:'JPY',items:[{item_id:p,item_name:name,price:val,quantity:1}],lp:'kyokasho'});}
+})();
+</script>
+</body>
+</html>
