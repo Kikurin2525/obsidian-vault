@@ -40,3 +40,9 @@
 !tools/**
 !kyokasho/
 !kyokasho/**
+
+# ジャンル別ハブ(2026-09-07 SEO再構成)
+!rental-space/
+!rental-space/**
+!ebay/
+!ebay/**
