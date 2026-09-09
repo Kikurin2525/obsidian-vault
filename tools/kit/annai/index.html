@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>案内ページメーカー｜レンスペ運営AIキット</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#fffdf8; --ink:#1a1a1a; --ink-2:#4a4a4a; --ink-3:#7a7a7a;
+    --navy:#1e3a5f; --navy-2:#eef2f7; --gold:#b8862b; --gold-2:#fbf3e2;
+    --green:#1f9d55; --green-2:#e6f6ec; --line:#d9dde3; --card:#ffffff;
+    --bad:#b3261e; --bad-2:#fdecea; --r:8px;
+  }
+  * { box-sizing:border-box; }
+  html { -webkit-text-size-adjust:100%; }
+  body { margin:0; background:var(--bg); color:var(--ink); line-height:1.7; font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic",system-ui,sans-serif; font-feature-settings:"palt"; }
+  a { color:var(--navy); }
+  .topbar { background:var(--navy); color:#fff; }
+  .topbar .in { max-width:720px; margin:0 auto; padding:14px 16px; display:flex; align-items:center; gap:12px; }
+  .logo { width:40px; height:40px; border-radius:var(--r); background:var(--gold); color:#fff; display:grid; place-items:center; font-weight:700; font-size:14px; flex:none; }
+  .topbar .name { font-size:16px; font-weight:700; line-height:1.3; }
+  .topbar .tag { font-size:11.5px; opacity:.8; margin-top:2px; }
+  .topbar .ver { margin-left:auto; font-size:11px; opacity:.75; white-space:nowrap; border:1px solid rgba(255,255,255,.35); border-radius:999px; padding:2px 8px; }
+  .wrap { max-width:720px; margin:0 auto; padding:16px 14px 90px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:16px; margin:0 0 14px; }
+  h2 { font-size:15px; font-weight:700; margin:0 0 10px; padding-left:10px; border-left:4px solid var(--gold); line-height:1.4; }
+  .muted { color:var(--ink-3); font-size:12px; }
+  .hint { color:var(--ink-2); font-size:12.5px; margin:6px 0 0; }
+
+  #gate { max-width:420px; margin:40px auto; text-align:center; }
+  #gate h1 { font-size:17px; margin:0 0 6px; color:var(--navy); }
+  #gate p { font-size:13px; color:var(--ink-2); margin:0 0 14px; }
+  #gate input { width:100%; padding:12px 14px; font-size:16px; border:1px solid var(--line); border-radius:var(--r); text-align:center; font-family:inherit; }
+  #gate button { margin-top:10px; width:100%; }
+  #gate-error { display:none; color:var(--bad); font-size:12.5px; margin-top:8px; }
+  #app { display:none; }
+
+  .steps3 { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+  .step3 { background:var(--navy-2); border-radius:var(--r); padding:10px 10px 12px; font-size:12.5px; line-height:1.55; }
+  .step3 b { display:block; color:var(--navy); font-size:13px; margin-bottom:2px; }
+  .step3 b span { display:inline-grid; place-items:center; width:20px; height:20px; border-radius:50%; background:var(--navy); color:#fff; font-size:11px; margin-right:5px; }
+  @media (max-width:480px) { .steps3 { grid-template-columns:1fr; } }
+
+  /* progress */
+  .prog { display:flex; align-items:center; gap:10px; margin:0 0 12px; }
+  .prog .bar { flex:1; height:8px; background:var(--navy-2); border-radius:999px; overflow:hidden; }
+  .prog .bar i { display:block; height:100%; background:var(--gold); width:0; transition:width .2s; }
+  .prog .num { font-size:12.5px; color:var(--ink-2); font-weight:700; white-space:nowrap; }
+  .dots { display:flex; gap:5px; flex-wrap:wrap; margin-bottom:12px; }
+  .dots button { width:28px; height:28px; border-radius:50%; border:1px solid var(--line); background:#fff; color:var(--ink-3); font-size:11px; font-weight:700; cursor:pointer; font-family:inherit; padding:0; }
+  .dots button.on { background:var(--navy); color:#fff; border-color:var(--navy); }
+  .dots button.done { background:var(--green-2); color:var(--green); border-color:var(--green); }
+
+  /* form */
+  .pane { display:none; } .pane.on { display:block; }
+  label.f { display:block; font-size:13px; font-weight:700; color:var(--navy); margin:12px 0 4px; }
+  label.f small { font-weight:400; color:var(--ink-3); margin-left:6px; }
+  input[type=text], input[type=url], input[type=tel], select, textarea { width:100%; padding:11px 12px; font-size:16px; border:1px solid var(--line); border-radius:var(--r); font-family:inherit; background:#fff; color:var(--ink); }
+  textarea { min-height:90px; resize:vertical; line-height:1.6; }
+  input:focus, select:focus, textarea:focus { outline:none; border-color:var(--navy); box-shadow:0 0 0 3px rgba(30,58,95,.12); }
+  .tog { display:flex; align-items:center; gap:8px; font-size:13.5px; margin-top:8px; padding:10px 12px; background:var(--navy-2); border-radius:var(--r); cursor:pointer; }
+  .tog input { width:20px; height:20px; accent-color:var(--green); }
+  .tog b { color:var(--navy); }
+
+  button.primary { width:100%; padding:14px; font-size:15px; font-weight:700; color:#fff; background:var(--green); border:none; border-radius:var(--r); cursor:pointer; font-family:inherit; }
+  button.secondary { width:100%; padding:12px; font-size:14px; font-weight:700; color:var(--navy); background:#fff; border:1px solid var(--navy); border-radius:var(--r); cursor:pointer; font-family:inherit; }
+  button.ghost { padding:8px 12px; font-size:12.5px; font-weight:700; color:var(--ink-2); background:#fff; border:1px solid var(--line); border-radius:var(--r); cursor:pointer; font-family:inherit; }
+  button:disabled { opacity:.45; cursor:default; }
+  .nav { display:grid; grid-template-columns:1fr 2fr; gap:8px; margin-top:16px; }
+  .btnrow { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px; }
+  @media (max-width:420px) { .btnrow { grid-template-columns:1fr; } }
+
+  /* photos */
+  .photos { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:10px; }
+  .ph { border:1px solid var(--line); border-radius:var(--r); overflow:hidden; background:#fff; }
+  .ph img { display:block; width:100%; aspect-ratio:4/3; object-fit:cover; }
+  .ph input { border:none; border-top:1px solid var(--line); border-radius:0; font-size:13px; padding:8px 10px; }
+  .ph .rm { width:100%; border:none; border-top:1px solid var(--line); background:var(--bad-2); color:var(--bad); font-size:12px; font-weight:700; padding:7px; cursor:pointer; font-family:inherit; }
+  .addph { display:block; margin-top:10px; }
+  .addph input { display:none; }
+
+  /* output */
+  .outsec { border-top:1px dashed var(--line); padding-top:14px; margin-top:14px; }
+  .outsec:first-of-type { border-top:none; padding-top:0; margin-top:0; }
+  .outsec h3 { font-size:14px; margin:0 0 6px; color:var(--navy); }
+  .outsec h3 span { display:inline-grid; place-items:center; width:22px; height:22px; border-radius:50%; background:var(--gold); color:#fff; font-size:12px; margin-right:6px; }
+  #qr-box { display:flex; justify-content:center; margin:10px 0; min-height:40px; }
+  #qr-box img, #qr-box canvas { border:1px solid var(--line); border-radius:var(--r); padding:8px; background:#fff; }
+  .toast { position:fixed; left:50%; bottom:24px; transform:translateX(-50%); background:var(--navy); color:#fff; padding:10px 18px; border-radius:999px; font-size:13px; opacity:0; transition:opacity .2s; pointer-events:none; z-index:9; max-width:90vw; text-align:center; }
+  .toast.show { opacity:1; }
+  .note { background:var(--gold-2); border-left:4px solid var(--gold); border-radius:var(--r); padding:10px 12px; font-size:12.5px; color:var(--ink-2); margin-top:10px; }
+  .footnote { font-size:11.5px; color:var(--ink-3); margin-top:24px; border-top:1px solid var(--line); padding-top:12px; line-height:1.7; }
+
+  /* poster (A5) */
+  .poster-wrap { background:var(--navy-2); padding:12px; border-radius:var(--r); margin-top:10px; overflow:hidden; }
+  .poster-fit { position:relative; margin:0 auto; width:148mm; height:210mm; }
+  #poster { width:148mm; height:210mm; margin:0; transform-origin:top left; background:#fff; border:1px solid var(--line); display:flex; flex-direction:column; align-items:center; padding:12mm 10mm; font-family:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif; color:#1a1a1a; }
+  #poster .band { width:100%; background:#1e3a5f; color:#fff; border-radius:8px; padding:8mm 6mm; text-align:center; }
+  #poster .band .t1 { font-size:22pt; font-weight:700; line-height:1.3; }
+  #poster .band .t2 { font-size:12pt; margin-top:2mm; opacity:.9; }
+  #poster .qr { margin:10mm 0 6mm; }
+  #poster .qr img, #poster .qr canvas { width:70mm; height:70mm; }
+  #poster .qr .ph { width:70mm; height:70mm; display:grid; place-items:center; color:#7a7a7a; font-size:10pt; text-align:center; border:1px dashed #d9dde3; border-radius:8px; }
+  #poster .msg { font-size:14pt; font-weight:700; text-align:center; color:#1e3a5f; line-height:1.5; padding:0 4mm; }
+  #poster .url { font-size:9pt; color:#4a4a4a; margin-top:4mm; word-break:break-all; text-align:center; }
+  #poster .foot { margin-top:auto; font-size:10pt; color:#4a4a4a; text-align:center; border-top:2px solid #b8862b; padding-top:3mm; width:100%; }
+  @media (max-width:640px) { .poster-wrap { padding:8px; } }
+  @media print {
+    @page { size:A5 portrait; margin:0; }
+    body { background:#fff; }
+    body > * { display:none !important; }
+    #print-root { display:block !important; }
+    #print-root #poster { border:none; margin:0; transform:none !important; width:148mm; height:210mm; page-break-after:avoid; }
+  }
+  #print-root { display:none; }
+</style>
+</head>
+<body>
+<header class="topbar"><div class="in">
+  <div class="logo">K4</div>
+  <div><div class="name">案内ページメーカー</div><div class="tag">入室方法・Wi-Fi・ルールを1画面ずつ入力→写真つき案内ページとQRが完成</div></div>
+  <div class="ver">v1.0</div>
+</div></header>
+
+<div class="wrap">
+  <div class="card" id="gate">
+    <h1>合言葉を入力してください</h1>
+    <p>レンスペ運営AIキットに同梱の合言葉です(このブラウザに記憶されます)</p>
+    <input type="text" id="gate-input" placeholder="合言葉" autocomplete="off" autocapitalize="off">
+    <button class="primary" id="gate-btn">開く</button>
+    <div id="gate-error">合言葉が違います</div>
+  </div>
+
+  <div id="app">
+    <div class="card" id="intro">
+      <h2>はじめかた 3ステップ</h2>
+      <div class="steps3">
+        <div class="step3"><b><span>1</span>1画面ずつ入力</b>店名→道順→入室方法→Wi-Fi→ルール→写真。途中で閉じても、このブラウザに残ります</div>
+        <div class="step3"><b><span>2</span>ページをダウンロード</b>HTML1枚を保存。Googleドライブ・note・自分のHPなど、好きな場所で公開します</div>
+        <div class="step3"><b><span>3</span>QRと貼り紙を印刷</b>公開したURLを入れるとQRができます。A5の貼り紙を入口や室内に</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="prog"><div class="bar"><i id="bar"></i></div><div class="num" id="prog-num">1 / 11</div></div>
+      <div class="dots" id="dots"></div>
+
+      <!-- 1 店名 -->
+      <section class="pane" data-step="1">
+        <h2>1. 店名・部屋名</h2>
+        <label class="f">店名</label><input type="text" id="shop" placeholder="例: ◯◯スタジオ">
+        <label class="f">部屋名<small>任意</small></label><input type="text" id="room" placeholder="例: Aルーム(2階)">
+        <label class="f">ページの見出し<small>任意</small></label><input type="text" id="title" placeholder="ご利用案内">
+      </section>
+
+      <!-- 2 住所と道順 -->
+      <section class="pane" data-step="2">
+        <h2>2. 住所と道順</h2>
+        <label class="f">住所</label><input type="text" id="address" placeholder="例: 東京都◯◯区◯◯1-2-3 ◯◯ビル2階">
+        <label class="f">最寄駅からの道順<small>3手順まで</small></label>
+        <input type="text" id="route1" placeholder="① 例: ◯◯駅 北口を出て右へ">
+        <input type="text" id="route2" placeholder="② 例: コンビニの角を左に曲がり50m" style="margin-top:6px">
+        <input type="text" id="route3" placeholder="③ 例: 青い看板のビル。入口は道路側" style="margin-top:6px">
+        <label class="f">地図のURL<small>任意・Googleマップの共有リンクなど</small></label><input type="url" id="mapUrl" placeholder="https://maps.app.goo.gl/…">
+      </section>
+
+      <!-- 3 入室方法 -->
+      <section class="pane" data-step="3">
+        <h2>3. 入室方法</h2>
+        <label class="f">鍵の種類</label>
+        <select id="lockType"><option value="キーボックス">キーボックス</option><option value="スマートロック">スマートロック</option><option value="暗証番号式のドア">暗証番号式のドア</option><option value="その他">その他</option></select>
+        <label class="f">キーボックス・ロックの場所</label><input type="text" id="lockPlace" placeholder="例: 入口ドアの右横、郵便受けの上">
+        <label class="f">暗証番号</label><input type="text" id="code" placeholder="例: 1234">
+        <label class="tog"><input type="checkbox" id="codeVisible"><span><b>暗証番号をページに表示する</b><br><span class="muted">OFFなら「予約確定後のメッセージでお知らせします」と表示(公開ページ向け)</span></span></label>
+        <label class="f">開け方の手順<small>1行に1手順</small></label><textarea id="lockSteps" placeholder="例:
+番号を合わせる
+つまみを押しながら下に引く
+中の鍵でドアを開け、鍵はボックスに戻す"></textarea>
+        <label class="f">開け方の動画URL<small>任意</small></label><input type="url" id="lockVideo" placeholder="https://…">
+      </section>
+
+      <!-- 4 退室方法 -->
+      <section class="pane" data-step="4">
+        <h2>4. 退室方法</h2>
+        <label class="f">退室のときにやること<small>1行に1項目</small></label><textarea id="checkout" placeholder="例:
+エアコン・照明を消す
+窓を閉める
+鍵を閉めてキーボックスに戻す
+ご予約時間内に退室する"></textarea>
+      </section>
+
+      <!-- 5 Wi-Fi -->
+      <section class="pane" data-step="5">
+        <h2>5. Wi-Fi</h2>
+        <label class="f">ネットワーク名(SSID)</label><input type="text" id="ssid" placeholder="例: studio-wifi">
+        <label class="f">パスワード</label><input type="text" id="wifiPass" placeholder="例: abcd1234">
+        <label class="tog"><input type="checkbox" id="wifiVisible"><span><b>パスワードをページに表示する</b><br><span class="muted">OFFなら「室内の掲示をご覧ください」と表示</span></span></label>
+        <label class="f">つながらないときの対処<small>任意</small></label><input type="text" id="wifiNote" placeholder="例: ルーター側面のボタンを長押しして1〜2分お待ちください">
+      </section>
+
+      <!-- 6 設備 -->
+      <section class="pane" data-step="6">
+        <h2>6. 設備・備品</h2>
+        <label class="f">使えるもの<small>1行に1つ。場所や使い方も</small></label><textarea id="equipment" placeholder="例:
+鏡(壁一面)
+Bluetoothスピーカー(窓側・電源は側面)
+エアコン(リモコンは入口横)
+予備の電池(引き出しの中)"></textarea>
+      </section>
+
+      <!-- 7 ルール -->
+      <section class="pane" data-step="7">
+        <h2>7. ルールと禁止事項</h2>
+        <label class="f">お願い・禁止事項<small>1行に1つ</small></label><textarea id="rules" placeholder="例:
+全面禁煙(電子タバコも)
+大きな音・共用部での会話はお控えください
+入退室はご予約時間内に
+定員◯名まで"></textarea>
+      </section>
+
+      <!-- 8 ゴミ -->
+      <section class="pane" data-step="8">
+        <h2>8. ゴミ</h2>
+        <label class="f">ゴミの扱い</label><textarea id="trash" placeholder="例:
+ゴミはお持ち帰りください
+どうしても難しい場合は入口横のゴミ箱へ(分別: 燃える/ペットボトル)"></textarea>
+      </section>
+
+      <!-- 9 緊急連絡先 -->
+      <section class="pane" data-step="9">
+        <h2>9. 緊急連絡先</h2>
+        <label class="f">電話番号</label><input type="tel" id="phone" placeholder="例: 090-0000-0000">
+        <label class="f">受付時間・担当<small>任意</small></label><input type="text" id="phoneNote" placeholder="例: 9:00〜22:00 / 運営 ◯◯">
+        <label class="f">そのほかの連絡先<small>任意・LINE、メールなど</small></label><input type="text" id="contact2" placeholder="例: LINE公式 @xxxx / info@example.com">
+      </section>
+
+      <!-- 10 写真 -->
+      <section class="pane" data-step="10">
+        <h2>10. 写真<small class="muted" style="font-weight:400;margin-left:6px">最大6枚・自動で幅1200pxに縮小</small></h2>
+        <div class="hint">入口の外観・キーボックス・部屋の中・退室時の状態など。1枚ずつ説明を添えると「読まれる案内」になります。</div>
+        <div class="photos" id="photos"></div>
+        <label class="addph"><input type="file" id="photo-input" accept="image/*" multiple><span class="secondary" style="display:block;text-align:center;padding:12px;border:1px solid var(--navy);border-radius:var(--r);color:var(--navy);font-weight:700;font-size:14px;cursor:pointer" id="addph-btn">写真を選ぶ</span></label>
+        <div class="muted" id="photo-count" style="margin-top:6px"></div>
+      </section>
+
+      <!-- 11 出力 -->
+      <section class="pane" data-step="11">
+        <h2>11. できあがり</h2>
+        <div class="outsec">
+          <h3><span>1</span>案内ページ(HTML)</h3>
+          <div class="hint">写真も埋め込んだ1ファイル。Googleドライブに入れて「リンクを知っている全員」で共有、または自分のHP・noteに貼ってください。</div>
+          <div class="btnrow"><button class="primary" id="dl-html">案内ページをダウンロード</button><button class="secondary" id="preview">プレビューを開く</button></div>
+        </div>
+        <div class="outsec">
+          <h3><span>2</span>Googleドキュメント用テキスト</h3>
+          <div class="hint">同じ内容を見出しつきのテキストで。Googleドキュメントに貼って公開する人向け(写真は別途挿入)。</div>
+          <div class="btnrow"><button class="primary" id="copy-doc">テキストをコピー</button><button class="ghost" id="dl-doc">テキストをダウンロード</button></div>
+        </div>
+        <div class="outsec">
+          <h3><span>3</span>QRコード</h3>
+          <div class="hint">公開した案内ページのURL(Googleドライブの共有リンクなど)を入れてください。</div>
+          <input type="url" id="pubUrl" placeholder="https://…(公開したURL)" style="margin-top:6px">
+          <div id="qr-box"></div>
+          <div class="btnrow"><button class="primary" id="qr-make">QRを作る</button><button class="secondary" id="qr-dl" disabled>QR画像をダウンロード</button></div>
+        </div>
+        <div class="outsec">
+          <h3><span>4</span>貼り紙(A5縦)</h3>
+          <label class="f">ひとこと</label><input type="text" id="posterMsg" placeholder="スマホでQRを読み取ると、入室方法・Wi-Fi・ルールが見られます">
+          <div class="poster-wrap"><div class="poster-fit" id="poster-fit"><div id="poster"></div></div></div>
+          <div class="btnrow"><button class="primary" id="print">印刷する(A5)</button></div>
+          <div class="note">印刷ダイアログで用紙をA5・向きを縦にしてください。A4に印刷して切る場合は「用紙に合わせる」をOFFに。</div>
+        </div>
+      </section>
+
+      <div class="nav"><button class="secondary" id="prev">戻る</button><button class="primary" id="next">次へ</button></div>
+    </div>
+
+    <div class="btnrow"><button class="ghost" id="reset">最初から(入力を消す)</button></div>
+    <div class="footnote">
+      入力内容と写真はこのブラウザ(localStorage)にだけ保存され、外部には送信されません。QRの生成もブラウザ内で行います。<br>
+      レンスペ運営AIキット K4 案内ページメーカー v1.0
+    </div>
+  </div>
+</div>
+<div id="print-root"></div>
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

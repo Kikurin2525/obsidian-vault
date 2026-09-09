@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>返信ジェネレーター｜レンスペ運営AIキット</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#fffdf8; --ink:#1a1a1a; --ink-2:#4a4a4a; --ink-3:#7a7a7a;
+    --navy:#1e3a5f; --navy-2:#eef2f7; --gold:#b8862b; --gold-2:#fbf3e2;
+    --green:#1f9d55; --green-2:#e6f6ec; --line:#d9dde3; --card:#ffffff;
+    --bad:#b3261e; --bad-2:#fdecea; --r:8px;
+  }
+  * { box-sizing:border-box; }
+  html { -webkit-text-size-adjust:100%; }
+  body { margin:0; background:var(--bg); color:var(--ink); line-height:1.7; font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic",system-ui,sans-serif; font-feature-settings:"palt"; }
+  a { color:var(--navy); }
+  .topbar { background:var(--navy); color:#fff; }
+  .topbar .in { max-width:720px; margin:0 auto; padding:14px 16px; display:flex; align-items:center; gap:12px; }
+  .logo { width:40px; height:40px; border-radius:var(--r); background:var(--gold); color:#fff; display:grid; place-items:center; font-weight:700; font-size:14px; flex:none; letter-spacing:.02em; }
+  .topbar .name { font-size:16px; font-weight:700; line-height:1.3; }
+  .topbar .tag { font-size:11.5px; opacity:.8; margin-top:2px; }
+  .topbar .ver { margin-left:auto; font-size:11px; opacity:.75; white-space:nowrap; border:1px solid rgba(255,255,255,.35); border-radius:999px; padding:2px 8px; }
+  .wrap { max-width:720px; margin:0 auto; padding:16px 14px 80px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:16px; margin:0 0 14px; }
+  h2 { font-size:15px; font-weight:700; margin:0 0 10px; padding-left:10px; border-left:4px solid var(--gold); line-height:1.4; }
+  .muted { color:var(--ink-3); font-size:12px; }
+  .hint { color:var(--ink-2); font-size:12.5px; margin:6px 0 0; }
+
+  /* gate */
+  #gate { max-width:420px; margin:40px auto; text-align:center; }
+  #gate h1 { font-size:17px; margin:0 0 6px; color:var(--navy); }
+  #gate p { font-size:13px; color:var(--ink-2); margin:0 0 14px; }
+  #gate input { width:100%; padding:12px 14px; font-size:16px; border:1px solid var(--line); border-radius:var(--r); text-align:center; font-family:inherit; }
+  #gate button { margin-top:10px; width:100%; }
+  #gate-error { display:none; color:var(--bad); font-size:12.5px; margin-top:8px; }
+  #app { display:none; }
+
+  /* steps card */
+  .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+  .step { background:var(--navy-2); border-radius:var(--r); padding:10px 10px 12px; font-size:12.5px; line-height:1.55; }
+  .step b { display:block; color:var(--navy); font-size:13px; margin-bottom:2px; }
+  .step b span { display:inline-grid; place-items:center; width:20px; height:20px; border-radius:50%; background:var(--navy); color:#fff; font-size:11px; margin-right:5px; }
+  @media (max-width:480px) { .steps { grid-template-columns:1fr; } }
+
+  /* form */
+  label.f { display:block; font-size:13px; font-weight:700; color:var(--navy); margin:12px 0 4px; }
+  label.f:first-child { margin-top:0; }
+  label.f small { font-weight:400; color:var(--ink-3); margin-left:6px; }
+  input[type=text], select, textarea { width:100%; padding:11px 12px; font-size:16px; border:1px solid var(--line); border-radius:var(--r); font-family:inherit; background:#fff; color:var(--ink); }
+  textarea { min-height:96px; resize:vertical; line-height:1.6; }
+  input:focus, select:focus, textarea:focus { outline:none; border-color:var(--navy); box-shadow:0 0 0 3px rgba(30,58,95,.12); }
+  .seg { display:flex; gap:6px; }
+  .seg button { flex:1; padding:10px 6px; font-size:13.5px; font-weight:700; border:1px solid var(--line); background:#fff; color:var(--ink-2); border-radius:var(--r); cursor:pointer; font-family:inherit; }
+  .seg button.on { background:var(--navy); color:#fff; border-color:var(--navy); }
+  .chips { display:flex; gap:6px; flex-wrap:wrap; margin-top:6px; }
+  .chip { padding:7px 12px; font-size:12.5px; font-weight:700; border:1px solid var(--line); background:#fff; color:var(--ink-2); border-radius:999px; cursor:pointer; font-family:inherit; }
+  .chip.on { background:var(--gold-2); color:var(--gold); border-color:var(--gold); }
+
+  /* buttons */
+  button.primary { width:100%; padding:14px; font-size:15px; font-weight:700; color:#fff; background:var(--green); border:none; border-radius:var(--r); cursor:pointer; font-family:inherit; }
+  button.primary:active { filter:brightness(.95); }
+  button.secondary { width:100%; padding:12px; font-size:14px; font-weight:700; color:var(--navy); background:#fff; border:1px solid var(--navy); border-radius:var(--r); cursor:pointer; font-family:inherit; }
+  button.ghost { padding:8px 12px; font-size:12.5px; font-weight:700; color:var(--ink-2); background:#fff; border:1px solid var(--line); border-radius:var(--r); cursor:pointer; font-family:inherit; }
+  .btnrow { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px; }
+  @media (max-width:420px) { .btnrow { grid-template-columns:1fr; } }
+
+  /* output */
+  #out { display:none; }
+  #out-text { min-height:280px; font-size:15px; }
+  .toast { position:fixed; left:50%; bottom:24px; transform:translateX(-50%); background:var(--navy); color:#fff; padding:10px 18px; border-radius:999px; font-size:13px; opacity:0; transition:opacity .2s; pointer-events:none; z-index:9; }
+  .toast.show { opacity:1; }
+  .note { background:var(--gold-2); border-left:4px solid var(--gold); border-radius:var(--r); padding:10px 12px; font-size:12.5px; color:var(--ink-2); margin-top:12px; }
+  .note b { color:var(--gold); }
+  .note ul { margin:4px 0 0; padding-left:18px; }
+  .footnote { font-size:11.5px; color:var(--ink-3); margin-top:24px; border-top:1px solid var(--line); padding-top:12px; line-height:1.7; }
+</style>
+</head>
+<body>
+<header class="topbar"><div class="in">
+  <div class="logo">K3</div>
+  <div><div class="name">返信ジェネレーター</div><div class="tag">場面を選んで事実を入れるだけ。レンスペ運営の返信文が完成</div></div>
+  <div class="ver">v1.0</div>
+</div></header>
+
+<div class="wrap">
+  <div class="card" id="gate">
+    <h1>合言葉を入力してください</h1>
+    <p>レンスペ運営AIキットに同梱の合言葉です(このブラウザに記憶されます)</p>
+    <input type="text" id="gate-input" placeholder="合言葉" autocomplete="off" autocapitalize="off">
+    <button class="primary" id="gate-btn">開く</button>
+    <div id="gate-error">合言葉が違います</div>
+  </div>
+
+  <div id="app">
+    <div class="card">
+      <h2>はじめかた 3ステップ</h2>
+      <div class="steps">
+        <div class="step"><b><span>1</span>場面を選ぶ</b>レビュー返信・延長超過・忘れ物など10場面。星の数や断りの種類も選べます</div>
+        <div class="step"><b><span>2</span>事実を入れる</b>店名・相手の呼び方・起きたこと・金額。数字は入れたものだけ文に入ります</div>
+        <div class="step"><b><span>3</span>コピーして送る</b>そのまま送るか「AIに磨かせる」でClaude/ChatGPTに貼って仕上げます</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>1. 場面</h2>
+      <select id="scene"></select>
+      <div class="hint" id="scene-hint"></div>
+    </div>
+
+    <div class="card">
+      <h2>2. 入力</h2>
+      <label class="f">店名<small>任意・空欄なら「当店」</small></label>
+      <input type="text" id="shop" placeholder="例: ◯◯スタジオ">
+      <label class="f">相手の呼び方<small>空欄なら「お客様」</small></label>
+      <input type="text" id="name" placeholder="例: 山田様">
+      <label class="f">事実<small>起きたこと・日時・内容を短く</small></label>
+      <textarea id="fact" placeholder=""></textarea>
+      <label class="f" id="amount-label">金額<small>任意</small></label>
+      <input type="text" id="amount" inputmode="numeric" placeholder="例: 3000">
+      <label class="f">トーン</label>
+      <div class="seg" id="tone">
+        <button type="button" data-tone="polite" class="on">ていねい</button>
+        <button type="button" data-tone="soft">やわらかい</button>
+        <button type="button" data-tone="firm">きっぱり</button>
+      </div>
+      <div style="margin-top:14px"><button class="primary" id="gen">文を作る</button></div>
+    </div>
+
+    <div class="card" id="out">
+      <h2>3. 完成文</h2>
+      <div class="muted">文例のパターン(タップで切替)</div>
+      <div class="chips" id="patterns"></div>
+      <textarea id="out-text" style="margin-top:10px"></textarea>
+      <div class="hint">《 》の部分は自分の店に合わせて書き換えてください。文は直接編集できます。</div>
+      <div class="btnrow">
+        <button class="primary" id="copy">完成文をコピー</button>
+        <button class="secondary" id="ai">AIに磨かせる(プロンプトをコピー)</button>
+      </div>
+      <div class="btnrow">
+        <button class="ghost" id="dl">テキストをダウンロード</button>
+        <button class="ghost" id="clear">入力をクリア</button>
+      </div>
+      <div class="note"><b>送る前の注意</b>
+        <ul>
+          <li>法的な責任や過失を断定しない(「規約に基づき」まで。「法律違反」「賠償責任がある」とは書かない)</li>
+          <li>相手を責めない。事実と、こちらのお願いだけを書く</li>
+          <li>金額・日時は、規約や記録で根拠のあるものだけ。この文の数字は入力した値のみ</li>
+          <li>レビュー返信は「次に予約を検討する人」も読む。感情を入れず、改善したことを書く</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footnote">
+      入力内容はこのブラウザ(localStorage)にだけ保存され、外部には送信されません。<br>
+      レンスペ運営AIキット K3 返信ジェネレーター v1.0
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script src="templates.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
