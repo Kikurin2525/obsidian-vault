@@ -1,0 +1,94 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>レンスペ運営AIキット | レンタルスペースの運営を、AIに任せる道具箱</title>
+<meta name="description" content="売上の集計、競合の見張り、返信の下書き、価格のチェック、案内ページ、公式HP。累計23部屋の運営で作った道具を、あなたのGoogleアカウントとClaude Codeで動く形に。買い切り¥7,980・更新無料。">
+<link rel="canonical" href="https://rental-space.net/kyokasho/ai/"><link rel="icon" href="/assets/favicon.png">
+<meta property="og:title" content="レンスペ運営AIキット"><meta property="og:description" content="レンタルスペースの運営を、AIに任せる道具箱。7つの道具+セットアップ+ホーム。買い切り¥7,980。"><meta property="og:image" content="https://rental-space.net/assets/kyokasho_rensupe_banner_v2.png"><meta property="og:url" content="https://rental-space.net/kyokasho/ai/"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CHWF6QKRJ6"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CHWF6QKRJ6');</script>
+<style>
+:root{--paper:#fffdf8;--ink:#1a1a1a;--navy:#1e3a5f;--navy10:#eef2f7;--gold:#b8862b;--gold20:#c9b27a;--green:#1f9d55;--greend:#177a42;--line:#d9dde3}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:'Noto Sans JP',-apple-system,sans-serif;font-size:16px;line-height:1.8;-webkit-font-smoothing:antialiased}
+.wrap{width:min(960px,calc(100% - 40px));margin:0 auto}h1,h2,h3,p{margin:0}
+.band{background:var(--navy);color:#fff;padding:32px 0;margin:48px 0 28px}.band .eyebrow{color:var(--gold20);font-size:13px;letter-spacing:.1em;margin-bottom:6px}.band h2{font-size:clamp(22px,4vw,30px);line-height:1.45}.band h2 em{font-style:normal;border-bottom:2px solid var(--gold20)}
+.hero{text-align:center;padding:40px 0 20px}.hero .top{font-weight:700;margin-bottom:10px}.hero .top b{color:var(--gold)}.hero h1{font-size:clamp(28px,5.5vw,44px);line-height:1.4;letter-spacing:-.02em}.hero .sub{margin:16px auto;max-width:640px}
+.spec{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;font-weight:700;margin:10px 0}.spec b{font-size:22px;color:var(--navy)}
+.cta{text-align:center;margin:22px 0}.btn{display:inline-block;background:var(--green);color:#fff;font-weight:700;font-size:18px;padding:18px 40px;border-radius:999px;text-decoration:none;box-shadow:0 6px 0 var(--greend);animation:purun 2.6s ease-in-out infinite;transform-origin:center bottom}.btn:hover{background:var(--greend)}.btn.sec{background:#fff;color:var(--navy);border:2px solid var(--navy);box-shadow:none;animation:none;font-size:16px;padding:14px 28px}.cta small{display:block;margin-top:10px;font-size:12px}
+@keyframes purun{0%,70%,100%{transform:scale(1)}76%{transform:scale(1.05,.95)}82%{transform:scale(.97,1.04)}88%{transform:scale(1.02,.98)}}@media(prefers-reduced-motion:reduce){.btn{animation:none}}
+.h3{background:var(--navy10);border-left:6px solid var(--navy);color:var(--navy);padding:10px 16px;font-size:18px;margin:24px 0 12px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px}.card b{display:block;font-size:22px;color:var(--navy);line-height:1.3}.card small{display:block;color:#555;margin-top:6px;font-size:12px;line-height:1.6}
+.tool{display:grid;grid-template-columns:56px 1fr;gap:12px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;margin:10px 0}.tool .k{background:var(--navy10);color:var(--navy);font-weight:800;border-radius:8px;display:flex;align-items:center;justify-content:center}.tool h3{font-size:17px;color:var(--navy)}.tool p{font-size:14px;margin-top:6px}.tool .meta{color:#555;font-size:12px}
+table{width:100%;border-collapse:collapse;font-size:14px;background:#fff}th,td{border:1px solid var(--line);padding:8px;vertical-align:top}th{background:var(--navy10);color:var(--navy)}.tbl{overflow-x:auto}
+.offer{background:#fff;border:2px solid var(--navy);border-radius:16px;padding:24px;margin:20px 0}.price{display:grid;gap:10px}.price div{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px dashed var(--line);padding:8px 0}.price b{font-size:24px;color:var(--navy)}.price .hi b{color:var(--green)}
+ul{padding-left:20px}li{margin:4px 0}details{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:8px 0}summary{font-weight:700;cursor:pointer;color:var(--navy)}details p{margin-top:8px;font-size:15px}
+.ladder{text-align:center;font-size:14px;margin:-8px 0 16px}.fine{font-size:12px;color:#555;text-align:center;margin:20px 0 40px}.fine a{color:var(--navy)}.em{color:var(--gold);font-weight:700}
+</style></head><body>
+<header class="wrap hero">
+<p class="top">5年で累計<b>23部屋</b>、売上<b>1.5億円超</b>。</p>
+<h1>レンタルスペースの運営を、<br>AIに任せる道具箱。</h1>
+<p class="sub">売上の集計、競合の見張り、返信の下書き、価格のチェック、案内ページ、公式HP。<br>ぼくが17部屋を回すために作った道具を、あなたのGoogleアカウントとClaude Codeで動く形にしました。</p>
+<div class="spec"><span>7つの道具</span><span>+</span><span>セットアップ</span><span>+</span><span>ホーム画面</span></div>
+<div class="spec"><span>買い切り <b>¥7,980</b><small>税込</small></span><span>まず1つだけなら K1 <b>¥3,980</b></span></div>
+<div class="cta"><a class="btn" href="https://buy.stripe.com/8x26oG26Waif19NgR367T08" data-cta="stripe_kit">キットを購入する →</a><small>買い切り¥7,980(税込)・カード決済・受け取りリンクをメールで</small></div>
+<p class="ladder"><span class="em">発売記念価格</span> 3部ごとに値上げ(いま0部目・次は¥9,800)。公式サイトがいちばん安い価格です</p>
+<p><a href="#naka" style="color:var(--navy)">中身を見る ↓</a></p>
+</header>
+
+<section class="band"><div class="wrap"><p class="eyebrow">なぜ、道具なのか</p><h2>手数料は3割。月末の集計は3時間。<br><em>競合の単価は、見に行かないと分からない。</em></h2></div></section>
+<section class="wrap">
+<p>ポータル経由の予約は、手数料が3割前後かかります(ぼくの実測)。売上は、確定メールとカレンダーを見比べて手で足す。競合の単価と空きは、毎日カレンダーを開かないと分からない。返信は9割が定型なのに、毎回手で打つ。特別料金の設定漏れは、部屋が増えるほど起きる。</p>
+<p style="margin-top:12px">ぼくも同じところで詰まりました。いまは17部屋を、主要ポータル4〜5サイトで回しています。手で価格を触るのは、もう限界でした。だから分けました。<span class="em">入口(物件・内見・交渉・設営)は人間。運営はAI。</span>このキットは、その「運営はAI」の部分を、あなたの店で動く形にしたものです。</p>
+</section>
+
+<section class="band"><div class="wrap"><p class="eyebrow">ぼくの店で起きたこと</p><h2>道具は、<em>使っている型の汎用版</em>です。</h2></div></section>
+<section class="wrap">
+<div class="cards">
+<div class="card"><b>公式HP経由が約7割</b><small>ダンススタジオ5店舗・2026年6〜7月の予約件数。金額では約6割。ポータルで新規を集め、公式HPへ移す2段構え</small></div>
+<div class="card"><b>集計 月末3時間→ゼロ</b><small>カレンダーの予約から日次で売上を積む。月次台帳との誤差0.11%</small></div>
+<div class="card"><b>稼働率 約13%→40%</b><small>都内ダンススタジオ1店の値下げ実録(5月→7月)。稼働時間3.05倍・売上2.35倍。曜日×時間帯で診断してから動かした</small></div>
+<div class="card"><b>月末の明細作り ゼロ</b><small>清掃外注8名の報告をアプリに集約。滞在時間の記録で「写真だけ撮って帰る」問題も消えた</small></div>
+</div>
+<h3 class="h3">書いている人</h3>
+<ul><li>レンタルスペース歴5年超。累計23部屋を出し、いまは17部屋(ダンス5・撮影4・貸会議室3・パーティー5)</li><li>撤退は6部屋(騒音クレーム1・再開発5)。うまくいった話だけではありません</li><li>累計売上は1.5億円超(お客様支払いベース)</li><li>コードは書けません。ここにある道具は、ぜんぶ日本語でAIに頼んで作りました</li></ul>
+<h3 class="h3">返信の型は、実測から</h3>
+<p>返信センターは、ぼくの店の受信箱の実測(ポータル2社の直近スレッド182件・ホスト送信119件のうち90%が定型文)から、分類と下書きの型を作っています。</p>
+</section>
+
+<section class="band" id="naka"><div class="wrap"><p class="eyebrow">中身</p><h2>7つの道具+セットアップ+ホーム。<br><em>ぜんぶ、あなたのアカウントで動きます。</em></h2></div></section>
+<section class="wrap">
+<h3 class="h3">最初にやること=セットアップ(第0章)</h3>
+<p>AIが会話で連れていきます。①プランとモデルの確認 ②Gmail・カレンダー・Driveの連携 ③Chrome拡張 ④スプレッドシート原本をコピー ⑤店舗・部屋・使うポータルを答える ⑥初回の取込。ここまでで、翌日から「今月」タブが動きます。</p>
+<h3 class="h3">7つの道具</h3>
+<div class="tool"><div class="k">K1</div><div><h3>経営ダッシュボード</h3><p>予約データを取り込み、今月の売上・手数料・手取りを前月比・前年同月比・目標比で。曜日×時間帯のヒートマップで空き枠が見える。費用を入れると損益分岐と回収率。週1でAIが「課題→理由→対策案」を診断タブに書き、チェックした対策は下書きまで作る。</p><p class="meta">形式: スプレッドシート+GAS+スキル / スマホ: ◎ 今月・ヒートマップ・診断の3タブで完結</p></div></div><div class="tool"><div class="k">K2</div><div><h3>競合ウォッチ</h3><p>競合のポータルURLを最大5件登録。AIがあなたのブラウザで予約カレンダーを開き、埋まりと表示単価を記録。推定稼働・単価差・自店との比較と対策案。</p><p class="meta">形式: スプレッドシート+スキル+Chrome拡張(半自動) / スマホ: ○ 記録はPC、結果はスマホ</p></div></div><div class="tool"><div class="k">K3</div><div><h3>返信センター</h3><p>ポータルの説明文・公式HP・過去のやりとりから「店舗プロファイル」を作り、受信箱を分類。定型の8〜9割は下書きを用意、要確認だけ残す。v1は下書き+あなたの承認で送信。自動送信は更新で開放。</p><p class="meta">形式: スキル+返信ジェネレーター(Web) / スマホ: ◎ ジェネレーターはスマホで</p></div></div><div class="tool"><div class="k">K4</div><div><h3>案内ページメーカー</h3><p>入室方法・鍵・Wi-Fi・ゴミ・禁止事項を入れると、写真つき案内ページ(HTML)とQR画像ができる。貼り紙の印刷テンプレつき。</p><p class="meta">形式: Web(端末内保存・外部送信なし) / スマホ: ◎</p></div></div><div class="tool"><div class="k">K5</div><div><h3>価格設定チェッカー+提案</h3><p>設定漏れ・重複・12月の最低利用時間をチェック。埋まり率と競合単価から曜日×時間帯の推奨単価と特別料金の期間を提案。</p><p class="meta">形式: スプレッドシート+スキル / スマホ: ○ 結果はスマホで</p></div></div><div class="tool"><div class="k">K6</div><div><h3>自社集客セット+公式HP作成</h3><p>店名・写真・料金・アクセス・予約ボタンを聞き取り、静的な公式HPを生成して無料で公開。予約システムの選び方、誘導文、Googleビジネスプロフィールのチェックリスト、「公式予約がいちばんお得」の掲示。</p><p class="meta">形式: スキル+ドキュメント+印刷テンプレ / スマホ: ○ HPはスマホ対応</p></div></div><div class="tool"><div class="k">同梱</div><div><h3>清掃セット</h3><p>清掃マニュアルの雛形と現場貼り出しのチェック表、清掃報告アプリ(滞在時間・写真・LINE通知・月初の明細)のセルフデプロイ手順。</p><p class="meta">形式: ドキュメント+印刷+Webアプリ / スマホ: ◎ 報告はスマホから</p></div></div>
+<h3 class="h3">全部を束ねる「ホーム」</h3>
+<p>今月の売上と前年比/要確認の返信件数/未実行の対策/回収率/各ツールへのリンクを1画面に。スプレッドシートからワンクリックでWebアプリとして立ち上がります(あなたのGoogleアカウントで動く・スマホ対応)。</p>
+<h3 class="h3">AIに読ませる形で渡します</h3>
+<p>手順書・設定・マニュアルはすべてMarkdownで同梱。Claude Codeに読ませれば「うちの店ならどう設定する?」と聞ける相談相手になります。ChatGPTでも読み込みファイルとして使えます(ツールの自動実行はClaude Code前提)。</p>
+</section>
+
+<section class="band"><div class="wrap"><p class="eyebrow">ほかじゃダメ?</p><h2>優劣は断定しません。<em>向き不向きで選んでください。</em></h2></div></section>
+<section class="wrap tbl"><table><tr><th>比べること</th><th>手作業</th><th>外注</th><th>システム導入</th><th>このキット</th></tr>
+<tr><td>費用</td><td>0円</td><td>毎月の人件費</td><td>月額課金</td><td>買い切り¥7,980+Claude Pro(月$20前後)</td></tr>
+<tr><td>時間</td><td>集計に月末3時間、競合チェックに毎日1時間相当(ぼくの実測)</td><td>依頼と確認の時間</td><td>設定と乗り換えの時間</td><td>セットアップ後は週1の巡回と承認だけ</td></tr>
+<tr><td>自分の店に合わせる</td><td>自由</td><td>相手しだい</td><td>決まった機能の中で</td><td>設定タブと店舗プロファイルで自由に。更新無料</td></tr>
+<tr><td>向く人</td><td>部屋1〜2で時間がある人</td><td>判断も任せたい人</td><td>予約管理だけ整えたい人</td><td>判断は自分、作業はAIに渡したい人</td></tr></table></section>
+
+<section class="band"><div class="wrap"><p class="eyebrow">オファー</p><h2>買い切り。<em>月額はかかりません。</em></h2></div></section>
+<section class="wrap"><div class="offer">
+<div class="price">
+<div class="hi"><span>運営AIキット(7つの道具+セットアップ+ホーム)<br><small>3部ごとに値上げ(いま0部目・次は¥9,800)</small></span><b>¥7,980</b></div>
+<div><span>まず1つだけ試す: K1 経営ダッシュボードPro 単体<br><small>売上集計・ヒートマップ・費用と損益分岐・回収・診断カードまで。あとから差額¥4,000でキットへ</small></span><b>¥3,980</b></div>
+<div><span>教科書とのセット(レンタルスペース経営の教科書+このキット)<br><small>3部ごとに値上げ(いま0部目・次は¥24,800)</small></span><b>¥21,800</b></div>
+</div>
+<ul style="font-size:14px;margin-top:14px"><li>受け取り: 購入時のメールアドレスに受け取りリンクをお届けします</li><li>更新は無料。道具の改良や対応ポータルの追加は購入者に配信します</li><li>質問は購入者フォームで受け付け、回答はFAQで共有します。個別の開業支援や伴走は含みません</li><li>AI読み込みファイル(全文Markdown+プロンプト)を同梱</li><li>必要なもの: Claude Code(デスクトップアプリ)・Claude Pro(月$20)・Googleアカウント</li><li>デジタルコンテンツのため、購入後の返金は原則できません。受け取りリンクが開けないなどの不具合は対応し、解決できない場合は返金します</li></ul>
+<div class="cta"><a class="btn" href="https://buy.stripe.com/8x26oG26Waif19NgR367T08" data-cta="stripe_kit">キットを購入する →</a><small>買い切り¥7,980(税込)</small></div>
+<div class="cta" style="margin-top:0"><a class="btn sec" href="https://buy.stripe.com/bJe14m5j89eb7yb6cp67T07" data-cta="stripe_k1">K1だけ試す(¥3,980) →</a> &nbsp; <a class="btn sec" href="https://buy.stripe.com/fZufZg4f43TR2dR8kx67T09" data-cta="stripe_set">教科書とセット(¥21,800) →</a></div>
+<p style="text-align:center;font-size:14px;margin-top:10px">買ったあと: 01 カードで決済 → 02 メールを受け取る → 03 セットアップスキルを開いてAIの質問に答える</p>
+</div></section>
+
+<section class="band"><div class="wrap"><p class="eyebrow">よくある質問</p><h2>買う前に、<em>気になるところ。</em></h2></div></section>
+<section class="wrap"><details><summary>Claude Codeを使ったことがありません。動かせますか?</summary><p>動かせるように作りました。第0章のセットアップは、AIが会話であなたを連れていきます(プランの確認→Google連携→Chrome拡張→スプレッドシートのコピー→店舗の設定→初回取込)。コードは書きません。ぼく自身もコードは書けず、ここにある道具はぜんぶ日本語で頼んで作りました。</p></details><details><summary>Claudeのプランはどれが必要ですか?</summary><p>Claude Pro(月$20)で足りるように作っています。Maxは複数店舗で毎日ぜんぶの道具を回す人向けです。モデルは指定しなくて大丈夫です。</p></details><details><summary>どのポータルに対応していますか?</summary><p>取込経路は、Gmailの予約確定メール/Googleカレンダー/ポータルの月次CSV(スペースマーケット・インスタベース)/公式HP(よやクル・upnow・Amelia)/公式LINE(カレンダー経由)。経路ごとにON・OFFでき、追加は更新で配信します。</p></details><details><summary>返信は自動で送られますか?</summary><p>いいえ。v1は「下書き+あなたの承認」です。自動送信は、ぼくの店で承認式の合格率が出てから更新で開放します。クレーム・金額・法的な話は最初から人が見る設計です。</p></details><details><summary>教科書との違いは?</summary><p>教科書は「考え方と実録」、キットは「動く道具」です。両方あると、判断は教科書、作業はキット。セットは¥21,800です。</p></details>
+<p style="text-align:center;margin:28px 0 8px;font-weight:700">運営の作業は、AIに渡してください。<br>あなたの時間は、次の1部屋に。</p>
+<div class="cta"><a class="btn" href="https://buy.stripe.com/8x26oG26Waif19NgR367T08" data-cta="stripe_kit">キットを購入する →</a><small>Web版・買い切り¥7,980(税込)</small></div>
+<p class="fine">無料版「売上ダッシュボード」は、<a href="https://rondo.kikurin.workers.dev/tokuten/dashboard">無料メール講座の登録特典</a>です ／ <a href="/kyokasho/tokushoho.html">特定商取引法に基づく表記</a> ／ <a href="/kyokasho/">教科書のページ</a></p>
+</section>
+<script>document.querySelectorAll('[data-cta]').forEach(a=>a.addEventListener('click',()=>{try{gtag('event','kyokasho_click',{dest:a.dataset.cta,placement:'lp_kit_v1'})}catch(e){}}));</script>
+</body></html>

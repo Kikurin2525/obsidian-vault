@@ -36,7 +36,7 @@ body{margin:0;background:#fff;color:#111;font-family:'Noto Sans JP',-apple-syste
 (function(){
   var q=new URLSearchParams(location.search);var p=q.get('p')||'';var s=q.get('s')||'';
   var f=document.getElementById('form-link');if(f&&(p==='rental'||p==='ebay'))f.href='https://rental-space.net/form/?p='+p;
-  var val={rental:28800,ebay:8800}[p]||0;var name={rental:'レンタルスペース経営の教科書',ebay:'AI × eBay輸出の教科書'}[p]||'教科書';
+  var val={rental:17800,ebay:8800,k1:3980,kit:7980,kit_set:21800}[p]||0;var name={rental:'レンタルスペース経営の教科書',ebay:'AI × eBay輸出の教科書',k1:'レンスペ経営ダッシュボードPro',kit:'レンスペ運営AIキット',kit_set:'教科書+運営AIキット(セット)'}[p]||'教科書';
   try{var key='kyokasho_purchase_'+(s||p);if(s&&localStorage.getItem(key))return;if(s)localStorage.setItem(key,'1');}catch(e){}
   if(typeof gtag==='function'&&val){gtag('event','purchase',{transaction_id:s||('t'+Date.now()),value:val,currency:'JPY',items:[{item_id:p,item_name:name,price:val,quantity:1}],lp:'kyokasho'});}
 })();
