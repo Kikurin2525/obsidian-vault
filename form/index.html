@@ -44,6 +44,7 @@
                 <div class="choice">
                     <label><input type="radio" name="product" value="ebay">AI × eBay輸出の教科書</label>
                     <label><input type="radio" name="product" value="rental">レンタルスペース経営の教科書</label>
+                    <label><input type="radio" name="product" value="kit">レンスペ運営AIキット(K1単体も)</label>
                 </div>
             </div>
             <div class="field">
@@ -82,7 +83,7 @@
 (function () {
     var ENDPOINT = 'https://kikurin-form.kikurin.workers.dev/submit';
     var p = new URLSearchParams(location.search).get('p');
-    if (p === 'ebay' || p === 'rental') { var r = document.querySelector('input[name=product][value=' + p + ']'); if (r) r.checked = true; }
+    if (p === 'ebay' || p === 'rental' || p === 'kit') { var r = document.querySelector('input[name=product][value=' + p + ']'); if (r) r.checked = true; }
     document.getElementById('t').value = String(Date.now());
     var form = document.getElementById('kf'), btn = document.getElementById('send'), msg = document.getElementById('msg');
     function show(cls, text) { msg.className = 'msg ' + cls; msg.textContent = text; }
