@@ -76,14 +76,14 @@
     });
   }
 
-  function onSceneChange() {
+  function onSceneChange(resetPattern = true) {
     const sc = currentScene();
     $('fact').placeholder = sc.factHint || '';
     $('scene-hint').textContent = '「事実」の書き方: ' + (sc.factHint || '');
     const al = $('amount-label');
     if (sc.amountLabel) { al.style.display = ''; $('amount').style.display = ''; al.firstChild.textContent = sc.amountLabel.replace(/\(任意\)$/, ''); }
     else { al.style.display = 'none'; $('amount').style.display = 'none'; }
-    patternIdx = 0;
+    if(resetPattern) patternIdx = 0;
     if ($('out').style.display === 'block') build();
   }
 
@@ -136,7 +136,7 @@
     const d = ls.get(SAVE_KEY, null); if (!d) return;
     if (d.scene && SCENES.some((s) => s.id === d.scene)) $('scene').value = d.scene;
     $('shop').value = d.shop || ''; $('name').value = d.name || ''; $('fact').value = d.fact || ''; $('amount').value = d.amount || '';
-    tone = d.tone || 'polite'; patternIdx = d.patternIdx || 0;
+    tone = ['polite','soft','firm'].includes(d.tone) ? d.tone : 'polite'; patternIdx = Number.isInteger(d.patternIdx) && d.patternIdx >= 0 ? d.patternIdx : 0;
     document.querySelectorAll('#tone button').forEach((b) => b.classList.toggle('on', b.dataset.tone === tone));
   }
 
@@ -147,8 +147,8 @@
 
     renderScenes();
     restore();
-    onSceneChange();
-    $('scene').addEventListener('change', onSceneChange);
+    onSceneChange(false);
+    $('scene').addEventListener('change', () => { onSceneChange(); save(); });
     document.querySelectorAll('#tone button').forEach((b) => b.addEventListener('click', () => {
       tone = b.dataset.tone;
       document.querySelectorAll('#tone button').forEach((x) => x.classList.toggle('on', x === b));

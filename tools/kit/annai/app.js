@@ -130,7 +130,7 @@
   const lines = (s) => String(s || '').split(/\r?\n/).map((x) => x.trim()).filter(Boolean);
   const ul = (s) => { const L = lines(s); return L.length ? '<ul>' + L.map((x) => '<li>' + esc(x) + '</li>').join('') + '</ul>' : ''; };
   const ol = (arr) => { const L = arr.filter(Boolean); return L.length ? '<ol>' + L.map((x) => '<li>' + esc(x) + '</li>').join('') + '</ol>' : ''; };
-  const linkify = (u, label) => u ? '<a href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(label || u) + '</a>' : '';
+  const linkify = (u, label) => /^https?:\/\//i.test(u) ? '<a href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(label || u) + '</a>' : '';
   const today = () => { const d = new Date(); return d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate(); };
   const fileSafe = (s) => (s || '案内').replace(/[\\/:*?"<>|\s]+/g, '_');
 
@@ -287,7 +287,7 @@ ${body}
     const url = ($('pubUrl').value || '').trim();
     qrDataUrl = ''; $('qr-dl').disabled = true;
     const box = $('qr-box'); box.innerHTML = '';
-    if (!url) { toast('公開したURLを入れてください'); return; }
+    if (!/^https?:\/\//i.test(url)) { renderPoster(); toast('httpまたはhttpsから始まる公開URLを入れてください'); return; }
     if (typeof QRCode === 'undefined') { toast('QRライブラリを読み込めませんでした(オフライン?)'); return; }
     try {
       new QRCode(box, { text: url, width: 220, height: 220, correctLevel: QRCode.CorrectLevel.M });
@@ -328,6 +328,7 @@ ${body}
     fit.style.width = Math.round(W * s) + 'px'; fit.style.height = Math.round(H * s) + 'px';
   }
   function doPrint() {
+    if(!qrDataUrl) { toast('現在の公開URLでQRを作ってから印刷してください'); return; }
     renderPoster();
     const root = $('print-root'); root.innerHTML = ''; root.appendChild($('poster').cloneNode(true));
     window.print();
@@ -341,7 +342,7 @@ ${body}
 
     restore();
     go(step);
-    TEXT_IDS.forEach((id) => $(id).addEventListener('input', () => { save(); if (step === STEPS) renderPoster(); }));
+    TEXT_IDS.forEach((id) => $(id).addEventListener('input', () => { if(id === 'pubUrl') { qrDataUrl=''; $('qr-box').innerHTML=''; $('qr-dl').disabled=true; } save(); if (step === STEPS) renderPoster(); }));
     BOOL_IDS.forEach((id) => $(id).addEventListener('change', save));
     $('prev').addEventListener('click', () => go(step - 1));
     $('next').addEventListener('click', () => {
