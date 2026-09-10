@@ -102,7 +102,7 @@
       <div class="steps">
         <div class="step"><b><span>1</span>場面を選ぶ</b>レビュー返信・延長超過・忘れ物など10場面。星の数や断りの種類も選べます</div>
         <div class="step"><b><span>2</span>事実を入れる</b>店名・相手の呼び方・起きたこと・金額。数字は入れたものだけ文に入ります</div>
-        <div class="step"><b><span>3</span>コピーして送る</b>そのまま送るか「AIに磨かせる」でClaude/ChatGPTに貼って仕上げます</div>
+        <div class="step"><b><span>3</span>コピーして送る</b>事実と対応状況を確認し、《 》を編集してから送ります。「AIに磨かせる」も使えます</div>
       </div>
     </div>
 
@@ -132,9 +132,10 @@
     </div>
 
     <div class="card" id="out">
-      <h2>3. 完成文</h2>
-      <div class="muted">文例のパターン(タップで切替)</div>
+      <h2>3. 返信の下書き</h2>
+      <div class="muted">現在の対応状況に合う文例を選択(タップで切替)</div>
       <div class="chips" id="patterns"></div>
+      <p id="draft-warning" role="status"></p>
       <textarea id="out-text" style="margin-top:10px"></textarea>
       <div class="hint">《 》の部分は自分の店に合わせて書き換えてください。文は直接編集できます。</div>
       <div class="btnrow">

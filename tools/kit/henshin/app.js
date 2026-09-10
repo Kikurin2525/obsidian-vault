@@ -53,7 +53,15 @@
     $('out-text').value = text;
     renderPatterns(sc);
     $('out').style.display = 'block';
+    checkDraft();
     save();
+  }
+
+  function checkDraft() {
+    const pending = /《[^》]*》/.test($('out-text').value);
+    $('draft-warning').textContent = pending ? '《 》の未記入箇所があります。事実と対応状況を確認し、本文を編集してからコピーしてください。' : '送る前に、事実・日時・金額・対応状況を確認してください。';
+    $('copy').disabled = pending;
+    return !pending;
   }
 
   function renderPatterns(sc) {
@@ -130,13 +138,14 @@
   }
 
   function save() {
-    ls.set(SAVE_KEY, { scene: $('scene').value, shop: $('shop').value, name: $('name').value, fact: $('fact').value, amount: $('amount').value, tone, patternIdx });
+    ls.set(SAVE_KEY, { scene: $('scene').value, shop: $('shop').value, name: $('name').value, fact: $('fact').value, amount: $('amount').value, tone, patternIdx, templateVersion: 2 });
   }
   function restore() {
     const d = ls.get(SAVE_KEY, null); if (!d) return;
     if (d.scene && SCENES.some((s) => s.id === d.scene)) $('scene').value = d.scene;
     $('shop').value = d.shop || ''; $('name').value = d.name || ''; $('fact').value = d.fact || ''; $('amount').value = d.amount || '';
     tone = ['polite','soft','firm'].includes(d.tone) ? d.tone : 'polite'; patternIdx = Number.isInteger(d.patternIdx) && d.patternIdx >= 0 ? d.patternIdx : 0;
+    if (d.scene === 'rev1' && d.templateVersion !== 2) patternIdx = 0;
     document.querySelectorAll('#tone button').forEach((b) => b.classList.toggle('on', b.dataset.tone === tone));
   }
 
@@ -152,11 +161,13 @@
     document.querySelectorAll('#tone button').forEach((b) => b.addEventListener('click', () => {
       tone = b.dataset.tone;
       document.querySelectorAll('#tone button').forEach((x) => x.classList.toggle('on', x === b));
+      save();
       if ($('out').style.display === 'block') build();
     }));
     ['shop', 'name', 'fact', 'amount'].forEach((id) => $(id).addEventListener('input', save));
     $('gen').addEventListener('click', () => { build(); $('out').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
-    $('copy').addEventListener('click', () => copyText($('out-text').value, '完成文をコピーしました'));
+    $('out-text').addEventListener('input', checkDraft);
+    $('copy').addEventListener('click', () => { if(checkDraft()) copyText($('out-text').value, '確認した文をコピーしました'); });
     $('ai').addEventListener('click', () => copyText(aiPrompt(), 'AI用プロンプトをコピーしました。Claude/ChatGPTに貼ってください'));
     $('dl').addEventListener('click', download);
     $('clear').addEventListener('click', () => { ['name', 'fact', 'amount'].forEach((id) => { $(id).value = ''; }); $('out').style.display = 'none'; save(); toast('入力をクリアしました(店名は残しています)'); });
