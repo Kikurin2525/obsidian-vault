@@ -1,4 +1,4 @@
-import * as E from './engine.mjs?v=051';
+import * as E from './engine.mjs?v=053';
 // The guide never skips a required check or makes a financial choice silently.
 export function nextResearchStep(s){
  if(s.phase!=='research'||!s.research)return null;

@@ -1,5 +1,5 @@
-import * as E from './engine.mjs?v=051';
-import {roomArt} from './room.mjs?v=051';
+import * as E from './engine.mjs?v=053';
+import {roomArt} from './room.mjs?v=053';
 const esc=t=>String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const button=(action,label,id,cls='choice-card')=>`<button class="${cls}" data-action="${action}" data-id="${esc(id)}">${label}</button>`;
 export function inspectionScene(s,id){

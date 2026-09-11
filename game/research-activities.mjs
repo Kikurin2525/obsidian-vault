@@ -1,5 +1,5 @@
-import * as E from './engine.mjs?v=051';
-import {nextResearchStep} from './research-guide.mjs?v=051';
+import * as E from './engine.mjs?v=053';
+import {nextResearchStep} from './research-guide.mjs?v=053';
 // Short fictional decisions adapted from the existing textbook inspection checklist.
 export function inspectionQuestion(s,id){
  if(id==='measure'&&E.inspectionContext(s))return E.inspectionContext(s);

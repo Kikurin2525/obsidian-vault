@@ -9,9 +9,9 @@ import {PORTALS,INSPECTIONS,SETUP_TASKS} from './curriculum.mjs?v=051';
 export {PORTALS,INSPECTIONS,SETUP_TASKS};
 import {quoteRent,rentMarket,RENT_MODEL} from './rent-market.mjs?v=051';
 export {rentMarket,RENT_MODEL};
-import {GENRES,ITEMS,STAFF} from './data.mjs?v=051';
+import {GENRES,ITEMS,STAFF} from './data.mjs?v=053';
 export {GENRES,ITEMS,STAFF};
-export {INTERIOR_CHECKS} from './equipment-catalog.mjs?v=051';
+export {INTERIOR_CHECKS} from './equipment-catalog.mjs?v=053';
 export const VERSION=3, DAY=86400000, INITIAL_CAPITAL=2000000;
 export const money=n=>Math.round(n).toLocaleString('ja-JP')+'円';
 export const tsubo=area=>area*0.3025;
@@ -108,10 +108,18 @@ export function release(s){assertEditable(s);const n=copy(s);n.staffId=null;retu
 export function makeManual(s){assertEditable(s);if(s.completedWeeks<4||s.manual)throw Error('まだ作成できないか、作成済みです。');if(s.cash-1000<purchaseReserve(s,null))throw Error('運転資金を残しましょう。');const n=copy(s);n.cash-=1000;n.capex+=1000;n.cashInvested+=1000;n.manual=true;return n;}
 export function openStore(s){assertEditable(s);if(openingMissing(s).length)throw Error(openingMissing(s).join('・')+'を完了しましょう。');const n=copy(s);n.phase='manage';if(n.initialInvestment==null)n.initialInvestment=n.cashInvested;return n;}
 export function guestFor(s,week){const g=genreOf(s);const names={party:['菜月さんたち','沙織さんたち','悠斗さんたち'],photo:['美咲さんたち','彩乃さんたち','葵さんたち'],dance:['梨花さんのチーム','悠斗さんのチーム','結衣さんのレッスン'],meeting:['佐藤さんのチーム','田中さんたち','真由さんの勉強会']};return {name:names[g.id][(week-1)%3],purpose:g.audience,line:g.first,genreId:g.id};}
+const EVENT_COPY={
+ E01:{title:'鍵の場所のお問い合わせ',inner:'写真で案内すると、見つけやすくなりそう。'},
+ battery:{title:'リモコンが反応しないとき',inner:'まずは電池を確認してみよう。'},
+ smoke:{title:'室内のにおいについてのご相談',inner:'状況を確認して、気持ちよく使えるように整えよう。'}
+};
+// Resolve display copy by ID so saved calls and past reports also use current wording.
+// Keep choices, answers, costs and simulation results unchanged.
+export const guestEventCopy=event=>event&&EVENT_COPY[event.id]?{...event,...EVENT_COPY[event.id]}:event;
 function eventFor(s,week){
- if(week%4===2&&!s.owned.includes('guide'))return {id:'E01',title:'また電話かよ',question:'すみません、鍵の場所が分からなくて…',inner:'そのための1行目ぇ！',choices:[{id:'help',label:'写真を送り、入室まで確認する',bonus:4,cost:0},{id:'later',label:'案内をもう一度読んでもらう',bonus:-5,cost:0}]};
- if(week%4===3)return {id:'battery',title:'リモコン、沈黙',question:'エアコンのリモコンが反応しません。',inner:'押す指にも、だんだん力が入る。',choices:[{id:'spare',label:'予備電池の場所を案内する',requires:'battery',bonus:6,cost:0},{id:'rush',label:'交換を手配する（2,500円）',bonus:2,cost:2500}]};
- if(week%6===0)return {id:'smoke',title:'香りで上書きするな',question:'前の利用のあと、タバコの匂いが残っています。',inner:'禁煙の文字だけ、見えないのかな。',choices:[{id:'clean',label:'特別清掃と連絡（5,000円）',bonus:2,cost:5000},{id:'air',label:'換気して状況を説明する',bonus:-9,cost:0}]};
+ if(week%4===2&&!s.owned.includes('guide'))return {id:'E01',...EVENT_COPY.E01,question:'すみません、鍵の場所が分からなくて…',choices:[{id:'help',label:'写真を送り、入室まで確認する',bonus:4,cost:0},{id:'later',label:'案内をもう一度読んでもらう',bonus:-5,cost:0}]};
+ if(week%4===3)return {id:'battery',...EVENT_COPY.battery,question:'エアコンのリモコンが反応しません。',choices:[{id:'spare',label:'予備電池の場所を案内する',requires:'battery',bonus:6,cost:0},{id:'rush',label:'交換を手配する（2,500円）',bonus:2,cost:2500}]};
+ if(week%6===0)return {id:'smoke',...EVENT_COPY.smoke,question:'前の利用のあと、タバコの匂いが残っています。',choices:[{id:'clean',label:'特別清掃と連絡（5,000円）',bonus:2,cost:5000},{id:'air',label:'換気して状況を説明する',bonus:-9,cost:0}]};
  return null;
 }
 export function endTurn(s,now=Date.now()){assertEditable(s);if(s.phase!=='manage')throw Error('先に開業しましょう。');if(s.cash<cashFixed(s))throw Error('次週の固定費が不足しています。');const n=copy(s),week=s.completedWeeks+1;n.pending={week,closedDay:currentDay(s,now),snapshot:copy({...s,pending:null,reports:[],recap:null,listings:[]}),guest:guestFor(s,week),event:eventFor(s,week),answer:null};n.phase='waiting';return n;}

@@ -1,4 +1,4 @@
-import {GENRES,money} from './engine.mjs?v=051';
+import {GENRES,money} from './engine.mjs?v=053';
 const esc=t=>String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export const hasResume=s=>s.phase!=='welcome';
 export function saveSummary(s){

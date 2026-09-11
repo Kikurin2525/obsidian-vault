@@ -1,4 +1,4 @@
-import {BOOK_ITEMS} from './equipment-catalog.mjs?v=051';
+import {BOOK_ITEMS} from './equipment-catalog.mjs?v=053';
 export const GENRES=[
  {id:'party',name:'パーティー',concept:'木漏れ日のカフェパーティー',audience:'誕生日会・友人との集まり',line:'丸い家具と、あたたかな明かり。会話が弾むカフェのような一室。',needs:['sofa','table'],rates:[1400,1800,2200],rent:92000,area:25,work:130000,basic:80000,demand:25,visits:3,wear:24,utility:2500,story:0,first:'この部屋、かわいい！ 今日はここでゆっくりしよう。',returnLine:'次の誕生日も、ここにしようよ。',care:'飲食後のテーブル・床・ゴミまわりを確認',difficulty:'雰囲気 × 週末需要。清掃は多め'},
  {id:'photo',name:'撮影',concept:'白とピンクの推し活アトリエ',audience:'推し活撮影・商品撮影',line:'白いアーチとくすみピンク。撮りたい世界を、光と背景でつくる。',needs:['backdrop','softbox'],rates:[1800,2200,2600],rent:95000,area:26,work:160000,basic:80000,demand:19,visits:1,wear:17,utility:2300,story:1,first:'この背景で撮りたかった！ 光もやわらかいね。',returnLine:'次の撮影も、ここを予約しよう。',care:'背景の汚れ・小物の復元・ライトを点検',difficulty:'背景 × 光。予約の波が大きい'},
@@ -26,7 +26,7 @@ const LEGACY_ITEMS=[
  {id:'shelf',name:'バッグの置き場所',genre:['party','photo'],category:'care',price:6000,appeal:1,sprite:11,desc:'床にバッグを置かないための小さな心遣い。',quote:'荷物置き、助かる。考えてくれてるね。'},
  {id:'guide',name:'写真つき入室案内',genre:['all'],category:'care',price:1000,appeal:0,mark:'入室',desc:'鍵の場所と開け方を、最初の1枚に。',quote:'写真のとおりに来たら、迷わなかった！'},
  {id:'wifi',name:'Wi-FiのQR案内',genre:['all'],category:'care',price:500,appeal:0,mark:'Wi-Fi',desc:'開通済みの回線につながる手順を、見つけやすく。',quote:'Wi-Fi、読み込むだけなんだ。便利。'},
- {id:'restore',name:'片付けの見本写真',genre:['all'],category:'care',price:800,appeal:0,mark:'復元',desc:'家具と備品の戻し方を写真に。客にも清掃外注にも伝わります。',quote:'戻し方の写真がある。これなら安心。'},
+ {id:'restore',name:'片付けの見本写真',genre:['all'],category:'care',price:800,appeal:0,mark:'復元',desc:'家具と備品の戻し方を写真に。お客さんにも清掃の外注さんにも伝わります。',quote:'戻し方の写真がある。これなら安心。'},
  {id:'battery',name:'予備の電池と置き場案内',genre:['all'],category:'equipment',price:1000,appeal:0,mark:'予備',desc:'リモコンが動かないときに、お客さん自身で交換できる備え。',quote:'予備の電池まである！ 助かった。'},
  {id:'fridge',name:'ケーキの入る冷蔵庫',genre:['party','photo'],category:'equipment',price:22000,appeal:2,mark:'冷蔵',desc:'ケーキ箱をしまえる棚の高さ。誕生日会や生誕祭の持ち物から考えます。',quote:'ケーキが箱ごと入る。ここにしてよかった！'},
  {id:'adapter',name:'HDMI・USB-C変換セット',genre:['meeting'],category:'equipment',price:3000,appeal:1,mark:'接続',desc:'持ち込みPCの端子の違いをカバーします。',quote:'変換アダプタもあって、すぐ始められた。'}

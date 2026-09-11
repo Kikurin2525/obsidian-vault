@@ -1,11 +1,11 @@
 import {japanMap} from './japan-map.mjs?v=052';
-import {investmentSummary} from './finance-ui.mjs?v=051';
-import {nextResearchStep} from './research-guide.mjs?v=051';
+import {investmentSummary} from './finance-ui.mjs?v=053';
+import {nextResearchStep} from './research-guide.mjs?v=053';
 import {RENT_SOURCES} from './rent-market.mjs?v=051';
 import {learnLink,topicForTask} from './learning.mjs?v=051';
-import * as E from './engine.mjs?v=051';
+import * as E from './engine.mjs?v=053';
 import {PREFECTURES,INSPECTIONS,SETUP_TASKS,PORTALS} from './curriculum.mjs?v=051';
-import {roomArt,guestArt} from './room.mjs?v=051';
+import {roomArt,guestArt} from './room.mjs?v=053';
 const esc=t=>String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const yen=E.money,btn=(a,t,attrs='',cls='primary')=>`<button class="${cls}" data-action="${a}" ${attrs}>${t}</button>`;
 function rentSources(){return `<details class="rent-sources"><summary>家賃設定の参考資料</summary><p>小規模な事業用物件を想定したゲーム内推定。地下・1階・上階の差もゲーム上の補正です。実際の募集・成約相場とは異なります。参考資料は対象面積や共益費・税込条件が異なるため、そのまま全駅へ転用していません。</p>${RENT_SOURCES.map(x=>`<p><a href="${x.url}" target="_blank" rel="noopener noreferrer">${esc(x.label)} ↗</a></p>`).join('')}</details>`;}
