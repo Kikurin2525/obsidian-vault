@@ -1,3 +1,4 @@
+import {MAP_REGIONS,selectMapPrefecture} from './japan-map.mjs?v=052';
 import {createAnalytics,context as analyticsContext,analyticsNotice} from './analytics.mjs?v=051';
 import {layoutNotes} from './room-layout.mjs?v=051';
 import {productLinks,productDisclosure} from './product-links.mjs?v=051';
@@ -9,7 +10,7 @@ import {financePanel,estimateText} from './finance-ui.mjs?v=051';
 import {titleScreen} from './title-screen.mjs?v=051';
 import {nextResearchStep,completeGuidedStep} from './research-guide.mjs?v=051';
 import * as E from './engine.mjs?v=051';
-import * as J from './journey-ui.mjs?v=051';
+import * as J from './journey-ui.mjs?v=052';
 import * as L from './learning.mjs?v=051';
 import {roomArt,itemArt,guestArt,portrait,paintArt} from './room.mjs?v=051';
 const telemetry=typeof window==='undefined'?{render(){}}:createAnalytics(window,document);telemetry.init?.();
@@ -110,8 +111,11 @@ case 'launch-continue':telemetry.play(state,true);titleVisible=false;if(state.ph
 case 'start':case 'genres':if(commit(s=>({...s,phase:'genre'}))){telemetry.play(state);titleVisible=false;render();window.scrollTo(0,0);}break;
 case 'genre':areaFilter.page=0;if(commit(s=>E.chooseGenre(s,id)))window.scrollTo(0,0);break;
 case 'reload-geography':loadGeography();break;
-case 'filter-stations':areaFilter={pref:$('#prefecture').value,query:$('#station-query').value.trim(),minimum:$('#station-minimum').value,page:0};render();break;
-case 'station-page':areaFilter.page=Number(id);render();window.scrollTo(0,0);break;
+case 'map-pref':{const next=selectMapPrefecture(areaFilter,id);if(next!==areaFilter){areaFilter=next;render();}break;}
+case 'map-region':if(id==='all'||MAP_REGIONS.some(r=>r.id===id)){areaFilter={...areaFilter,mapZoom:id,mapRegion:id==='all'?undefined:id};render();}break;
+case 'map-stations':$('#station-browser')?.focus();$('#station-browser')?.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});break;
+case 'filter-stations':areaFilter={...areaFilter,pref:$('#prefecture').value,query:$('#station-query').value.trim(),minimum:$('#station-minimum').value,page:0};render();break;
+case 'station-page':areaFilter.page=Number(id);render();$('#station-browser')?.focus();$('#station-browser')?.scrollIntoView({block:'start'});break;
 case 'areas':commit(s=>({...s,phase:'area',research:null}));window.scrollTo(0,0);break;
 case 'station':if(commit(s=>E.chooseArea(s,geo.stations.find(x=>x.id===id))))window.scrollTo(0,0);break;
 case 'research':{const name=$('#store-name')?.value||state.name;researchTab='inspection';if(commit(s=>({...E.startResearch(s,id),name})))window.scrollTo(0,0);break;}
@@ -168,7 +172,7 @@ case 'close':closeModal();break;
 case 'reset-check':modal(`<h2>新しい経営を、最初から？</h2><p>現在の部屋・お金・達成アルバムをリセットし、新しい物件候補で用途選びから始めます。</p>${btn('reset','リセットして用途を選ぶ')}${btn('close','今の部屋を続ける','','secondary')}`);break;
 case 'reset':if(commit(s=>({...E.initialState(),phase:'genre',revision:s.revision}))){titleVisible=false;tab='opening';category='all';recapStep=0;financeMonth=null;recapWeek=null;closeModal();render();window.scrollTo(0,0);}break;
 }});
-document.addEventListener('change',e=>{if(e.target.id==='prefecture'){areaFilter.pref=e.target.value;areaFilter.page=0;areaFilter.query='';render();}});
+document.addEventListener('change',e=>{if(e.target.id==='prefecture'){areaFilter={...selectMapPrefecture(areaFilter,e.target.value),mapZoom:'all'};render();}});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();if(e.key==='Tab'&&$('.modal')){const b=[...$('.modal').querySelectorAll('button:not(:disabled),input,a')],first=b[0],last=b.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last?.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first?.focus();}}});
 window.addEventListener('storage',e=>{if(e.key===KEY&&e.newValue){try{const n=JSON.parse(e.newValue);if(E.validateState(n)){state=n;closeModal();render();}}catch{}}});
 render();
