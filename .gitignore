@@ -46,3 +46,7 @@
 !rental-space/**
 !ebay/
 !ebay/**
+
+# Public rental-space learning game
+!game/
+!game/**

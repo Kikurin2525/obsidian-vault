@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
 Sitemap: https://rental-space.net/sitemap.xml
+Sitemap: https://rental-space.net/game/sitemap.xml
