@@ -419,6 +419,19 @@
         i.src = u;
     } catch (e) { }
 })();
+// 配布ファイル(xlsx・pdf)を押したときも1回だけ数える。パスの頭に /dl を付けてページ表示と分ける。
+document.addEventListener('click', function (ev) {
+    try {
+        var a = ev.target.closest && ev.target.closest('a[href]');
+        if (!a) return;
+        var f = new URL(a.getAttribute('href'), location.href);
+        if (f.host !== location.host || !/\.(xlsx|pdf)$/i.test(f.pathname)) return;
+        var u = 'https://sekou-form.kikurin.workers.dev/hit?p=' + encodeURIComponent('/dl' + f.pathname) +
+                '&r=' + encodeURIComponent(location.href) + '&c=' + Date.now();
+        if (navigator.sendBeacon) { navigator.sendBeacon(u); }
+        else { var i = new Image(1, 1); i.referrerPolicy = 'no-referrer'; i.src = u; }
+    } catch (e) { }
+});
 </script>
 <!-- ai-lab-hit end -->
 </body>
