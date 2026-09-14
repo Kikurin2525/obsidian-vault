@@ -50,3 +50,7 @@
 # Public rental-space learning game
 !game/
 !game/**
+
+# Public Cham eBay news web app
+!cham/
+!cham/**

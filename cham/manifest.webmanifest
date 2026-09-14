@@ -1,0 +1,25 @@
+{
+  "id": "/cham/",
+  "name": "チャムのeBayニュース＆実践ノート",
+  "short_name": "チャムのeBay",
+  "start_url": "/cham/",
+  "scope": "/cham/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1254ff",
+  "lang": "ja",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
