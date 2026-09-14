@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Show articles for current page
         const startIndex = (page - 1) * articlesPerPage;
         const endIndex = startIndex + articlesPerPage;
-        articles.slice(startIndex, endIndex).forEach(article => article.style.display = 'block');
+        articles.slice(startIndex, endIndex).forEach(article => article.style.removeProperty('display'));
 
         // Update pagination buttons
         updatePaginationButtons(totalPages);
