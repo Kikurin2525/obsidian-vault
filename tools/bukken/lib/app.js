@@ -26,7 +26,7 @@
   function gateOk() { return ls.get(GATE_KEY, false) === true; }
   function checkGate() {
     const v = ($('gate-input').value || '').trim().toLowerCase();
-    if (v === GATE_WORD) { ls.set(GATE_KEY, true); showApp(); }
+    if (v === GATE_WORD) { ls.set(GATE_KEY, true); showApp(); routeHash(); }
     else { $('gate-error').style.display = 'block'; }
   }
   function showApp() { $('gate').style.display = 'none'; $('app').style.display = 'block'; }
@@ -45,17 +45,43 @@
     for (const [name, cands] of Object.entries(d.stations)) { (statsIndex[name] = statsIndex[name] || []).push(...cands); }
     loadedPrefs.add(code);
   }
-  // 物件の駅名・住所から必要な都道府県データを読む
-  async function ensureData(prop) {
+  // 物件の駅名・住所から必要な都道府県データを読む(一括リサーチでは複数物件ぶんをまとめて)
+  async function ensureDataMany(props) {
     const idx = await loadIndex();
+    await loadRecommended();
     const codes = new Set();
-    const addr = String(prop.address || '');
-    const pi = PREFS.findIndex((p) => addr.startsWith(p));
-    if (pi >= 0) codes.add(String(pi + 1).padStart(2, '0'));
-    for (const s of prop.stations || []) { for (const c of idx.index[s.station] || idx.index[String(s.station).replace(/駅$/, '')] || []) codes.add(c); }
+    for (const prop of props) {
+      const addr = String(prop.address || '');
+      const pi = PREFS.findIndex((p) => addr.startsWith(p));
+      if (pi >= 0) codes.add(String(pi + 1).padStart(2, '0'));
+      for (const s of prop.stations || []) { for (const c of idx.index[s.station] || idx.index[String(s.station).replace(/駅$/, '')] || []) codes.add(c); }
+    }
     await Promise.all([...codes].map(loadPref));
     Score.setData({ statsIndex, stationData: recommendedAsStationData() });
   }
+  function ensureData(prop) { return ensureDataMany([prop]); }
+
+  // ===== 画面の切り替え(1件判定 / 一括リサーチ)と、一括リサーチ(bulk.js)への窓口 =====
+  const MODE_KEY = 'bukken-mode';
+  function showMode(m) {
+    if (!$('bulk-sec')) m = 'single';
+    document.querySelectorAll('.mode').forEach((b) => b.classList.toggle('on', b.dataset.mode === m));
+    $('single-sec').hidden = m !== 'single';
+    if ($('bulk-sec')) $('bulk-sec').hidden = m !== 'bulk';
+    ls.set(MODE_KEY, m);
+    if (m === 'bulk' && window.Bulk) window.Bulk.show();
+  }
+  window.showMode = showMode;
+  async function routeHash() {
+    if (/^#bulk(detail)?=/.test(location.hash) && window.Bulk) return window.Bulk.fromHash();
+    return judgeFromHash();
+  }
+  window.BukkenApp = {
+    ensureDataMany,
+    currentSim: () => simParamsForApi(loadSimParams()),
+    showMode,
+    openSingle: async (prop) => { showMode('single'); clearMsgs(); await runJudge(prop, {}); $('result').scrollIntoView({ behavior: 'smooth' }); },
+  };
   // おすすめ駅(+2)はユーザーが自分で管理(初期値=data/recommended.json)
   let recommended = null;
   async function loadRecommended() {
@@ -296,6 +322,9 @@
 
   // ===== 起動 =====
   document.addEventListener('DOMContentLoaded', async () => {
+    // ブックマークレットの送り先 __HERE__ = 開いているこのページのURL(社内版はlocalhostでもトンネルでも動くように)
+    const here = location.origin + location.pathname;
+    document.querySelectorAll('a.bookmarklet').forEach((a) => { const h = a.getAttribute('href') || ''; if (h.includes('__HERE__')) a.setAttribute('href', h.split('__HERE__').join(here)); });
     $('gate-btn').addEventListener('click', checkGate);
     $('gate-input').addEventListener('keydown', (e) => { if (e.key === 'Enter') checkGate(); });
     if (gateOk()) showApp();
@@ -307,7 +336,10 @@
     $('sim-auto').addEventListener('change', onSimChange);
     const sel = $('m-pref'); PREFS.forEach((p) => { const o = document.createElement('option'); o.value = p; o.textContent = p; sel.appendChild(o); });
     renderHistory(); renderRecommended();
-    if (gateOk()) await judgeFromHash();
-    else if (location.hash.startsWith('#cap=')) { $('notice').textContent = '合言葉を入力すると、ブックマークレットで取り込んだ物件を判定します'; $('notice').style.display = 'block'; const h = location.hash; $('gate-btn').addEventListener('click', () => { if (gateOk()) { location.hash = h; judgeFromHash(); } }, { once: true }); }
+    showMode(/^#bulk/.test(location.hash) ? 'bulk' : /^#cap=/.test(location.hash) ? 'single' : ls.get(MODE_KEY, 'single'));
+    // ブックマークレットから来たデータ(#cap= / #bulk= / #bulkdetail=)は、合言葉が済んでいれば今、まだなら合言葉の直後(checkGate)に開く
+    if (gateOk()) await routeHash();
+    else if (/^#(cap|bulk|bulkdetail)=/.test(location.hash)) { $('gate').querySelector('p').textContent = '合言葉を入力すると、ブックマークレットで取り込んだデータを開きます(合言葉はこのブラウザに記憶されます)'; }
+    window.addEventListener('hashchange', () => { if (gateOk()) routeHash(); });
   });
 })();
