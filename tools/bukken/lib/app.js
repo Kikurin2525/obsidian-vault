@@ -67,19 +67,22 @@
     if (!$('bulk-sec')) m = 'single';
     document.querySelectorAll('.mode').forEach((b) => b.classList.toggle('on', b.dataset.mode === m));
     $('single-sec').hidden = m !== 'single';
-    if ($('bulk-sec')) $('bulk-sec').hidden = m !== 'bulk';
+    for (const k of ['bulk', 'plan', 'guide']) if ($(k + '-sec')) $(k + '-sec').hidden = m !== k;
     ls.set(MODE_KEY, m);
     if (m === 'bulk' && window.Bulk) window.Bulk.show();
+    if (m === 'plan' && window.Plan) window.Plan.show();
+    if (m === 'guide' && window.Guide) window.Guide.show();
   }
   window.showMode = showMode;
   async function routeHash() {
-    if (/^#bulk(detail)?=/.test(location.hash) && window.Bulk) return window.Bulk.fromHash();
+    if (/^#(bulk|bulkdetail|bkinqdone)=/.test(location.hash) && window.Bulk) return window.Bulk.fromHash();
     return judgeFromHash();
   }
   window.BukkenApp = {
     ensureDataMany,
     currentSim: () => simParamsForApi(loadSimParams()),
     showMode,
+    recommended: loadRecommended,
     openSingle: async (prop) => { showMode('single'); clearMsgs(); await runJudge(prop, {}); $('result').scrollIntoView({ behavior: 'smooth' }); },
   };
   // おすすめ駅(+2)はユーザーが自分で管理(初期値=data/recommended.json)
@@ -306,7 +309,7 @@
   // ===== おすすめ駅の編集 =====
   async function renderRecommended() {
     await loadRecommended();
-    $('rec-text').value = (recommended || []).join('、');
+    if ($('rec-text')) $('rec-text').value = (recommended || []).join('、');
   }
   window.saveRecommendedFromForm = () => {
     const list = [...new Set($('rec-text').value.split(/[、,\s\n]+/).map((s) => s.trim().replace(/駅$/, '')).filter(Boolean))];
@@ -325,8 +328,8 @@
     // ブックマークレットの送り先 __HERE__ = 開いているこのページのURL(社内版はlocalhostでもトンネルでも動くように)
     const here = location.origin + location.pathname;
     document.querySelectorAll('a.bookmarklet').forEach((a) => { const h = a.getAttribute('href') || ''; if (h.includes('__HERE__')) a.setAttribute('href', h.split('__HERE__').join(here)); });
-    $('gate-btn').addEventListener('click', checkGate);
-    $('gate-input').addEventListener('keydown', (e) => { if (e.key === 'Enter') checkGate(); });
+    $('gate-form').addEventListener('submit', (e) => { e.preventDefault(); checkGate(); });
+    $('gate-btn').addEventListener('click', (e) => { e.preventDefault(); checkGate(); });
     if (gateOk()) showApp();
     $('btn').addEventListener('click', judgeUrl);
     $('url').addEventListener('keydown', (e) => { if (e.key === 'Enter') judgeUrl(); });
@@ -336,10 +339,11 @@
     $('sim-auto').addEventListener('change', onSimChange);
     const sel = $('m-pref'); PREFS.forEach((p) => { const o = document.createElement('option'); o.value = p; o.textContent = p; sel.appendChild(o); });
     renderHistory(); renderRecommended();
-    showMode(/^#bulk/.test(location.hash) ? 'bulk' : /^#cap=/.test(location.hash) ? 'single' : ls.get(MODE_KEY, 'single'));
+    showMode(/^#(bulk|bkinqdone)/.test(location.hash) ? 'bulk' : /^#cap=/.test(location.hash) ? 'single' : ls.get(MODE_KEY, $('guide-sec') ? 'guide' : 'single'));
+    if (!$('bulk-sec')) { document.querySelectorAll('.mode').forEach((b) => b.classList.toggle('on', b.dataset.mode === 'single')); }
     // ブックマークレットから来たデータ(#cap= / #bulk= / #bulkdetail=)は、合言葉が済んでいれば今、まだなら合言葉の直後(checkGate)に開く
     if (gateOk()) await routeHash();
-    else if (/^#(cap|bulk|bulkdetail)=/.test(location.hash)) { $('gate').querySelector('p').textContent = '合言葉を入力すると、ブックマークレットで取り込んだデータを開きます(合言葉はこのブラウザに記憶されます)'; }
+    else if (/^#(cap|bulk|bulkdetail|bkinqdone)=/.test(location.hash)) { $('gate').querySelector('p').textContent = '合言葉を入力すると、ブックマークレットで取り込んだデータを開きます(合言葉はこのブラウザに記憶されます)'; }
     window.addEventListener('hashchange', () => { if (gateOk()) routeHash(); });
   });
 })();

@@ -44,10 +44,12 @@
     open() {
       if (this.db) return Promise.resolve(this.db);
       return new Promise((ok, ng) => {
+        const t = setTimeout(() => ng(new Error('ブラウザの保存領域(IndexedDB)が応答しません。ページを開き直すか、別のタブを閉じてください')), 4000);
         const rq = indexedDB.open('bukken-bulk', 1);
+        rq.onblocked = () => { clearTimeout(t); ng(new Error('保存領域が他のタブで使用中です。ほかのタブを閉じてから開き直してください')); };
         rq.onupgradeneeded = () => rq.result.createObjectStore('kv');
-        rq.onsuccess = () => { this.db = rq.result; ok(this.db); };
-        rq.onerror = () => ng(rq.error);
+        rq.onsuccess = () => { clearTimeout(t); this.db = rq.result; ok(this.db); };
+        rq.onerror = () => { clearTimeout(t); ng(rq.error); };
       });
     },
     async get(k) {
@@ -256,6 +258,13 @@
   function flagsOf(r, p, det) {
     const f = [];
     if (p.canDance) f.push(['good', 'athome上でスタジオ出店可']);
+    const cond = view && view.run ? (view.run.conds || []).find((c) => c.key === p.cond) : null;
+    if (cond && Array.isArray(cond.stations) && cond.stations.length) {
+      const nm = (x) => nfkc(String(x)).replace(/駅$/, '').replace(/ヶ/g, 'ケ').replace(/\s/g, '');
+      const want = new Set(cond.stations.map(nm));
+      const near = (p.stations || []).find((s) => want.has(nm(s.station)));
+      f.push(near ? ['good', 'おすすめ駅: ' + near.station] : ['info', '選んだおすすめ駅の近くではない']);
+    }
     if (/居抜き/.test(p.genkyo || '')) f.push(['good', '居抜き']);
     const x = detailOf(r, det);
     if (x && x.ended) f.push(['bad', '詳細ページなし(掲載終了の可能性) ' + fmtMD(x.at)]);
@@ -307,11 +316,12 @@
     return JSON.parse(new TextDecoder().decode(bytes));
   }
   async function fromHash() {
-    const m = location.hash.match(/^#(bulk|bulkdetail)=([A-Za-z0-9_-]+)/);
+    const m = location.hash.match(/^#(bulk|bulkdetail|bkinqdone)=([A-Za-z0-9_-]+)/);
     if (!m) return false;
     history.replaceState(null, '', location.pathname + location.search);
     App().showMode('bulk');
     try {
+      if (m[1] === 'bkinqdone') { await markInquired(decodeURIComponent(atob(m[2].replace(/-/g, '+').replace(/_/g, '/'))).split(',')); return true; }
       const data = await decode(m[2]);
       if (m[1] === 'bulk') await importRun(data); else await importDetail(data);
     } catch (e) { msg('ブックマークレットのデータを読めませんでした: ' + e.message + '(athomeのタブに残っている「判定ツールで開く」をもう一度押してください)', true); }
@@ -337,12 +347,12 @@
     const rooms = groupRooms(props);
     assignUids(rooms, runs);
     touchStatus(rooms);
-    runs.push({ id, at: data.at, source: data.source || '', partial: !!data.partial, conds, fetched: data.items.length, skipped, rooms });
+    runs.push({ id, at: data.at, source: data.source || '', plan: data.plan || '', desc: data.desc || '', partial: !!data.partial, conds, fetched: data.items.length, skipped, rooms });
     await saveRuns(runs);
     ui.run = id; ui.tab = 'rank'; saveUi();
     if (quiet) return;
     await render();
-    msg('取り込みました: 保存条件' + conds.length + '本・' + data.items.length + '件 → ' + rooms.length + '室(同じ部屋を複数の不動産会社が載せている分をまとめました)'
+    msg('取り込みました: ' + (data.source === 'plan' ? '条件' : '保存条件') + conds.length + '本・' + data.items.length + '件 → ' + rooms.length + '室(同じ部屋を複数の不動産会社が載せている分をまとめました)'
       + (skipped ? '。賃料か面積が読めない' + skipped + '件は外しました' : '') + (data.partial ? '。※athomeの制限で途中までの取得です' : ''));
   }
   async function importDetail(data) {
@@ -420,6 +430,7 @@
   // ===== 表示 =====
   let view = null;
   let seq = 0;
+  const inqSel = new Set(); // まとめて問い合わせに選んだ部屋(uid)
   function findRoomIn(runs, fn) {
     for (const run of runs.slice().sort((a, b) => b.at - a.at)) { const r = run.rooms.find(fn); if (r) return r; }
     return null;
@@ -451,7 +462,8 @@
 
   async function render() {
     const my = ++seq;
-    const runs = await loadRuns();
+    let runs;
+    try { runs = await loadRuns(); } catch (e) { $('bulk-empty').hidden = false; $('bulk-main').hidden = true; msg('取り込んだ結果を読めませんでした: ' + e.message, true); return; }
     if (my !== seq) return;
     $('bulk-empty').hidden = runs.length > 0;
     $('bulk-main').hidden = runs.length === 0;
@@ -486,9 +498,21 @@
     $('bulk-runbar').innerHTML = '<label class="runsel">表示する回 <select data-act="run">' + opts + '</select></label>'
       + '<div class="sum"><span class="pill p-go">◎ ' + cnt.go + '</span><span class="pill p-maybe">○ ' + cnt.maybe + '</span><span class="pill p-cond">△ ' + cnt.cond + '</span><span class="pill p-ng">✕ ' + cnt.ng + '</span>'
       + (prev ? '<span class="tag t-new">新着 ' + df.added.length + '</span><span class="tag t-chg">変更 ' + df.changed.length + '</span><span class="tag t-gone">消えた ' + df.gone.length + '</span>' : '') + '</div>'
-      + '<div class="muted">保存条件' + run.conds.length + '本・' + run.fetched + '件を取得 → ' + run.rooms.length + '室(同じ部屋を複数の不動産会社が載せている分をまとめた数)。' + (prev ? '前回 = ' + fmtDate(prev.at) + ' 取得' : '前回の回はまだありません')
+      + '<details class="acc" style="margin:8px 0 6px"><summary>何で検索したか(' + (run.source === 'plan' ? '条件づくり「' + esc(run.plan || '') + '」' : run.source === 'seed' ? '過去データ' : 'athomeの保存条件') + '・' + run.conds.length + '検索)</summary><div class="acc-body">' + (run.desc ? '<div><b>希望</b>: ' + esc(run.desc) + '</div>' : '') + '<div><b>検索</b>: ' + run.conds.map((c) => esc(String(c.label)) + '(' + c.got + '件' + (c.stations && c.stations.length ? '・駅' + c.stations.length : '') + ')').join(' / ') + '</div></div></details>'
+      + '<div class="muted">' + run.fetched + '件を取得 → ' + run.rooms.length + '室(同じ部屋を複数の不動産会社が載せている分をまとめた数)。' + (prev ? '前回 = ' + fmtDate(prev.at) + ' 取得' : '前回の回はまだありません')
       + (run.partial ? '。<b style="color:var(--bad)">athomeの制限で途中までの取得です</b>' : '')
       + (notFull.length ? '。取りきれなかった条件: ' + notFull.map((c) => esc(String(c.label).slice(0, 24)) + '(' + c.got + '/' + c.count + '件)').join('、') : '') + '</div>';
+    renderNext(cnt);
+  }
+  // いいのが無かったとき・次を探したいときの導線(条件づくりへ戻る)
+  function renderNext(cnt) {
+    const el = $('bulk-next'); if (!el) return;
+    const few = (cnt.go + cnt.maybe) === 0;
+    el.className = 'bulk-next' + (few ? ' hot' : '');
+    el.innerHTML = '<div class="t"><b>' + (few ? '◎○が0件でした。条件を広げて、もう一度探しましょう' : '次を探すとき・条件を変えたいとき') + '</b>'
+      + '「条件づくり」に戻って直し、もう一度「athomeで物件を抽出する」を押すだけです。前回との差(新着・消えた)は自動で出ます。<ul>'
+      + '<li>駅の乗降客数を 4万 → 3万 に下げる(候補駅が増える)</li><li>県を足す・駅の性格に「商業・繁華街」を足す</li><li>坪単価の上限を 1.4万 → 1.6万 に、広さを 30㎡ → 25㎡ に</li></ul></div>'
+      + '<button type="button" class="go" onclick="showMode(\'plan\')">条件づくりへ戻る →</button>';
   }
   function renderTabs() {
     const st = loadStatus();
@@ -520,8 +544,9 @@
     const rent = (p.rentYen || 0) + (p.mgmtYen || 0);
     const tt = p.tsuboTankaYen || (p.tsubo ? Math.round(rent / p.tsubo) : null);
     return '<tr data-uid="' + esc(r.uid) + '">'
+      + '<td><input type="checkbox" data-act="inq"' + (inqSel.has(r.uid) ? ' checked' : '') + (p.seo && p.seo !== 'rent_store' ? ' disabled title="貸店舗以外はまとめて問い合わせ未対応"' : '') + '></td>'
       + '<td class="rk">' + rank + '</td>'
-      + '<td class="vd"><span class="pill ' + PILL[vc] + '">' + MARK[vc] + ' ' + (d ? d.total : '?') + '</span>' + (tag ? '<span class="tag t-' + tag + '">' + TAGL[tag] + '</span>' : '')
+      + '<td class="vd"><button type="button" class="pill pillbtn ' + PILL[vc] + '" data-act="open" title="採点の根拠を見る">' + MARK[vc] + ' ' + (d ? d.total : '?') + '</button>' + (tag ? '<span class="tag t-' + tag + '">' + TAGL[tag] + '</span>' : '')
       + (d && d.ng.length ? '<div class="ngr">' + esc(d.ng[0].slice(0, 42)) + (d.ng.length > 1 ? ' ほか' + (d.ng.length - 1) + '件' : '') + '</div>' : '') + '</td>'
       + '<td class="pp"><div class="p1">' + (stn ? esc(stn.station) + ' 徒歩' + stn.walk + '分' : '駅不明') + '<span class="muted"> ・ ' + esc(addrNoPref(p.address)) + '</span></div>'
       + '<div class="p2 muted">' + esc(String(p.title || '').slice(0, 48)) + ' ・ ' + esc(floorShort(p.floors) || '階不明') + ' ・ ' + esc(p.structure || '構造不明') + (p.kaiin ? ' ・ ' + esc(p.kaiin) : '') + (r.ids.length > 1 ? ' ・ ' + r.ids.length + '社が掲載' : '') + '</div>'
@@ -529,11 +554,11 @@
       + (ch ? '<div class="chg">' + esc(ch.ch.join(' / ')) + '</div>' : '') + '</td>'
       + '<td class="money"><b>' + man(rent) + '</b><div class="muted">' + (p.areaSqm != null ? p.areaSqm + '㎡' : '') + (tt ? ' ・ 坪' + tt.toLocaleString() + '円' : '') + '</div></td>'
       + '<td class="stc">' + statusSelect(s) + memoHtml(s) + '</td>'
-      + '<td class="acts"><a href="' + esc(p.url) + '" target="_blank" rel="noopener">athome↗</a><button type="button" class="linkbtn" data-act="open">詳しく</button></td>'
+      + '<td class="acts"><a href="' + esc(p.url) + '" target="_blank" rel="noopener">athome↗</a><button type="button" class="linkbtn" data-act="open">採点の根拠</button></td>'
       + '</tr>';
   }
   function tableHtml(rows, st) {
-    return '<div class="tbl-wrap"><table class="list bulk"><tr><th>#</th><th>判定</th><th>物件</th><th>家賃(管理費込)・広さ</th><th>対応状況</th><th></th></tr>'
+    return '<div class="tbl-wrap"><table class="list bulk"><tr><th title="まとめて問い合わせに入れる">問</th><th>#</th><th>判定</th><th>物件</th><th>家賃(管理費込)・広さ</th><th>対応状況</th><th></th></tr>'
       + rows.map(([r, d], i) => rowHtml(r, d, i + 1, st)).join('') + '</table></div>';
   }
   function renderRank() {
@@ -546,7 +571,7 @@
       + '<label class="chk"><input type="checkbox" data-act="onlyNew"' + (ui.onlyNew ? ' checked' : '') + '>新着・変更だけ</label>'
       + '<label class="chk"><input type="checkbox" data-act="hideDone"' + (ui.hideDone ? ' checked' : '') + '>対応中・対応済みを隠す</label>'
       + '<input type="search" data-act="q" placeholder="駅名・地名・物件名・仲介" value="' + esc(ui.q) + '">'
-      + '</div><div id="bulk-table"></div>';
+      + '</div><div class="inqbar" id="bulk-inqbar"></div><div id="bulk-table"></div>';
     renderRankTable();
   }
   function renderRankTable() {
@@ -562,6 +587,52 @@
       return true;
     });
     $('bulk-table').innerHTML = rows.length ? tableHtml(rows, st) : '<div class="card empty">条件に合う物件がありません。上の ◎○△✕ ボタンで表示する判定を切り替えられます</div>';
+    renderInqBar(rows, st);
+  }
+  // ===== まとめて問い合わせ(athomeの「チェックした物件をまとめてメール問い合わせ」を使う。送信とSMS認証は本人) =====
+  const INQ_MAX = 10;
+  function renderInqBar(rows, st) {
+    const bar = $('bulk-inqbar');
+    if (!bar) return;
+    const n = inqSel.size;
+    bar.innerHTML = '<span class="muted" style="font-size:13px;color:var(--ink-2)">まとめて問い合わせ: <b>' + n + '件</b> 選択中(1回に' + INQ_MAX + '件まで)</span>'
+      + '<button type="button" class="small" data-act="inqsel">表示中の◎○で未対応を選ぶ</button><button type="button" class="small" data-act="inqclear">選択を外す</button>'
+      + '<button type="button" class="go pl-go" data-act="inqgo"' + (n ? '' : ' disabled') + '>athomeでまとめて問い合わせ →</button>';
+  }
+  function b64url(str) {
+    const bytes = new TextEncoder().encode(str);
+    let b = ''; for (let i = 0; i < bytes.length; i += 32768) b += String.fromCharCode.apply(null, bytes.subarray(i, i + 32768));
+    return btoa(b).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  }
+  function inquireSelected() {
+    if (!window.Guide) { msg('使い方タブの「問い合わせに使う情報」が読めません', true); return; }
+    const pr = window.Guide.profile();
+    if (!pr.name || !pr.email || !pr.tel) { App().showMode('guide'); if (window.Guide && window.Guide.focusProfile) window.Guide.focusProfile('問い合わせを送る前に、氏名・メール・電話を登録してください(選んだ物件はそのまま残っています)'); return; }
+    const rooms = [...inqSel].map(findRoom).filter(Boolean);
+    if (!rooms.length) { msg('問い合わせる物件が選ばれていません(表の左端のチェック)', true); return; }
+    if (rooms.length > INQ_MAX) { msg('1回に送れるのは' + INQ_MAX + '件までです。選択を減らしてください(残りは次の回で)', true); return; }
+    const items = rooms.map((r) => { const p = r.prop; const stn = nearest(p); return { id: String(p.id), uid: r.uid, seo: p.seo || 'rent_store', title: String(p.title || '').slice(0, 40), station: stn ? stn.station : '' }; });
+    const skipped = items.filter((it) => it.seo !== 'rent_store');
+    const ok = items.filter((it) => it.seo === 'rent_store');
+    if (!ok.length) { msg('貸店舗以外はまとめて問い合わせに対応していません', true); return; }
+    const c0 = (view.run.conds || []).find((c) => c.roman) || {};
+    const payload = { v: 1, at: Date.now(), items: ok, profile: { company: pr.company || '', name: pr.name, kana: pr.kana || '', email: pr.email, tel: pr.tel }, msg: window.Guide.fillMsg(pr), industry: 'レンタルスタジオ(ダンス・ヨガの練習用)' };
+    const url = ATHOME + '/rent_store/' + (c0.roman || 'saitama') + '/list/#bkinq=' + b64url(JSON.stringify(payload));
+    window.open(url, '_blank', 'noopener');
+    msg('athomeを開きました。' + (document.documentElement.dataset.bkExt === '1' ? '拡張が問い合わせ入力画面を開いて入力まで済ませます。' : 'そのタブでブックマーク「一括リサーチ」を押すと問い合わせ入力画面が開き、入力まで済みます。') + '内容を確認して「内容確認へ進む」→「送信」→SMSの認証番号を入力してください(' + ok.length + '件' + (skipped.length ? '・貸店舗以外' + skipped.length + '件は外しました' : '') + ')。完了画面の「判定ツールに記録」で対応状況が「問い合わせ済」になります');
+  }
+  async function markInquired(ids) {
+    const runs = await loadRuns();
+    const want = new Set(ids.map(String));
+    const hit = new Set();
+    for (const run of runs) for (const r of run.rooms) if (r.ids.some((x) => want.has(String(x))) || want.has(String(r.prop.id))) hit.add(r.uid);
+    const st = loadStatus();
+    let n = 0;
+    for (const uid of hit) { const cur = st[uid] || {}; if (!cur.st || cur.st === 'todo') { st[uid] = Object.assign({}, cur, { st: 'asked', at: Date.now() }); n++; } inqSel.delete(uid); }
+    saveStatus(st);
+    ui.tab = 'status'; saveUi();
+    await render();
+    msg('問い合わせ済にしました: ' + n + '件(すでに対応中だった分は変えていません)');
   }
   function goneTable(rooms, prevRes, st) {
     return '<div class="tbl-wrap"><table class="list bulk"><tr><th>前回の判定</th><th>物件</th><th>家賃(管理費込)・広さ</th><th>対応状況</th><th></th></tr>'
@@ -736,12 +807,23 @@
     else if (act === 'csv') { download('物件判定_一括_' + fmtDay(view.run.at) + '.csv', toCsv(), 'text/csv'); }
     else if (act === 'backup') backup();
     else if (act === 'delrun') deleteRun();
+    else if (act === 'inqgo') inquireSelected();
+    else if (act === 'inqclear') { inqSel.clear(); renderRankTable(); }
+    else if (act === 'inqsel') {
+      const st = loadStatus();
+      inqSel.clear();
+      document.querySelectorAll('#bulk-table tr[data-uid]').forEach((tr) => { const r = findRoom(tr.dataset.uid); const d = r ? view.res.get(r.uid) : null; if (r && d && (d.verdictClass === 'go' || d.verdictClass === 'maybe') && (!st[r.uid] || st[r.uid].st === 'todo') && (r.prop.seo || 'rent_store') === 'rent_store' && inqSel.size < INQ_MAX) inqSel.add(r.uid); });
+      renderRankTable();
+      if (!inqSel.size) msg('表示中の◎○に「未対応」の物件がありません(対応済みは除きます)。左端のチェックで手で選ぶか、上の◎○△✕や「対応中・対応済みを隠す」を見直してください', true);
+      else msg(inqSel.size + '件を選びました。「athomeでまとめて問い合わせ →」で進みます');
+    }
   }
   function onChange(e) {
     const el = e.target;
     if (el.id === 'bulk-file') { if (el.files[0]) readFile(el.files[0]); el.value = ''; return; }
     const act = el.dataset.act;
-    if (act === 'st') { setStatus(uidOf(el), { st: el.value }); el.className = 'stsel st-' + el.value; renderTabs(); if (ui.hideDone && ui.tab === 'rank') renderRankTable(); }
+    if (act === 'inq') { const uid = uidOf(el); if (el.checked) inqSel.add(uid); else inqSel.delete(uid); renderInqBar(); return; }
+    if (act === 'st') { setStatus(uidOf(el), { st: el.value }); el.className = 'stsel st-' + el.value; msg('対応状況を「' + (STATUS_LABEL[el.value] || el.value) + '」で保存しました'); renderTabs(); if (ui.hideDone && ui.tab === 'rank') renderRankTable(); }
     else if (act === 'cond') { ui.cond = el.value; saveUi(); renderRankTable(); }
     else if (act === 'onlyNew' || act === 'hideDone') { ui[act] = el.checked; saveUi(); renderRankTable(); }
     else if (act === 'run') { ui.run = el.value; saveUi(); render(); }
