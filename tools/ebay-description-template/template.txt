@@ -1,0 +1,36 @@
+<div style="max-width:800px;margin:0 auto;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#222;">
+
+<h2 style="font-size:18px;margin:18px 0 8px;padding:6px 10px;background:#eff3fe;border-left:4px solid #3665f3;">Condition</h2>
+<p style="margin:0 0 8px;"><b>Rank: [B]</b> &mdash; [Light scratches on the top. Works fine.]</p>
+<p style="margin:0 0 8px;">Please check all photos carefully. The photos show the actual item.</p>
+<table style="width:100%;border-collapse:collapse;font-size:14px;margin:0 0 8px;">
+<tr><td style="border:1px solid #d5d9e0;padding:6px 8px;width:60px;text-align:center;background:#eff3fe;"><b>S</b></td><td style="border:1px solid #d5d9e0;padding:6px 8px;">New or unused.</td></tr>
+<tr><td style="border:1px solid #d5d9e0;padding:6px 8px;text-align:center;background:#eff3fe;"><b>A</b></td><td style="border:1px solid #d5d9e0;padding:6px 8px;">Used. Very clean. Few signs of use.</td></tr>
+<tr><td style="border:1px solid #d5d9e0;padding:6px 8px;text-align:center;background:#eff3fe;"><b>B</b></td><td style="border:1px solid #d5d9e0;padding:6px 8px;">Used. Some scratches or marks. Works fine.</td></tr>
+<tr><td style="border:1px solid #d5d9e0;padding:6px 8px;text-align:center;background:#eff3fe;"><b>C</b></td><td style="border:1px solid #d5d9e0;padding:6px 8px;">Used. Clear wear, scratches, or stains.</td></tr>
+<tr><td style="border:1px solid #d5d9e0;padding:6px 8px;text-align:center;background:#eff3fe;"><b>J</b></td><td style="border:1px solid #d5d9e0;padding:6px 8px;">For parts or not working. Sold as is.</td></tr>
+</table>
+
+<h2 style="font-size:18px;margin:18px 0 8px;padding:6px 10px;background:#eff3fe;border-left:4px solid #3665f3;">What is included</h2>
+<p style="margin:0 0 8px;">[Main unit only.] You will receive only the items shown in the photos.</p>
+
+<h2 style="font-size:18px;margin:18px 0 8px;padding:6px 10px;background:#eff3fe;border-left:4px solid #3665f3;">Shipping</h2>
+<p style="margin:0 0 8px;">We ship from Japan.<br>We ship within [3] business days after payment.<br>We do not ship on weekends or Japanese holidays.<br>All items are packed with care.<br>A tracking number is provided for every order.</p>
+
+<h2 style="font-size:18px;margin:18px 0 8px;padding:6px 10px;background:#eff3fe;border-left:4px solid #3665f3;">International Buyers &mdash; Please Note</h2>
+<p style="margin:0 0 8px;"><b>For buyers in the United States:</b><br>Import duties and taxes are included in the price.<br>There is no extra charge after checkout.</p>
+<p style="margin:0 0 8px;"><b>For buyers in the European Union (items of EUR 150 or less):</b><br>Import duties are prepaid (DDP).<br>You do not need to pay import duties on arrival.<br>For items over EUR 150, import duties are not included.</p>
+<p style="margin:0 0 8px;"><b>For buyers in other countries:</b><br>Import duties, taxes, and charges are not included in the item price or shipping cost.<br>These charges are the buyer's responsibility.<br>Please check with your country's customs office before buying.</p>
+<p style="margin:0 0 8px;">In some countries, eBay collects VAT or GST at checkout.</p>
+<p style="margin:0 0 8px;">We declare the full value on all customs forms.<br>We cannot mark items as gifts or lower the value.</p>
+
+<h2 style="font-size:18px;margin:18px 0 8px;padding:6px 10px;background:#eff3fe;border-left:4px solid #3665f3;">Payment</h2>
+<p style="margin:0 0 8px;">We accept all payment methods offered by eBay.<br>Please pay within [4] days of purchase.</p>
+
+<h2 style="font-size:18px;margin:18px 0 8px;padding:6px 10px;background:#eff3fe;border-left:4px solid #3665f3;">Returns</h2>
+<p style="margin:0 0 8px;">We accept returns within [30] days.<br>Please contact us through eBay messages before returning.</p>
+
+<h2 style="font-size:18px;margin:18px 0 8px;padding:6px 10px;background:#eff3fe;border-left:4px solid #3665f3;">About us</h2>
+<p style="margin:0 0 8px;">We are a seller based in Japan.<br>All items are 100% authentic.<br>[We hold a Japanese secondhand dealer license.]<br>Questions? Please contact us through eBay messages.<br>We usually reply within [24] hours.<br>Thank you for visiting our store.</p>
+
+</div>

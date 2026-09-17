@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CHWF6QKRJ6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-CHWF6QKRJ6');
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="eBayの受賞セラー18店の説明文を読んで作った、Item descriptionのテンプレート。色とデザインを選んで、コードをコピーしてeBayのCustom templateに貼るだけで使えます。">
+    <meta property="og:title" content="eBay説明文テンプレート(コピペ用)｜チャム">
+    <meta property="og:description" content="受賞セラー18店の説明文のエッセンスを1枚に。コードをコピーして貼るだけ。">
+    <meta property="og:url" content="https://rental-space.net/tools/ebay-description-template/">
+    <meta property="og:type" content="website">
+    <title>eBay説明文テンプレート(コピペ用)｜チャム</title>
+    <link rel="icon" href="../../assets/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&amp;display=swap" rel="stylesheet">
+    <style>
+        :root { --primary:#f57c00; --accent:#29b6f6; --text:#333; --bg:#ffffff; --line:#f0e2c8; --muted:#8a7d6c; --navy:#24345c; }
+        * { box-sizing:border-box; }
+        body { margin:0; padding:0 0 50px; background:var(--bg); color:var(--text);
+            font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,sans-serif; line-height:1.75; -webkit-text-size-adjust:100%; }
+        header { background:linear-gradient(180deg,#ffb300,#ff9100); color:#fff; padding:22px 16px 18px; text-align:center; }
+        header h1 { margin:0; font-size:22px; line-height:1.4; }
+        header p { margin:6px 0 0; font-size:14px; }
+        main { max-width:860px; margin:0 auto; padding:0 16px; }
+        main > h2 { font-size:18px; color:var(--navy); margin:32px 0 10px; padding-left:10px; border-left:5px solid var(--primary); }
+        .preview h2 { font-family:Arial,Helvetica,sans-serif; line-height:1.6; }
+        .btns { display:flex; flex-wrap:wrap; gap:10px; margin:18px 0 6px; }
+        .btn { flex:1 1 220px; display:inline-block; text-align:center; padding:14px 16px; border-radius:10px; border:0; cursor:pointer;
+            font:700 16px 'Noto Sans JP',sans-serif; text-decoration:none; }
+        .btn-main { background:var(--primary); color:#fff; }
+        .btn-sub { background:#fff; color:var(--navy); border:2px solid var(--navy); }
+        .btn:focus-visible { outline:3px solid var(--accent); outline-offset:2px; }
+        #msg { min-height:1.6em; font-size:14px; color:var(--primary); font-weight:700; }
+        .preview { border:1px solid var(--line); border-radius:12px; padding:14px; background:#fff; overflow-x:auto; }
+        pre { background:#1f2937; color:#e5e7eb; padding:14px; border-radius:12px; overflow-x:auto; font-size:12.5px; line-height:1.55; max-height:340px; }
+        ol, ul { padding-left:1.3em; }
+        li { margin:4px 0; }
+        .note { font-size:14px; color:var(--muted); }
+        .card { border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin-top:28px; background:#fffaf0; }
+        .panel { border:1px solid var(--line); border-radius:12px; padding:6px 14px 14px; background:#fffaf0; }
+        fieldset { border:0; padding:0; margin:14px 0 0; }
+        legend { font-weight:700; color:var(--navy); padding:0; margin-bottom:6px; }
+        .opts { display:flex; flex-wrap:wrap; gap:8px 10px; }
+        .opts label { display:inline-flex; align-items:center; gap:6px; padding:9px 12px; border:1px solid var(--line); border-radius:999px; background:#fff; cursor:pointer; font-size:14.5px; }
+        .opts label:has(input:checked) { border-color:var(--primary); box-shadow:0 0 0 2px rgba(245,124,0,.25); }
+        .opts input { accent-color:var(--primary); width:18px; height:18px; }
+        .swatches { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:10px; }
+        .sw { width:40px; height:40px; border-radius:50%; border:3px solid #fff; box-shadow:0 0 0 1px #c9c9c9; cursor:pointer; padding:0; }
+        .sw[aria-pressed="true"] { box-shadow:0 0 0 3px var(--navy); }
+        .sw:focus-visible, .opts input:focus-visible, #color:focus-visible { outline:3px solid var(--accent); outline-offset:2px; }
+        .pick { display:inline-flex; align-items:center; gap:8px; font-size:14.5px; }
+        #color { width:48px; height:36px; padding:0; border:1px solid #c9c9c9; border-radius:8px; background:#fff; cursor:pointer; }
+        .hex { margin-left:8px; font-family:ui-monospace,Menlo,monospace; font-size:13px; color:var(--muted); }
+        a { color:#0b63ce; }
+        code { background:#f3f4f6; padding:1px 5px; border-radius:4px; font-size:.95em; }
+    </style>
+</head>
+<body>
+<header>
+    <h1>eBay説明文テンプレート</h1>
+    <p>受賞セラー18店の説明文のエッセンスを、1枚に🐹</p>
+</header>
+<main>
+    <p>eBayジャパンの受賞セラー18店の説明文(Item description)を読んで、共通していた形をテンプレートにしました。色とデザインを選んで、コードをコピーして、eBayの出品画面に貼るだけで使えます。</p>
+
+    <h2>1. 色とデザインを選ぶ</h2>
+    <div class="panel">
+        <fieldset>
+            <legend>色</legend>
+            <div class="swatches" id="swatches"></div>
+            <label class="pick">好きな色を選ぶ <input type="color" id="color" value="#3665f3" aria-label="好きな色を選ぶ"></label>
+            <span id="hex" class="hex">#3665f3</span>
+        </fieldset>
+        <fieldset>
+            <legend>見出しのデザイン</legend>
+            <div class="opts" id="designs">
+                <label><input type="radio" name="design" value="line" checked> 左に線</label>
+                <label><input type="radio" name="design" value="band"> 帯(ぬりつぶし)</label>
+                <label><input type="radio" name="design" value="under"> 下線だけ</label>
+                <label><input type="radio" name="design" value="card"> 枠でかこむ</label>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>関税の文(いまの送り方に合わせて選ぶ)</legend>
+            <div class="opts">
+                <label><input type="radio" name="duty" value="USEU" checked> アメリカとEU(€150以下)は関税込み・ほかの国はお客さん負担</label>
+                <label><input type="radio" name="duty" value="US"> アメリカだけ関税込み・ほかの国はお客さん負担(EUには送らない店)</label>
+                <label><input type="radio" name="duty" value="A"> どの国もお客さん負担(アメリカ・EUには送らない店)</label>
+                <label><input type="radio" name="duty" value="B"> どの国も関税込み</label>
+            </div>
+            <div class="note" style="margin:10px 0 0;">
+                <p style="margin:0 0 6px;"><b>いまのルール(2026年9月に公式で確認)</b></p>
+                <ul style="margin:0;">
+                    <li>アメリカ: 2025年8月29日に、$800以下の免税がなくなりました。関税を店が先に払う送り方(DDP)が広がっています</li>
+                    <li>EU: <b>2026年10月1日から、日本からEU27カ国へ送る€150以下(送料をのぞく)の品は、どの配送方法でもDDPが必須</b>です。イギリスは対象外。€150.01以上はこれまでどおりでOK</li>
+                    <li>eBayは、商品説明に「関税はバイヤー負担」と書いてある場合は直すように案内しています。EUに€150以下の品を送るなら、1つめを選んでください</li>
+                    <li>VATは、これまでどおりeBayが会計のときに集めます</li>
+                </ul>
+                <p style="margin:6px 0 0;">出典: <a href="https://ebay.co.jp/eu-ddp-info" rel="noopener">eBayジャパン公式のお知らせ(EU向けDDP)</a>。受賞18店では「国で分けて書く」が8店でいちばん多い書き方でした。自分の配送サービスがどの国に関税込みで送っているかを、確かめてから選んでください。</p>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>入れるもの</legend>
+            <div class="opts">
+                <label><input type="checkbox" id="optVat" checked> 「VAT・GSTはeBayが会計時に集める国があります」の1行</label>
+                <label><input type="checkbox" id="optReturns" checked> 返品(Returns)の節</label>
+                <label><input type="checkbox" id="optJunk" checked> ランクJ(ジャンク・現状渡し)</label>
+                <label><input type="checkbox" id="optLicense" checked> 古物商の許可の1行</label>
+            </div>
+        </fieldset>
+    </div>
+
+    <h2>2. できあがりの見た目</h2>
+    <div class="preview" id="preview" aria-live="polite"></div>
+
+    <h2>3. コードをコピーする</h2>
+    <div class="btns">
+        <button class="btn btn-main" id="copy" type="button">コードをコピー</button>
+        <button class="btn btn-sub" id="dl" type="button">ダウンロード(.txt)</button>
+    </div>
+    <div id="msg" role="status" aria-live="polite"></div>
+
+    <h2>4. eBayに貼る</h2>
+    <ol>
+        <li>出品画面のDESCRIPTIONで、「Custom template」→「Create template」を押す</li>
+        <li>Template nameに名前を入れる(20字まで)</li>
+        <li>「Show HTML Code」にチェックを入れる</li>
+        <li>コピーしたコードを貼る</li>
+        <li>Saveを押す</li>
+    </ol>
+    <p class="note">次の出品からは、「Custom template」でテンプレを選ぶだけです。テンプレは10個まで保存できます。</p>
+
+    <h2>書きかえるところ</h2>
+    <p>[ ]で囲んだところだけ、自分の店に合わせて書きかえてください。</p>
+    <ul>
+        <li>[B] と、そのあとの1文: 品ごとのランクと、気になる点</li>
+        <li>[Main unit only.]: 付属品</li>
+        <li>[3] business days: 発送までの日数</li>
+        <li>[4] days / [30] days / [24] hours: 支払い・返品・返信の日数</li>
+    </ul>
+
+    <h2>文章をアレンジしたいとき</h2>
+    <p>いちばんかんたんなのは、<b>「Show HTML Code」のチェックを外す</b>ことです。コードではなく、できあがりの見た目のまま文字を打ちかえられます。</p>
+    <ul>
+        <li>1文は10語まで。長くなったら2つに切る</li>
+        <li>いらない見出しは、見出しと下の文をまとめて消していい</li>
+        <li>関税の1文(Import duties, 〜)は、言い回しを変えない</li>
+        <li>店の外のリンク、メールアドレス、電話番号は書かない</li>
+    </ul>
+    <p>英語に自信がなければ、AIにこう頼みます。「eBayの説明文に入れる英語を作って。1文10語以内。中学生でも読める単語で。内容は『箱に少しへこみがあります。中身は未使用です』」</p>
+
+    <h2>コード</h2>
+    <pre id="code" tabindex="0"></pre>
+    <p class="note">JavaScriptや外部リンクは入れていません。スマホでも崩れない形です。ご自身の責任でお使いください。</p>
+
+    <div class="card">
+        <p style="margin:0 0 6px;"><b>▼このテンプレのもとになった調査</b></p>
+        <p style="margin:0;"><a href="../../articles/2026-09-18-ebay-award-seller-description.html">eBay有力セラーの説明文を読んでみた結果</a></p>
+    </div>
+</main>
+<script>
+(function () {
+    var PRESETS = [['青', '#3665f3'], ['赤', '#e53238'], ['緑', '#2e7d32'], ['オレンジ', '#f57c00'], ['むらさき', '#6a3fb5'], ['ネイビー', '#24345c'], ['黒', '#222222']];
+    var $ = function (id) { return document.getElementById(id); };
+    function rgb(hex) { return [1, 3, 5].map(function (i) { return parseInt(hex.substr(i, 2), 16); }); }
+    function tint(hex, k) { return '#' + rgb(hex).map(function (v) { return Math.round(v + (255 - v) * k).toString(16).padStart(2, '0'); }).join(''); }
+    function onColor(hex) { var c = rgb(hex).map(function (v) { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); });
+        return (0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]) > 0.45 ? '#222222' : '#ffffff'; }
+    function build() {
+        var color = $('color').value.toLowerCase(), design = document.querySelector('input[name=design]:checked').value,
+            duty = document.querySelector('input[name=duty]:checked').value, light = tint(color, 0.92), line = '#d5d9e0';
+        var base = 'font-size:18px;margin:18px 0 8px;';
+        var H = { line: base + 'padding:6px 10px;background:' + light + ';border-left:4px solid ' + color + ';',
+                  band: base + 'padding:7px 12px;background:' + color + ';color:' + onColor(color) + ';',
+                  under: base + 'padding:0 0 5px;border-bottom:2px solid ' + color + ';',
+                  card: 'font-size:18px;margin:4px 0 8px;color:' + color + ';' }[design];
+        var P = 'margin:0 0 8px;', TD = 'border:1px solid ' + line + ';padding:6px 8px;';
+        function sec(title, body) {
+            var s = '<h2 style="' + H + '">' + title + '</h2>\n' + body;
+            return design === 'card' ? '<div style="border:1px solid ' + line + ';border-radius:8px;padding:10px 14px 4px;margin:12px 0;">\n' + s + '\n</div>' : s;
+        }
+        function row(k, v, first) { return '<tr><td style="' + TD + (first ? 'width:60px;' : '') + 'text-align:center;background:' + light + ';"><b>' + k + '</b></td><td style="' + TD + '">' + v + '</td></tr>'; }
+        var rows = [row('S', 'New or unused.', true), row('A', 'Used. Very clean. Few signs of use.'), row('B', 'Used. Some scratches or marks. Works fine.'), row('C', 'Used. Clear wear, scratches, or stains.')];
+        if ($('optJunk').checked) rows.push(row('J', 'For parts or not working. Sold as is.'));
+        var notIncl = 'Import duties, taxes, and charges are not included in the item price or shipping cost.<br>These charges are the buyer\'s responsibility.<br>Please check with your country\'s customs office before buying.';
+        var incl = 'Import duties and taxes are included in the price.<br>There is no extra charge after checkout.';
+        var usP = '<p style="' + P + '"><b>For buyers in the United States:</b><br>' + incl + '</p>';
+        var euP = '<p style="' + P + '"><b>For buyers in the European Union (items of EUR 150 or less):</b><br>Import duties are prepaid (DDP).<br>You do not need to pay import duties on arrival.<br>For items over EUR 150, import duties are not included.</p>';
+        var otherP = '<p style="' + P + '"><b>For buyers in other countries:</b><br>' + notIncl + '</p>';
+        var dutyHtml = duty === 'USEU' ? usP + '\n' + euP + '\n' + otherP
+            : duty === 'US' ? usP + '\n' + otherP
+            : '<p style="' + P + '">' + (duty === 'A' ? notIncl : incl) + '</p>';
+        if ($('optVat').checked && duty !== 'B') dutyHtml += '\n<p style="' + P + '">In some countries, eBay collects VAT or GST at checkout.</p>';
+        var parts = [
+            sec('Condition', '<p style="' + P + '"><b>Rank: [B]</b> &mdash; [Light scratches on the top. Works fine.]</p>\n<p style="' + P + '">Please check all photos carefully. The photos show the actual item.</p>\n<table style="width:100%;border-collapse:collapse;font-size:14px;margin:0 0 8px;">\n' + rows.join('\n') + '\n</table>'),
+            sec('What is included', '<p style="' + P + '">[Main unit only.] You will receive only the items shown in the photos.</p>'),
+            sec('Shipping', '<p style="' + P + '">We ship from Japan.<br>We ship within [3] business days after payment.<br>We do not ship on weekends or Japanese holidays.<br>All items are packed with care.<br>A tracking number is provided for every order.</p>'),
+            sec('International Buyers &mdash; Please Note', dutyHtml + '\n<p style="' + P + '">We declare the full value on all customs forms.<br>We cannot mark items as gifts or lower the value.</p>'),
+            sec('Payment', '<p style="' + P + '">We accept all payment methods offered by eBay.<br>Please pay within [4] days of purchase.</p>')
+        ];
+        if ($('optReturns').checked) parts.push(sec('Returns', '<p style="' + P + '">We accept returns within [30] days.<br>Please contact us through eBay messages before returning.</p>'));
+        parts.push(sec('About us', '<p style="' + P + '">We are a seller based in Japan.<br>All items are 100% authentic.<br>' + ($('optLicense').checked ? '[We hold a Japanese secondhand dealer license.]<br>' : '') + 'Questions? Please contact us through eBay messages.<br>We usually reply within [24] hours.<br>Thank you for visiting our store.</p>'));
+        return '<div style="max-width:800px;margin:0 auto;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#222;">\n\n' + parts.join('\n\n') + '\n\n</div>';
+    }
+    function render() {
+        var code = build(); $('preview').innerHTML = code; $('code').textContent = code; $('hex').textContent = $('color').value.toLowerCase();
+        Array.prototype.forEach.call(document.querySelectorAll('.sw'), function (b) { b.setAttribute('aria-pressed', b.dataset.c === $('color').value.toLowerCase() ? 'true' : 'false'); });
+    }
+    PRESETS.forEach(function (p) {
+        var b = document.createElement('button'); b.type = 'button'; b.className = 'sw'; b.dataset.c = p[1]; b.style.background = p[1];
+        b.title = p[0]; b.setAttribute('aria-label', p[0] + ' ' + p[1]);
+        b.addEventListener('click', function () { $('color').value = p[1]; render(); }); $('swatches').appendChild(b);
+    });
+    document.querySelector('.panel').addEventListener('input', render);
+    $('copy').addEventListener('click', async function () {
+        var t = $('code').textContent, m = $('msg');
+        try { await navigator.clipboard.writeText(t); m.textContent = 'コピーしました。eBayの「Show HTML Code」に貼ってください。'; }
+        catch (e) { var r = document.createRange(); r.selectNodeContents($('code')); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+            m.textContent = 'コードを選択しました。そのままコピーしてください。'; }
+        if (window.gtag) gtag('event', 'template_copy', { tool: 'ebay-description-template', design: document.querySelector('input[name=design]:checked').value });
+    });
+    $('dl').addEventListener('click', function () {
+        var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([$('code').textContent + '\n'], { type: 'text/plain' }));
+        a.download = 'ebay-description-template.txt'; document.body.appendChild(a); a.click(); a.remove();
+        if (window.gtag) gtag('event', 'template_download', { tool: 'ebay-description-template' });
+    });
+    render();
+})();
+</script>
+</body>
+</html>
