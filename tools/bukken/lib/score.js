@@ -143,6 +143,7 @@ function stationMark(st, priority) {
   const notes = [];
   if (upgraded) notes.push('乗降3万人台だが住宅地性が高い(13点以上)ので○');
   if (k.relaxed) notes.push('駅前は商業地だが、まわりは住民と子どもが多い住宅地');
+  if (!hasZoning) notes.push('用途地域データなし(住宅地かどうかは現地で確認)');
   return { resid, eki, total, mark, kind: k.kind, relaxed: k.relaxed, upgraded, note: notes.join(' / ') };
 }
 
