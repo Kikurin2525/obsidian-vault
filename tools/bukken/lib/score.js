@@ -33,10 +33,10 @@ function lookupStats(name, address) {
   return pool.slice().sort((a, b) => (b.riders || 0) - (a.riders || 0))[0];
 }
 
-// 必要稼働率(黒字ライン)の目安: 30%以下=◎ / 35%以下=○ / 40%以下=△ / 40%超=✕
-// (無人レンタルスタジオの実運営では、立ち上がり期30%前後・安定期35〜40%が現実的な水準。60%超は繁盛店クラス)
-function breakevenGrade(occ) {
-  return occ <= 30 ? '◎' : occ <= 35 ? '○' : occ <= 40 ? '△' : '✕';
+// 黒字ラインは「黒字に必要な時間(1日あたり)」で判定する(2026-09-17 本人指示。基準は lib/breakeven.js の HOURS_LIMITS)
+// %で切ると、24時間営業で入力したときに割る数が大きくなって判定が甘く出るため
+function breakevenGrade(hoursPerDay) {
+  return Breakeven.gradeHours(hoursPerDay);
 }
 
 function lookupStation(name, address) {
@@ -295,8 +295,8 @@ function judge(prop, opts = {}) {
   const be = Breakeven.calc(rent, simParams);
   be.suggested = suggested;
   const breakevenOcc = be.breakevenOcc;
-  const beGrade = breakevenGrade(breakevenOcc);
-  const beText = `必要稼働率${breakevenOcc.toFixed(1)}%`;
+  const beGrade = breakevenGrade(be.breakevenHoursPerDay);
+  const beText = `黒字に必要な時間が1日${be.breakevenHoursPerDay.toFixed(1)}時間`;
 
   // 賃料上限: 20万以内=基準クリア / 20〜25万=許容だが損益分岐との兼ね合いで判定 / 25万超=NG
   const rentMan = (rent / 10000).toFixed(1);
@@ -311,16 +311,16 @@ function judge(prop, opts = {}) {
       comment: beGrade === '◎' || beGrade === '○'
         ? `20万超だが${beText}で、家賃負担に見合う稼働が現実的`
         : beGrade === '△'
-        ? `20万超で${beText}。安定期の稼働が前提になる。立ち上がりの資金余力があれば検討`
+        ? `20万超で${beText}。ふつうに回っている店の稼働が前提になる。立ち上がりの資金余力があれば検討`
         : `20万超で${beText}。繁盛店クラスの稼働が前提になるためNG(単価・営業時間の設定を変えると再判定されます)`,
     });
   } else {
     items.push({ key: 'rent', label: '賃料上限', value: `${rentMan}万円/月(管理費込)`, grade: rent <= 180000 ? '◎' : '○', comment: '基準(20万円以内)クリア' });
   }
   items.push({
-    key: 'breakeven', label: '損益分岐(必要稼働率)', value: `${breakevenOcc.toFixed(1)}%(1日${(be.breakevenHours / 30).toFixed(1)}時間の予約・月${be.breakevenHours.toLocaleString()}h)`,
+    key: 'breakeven', label: '損益分岐(黒字に必要な時間)', value: `1日${be.breakevenHoursPerDay.toFixed(1)}時間(週${be.breakevenHoursPerWeek}時間)の予約・稼働率${breakevenOcc.toFixed(1)}%`,
     grade: beGrade,
-    comment: `黒字ラインの目安: 30%以下=◎ / 35%以下=○ / 40%以下=△ / 40%超=✕。単価${be.params.weekdayRate}/${be.params.weekendRate}円・ポータル${Math.round(be.params.portalShare * 100)}%・営業${be.params.openHours}h/日で計算`,
+    comment: `黒字ラインの${Breakeven.GRADE_GUIDE}。単価${be.params.weekdayRate}/${be.params.weekendRate}円・ポータル${Math.round(be.params.portalShare * 100)}%・営業${be.params.openHours}h/日で計算`,
   });
   breakdown['家賃坪単価'] = scaled(tsuboPts, 20, 15);
   // 家賃リスク15点: 家賃(管理費込)10万以下=満点、25万以上=0。その間は家賃が高いほど直線的に減点(本人指示 2026-09-02)
@@ -488,14 +488,7 @@ function judge(prop, opts = {}) {
   const breakeven = {
     ...be,
     grade: beGrade,
-    comment:
-      breakevenOcc <= 30
-        ? '立ち上がり期の稼働(30%前後)でも黒字になる低い水準。家賃リスク小'
-        : breakevenOcc <= 35
-        ? '安定期に入れば十分届く水準。立ち上がり数ヶ月の赤字は覚悟しておく'
-        : breakevenOcc <= 40
-        ? '安定期の稼働(35〜40%)が黒字の前提。立ち上がりに時間がかかると赤字が続くリスク'
-        : '繁盛店クラスの稼働(40%超)が前提。家賃が重すぎるか、単価が低すぎる',
+    comment: be.hoursComment,
   };
 
   // ===== 定番の確認質問 =====

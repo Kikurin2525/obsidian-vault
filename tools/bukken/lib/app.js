@@ -283,24 +283,20 @@
     $('questions').innerHTML = d.questions.map((q) => '<li>' + esc(q) + '</li>').join('');
     $('result').style.display = 'block';
   }
-  function gradeOcc(occ) { return occ <= 30 ? '◎' : occ <= 35 ? '○' : occ <= 40 ? '△' : '✕'; }
-  function commentOcc(occ) {
-    return occ <= 30 ? '立ち上がり期の稼働(30%前後)でも黒字になる低い水準。家賃リスク小' : occ <= 35 ? '安定期に入れば十分届く水準。立ち上がり数ヶ月の赤字は覚悟しておく'
-      : occ <= 40 ? '安定期の稼働(35〜40%)が黒字の前提。立ち上がりに時間がかかると赤字が続くリスク' : '繁盛店クラスの稼働(40%超)が前提。家賃が重すぎるか、単価が低すぎる';
-  }
   function renderBreakeven(d, params) {
     const be = Breakeven.calc(d.breakeven.rent, params);
-    const occ = be.breakevenOcc; const g = Number.isFinite(occ) ? gradeOcc(occ) : '?'; const occText = Number.isFinite(occ) ? occ.toFixed(1) : '—';
+    const occ = be.breakevenOcc; const hpd = be.breakevenHoursPerDay; const g = be.hoursGrade; const occText = Number.isFinite(occ) ? occ.toFixed(1) : '—';
+    const hrText = Number.isFinite(hpd) ? hpd.toFixed(1) : '—'; const wkText = Number.isFinite(be.breakevenHoursPerWeek) ? String(be.breakevenHoursPerWeek) : '—';
     const basis = (params.autoRates !== false && d.breakeven.suggested) ? d.breakeven.suggested.basis + '・自動' : '手入力';
-    $('kpi-occ').innerHTML = '<div class="k-label">黒字化に必要な稼働率</div><div class="k-value">' + occText + '<span>%</span><span class="grade-chip">' + g + '</span></div>'
-      + '<div class="k-sub">1日' + (be.breakevenHours / 30).toFixed(1) + '時間の予約(月' + be.breakevenHours.toLocaleString() + 'h) ／ 単価 平日' + be.params.weekdayRate.toLocaleString() + '・休日' + be.params.weekendRate.toLocaleString() + '円</div>';
+    $('kpi-occ').innerHTML = '<div class="k-label">黒字に必要な時間</div><div class="k-value"><span>1日</span>' + hrText + '<span>時間</span><span class="grade-chip">' + g + '</span></div>'
+      + '<div class="k-sub">週' + wkText + '時間の予約(稼働率' + occText + '%) ／ 単価 平日' + be.params.weekdayRate.toLocaleString() + '・休日' + be.params.weekendRate.toLocaleString() + '円</div>';
     const nextHit = be.sim.find((s) => s.profit >= 0);
-    $('be').innerHTML = '<div class="be-big"><div class="num">' + occText + '<span>%</span></div><div class="lbl">黒字化に必要な稼働率<b>1日' + (be.breakevenHours / 30).toFixed(1) + '時間の予約(営業' + be.params.openHours + 'h/日のうち ／ 月' + be.breakevenHours.toLocaleString() + 'h)</b></div>'
+    $('be').innerHTML = '<div class="be-big"><div class="num"><span>1日</span>' + hrText + '<span>時間</span></div><div class="lbl">黒字に必要な時間<b>週' + wkText + '時間の予約(月' + be.breakevenHours.toLocaleString() + 'h ／ 営業' + be.params.openHours + 'h/日なら稼働率' + occText + '%)</b></div>'
       + '<span class="grade-chip ' + (chipClass[g] || 'c-unk') + '" style="font-size:16px;padding:4px 12px">' + g + '</span></div>'
-      + '<div class="be-note">' + esc(commentOcc(occ)) + '。目安: 30%以下=◎ / 35%以下=○ / 40%以下=△ / 40%超=✕</div>'
+      + '<div class="be-note">' + esc(be.hoursComment) + '。' + esc(Breakeven.GRADE_GUIDE) + '<br>必要な時間は、営業時間を変えても変わりません(変わるのは%だけ)。だから時間で判定しています</div>'
       + '<div class="be-basis">計算条件: 家賃' + man(be.rent) + '(管理費込)+固定費' + man(be.params.otherCosts) + ' ／ 単価 平日' + be.params.weekdayRate + '円・休日' + be.params.weekendRate + '円[' + esc(basis) + '] ／ ポータル' + Math.round(be.params.portalShare * 100) + '% ／ 手取り単価 平日' + be.netWeekday + '円・休日' + be.netWeekend + '円</div>'
-      + '<table class="sim"><tr><th>稼働率</th><th>予約時間/日</th><th>売上(お客様支払)</th><th>手取り(手数料後)</th><th>月損益</th></tr>'
-      + be.sim.map((s) => '<tr' + (nextHit && s.occ === nextHit.occ ? ' class="hit"' : '') + '><td>' + s.occ + '%</td><td title="月' + s.hours.toLocaleString() + 'h">' + (s.hours / 30).toFixed(1) + 'h</td><td>¥' + s.gross.toLocaleString() + '</td><td>¥' + s.net.toLocaleString() + '</td><td class="' + (s.profit >= 0 ? 'plus' : 'minus') + '">' + (s.profit >= 0 ? '+' : '') + '¥' + s.profit.toLocaleString() + '</td></tr>').join('') + '</table>';
+      + '<table class="sim"><tr><th>1日の予約時間</th><th>稼働率</th><th>売上(お客様支払)</th><th>手取り(手数料後)</th><th>月損益</th></tr>'
+      + be.sim.map((s) => '<tr' + (nextHit && s.perDay === nextHit.perDay ? ' class="hit"' : '') + '><td title="月' + s.hours.toLocaleString() + 'h">1日' + s.perDay + '時間(週' + s.perWeek + '時間)' + (s.label ? '<br><small>' + esc(s.label) + '</small>' : '') + '</td><td>' + s.occ + '%</td><td>¥' + s.gross.toLocaleString() + '</td><td>¥' + s.net.toLocaleString() + '</td><td class="' + (s.profit >= 0 ? 'plus' : 'minus') + '">' + (s.profit >= 0 ? '+' : '') + '¥' + s.profit.toLocaleString() + '</td></tr>').join('') + '</table>';
   }
   window.toggleDesc = (i) => { const row = $('desc-' + i); if (row) row.style.display = row.style.display === 'none' ? 'table-row' : 'none'; };
   window.toggleHint = (id) => { const el = $(id); if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none'; };
