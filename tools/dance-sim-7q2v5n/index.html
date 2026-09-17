@@ -244,6 +244,10 @@
         table.scn .minus { color:#c62828; } table.scn .plus { color:#2f8c22; font-weight:700; }
         table.scn tr.me td { background:#fffbe9; }
         table.scn input[type=number] { width:70px; padding:4px 6px; font-size:14px; }
+        a.shop { font-size:12.5px; color:#1155cc; white-space:nowrap; text-decoration:underline; }
+        .items .got { display:flex; align-items:center; gap:4px; font-size:12px; color:var(--muted); white-space:nowrap; cursor:pointer; }
+        .items .got input { margin:0; width:16px; height:16px; accent-color:#2f8c22; }
+        .items .row.done label.name span { color:#9a9a9a; text-decoration:line-through; }
         h3.sec { font-size:15px; margin:16px 0 4px; color:var(--navy); }
     </style>
 </head>
@@ -278,6 +282,7 @@
                     <option value="82000">鏡の業者さんに貼ってもらう</option>
                 </select>
             </div>
+            <div class="row"><label class="name">パネルミラーの参考商品</label><a class="shop" href="https://www.e-kagami.com/product/779/" target="_blank" rel="noopener sponsored">鏡の販売.comで見る</a></div>
             <div class="row"><label class="name" for="mirrorW">鏡を貼る幅</label><input type="number" id="mirrorW" value="4.5" step="0.5"><span class="unit">m</span></div>
             <div class="row"><label class="name" for="floor">床</label>
                 <select id="floor">
@@ -301,9 +306,11 @@
         </div>
 
         <div class="card">
-            <p class="step"><span class="num">3</span>備品</p>
-            <p class="hint">付録の「買い物リスト」と同じ品目です。いらないものはチェックを外して、金額は自分の想定に書きかえてください。</p>
+            <p class="step"><span class="num">3</span>備品(買い物リスト)</p>
+            <p class="hint">ぼくが実際にダンススタジオを出したときに買ったものをもとにした、買い物リストです。<b>左のチェック=買う予定のもの</b>(外すと合計から抜けます)。金額は自分の想定に書きかえてください。買いおわったら、右の<b>「買った」</b>にチェック。メーカーやグレードは自由です(Amazon・楽天・IKEA・ニトリ・中古、なんでもOK)。</p>
+            <p class="hint" id="gotCount" style="color:#24345c;font-weight:700"></p>
             <div class="items" id="items"></div>
+            <p class="note">※「◯◯で見る」は、ぼくが実際に使っているもの・近いものへのリンクです。リンクには、Amazonなどのアフィリエイトリンクをふくみます(リンク経由の購入で、運営者が紹介料を受けとる場合があります)。Amazonのアソシエイトとして、きくりんは適格販売により収入を得ています。</p>
         </div>
 
         <div class="card">
@@ -346,15 +353,6 @@
             <div class="verdict" id="verdictPb"></div>
 
             <details class="adv"><summary>▼ 初期費用の明細を見る</summary><table class="detail" id="detail"></table></details>
-
-            <div class="compare">
-                <h3>ぼくの店の実額とくらべると</h3>
-                <table>
-                    <tr><td>1号店(40㎡・パネルミラーを自分で固定)</td><td class="n">約90万円 → 7ヶ月で回収</td></tr>
-                    <tr><td>9号店(57㎡・鏡が付いていた物件)</td><td class="n">約142万円 → 13ヶ月で回収</td></tr>
-                    <tr><td>10号店(40㎡・鏡を業者さんに。工事98万円)</td><td class="n">約214万円 → まだ回収中</td></tr>
-                </table>
-            </div>
 
             <div class="btns">
                 <button class="pri" id="shareBtn">結果のリンクをコピー</button>
@@ -411,6 +409,14 @@
                 { k: 'wsign', n: 'ウインドウサイン(1Fで窓から中が見えてしまう場合)', v: 1, on: 0 },
                 { k: 'etc', n: 'その他(自由に調整してください)', v: 0, on: 1 }
         ];
+        // 参考の商品(本人が用意したリンク。付録の買い物リストと同じ22件のうち備品の21件。鏡はSTEP2)
+        const LINKS = {
+            c_cam: 'https://link.amazon/B00d7FmuJ', c_keybox: 'https://link.amazon/B0dMEiTCR', c_vac: 'https://link.amazon/B0eAk7G4Q', c_slip: 'https://link.amazon/B04QyWCkc', c_otohime: 'https://link.amazon/B09fbdeDo',
+            cdp: 'https://link.amazon/B0hJcHGm5', btsp: 'https://link.amazon/B0bj5rbPS', chg: 'https://link.amazon/B0blDvX2h', tripod: 'https://link.amazon/B02oZcuEn', yoga: 'https://link.amazon/B0hD5MmMe',
+            wb: 'https://link.amazon/B0gva8gqD', stand: 'https://link.amazon/B07sBESaq', air: 'https://link.amazon/B03GtakaC', tv: 'https://link.amazon/B08FOZcYE', table: 'https://www.nitori-net.jp/ec/product/8761103/',
+            stool: 'https://link.amazon/B0dzcSxzV', robot: 'https://link.amazon/B03B5erpN', ladder: 'https://link.amazon/B02RHleIA', fan: 'https://link.amazon/B0ayFLUFh', green: 'https://link.amazon/B06YsfKmR', post: 'https://link.amazon/B09gruj68'
+        };
+        const shopName = u => u.indexOf('amazon') >= 0 ? 'Amazonで見る' : u.indexOf('nitori') >= 0 ? 'ニトリで見る' : '商品を見る';
         // きくりんの店の実測(運営中5店・2026年4〜8月)。1日あたりの埋まった時間
         const ACTUAL = [
             { h: 6.5, label: 'きくりんの店の実測: いちばん低い月' },
@@ -431,10 +437,12 @@
             const box = $('items'); box.innerHTML = '';
             ITEMS.forEach(it => {
                 const id = 'it_' + it.k; const st = saved && saved[id];
-                const on = st ? st.on : it.on; const v = st ? st.v : it.v;
-                const row = document.createElement('div'); row.className = 'row';
-                row.innerHTML = '<label class="name" for="' + id + '"><input type="checkbox" id="' + id + '"' + (on ? ' checked' : '') + '><span>' + it.n + '</span></label>'
-                    + '<input type="number" id="' + id + '_v" value="' + v + '" step="0.1" min="0"><span class="unit">万円</span>';
+                const on = st ? st.on : it.on; const v = st ? st.v : it.v; const got = st ? !!st.got : false;
+                const row = document.createElement('div'); row.className = 'row' + (got ? ' done' : '');
+                const link = LINKS[it.k] ? '<a class="shop" href="' + LINKS[it.k] + '" target="_blank" rel="noopener sponsored">' + shopName(LINKS[it.k]) + '</a>' : '';
+                row.innerHTML = '<label class="name" for="' + id + '"><input type="checkbox" id="' + id + '"' + (on ? ' checked' : '') + '><span>' + it.n + '</span></label>' + link
+                    + '<input type="number" id="' + id + '_v" value="' + v + '" step="0.1" min="0"><span class="unit">万円</span>'
+                    + (it.k === 'etc' ? '' : '<label class="got"><input type="checkbox" id="' + id + '_g"' + (got ? ' checked' : '') + '>買った</label>');
                 box.appendChild(row);
             });
             box.querySelectorAll('input').forEach(e => e.addEventListener('input', calc));
@@ -462,6 +470,9 @@
             let bihin = 0; const bihinRows = [];
             ITEMS.forEach(it => { const c = $('it_' + it.k); if (!c || !c.checked) return; const sub = (+$('it_' + it.k + '_v').value || 0) * 10000; bihin += sub; if (sub > 0) bihinRows.push([it.n, sub]); });
             const total = keiyaku + koji + bihin;
+            let planN = 0, gotN = 0;
+            ITEMS.forEach(it => { if (it.k === 'etc') return; const c = $('it_' + it.k), g = $('it_' + it.k + '_g'); if (!c || !g) return; if (c.checked) { planN++; if (g.checked) gotN++; } g.closest('.row').classList.toggle('done', g.checked); });
+            $('gotCount').textContent = '買う予定 ' + planN + '点のうち、' + gotN + '点を買いました';
 
             $('total').innerHTML = '約' + man(total).replace('万円', '') + '<small> 万円</small>';
             const p = v => total > 0 ? (v / total * 100) : 0;
@@ -486,7 +497,7 @@
             $('beBig').innerHTML = Number.isFinite(needDay) ? '<small>1日</small>' + needDay.toFixed(1) + '<small>時間</small><span class="grade ' + g[1] + '">' + g[0] + '</span>' : '—';
             $('beSub').textContent = Number.isFinite(needDay) ? '週' + Math.round(needDay * 7) + '時間の予約で、トントン' : '';
             $('fixedBig').innerHTML = man(fixed).replace('万円', '') + '<small> 万円</small>';
-            $('fixedSub').textContent = '1時間あたりの手取り 平均' + Math.round(avgNet).toLocaleString() + '円';
+            $('fixedSub').textContent = '家賃(管理費込み)+家賃以外に毎月かかるお金';
             $('verdictBe').innerHTML = g[0] === '◎' ? '<b>◎ 出していい水準です。</b>きくりんの店でいちばん低かった月(1日6.5時間)と同じ結果でも、黒字になります。'
                 : g[0] === '○' ? '<b>○ 定期利用が入れば安心な水準です。</b>立ち上がりの数ヶ月は、赤字の月があるつもりで。'
                 : g[0] === '△' ? '<b>△ ぎりぎりです。</b>ふつうに回っている店の実測(1日8時間前後)が、黒字の前提になります。'
@@ -533,7 +544,7 @@
             const o = {};
             NUM_IDS.forEach(id => { if (id === 'myH') o.myH = myH; else if ($(id)) o[id] = $(id).value; });
             CHK_IDS.forEach(id => o[id] = $(id).checked ? 1 : 0); SEL_IDS.forEach(id => o[id] = $(id).value);
-            ITEMS.forEach(it => { const id = 'it_' + it.k; if ($(id)) o[id] = { on: $(id).checked ? 1 : 0, v: +$(id + '_v').value || 0 }; });
+            ITEMS.forEach(it => { const id = 'it_' + it.k; if ($(id)) o[id] = { on: $(id).checked ? 1 : 0, v: +$(id + '_v').value || 0, got: ($(id + '_g') && $(id + '_g').checked) ? 1 : 0 }; });
             return o;
         }
         function save() { try { localStorage.setItem(KEY, JSON.stringify(collect())); } catch (e) {} }
@@ -544,12 +555,12 @@
         }
         function fromURL() {
             const q = new URLSearchParams(location.search); if (![...q.keys()].length) return null; const o = {};
-            for (const [k, val] of q) { if (k.startsWith('it_')) { const [on, v] = val.split('-'); o[k] = { on: +on, v: +v }; } else o[k] = val; }
+            for (const [k, val] of q) { if (k.startsWith('it_')) { const [on, v, got] = val.split('-'); o[k] = { on: +on, v: +v, got: +got || 0 }; } else o[k] = val; }
             return o;
         }
         function toURL() {
             const o = collect(), q = new URLSearchParams();
-            Object.keys(o).forEach(k => { const v = o[k]; q.set(k, (v && typeof v === 'object') ? v.on + '-' + v.v : v); });
+            Object.keys(o).forEach(k => { const v = o[k]; q.set(k, (v && typeof v === 'object') ? v.on + '-' + v.v + '-' + (v.got || 0) : v); });
             return location.origin + location.pathname + '?' + q.toString();
         }
         function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('on'); setTimeout(() => t.classList.remove('on'), 1600); }
