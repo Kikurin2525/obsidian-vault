@@ -59,7 +59,7 @@
     const d = data();
     if (!ls.set(SAVE_KEY, d)) {
       const d2 = Object.assign({}, d, { photos: [] });
-      if (ls.set(SAVE_KEY, d2)) toast('写真が大きく保存できませんでした(文字は保存済み)。ダウンロードはできます');
+      if (ls.set(SAVE_KEY, d2) && !save.warned) { save.warned = true; toast('写真が大きく保存できませんでした(文字は保存済み)。ダウンロードはできます。写真は「入力のバックアップ」で残せます'); }
     }
   }
   function applyData(d) {
@@ -103,11 +103,14 @@
       // 業種を変えたら、その業種のお手本を入れる(自分で書いた文があるところは残す)
       if (!S.color) S.color = g.color;
       if (first) { $('dark').checked = !!g.dark; S.color = g.color; }
-      if (changed && confirm('業種を「' + g.label + '」に変えます。用途・スペック欄・料金の例・設備・ルール・よくある質問を、この業種のものに入れ替えますか?\n(店名・住所・連絡先などはそのまま残ります)')) {
+      const swap = changed && confirm('業種を「' + g.label + '」に変えます。用途・スペック欄・料金の例・設備・ルール・よくある質問を、この業種のものに入れ替えますか?\n(店名・住所・連絡先などはそのまま残ります)');
+      if (swap) {
         S.uses = []; S.spec = {}; S.price = []; S.equip = {}; S.rules = {}; S.faq = [];
         $('catch').value = ''; $('lead').value = ''; $('points').value = ''; $('price-notes').value = ''; $('cancel').value = ''; $('owner-msg').value = '';
         S.color = g.color; $('dark').checked = !!g.dark;
       }
+      // 最低利用時間は select なので常に値がある。業種を決めた時と入れ替えた時はその業種の目安にする
+      if ((first || swap) && g.minHours) $('min-hours').value = g.minHours;
       if (!S.uses.length) S.uses = g.uses.slice(0, 6);
       if (!S.price.length) S.price = g.priceRows.map((r) => Object.assign({}, r));
       if (!Object.keys(S.rules).length) g.rules.forEach((r, i) => { if (i < 10) S.rules[r] = true; });
@@ -116,7 +119,6 @@
       if (!$('price-notes').value) $('price-notes').value = g.priceNotes.slice(0, 3).join('\n');
       if (!$('cancel').value) $('cancel').value = g.cancel[0];
       if (!$('book-label').value) $('book-label').value = g.bookLabel;
-      if (!$('min-hours').value && g.minHours) $('min-hours').value = g.minHours;
     }
     renderGenres(); renderChips(); renderSpec(); renderPrice(); renderEquip(); renderRules(); renderFaq(); renderPhotoGuide();
     save();
@@ -346,7 +348,7 @@
     const bookLabel = d['book-label'] || g.bookLabel;
     const navs = [];
     const secs = [];
-    const sec = (id, name, body, cls) => { if (body && body.replace(/<[^>]+>/g, '').trim()) { secs.push('<section id="' + id + '" class="sec ' + (cls || '') + '"><div class="in"><h2>' + esc(name) + '</h2>' + body + '</div></section>'); navs.push('<a href="#' + id + '">' + esc(name) + '</a>'); } };
+    const sec = (id, name, body, cls) => { if (body && (/<img\b/.test(body) || body.replace(/<[^>]+>/g, '').trim())) { secs.push('<section id="' + id + '" class="sec ' + (cls || '') + '"><div class="in"><h2>' + esc(name) + '</h2>' + body + '</div></section>'); navs.push('<a href="#' + id + '">' + esc(name) + '</a>'); } };
 
     // お知らせ
     const news = lines(d.news).map(splitPipe);
@@ -602,7 +604,7 @@ ${secs.join('\n')}
     $('up-json').addEventListener('change', (e) => {
       const f = e.target.files[0]; if (!f) return;
       const r = new FileReader();
-      r.onload = () => { try { const d = JSON.parse(r.result); if (!d || !d.genre) throw 0; applyData(d); save(); location.reload(); } catch (err) { toast('読み込めないファイルです'); } };
+      r.onload = () => { try { const d = JSON.parse(r.result); if (!d || !d.genre || !P.genres.some((g) => g.id === d.genre)) throw 0; if (!ls.set(SAVE_KEY, d)) { d.photos = []; if (!ls.set(SAVE_KEY, d)) throw 0; } location.reload(); } catch (err) { toast('読み込めないファイルです'); } };
       r.readAsText(f); e.target.value = '';
     });
     go(S.step);
