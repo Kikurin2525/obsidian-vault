@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>公式HPメーカー｜レンタルスペースの公式サイトを1枚で｜きくりん式</title>
+<link rel="icon" href="../../assets/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#fffdf8; --ink:#1a1a1a; --ink-2:#4a4a4a; --ink-3:#7a7a7a;
+    --navy:#1e3a5f; --navy-2:#eef2f7; --gold:#b8862b; --gold-2:#fbf3e2;
+    --green:#1f9d55; --green-2:#e6f6ec; --line:#d9dde3; --card:#ffffff;
+    --bad:#b3261e; --bad-2:#fdecea; --r:8px;
+  }
+  * { box-sizing:border-box; }
+  html { -webkit-text-size-adjust:100%; }
+  body { margin:0; background:var(--bg); color:var(--ink); line-height:1.7; font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic",system-ui,sans-serif; font-feature-settings:"palt"; }
+  a { color:var(--navy); }
+  .topbar { background:var(--navy); color:#fff; }
+  .topbar .in { max-width:760px; margin:0 auto; padding:14px 16px; display:flex; align-items:center; gap:12px; }
+  .logo { width:40px; height:40px; border-radius:var(--r); background:var(--gold); color:#fff; display:grid; place-items:center; font-weight:700; font-size:13px; flex:none; }
+  .topbar .name { font-size:16px; font-weight:700; line-height:1.3; }
+  .topbar .tag { font-size:11.5px; opacity:.8; margin-top:2px; }
+  .topbar .ver { margin-left:auto; font-size:11px; opacity:.75; white-space:nowrap; border:1px solid rgba(255,255,255,.35); border-radius:999px; padding:2px 8px; }
+  .wrap { max-width:760px; margin:0 auto; padding:16px 14px 80px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:16px; margin:0 0 14px; }
+  h2 { font-size:15px; font-weight:700; margin:0 0 10px; padding-left:10px; border-left:4px solid var(--gold); line-height:1.4; }
+  h3 { font-size:14px; margin:14px 0 6px; color:var(--navy); }
+  .muted { color:var(--ink-3); font-size:12px; }
+  .hint { color:var(--ink-2); font-size:12.5px; margin:6px 0 0; }
+  .note { background:var(--gold-2); border-left:4px solid var(--gold); border-radius:var(--r); padding:10px 12px; font-size:12.5px; color:var(--ink-2); margin-top:10px; }
+  .warn { background:var(--bad-2); border-left:4px solid var(--bad); border-radius:var(--r); padding:10px 12px; font-size:12.5px; color:var(--ink-2); margin-top:10px; }
+
+  .steps3 { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+  .step3 { background:var(--navy-2); border-radius:var(--r); padding:10px 10px 12px; font-size:12.5px; line-height:1.55; }
+  .step3 b { display:block; color:var(--navy); font-size:13px; margin-bottom:2px; }
+  .step3 b span { display:inline-grid; place-items:center; width:20px; height:20px; border-radius:50%; background:var(--gold); color:#fff; font-size:11px; margin-right:5px; }
+  @media (max-width:560px) { .steps3 { grid-template-columns:1fr; } }
+
+  .prog { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+  .prog .bar { flex:1; height:8px; background:var(--navy-2); border-radius:999px; overflow:hidden; }
+  .prog .bar i { display:block; height:100%; background:var(--gold); width:0; transition:width .2s; }
+  .prog .num { font-size:12.5px; color:var(--ink-2); font-weight:700; white-space:nowrap; }
+  .dots { display:flex; gap:5px; flex-wrap:wrap; margin-bottom:12px; }
+  .dots button { height:28px; min-width:28px; padding:0 8px; border-radius:999px; border:1px solid var(--line); background:#fff; color:var(--ink-3); font-size:11px; font-weight:700; cursor:pointer; font-family:inherit; }
+  .dots button.on { background:var(--navy); color:#fff; border-color:var(--navy); }
+  .dots button.done { background:var(--green-2); color:var(--green); border-color:var(--green); }
+
+  .pane { display:none; } .pane.on { display:block; }
+  label.f { display:block; font-size:13px; font-weight:700; color:var(--navy); margin:12px 0 4px; }
+  label.f small { font-weight:400; color:var(--ink-3); margin-left:6px; }
+  input[type=text], input[type=url], input[type=tel], input[type=email], input[type=number], select, textarea { width:100%; padding:11px 12px; font-size:16px; border:1px solid var(--line); border-radius:var(--r); font-family:inherit; background:#fff; color:var(--ink); }
+  textarea { min-height:90px; resize:vertical; line-height:1.6; }
+  input:focus, select:focus, textarea:focus { outline:none; border-color:var(--navy); box-shadow:0 0 0 3px rgba(30,58,95,.12); }
+  .row2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .row3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
+  @media (max-width:520px) { .row3 { grid-template-columns:1fr 1fr; } }
+  .tog { display:flex; align-items:flex-start; gap:8px; font-size:13.5px; margin-top:8px; padding:10px 12px; background:var(--navy-2); border-radius:var(--r); cursor:pointer; }
+  .tog input { width:20px; height:20px; accent-color:var(--green); flex:none; margin-top:2px; }
+  .tog b { color:var(--navy); }
+
+  /* 業種カード */
+  .genres { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:8px; }
+  @media (max-width:520px) { .genres { grid-template-columns:repeat(2,1fr); } }
+  .genre { border:2px solid var(--line); border-radius:var(--r); background:#fff; padding:12px 10px; text-align:center; cursor:pointer; font-family:inherit; }
+  .genre .ic { font-size:26px; line-height:1; }
+  .genre b { display:block; font-size:13.5px; color:var(--navy); margin-top:6px; }
+  .genre small { display:block; font-size:11px; color:var(--ink-3); margin-top:2px; line-height:1.4; }
+  .genre.on { border-color:var(--gold); background:var(--gold-2); }
+
+  /* チップ(候補から選ぶ) */
+  .chips { display:flex; flex-wrap:wrap; gap:6px; margin-top:6px; }
+  .chip { border:1px solid var(--line); background:#fff; border-radius:999px; padding:6px 12px; font-size:12.5px; cursor:pointer; font-family:inherit; color:var(--ink-2); text-align:left; line-height:1.4; }
+  .chip.on { background:var(--navy); color:#fff; border-color:var(--navy); }
+  .chip.pick { border-style:dashed; color:var(--navy); }
+  .chip.pick:hover { background:var(--navy-2); }
+
+  /* チェックリスト(設備・ルール・FAQ) */
+  .cl { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:6px; }
+  @media (max-width:520px) { .cl { grid-template-columns:1fr; } }
+  .cl label { display:flex; align-items:flex-start; gap:8px; font-size:13px; padding:8px 10px; border:1px solid var(--line); border-radius:var(--r); background:#fff; cursor:pointer; line-height:1.5; }
+  .cl label input { width:18px; height:18px; accent-color:var(--green); flex:none; margin-top:2px; }
+  .cl label.on { border-color:var(--green); background:var(--green-2); }
+  .cl1 { grid-template-columns:1fr; }
+
+  /* 料金表 */
+  table.price { width:100%; border-collapse:collapse; margin-top:8px; font-size:13px; }
+  table.price th, table.price td { border:1px solid var(--line); padding:4px; }
+  table.price th { background:var(--navy-2); color:var(--navy); font-size:12px; font-weight:700; }
+  table.price input { padding:8px; font-size:14px; }
+  table.price .rm { background:none; border:none; color:var(--bad); font-weight:700; cursor:pointer; font-family:inherit; font-size:12px; }
+
+  /* FAQ 編集 */
+  .faq-item { border:1px solid var(--line); border-radius:var(--r); padding:10px; margin-top:8px; background:#fff; }
+  .faq-item input, .faq-item textarea { margin-top:6px; }
+  .faq-item textarea { min-height:60px; }
+  .faq-item .rm { margin-top:6px; }
+
+  button.primary { width:100%; padding:14px; font-size:15px; font-weight:700; color:#fff; background:var(--green); border:none; border-radius:var(--r); cursor:pointer; font-family:inherit; }
+  button.secondary { width:100%; padding:12px; font-size:14px; font-weight:700; color:var(--navy); background:#fff; border:1px solid var(--navy); border-radius:var(--r); cursor:pointer; font-family:inherit; }
+  button.ghost { padding:8px 12px; font-size:12.5px; font-weight:700; color:var(--ink-2); background:#fff; border:1px solid var(--line); border-radius:var(--r); cursor:pointer; font-family:inherit; }
+  button:disabled { opacity:.45; cursor:default; }
+  .nav { display:grid; grid-template-columns:1fr 2fr; gap:8px; margin-top:16px; }
+  .btnrow { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px; }
+  @media (max-width:420px) { .btnrow { grid-template-columns:1fr; } }
+
+  .photos { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:10px; }
+  @media (min-width:560px) { .photos { grid-template-columns:repeat(3,1fr); } }
+  .ph { border:1px solid var(--line); border-radius:var(--r); overflow:hidden; background:#fff; }
+  .ph img { display:block; width:100%; aspect-ratio:4/3; object-fit:cover; }
+  .ph input { border:none; border-top:1px solid var(--line); border-radius:0; font-size:13px; padding:8px 10px; }
+  .ph .ctl { display:flex; border-top:1px solid var(--line); }
+  .ph .ctl button { flex:1; border:none; background:#fff; font-size:12px; font-weight:700; padding:7px; cursor:pointer; font-family:inherit; color:var(--ink-2); }
+  .ph .ctl button.rm { background:var(--bad-2); color:var(--bad); }
+  .ph .ctl button.hero { color:var(--gold); }
+  .ph .ctl button.hero.on { background:var(--gold-2); }
+  .addph { display:block; margin-top:10px; }
+  .addph input { display:none; }
+
+  .outsec { border-top:1px dashed var(--line); padding-top:14px; margin-top:14px; }
+  .outsec:first-of-type { border-top:none; padding-top:0; margin-top:0; }
+  .outsec h3 { font-size:14px; margin:0 0 6px; color:var(--navy); }
+  .outsec h3 span { display:inline-grid; place-items:center; width:22px; height:22px; border-radius:50%; background:var(--gold); color:#fff; font-size:12px; margin-right:6px; }
+  .check { margin:8px 0 0; padding:0; list-style:none; font-size:13px; }
+  .check li { padding:6px 0 6px 26px; position:relative; border-bottom:1px dashed var(--line); }
+  .check li::before { content:"✓"; position:absolute; left:4px; color:var(--green); font-weight:700; }
+  .check li.ng::before { content:"！"; color:var(--bad); }
+  .check li.ng { color:var(--bad); }
+  .preview-wrap { margin-top:10px; border:1px solid var(--line); border-radius:var(--r); overflow:hidden; background:#fff; }
+  .preview-wrap .bar { display:flex; gap:6px; padding:6px 10px; background:var(--navy-2); font-size:12px; color:var(--ink-2); align-items:center; }
+  .preview-wrap .bar button { margin-left:auto; }
+  #preview-frame { width:100%; height:560px; border:none; display:block; background:#fff; }
+  .preview-wrap.mobile #preview-frame { width:390px; margin:0 auto; border-left:1px solid var(--line); border-right:1px solid var(--line); }
+  .toast { position:fixed; left:50%; bottom:24px; transform:translateX(-50%); background:var(--navy); color:#fff; padding:10px 18px; border-radius:999px; font-size:13px; opacity:0; transition:opacity .2s; pointer-events:none; z-index:9; max-width:90vw; text-align:center; }
+  .toast.show { opacity:1; }
+  .footnote { font-size:11.5px; color:var(--ink-3); margin-top:24px; border-top:1px solid var(--line); padding-top:12px; line-height:1.7; }
+  details.ref { border:1px solid var(--line); border-radius:var(--r); background:#fff; margin-top:10px; }
+  details.ref summary { padding:10px 12px; font-size:13px; font-weight:700; color:var(--navy); cursor:pointer; }
+  details.ref .in { padding:0 14px 12px; font-size:12.5px; color:var(--ink-2); }
+  details.ref .in ul { margin:4px 0; padding-left:18px; }
+  .colors { display:flex; gap:8px; flex-wrap:wrap; margin-top:6px; }
+  .colors button { width:34px; height:34px; border-radius:50%; border:3px solid #fff; box-shadow:0 0 0 1px var(--line); cursor:pointer; }
+  .colors button.on { box-shadow:0 0 0 3px var(--gold); }
+  .bad-txt { color:var(--bad); }
+</style>
+</head>
+<body>
+<header class="topbar"><div class="in">
+  <div class="logo">HP</div>
+  <div><div class="name">公式HPメーカー</div><div class="tag">業種を選んで1画面ずつ入力→予約サイトに頼らない「自分の店の公式サイト」がHTML1枚で完成</div></div>
+  <div class="ver">v1.0</div>
+</div></header>
+
+<div class="wrap">
+<div id="app">
+
+<div class="card" id="intro">
+  <h2>はじめかた 3ステップ</h2>
+  <div class="steps3">
+    <div class="step3"><b><span>1</span>業種を選んで入力</b>ダンス・パーティ・貸会議室・撮影スタジオ・サロン・ジム。業種ごとに「必要な項目」と「文章のお手本」が最初から入っています。直すだけでOK</div>
+    <div class="step3"><b><span>2</span>できあがりを確認</b>スマホ表示のプレビューを見ながら直せます。足りない項目は「公開前チェック」が教えてくれます</div>
+    <div class="step3"><b><span>3</span>ダウンロードして公開</b>写真も入ったHTML1枚。Netlify Dropに放り込めば5分で公開。Googleビジネスプロフィールの「ウェブサイト」欄に入れれば検索からも来ます</div>
+  </div>
+  <div class="note">予約サイト(スペースマーケット・インスタベース)は集客の入口です。公式HPがあると ①指名検索で見つかる ②手数料のかからない直接予約の窓口ができる ③Googleマップの店舗情報が信用される、の3つが起きます。入力内容はこのブラウザにだけ保存され、外部には送りません。</div>
+</div>
+
+<div class="card">
+  <div class="prog"><div class="bar"><i id="bar"></i></div><div class="num" id="prog-num">1 / 12</div></div>
+  <div class="dots" id="dots"></div>
+
+  <!-- 1 業種 -->
+  <section class="pane" data-step="1">
+    <h2>1. 業種を選ぶ</h2>
+    <p class="hint">選ぶと、その業種の公式HPに必要な項目・設備リスト・ルール・よくある質問・文章のお手本が入ります(あとで全部直せます)。</p>
+    <div class="genres" id="genres"></div>
+    <details class="ref" id="genre-ref"><summary>この業種の公式HPに必要なもの(調査メモ)</summary><div class="in" id="genre-ref-in"></div></details>
+    <label class="f">店名・スタジオ名</label><input type="text" id="shop" placeholder="例: STUDIO ◯◯ 下北沢">
+    <label class="f">部屋がいくつかあるなら、部屋名<small>任意・「,」区切り</small></label><input type="text" id="rooms" placeholder="例: Aスタジオ, Bスタジオ">
+    <label class="f">エリア(駅名・地名)<small>検索で見つけてもらうための言葉</small></label><input type="text" id="area" placeholder="例: 下北沢・世田谷">
+    <label class="f">テーマカラー</label>
+    <div class="colors" id="colors"></div>
+    <label class="tog"><input type="checkbox" id="dark"><span><b>黒ベースの見た目にする</b><br><span class="muted">ダンス・ジム・撮影スタジオ向け。OFFは白ベース</span></span></label>
+  </section>
+
+  <!-- 2 キャッチコピー -->
+  <section class="pane" data-step="2">
+    <h2>2. 最初に見せる言葉(トップ)</h2>
+    <label class="f">キャッチコピー<small>候補を押すと入ります</small></label>
+    <div class="chips" id="catch-chips"></div>
+    <input type="text" id="catch" placeholder="例: 駅から3分、鏡張り30㎡。1時間1,500円から使えるダンススタジオ">
+    <label class="f">リード文<small>2〜3文。候補を押すと入ります</small></label>
+    <div class="chips" id="lead-chips"></div>
+    <textarea id="lead" placeholder="どんな場所か、誰向けか、いくらから、を3文で"></textarea>
+    <label class="f">こんな使い方に<small>当てはまるものを押す。自分で追加もできます</small></label>
+    <div class="chips" id="use-chips"></div>
+    <input type="text" id="use-add" placeholder="追加する用途を入力してEnter">
+    <label class="f">3つの強み<small>1行に1つ。「見出し｜説明」の形にすると見出しが太字に</small></label>
+    <textarea id="points" placeholder="例:
+駅から徒歩3分｜◯◯駅南口から信号1つ。雨の日も濡れずに来られます
+1時間1,500円から｜平日昼はさらに割引。学生証で10%オフ
+24時間・無人でOK｜スマートロックで深夜早朝も使えます"></textarea>
+  </section>
+
+  <!-- 3 スペース情報 -->
+  <section class="pane" data-step="3">
+    <h2>3. スペースの基本情報</h2>
+    <p class="hint">お客さんが最初に見る数字です。分からない欄は空でOK(空の欄は表示されません)。</p>
+    <div id="spec-fields"></div>
+    <label class="f">補足<small>任意</small></label><textarea id="spec-note" placeholder="例: 2階・エレベーターなし。荷物用の台車を1階に置いています"></textarea>
+  </section>
+
+  <!-- 4 料金 -->
+  <section class="pane" data-step="4">
+    <h2>4. 料金</h2>
+    <p class="hint">「いくらから」がすぐ分かるのが最重要。時間帯ごとに行を足してください。</p>
+    <label class="f">料金の単位</label>
+    <select id="price-unit"><option value="1時間">1時間あたり</option><option value="30分">30分あたり</option><option value="1回">1回(パック)</option></select>
+    <table class="price" id="price-table">
+      <thead><tr><th>プラン・時間帯</th><th>平日</th><th>土日祝</th><th></th></tr></thead>
+      <tbody id="price-body"></tbody>
+    </table>
+    <div class="btnrow"><button class="ghost" id="price-add">行を足す</button><button class="ghost" id="price-preset">この業種の例で埋める</button></div>
+    <label class="f">最低利用時間</label>
+    <select id="min-hours"><option value="">表示しない</option><option>30分</option><option selected>1時間</option><option>2時間</option><option>3時間</option></select>
+    <label class="f">延長・オプション・割引<small>1行に1つ</small></label>
+    <textarea id="price-opts" placeholder="例:
+延長: 15分ごとに500円(空いていれば当日OK)
+人数追加: 定員超過1名につき500円/時間
+学割: 学生証提示で10%オフ"></textarea>
+    <label class="f">料金の注記<small>1行に1つ</small></label>
+    <div class="chips" id="pricenote-chips"></div>
+    <textarea id="price-notes" placeholder="例:
+料金は税込です
+準備・片付けの時間もご予約時間に含みます"></textarea>
+  </section>
+
+  <!-- 5 設備 -->
+  <section class="pane" data-step="5">
+    <h2>5. 設備・備品</h2>
+    <p class="hint">あるものにチェック。グループ分けは自動です。</p>
+    <div id="equip-groups"></div>
+    <label class="f">自分で追加<small>1行に1つ</small></label><textarea id="equip-add" placeholder="例:
+フォームローラー 2本
+アロマディフューザー"></textarea>
+    <label class="f">貸出できないもの・持ち込みのお願い<small>任意</small></label><input type="text" id="equip-note" placeholder="例: タオル・スリッパはご持参ください">
+  </section>
+
+  <!-- 6 写真 -->
+  <section class="pane" data-step="6">
+    <h2>6. 写真</h2>
+    <p class="hint">最大10枚。「トップに」を押した1枚が最初の大きな写真になります。横長の明るい写真がおすすめ。ブラウザ内で1400pxに縮小して埋め込みます。</p>
+    <div id="photo-count" class="muted"></div>
+    <div class="photos" id="photos"></div>
+    <label class="addph"><button class="secondary" type="button" id="addph-btn">写真を追加</button><input type="file" id="addph" accept="image/*" multiple></label>
+    <label class="f">この業種でおすすめの写真</label>
+    <ul class="check" id="photo-guide"></ul>
+  </section>
+
+  <!-- 7 アクセス -->
+  <section class="pane" data-step="7">
+    <h2>7. アクセス</h2>
+    <label class="f">住所</label><input type="text" id="address" placeholder="例: 東京都世田谷区北沢2-1-1 ◯◯ビル2F">
+    <label class="f">最寄駅と徒歩分数<small>1行に1駅</small></label>
+    <textarea id="stations" placeholder="例:
+小田急線・井の頭線 下北沢駅 南西口から徒歩3分
+京王井の頭線 池ノ上駅 徒歩7分"></textarea>
+    <label class="f">道順<small>3手順まで</small></label>
+    <input type="text" id="route1" placeholder="① 例: 南西口を出て右へ、茶沢通りを直進">
+    <input type="text" id="route2" placeholder="② 例: ファミリーマートの角を左" style="margin-top:6px">
+    <input type="text" id="route3" placeholder="③ 例: 青い看板のビル。階段で2階へ" style="margin-top:6px">
+    <label class="f">Googleマップ<small>「共有」→「地図を埋め込む」のHTMLか、共有リンク。どちらでもOK</small></label>
+    <textarea id="map" placeholder='<iframe src="https://www.google.com/maps/embed?..."></iframe>  または  https://maps.app.goo.gl/…'></textarea>
+    <label class="f">駐車場・駐輪場</label><input type="text" id="parking" placeholder="例: 駐車場なし(近隣にコインパーキング多数)。駐輪は建物前に2台まで">
+    <label class="f">入館・搬入について<small>任意</small></label><input type="text" id="entry-note" placeholder="例: エレベーターあり(奥行1.5m)。搬入口は裏手、台車貸出可">
+  </section>
+
+  <!-- 8 ルール -->
+  <section class="pane" data-step="8">
+    <h2>8. 利用ルール・禁止事項</h2>
+    <p class="hint">トラブルを未然に防ぐ項目です。チェックしたものが載ります。</p>
+    <div class="cl cl1" id="rule-list"></div>
+    <label class="f">自分で追加<small>1行に1つ</small></label><textarea id="rule-add" placeholder="例: 近隣が住宅のため、22時以降は窓を閉めてください"></textarea>
+    <h3>キャンセルポリシー</h3>
+    <div class="chips" id="cancel-chips"></div>
+    <textarea id="cancel" placeholder="例:
+利用日の7日前まで: 無料
+6日前〜前日: 50%
+当日・無連絡: 100%"></textarea>
+  </section>
+
+  <!-- 9 FAQ -->
+  <section class="pane" data-step="9">
+    <h2>9. よくある質問</h2>
+    <p class="hint">この業種で実際によく聞かれる質問を入れています。答えは自分の店に合わせて直してください。</p>
+    <div id="faq-list"></div>
+    <div class="btnrow"><button class="ghost" id="faq-add">質問を足す</button><button class="ghost" id="faq-more">候補からもっと足す</button></div>
+    <div class="chips" id="faq-chips"></div>
+  </section>
+
+  <!-- 10 予約・連絡先 -->
+  <section class="pane" data-step="10">
+    <h2>10. 予約・お問い合わせ</h2>
+    <p class="hint">予約ボタンは画面下にずっと出ます。まずは予約サイトへ飛ばす形で十分です。</p>
+    <label class="f">メインの予約先</label>
+    <select id="book-type">
+      <option value="spacemarket">スペースマーケットの自分のページ</option>
+      <option value="instabase">インスタベースの自分のページ</option>
+      <option value="own">自分の予約フォーム・予約システム(STORES予約・Airリザーブなど)</option>
+      <option value="line">LINE公式アカウントで受付</option>
+      <option value="tel">電話で受付</option>
+    </select>
+    <label class="f">予約先のURL<small>LINE/電話のときは空でOK</small></label><input type="url" id="book-url" placeholder="https://www.spacemarket.com/spaces/…">
+    <label class="f">予約ボタンの文言</label><input type="text" id="book-label" placeholder="空き状況を見る・予約する">
+    <label class="f">サブの予約先<small>任意・「名前｜URL」で1行に1つ</small></label>
+    <textarea id="book-sub" placeholder="例:
+インスタベースで予約｜https://www.instabase.jp/space/…
+公式LINEで相談｜https://lin.ee/…"></textarea>
+    <div class="row2">
+      <div><label class="f">LINE公式アカウント URL</label><input type="url" id="line" placeholder="https://lin.ee/…"></div>
+      <div><label class="f">Instagram URL</label><input type="url" id="insta" placeholder="https://www.instagram.com/…"></div>
+    </div>
+    <div class="row2">
+      <div><label class="f">電話</label><input type="tel" id="tel" placeholder="03-1234-5678"></div>
+      <div><label class="f">メール</label><input type="email" id="mail" placeholder="info@example.com"></div>
+    </div>
+    <label class="f">受付時間・返信の目安</label><input type="text" id="contact-note" placeholder="例: お問い合わせは24時間受付。返信は当日中(22時以降は翌朝)">
+    <label class="f">その他リンク<small>任意・「名前｜URL」</small></label><textarea id="links" placeholder="例:
+X(Twitter)｜https://x.com/…
+YouTube(スタジオ紹介)｜https://youtube.com/…"></textarea>
+  </section>
+
+  <!-- 11 運営者情報 -->
+  <section class="pane" data-step="11">
+    <h2>11. 運営者情報・お知らせ</h2>
+    <p class="hint">「誰がやっているか」が分かる店は選ばれます。Googleビジネスプロフィールと同じ表記にしてください。</p>
+    <label class="f">運営者(屋号・会社名)</label><input type="text" id="owner" placeholder="例: ◯◯合同会社 / 個人事業 ◯◯">
+    <label class="f">代表者名<small>任意</small></label><input type="text" id="owner-name" placeholder="例: 山田 太郎">
+    <label class="f">所在地<small>スペースと同じなら空でOK</small></label><input type="text" id="owner-address" placeholder="例: 東京都◯◯区…">
+    <label class="f">ひとこと・運営の想い<small>任意・2〜4文</small></label>
+    <div class="chips" id="owner-chips"></div>
+    <textarea id="owner-msg" placeholder="例: 自分自身がダンサーで、練習場所に困った経験からこのスタジオを作りました。..."></textarea>
+    <label class="f">お知らせ<small>任意・1行に1つ。「日付｜内容」</small></label>
+    <textarea id="news" placeholder="例:
+2026.10.01｜オープンしました
+2026.10.15｜平日昼の割引を始めました"></textarea>
+    <label class="f">Googleビジネスプロフィール(口コミ)のURL<small>任意</small></label><input type="url" id="gbp" placeholder="https://g.page/r/…">
+    <label class="f">利用者の声<small>任意・1行に1つ。「内容｜お名前や属性」</small></label>
+    <textarea id="voices" placeholder="例:
+鏡が大きくて音も良い。毎週使っています｜20代・ダンサー
+駅から近く、夜遅くでも入れて助かります｜30代・会社員"></textarea>
+    <label class="f">ページの説明文(検索結果に出る文)<small>任意・空なら自動</small></label><input type="text" id="desc" placeholder="120文字前後">
+  </section>
+
+  <!-- 12 できあがり -->
+  <section class="pane" data-step="12">
+    <h2>12. できあがり</h2>
+    <div class="outsec">
+      <h3><span>1</span>公開前チェック</h3>
+      <ul class="check" id="pubcheck"></ul>
+    </div>
+    <div class="outsec">
+      <h3><span>2</span>プレビュー</h3>
+      <div class="preview-wrap mobile" id="preview-wrap">
+        <div class="bar"><span id="preview-label">スマホ表示</span><button class="ghost" id="preview-toggle">PC表示にする</button><button class="ghost" id="preview-open">別タブで開く</button></div>
+        <iframe id="preview-frame" title="プレビュー"></iframe>
+      </div>
+    </div>
+    <div class="outsec">
+      <h3><span>3</span>ダウンロード</h3>
+      <div class="hint">写真も埋め込んだHTML1ファイル。ファイル名は index.html にしてあります。</div>
+      <div class="btnrow"><button class="primary" id="dl-html">公式HPをダウンロード(index.html)</button><button class="secondary" id="copy-html">HTMLをコピー</button></div>
+    </div>
+    <div class="outsec">
+      <h3><span>4</span>公開のしかた(無料)</h3>
+      <ol style="font-size:13.5px;padding-left:20px;margin:6px 0">
+        <li><b>Netlify Drop</b>(いちばん簡単): <a href="https://app.netlify.com/drop" target="_blank" rel="noopener">app.netlify.com/drop</a> を開き、ダウンロードした index.html を入れたフォルダをドラッグ&ドロップ。数十秒でURLが出ます。無料アカウントを作ると、あとから差し替え・独自ドメインの設定ができます。</li>
+        <li><b>Googleビジネスプロフィール</b>に登録し、「ウェブサイト」欄にそのURLを入れる。Googleマップの店舗カードに「ウェブサイト」ボタンが出ます。</li>
+        <li><b>予約サイトのプロフィール・Instagramのプロフィール</b>にもURLを貼る。</li>
+        <li>独自ドメイン(例: studio-xxx.com、年1,500円前後)は「店名で検索されるようになってから」で十分。先に公開してください。</li>
+      </ol>
+      <div class="note">直したいときは、このページに戻って入力を直し、もう一度ダウンロード→Netlifyで差し替え、でOK。入力はこのブラウザに残っています(「入力のバックアップ」も保存しておくと、別の端末やブラウザを消したときも復元できます)。</div>
+    </div>
+    <div class="outsec">
+      <h3><span>5</span>入力のバックアップ</h3>
+      <div class="btnrow"><button class="secondary" id="dl-json">入力をファイルに保存(.json)</button><label class="addph" style="margin:0"><button class="secondary" type="button" id="up-json-btn">保存した入力を読み込む</button><input type="file" id="up-json" accept="application/json,.json"></label></div>
+    </div>
+  </section>
+
+  <div class="nav"><button class="secondary" id="prev">戻る</button><button class="primary" id="next">次へ</button></div>
+</div>
+
+<div class="btnrow"><button class="ghost" id="reset">最初から(入力を消す)</button></div>
+<div class="footnote">
+入力内容と写真はこのブラウザ(localStorage)にだけ保存され、外部には送信されません。生成されるHTMLも外部サービスを使いません(Googleマップの埋め込みを入れた場合のみ、地図部分はGoogleから読み込まれます)。<br>
+『【きくりん式】ダンスのレンタルスタジオで稼ぐ 完全ロードマップ』購入者用の付録です。公式HPメーカー v1.0
+</div>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script src="presets.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
