@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <title>ダンススタジオ 初期費用・回収シミュレーター｜きくりん式</title>
+    <link rel="icon" href="../../assets/favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&amp;display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #f57c00;
+            --accent: #29b6f6;
+            --text: #333;
+            --bg: #ffffff;
+            --card: #fff;
+            --line: #f0e2c8;
+            --muted: #8a7d6c;
+            --navy: #24345c;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 0 0 60px;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.75;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        header {
+            background: linear-gradient(180deg, #ffb300, #ff9100);
+            color: #fff;
+            padding: 22px 16px 18px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 21px;
+            margin: 0 0 6px;
+            line-height: 1.4;
+        }
+
+        header p { margin: 0; font-size: 13px; opacity: .95; }
+
+        .wrap { max-width: 720px; margin: 0 auto; padding: 0 14px; }
+
+        .card {
+            background: var(--card);
+            border: 2px solid var(--line);
+            border-radius: 14px;
+            padding: 16px 16px 18px;
+            margin: 16px 0;
+        }
+
+        .step {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--navy);
+            margin: 0 0 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .step .num {
+            background: var(--primary);
+            color: #fff;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex: 0 0 auto;
+        }
+
+        .hint { font-size: 12px; color: var(--muted); margin: 0 0 12px; }
+
+        .row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 7px 0;
+            border-bottom: 1px dashed #f2e8d5;
+            flex-wrap: wrap;
+        }
+
+        .row:last-child { border-bottom: none; }
+        .row label.name { flex: 1 1 130px; font-size: 14px; }
+
+        input[type=number], select {
+            font-family: inherit;
+            font-size: 15px;
+            padding: 7px 9px;
+            border: 2px solid #e2d6bd;
+            border-radius: 8px;
+            background: #fffdf7;
+            width: 116px;
+            text-align: right;
+        }
+
+        select { width: auto; text-align: left; min-width: 130px; max-width: 100%; }
+        input[type=number]:focus, select:focus { outline: none; border-color: var(--accent); }
+        .unit { font-size: 13px; color: var(--muted); }
+
+        .items .row { border-bottom: 1px dotted #eee2cc; }
+        .items label.name { display: flex; align-items: flex-start; gap: 7px; cursor: pointer; flex: 1 1 150px; }
+        .items input[type=checkbox] { margin-top: 5px; width: 17px; height: 17px; flex: 0 0 auto; accent-color: var(--primary); }
+        .items input[type=number] { width: 104px; }
+        .qty { width: 52px !important; }
+
+        .src {
+            display: inline-block;
+            font-size: 10px;
+            border-radius: 6px;
+            padding: 1px 6px;
+            margin-left: 5px;
+            vertical-align: 2px;
+            white-space: nowrap;
+        }
+        .src.jisseki { background: #e4f6df; color: #2f8c22; }
+        .src.jissei { background: #e8f0ff; color: #2b5fd9; }
+        .src.souba { background: #f6f1e4; color: #8a7d6c; }
+
+        details.adv { margin-top: 10px; }
+        details.adv summary { cursor: pointer; font-size: 13px; color: var(--accent); font-weight: 700; }
+        details.adv .card { margin: 10px 0 0; background: #fffdf7; }
+
+        /* 結果 */
+        .result { border-color: var(--primary); }
+        .total-label { font-size: 13px; color: var(--muted); margin: 0; }
+        .total {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 38px;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 2px 0 10px;
+            line-height: 1.2;
+        }
+        .total small { font-size: 18px; }
+
+        .bar { display: flex; height: 16px; border-radius: 8px; overflow: hidden; margin: 10px 0 8px; background: #f0e8d8; }
+        .bar span { display: block; height: 100%; }
+        .b1 { background: #ffa000; }
+        .b2 { background: #29b6f6; }
+        .b3 { background: #66bb6a; }
+
+        .legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12.5px; margin-bottom: 10px; }
+        .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 4px; }
+
+        table.detail { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 6px; }
+        table.detail th { text-align: left; color: var(--muted); font-weight: 400; padding: 5px 0; border-bottom: 1px solid #f0e8d8; }
+        table.detail td { padding: 5px 0; border-bottom: 1px solid #f7f1e5; }
+        table.detail td.n { text-align: right; white-space: nowrap; }
+        table.detail tr.sum td { font-weight: 700; border-top: 2px solid var(--line); border-bottom: none; }
+
+        .payback { background: #f6faff; border: 2px solid #d6e9fb; border-radius: 12px; padding: 12px 14px; margin-top: 14px; }
+        .payback h3 { margin: 0 0 8px; font-size: 15px; color: var(--navy); font-family: 'Noto Sans JP', sans-serif; }
+        .payback .pb { display: flex; justify-content: space-between; align-items: baseline; padding: 4px 0; font-size: 14px; }
+        .payback .pb b { font-size: 20px; color: var(--accent); font-family: 'Noto Sans JP', sans-serif; }
+
+        .verdict { background: #fffbe9; border-left: 4px solid var(--primary); padding: 10px 12px; margin-top: 14px; border-radius: 0 8px 8px 0; font-size: 14px; }
+
+        .compare { margin-top: 14px; }
+        .compare h3 { font-size: 15px; margin: 0 0 6px; color: var(--navy); font-family: 'Noto Sans JP', sans-serif; }
+        .compare table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        .compare td { padding: 4px 0; border-bottom: 1px solid #f7f1e5; }
+        .compare td.n { text-align: right; white-space: nowrap; }
+
+        .btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+        button {
+            font-family: inherit;
+            font-size: 14px;
+            padding: 9px 15px;
+            border-radius: 9px;
+            border: 2px solid var(--line);
+            background: #fff;
+            color: var(--text);
+            cursor: pointer;
+            font-weight: 700;
+        }
+        button.pri { background: var(--primary); color: #fff; border-color: var(--primary); }
+        button:active { transform: translateY(1px); }
+
+        .cta {
+            background: linear-gradient(180deg, #fff3d9, #ffe9bf);
+            border: 2px solid #ffc966;
+            border-radius: 14px;
+            padding: 18px 16px;
+            margin: 22px 0 10px;
+            text-align: center;
+        }
+        .cta h2 { font-family: 'Noto Sans JP', sans-serif; font-size: 18px; margin: 0 0 8px; color: var(--navy); }
+        .cta p { font-size: 14px; margin: 0 0 14px; }
+        .cta a.btn {
+            display: inline-block;
+            background: var(--primary);
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 26px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .note { font-size: 12px; color: var(--muted); margin-top: 14px; line-height: 1.7; }
+        footer { text-align: center; font-size: 12px; color: var(--muted); padding: 20px 14px 0; }
+        footer a { color: var(--accent); }
+        .toast {
+            position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%);
+            background: var(--navy); color: #fff; padding: 10px 18px; border-radius: 20px;
+            font-size: 13px; opacity: 0; pointer-events: none; transition: opacity .25s; z-index: 99;
+        }
+        .toast.on { opacity: 1; }
+        @media (max-width: 480px) {
+            .total { font-size: 32px; }
+            header h1 { font-size: 18px; }
+        }
+    
+        .kpi2 { display:flex; gap:12px; flex-wrap:wrap; margin:6px 0 4px; }
+        .kpi2 .box { flex:1 1 200px; background:#f6faff; border:2px solid #d6e9fb; border-radius:12px; padding:12px 14px; }
+        .kpi2 .box.or { background:#fff8ec; border-color:#ffd699; }
+        .kpi2 .lbl { font-size:12.5px; color:var(--muted); margin:0; }
+        .kpi2 .big { font-size:30px; font-weight:800; color:var(--navy); line-height:1.25; margin:2px 0; }
+        .kpi2 .big small { font-size:15px; font-weight:700; }
+        .kpi2 .sub { font-size:12.5px; color:var(--text); margin:0; }
+        .grade { display:inline-block; font-size:18px; font-weight:800; border-radius:8px; padding:0 8px; margin-left:6px; vertical-align:3px; }
+        .g-best { background:#e4f6df; color:#2f8c22; } .g-good { background:#e8f0ff; color:#2b5fd9; } .g-fair { background:#fff3d6; color:#b26a00; } .g-ng { background:#fde4e4; color:#c62828; }
+        table.scn { width:100%; border-collapse:collapse; font-size:13.5px; margin-top:8px; }
+        table.scn th { text-align:right; color:var(--muted); font-weight:400; font-size:12px; padding:5px 4px; border-bottom:1px solid #f0e8d8; }
+        table.scn th:first-child, table.scn td:first-child { text-align:left; }
+        table.scn td { padding:7px 4px; border-bottom:1px solid #f7f1e5; text-align:right; white-space:nowrap; }
+        table.scn td:first-child { white-space:normal; }
+        table.scn td small { color:var(--muted); display:block; font-size:11.5px; }
+        table.scn .minus { color:#c62828; } table.scn .plus { color:#2f8c22; font-weight:700; }
+        table.scn tr.me td { background:#fffbe9; }
+        table.scn input[type=number] { width:70px; padding:4px 6px; font-size:14px; }
+        h3.sec { font-size:15px; margin:16px 0 4px; color:var(--navy); }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ダンススタジオ<br>初期費用・回収シミュレーター</h1>
+        <p>最初にいくらかかって、1日に何時間埋まれば黒字で、いつ回収できるか</p>
+    </header>
+    <div class="wrap">
+
+        <div class="card">
+            <p class="step"><span class="num">1</span>物件と契約</p>
+            <p class="hint">不動産サイトに載っている数字を、そのまま入れてください。広さは、前室などもふくめた全体の面積です。</p>
+            <div class="row"><label class="name" for="rent">家賃(管理費込み・月額)</label><input type="number" id="rent" value="100000" step="1000"><span class="unit">円</span></div>
+            <div class="row"><label class="name" for="size">広さ</label><input type="number" id="size" value="40" step="1"><span class="unit">㎡</span></div>
+            <div class="row"><label class="name" for="shiki">敷金・保証金</label><input type="number" id="shiki" value="1" step="0.5" min="0"><span class="unit">ヶ月</span></div>
+            <div class="row"><label class="name" for="rei">礼金</label><input type="number" id="rei" value="1" step="0.5" min="0"><span class="unit">ヶ月</span></div>
+            <div class="row"><label class="name" for="chukai">仲介手数料</label><input type="number" id="chukai" value="1" step="0.5" min="0"><span class="unit">ヶ月</span></div>
+            <div class="row"><label class="name" for="hosho">保証会社</label><input type="number" id="hosho" value="1" step="0.5" min="0"><span class="unit">ヶ月</span></div>
+            <div class="row"><label class="name" for="kasai">火災保険(2年)</label><input type="number" id="kasai" value="2" step="0.5"><span class="unit">万円くらい</span></div>
+            <div class="row items"><label class="name" for="kagi"><input type="checkbox" id="kagi"><span>鍵交換</span></label><input type="number" id="kagiV" value="3" step="0.5"><span class="unit">万円くらい</span></div>
+            <div class="row items"><label class="name" for="maebarai"><input type="checkbox" id="maebarai" checked><span>前払いの家賃(1ヶ月)も足す</span></label><span class="unit"></span></div>
+        </div>
+
+        <div class="card">
+            <p class="step"><span class="num">2</span>鏡と内装</p>
+            <p class="hint">お金をかけるのは、鏡だけ。壁は白いまま、照明は蛍光灯のままが、ぼくのおすすめです。</p>
+            <div class="row"><label class="name" for="mirror">鏡</label>
+                <select id="mirror">
+                    <option value="0">最初から付いている(0円)</option>
+                    <option value="33000" selected>パネルミラーを自分で固定する</option>
+                    <option value="82000">鏡の業者さんに貼ってもらう</option>
+                </select>
+            </div>
+            <div class="row"><label class="name" for="mirrorW">鏡を貼る幅</label><input type="number" id="mirrorW" value="4.5" step="0.5"><span class="unit">m</span></div>
+            <div class="row"><label class="name" for="floor">床</label>
+                <select id="floor">
+                    <option value="none">そのまま使う(0円)</option>
+                    <option value="diy" selected>クッションフロアを自分で貼る</option>
+                    <option value="pro">クッションフロアを業者さんに頼む</option>
+                </select>
+            </div>
+            <div class="row items"><label class="name" for="light"><input type="checkbox" id="light"><span>照明をLEDに替える</span></label><input type="number" id="lightV" value="3" step="0.5"><span class="unit">万円くらい</span></div>
+            <div class="row items"><label class="name" for="aircon"><input type="checkbox" id="aircon"><span>エアコンを交換する</span></label><input type="number" id="airconV" value="12" step="1"><span class="unit">万円くらい</span></div>
+            <div class="row items"><label class="name" for="other"><input type="checkbox" id="other"><span>そのほかの工事(壁の撤去・窓の前に壁を作る など)</span></label><input type="number" id="otherV" value="10" step="1"><span class="unit">万円くらい</span></div>
+            <details class="adv">
+                <summary>▼ 計算に使っている単価を変える</summary>
+                <div class="card">
+                    <div class="row"><label class="name" for="floorD">床 自分で貼る(円/㎡)<span class="src souba">相場</span></label><input type="number" id="floorD" value="1200" step="100"></div>
+                    <div class="row"><label class="name" for="floorU">床 業者さん(円/㎡)<span class="src souba">相場</span></label><input type="number" id="floorU" value="3000" step="100"></div>
+                    <div class="row"><label class="name">鏡 パネルミラー<span class="src jisseki">実績</span></label><span class="unit">幅1mあたり約3.3万円(幅90cm・1枚3万円ほど)</span></div>
+                    <div class="row"><label class="name">鏡 業者さん<span class="src jisseki">実績</span></label><span class="unit">幅1mあたり約8.2万円(幅6.5mで53万3,500円)</span></div>
+                </div>
+            </details>
+        </div>
+
+        <div class="card">
+            <p class="step"><span class="num">3</span>備品</p>
+            <p class="hint">付録の「買い物リスト」と同じ品目です。いらないものはチェックを外して、金額は自分の想定に書きかえてください。</p>
+            <div class="items" id="items"></div>
+        </div>
+
+        <div class="card">
+            <p class="step"><span class="num">4</span>1時間の値段と、毎月のお金</p>
+            <p class="hint">1時間の値段は、広さで決まる型を自動で入れています(50㎡未満=平日1,000円・休日1,500円/50〜70㎡=1,500円・2,000円/70㎡以上=2,000円・2,500円)。</p>
+            <div class="row items"><label class="name" for="autoRate"><input type="checkbox" id="autoRate" checked><span>広さから自動で入れる</span></label><span class="unit" id="rateBasis"></span></div>
+            <div class="row"><label class="name" for="wd">平日の1時間(公式サイトの値段)</label><input type="number" id="wd" value="1000" step="100"><span class="unit">円</span></div>
+            <div class="row"><label class="name" for="we">休日の1時間(公式サイトの値段)</label><input type="number" id="we" value="1500" step="100"><span class="unit">円</span></div>
+            <div class="row"><label class="name" for="share">予約サイト経由の割合</label>
+                <select id="share">
+                    <option value="0.7" selected>開業してすぐ(予約サイト7割)</option>
+                    <option value="0.4">育ったあと(公式サイト6割)</option>
+                </select>
+            </div>
+            <div class="row"><label class="name" for="otherCost">家賃以外に毎月かかるお金</label><input type="number" id="otherCost" value="2" step="0.5"><span class="unit">万円(電気・水道・ネット・消耗品など)</span></div>
+            <p class="hint" style="margin-top:10px">予約サイト経由=公式サイトの1.1倍の値段で出して手数料35%/公式サイト経由=手数料3.5%。1ヶ月=平日22日+休日8日で計算しています。</p>
+        </div>
+
+        <div class="card result" id="result">
+            <p class="total-label">最初にかかるお金(合計)</p>
+            <p class="total" id="total">—</p>
+            <div class="bar"><span class="b1" id="bar1"></span><span class="b2" id="bar2"></span><span class="b3" id="bar3"></span></div>
+            <div class="legend">
+                <span><i class="b1"></i>契約のお金 <b id="l1">0</b></span>
+                <span><i class="b2"></i>鏡と工事 <b id="l2">0</b></span>
+                <span><i class="b3"></i>備品 <b id="l3">0</b></span>
+            </div>
+            <div class="verdict" id="verdictCost"></div>
+
+            <h3 class="sec">黒字に必要な時間と、毎月のお金</h3>
+            <div class="kpi2">
+                <div class="box or"><p class="lbl">黒字に必要な時間</p><p class="big" id="beBig">—</p><p class="sub" id="beSub"></p></div>
+                <div class="box"><p class="lbl">毎月出ていくお金</p><p class="big" id="fixedBig">—</p><p class="sub" id="fixedSub"></p></div>
+            </div>
+            <div class="verdict" id="verdictBe"></div>
+
+            <h3 class="sec">利益と、回収の目安</h3>
+            <p class="hint" style="margin:0">何時間埋まるかは、きくりんの店の実測(2026年4〜8月・運営中の5店舗)で3通り出しています。いちばん下の行は、自分で時間を入れられます。</p>
+            <div style="overflow-x:auto"><table class="scn" id="scn"></table></div>
+            <div class="verdict" id="verdictPb"></div>
+
+            <details class="adv"><summary>▼ 初期費用の明細を見る</summary><table class="detail" id="detail"></table></details>
+
+            <div class="compare">
+                <h3>ぼくの店の実額とくらべると</h3>
+                <table>
+                    <tr><td>1号店(40㎡・パネルミラーを自分で固定)</td><td class="n">約90万円 → 7ヶ月で回収</td></tr>
+                    <tr><td>9号店(57㎡・鏡が付いていた物件)</td><td class="n">約142万円 → 13ヶ月で回収</td></tr>
+                    <tr><td>10号店(40㎡・鏡を業者さんに。工事98万円)</td><td class="n">約214万円 → まだ回収中</td></tr>
+                </table>
+            </div>
+
+            <div class="btns">
+                <button class="pri" id="shareBtn">結果のリンクをコピー</button>
+                <button id="reset">最初の数字に戻す</button>
+            </div>
+            <p class="note">※ このシミュレーターは目安です。実際の金額は、物件・業者さん・時期によって変わります。敷金(保証金)は、やめるときに戻ってくる前提で「実質」の回収も出しています(原状回復の費用は入れていません)。</p>
+        </div>
+    </div>
+    <footer>『【きくりん式】ダンスのレンタルスタジオで稼ぐ 完全ロードマップ』購入者用の付録です</footer>
+    <div class="toast" id="toast">コピーしました</div>
+
+    <script>
+        // 備品(全ジャンル共通セット+ダンス)。品目は付録「買い物リスト」と同じ。単位は万円
+        const ITEMS = [
+            { k: 'c_cam', n: '防犯カメラ(双方向通話できるタイプ)', v: 1, on: 1 },
+                { k: 'c_sd', n: 'MicroSDカード(カメラ録画用)', v: 0.2, on: 1 },
+                { k: 'c_keybox', n: 'キーボックス(予備カギの分もあると良い)', v: 0.5, on: 1 },
+                { k: 'c_vac', n: '掃除機(スティックタイプ)', v: 1, on: 1 },
+                { k: 'c_toilet', n: 'トイレ用品一式(ペーパー、ブラシ、洗剤など)', v: 0.5, on: 1 },
+                { k: 'c_alc', n: 'アルコールスプレー', v: 0.1, on: 1 },
+                { k: 'c_soap', n: 'ハンドソープ', v: 0.1, on: 1 },
+                { k: 'c_wiper', n: 'クイックルワイパー', v: 0.2, on: 1 },
+                { k: 'c_cons', n: '消耗品一式(ティッシュ、ゴミ袋、ペーパータオルなど)', v: 0.5, on: 1 },
+                { k: 'c_slip', n: 'スリッパ(必要におうじてスリッパラックも)', v: 0.5, on: 1 },
+                { k: 'c_mat', n: '玄関マット', v: 0.3, on: 1 },
+                { k: 'c_horn', n: '靴べら', v: 0.1, on: 1 },
+                { k: 'c_umb', n: '傘立て', v: 0.3, on: 1 },
+                { k: 'c_clock', n: '時計', v: 0.3, on: 1 },
+                { k: 'c_curt', n: 'カーテンまたはブラインド', v: 1, on: 1 },
+                { k: 'c_tap', n: '延長コード・電源タップ(多めに)', v: 0.5, on: 1 },
+                { k: 'c_cable', n: 'スマホ充電ケーブル', v: 0.2, on: 1 },
+                { k: 'c_bulb', n: '照明の電球・蛍光灯(切れ対応の予備も)', v: 0.3, on: 1 },
+                { k: 'c_otohime', n: 'トイレの流水音(音姫的なもの)', v: 0.5, on: 1 },
+                { k: 'cdp', n: 'CD音楽プレーヤー(CD・Bluetooth・USB・AUXの全部が使えるもの)', v: 1, on: 1 },
+                { k: 'btsp', n: 'Bluetoothスピーカー(AnkerやJBLなど、Amazonの定番でOK)', v: 0.5, on: 1 },
+                { k: 'cables', n: '接続ケーブル類(AUX・HDMI・充電ケーブル。お客様が使えるように)', v: 0.3, on: 1 },
+                { k: 'rail', n: '照明(ライティングレール・スポットライト)(任意)', v: 1, on: 0 },
+                { k: 'dlight', n: '演出用ライト(ダンスライトなど。あると練習動画が映えます)', v: 0.5, on: 1 },
+                { k: 'chg', n: '更衣スペース(仕切り・突っ張りタイプでOK)', v: 1, on: 1 },
+                { k: 'tripod', n: 'スマホ用撮影三脚(壊れやすいので2〜3個)', v: 0.5, on: 1 },
+                { k: 'yoga', n: 'ヨガマット(無料で使ってもらう)', v: 2, on: 1 },
+                { k: 'wb', n: 'ホワイトボード(教室利用向け。個人練習用の小さいスタジオなら不要)', v: 1, on: 1 },
+                { k: 'stand', n: '譜面台(スマホ・iPad置きにもなって練習がはかどります)', v: 0.5, on: 1 },
+                { k: 'air', n: '空気清浄機(安いやつでOK)', v: 1, on: 1 },
+                { k: 'tv', n: '大型モニター+HDMIケーブル(振付動画・YouTubeを流しながら練習用)', v: 3, on: 1 },
+                { k: 'table', n: '折りたたみテーブル(先生の荷物・PC置き。ニトリ・IKEAで十分)', v: 0.5, on: 1 },
+                { k: 'stool', n: 'スツール', v: 1, on: 1 },
+                { k: 'robot', n: 'ロボット掃除機(おすすめ)', v: 1.5, on: 1 },
+                { k: 'ladder', n: '脚立(設営・作業用)', v: 0.5, on: 1 },
+                { k: 'fan', n: '強力な扇風機(工場扇タイプ。夏はエアコンだけでは足りません)', v: 1, on: 1 },
+                { k: 'green', n: 'フェイクグリーン(あると室内が明るい雰囲気に)', v: 0.5, on: 1 },
+                { k: 'post', n: '集金箱またはポスト(現地払いをやる場合。ご意見箱としても)', v: 0.5, on: 0 },
+                { k: 'sign', n: '看板(ラクスルなどで作成、アルミ複合板)', v: 1.5, on: 1 },
+                { k: 'wsign', n: 'ウインドウサイン(1Fで窓から中が見えてしまう場合)', v: 1, on: 0 },
+                { k: 'etc', n: 'その他(自由に調整してください)', v: 0, on: 1 }
+        ];
+        // きくりんの店の実測(運営中5店・2026年4〜8月)。1日あたりの埋まった時間
+        const ACTUAL = [
+            { h: 6.5, label: 'きくりんの店の実測: いちばん低い月' },
+            { h: 8, label: 'きくりんの店の実測: ふつうの店' },
+            { h: 11, label: 'きくりんの店の実測: いちばん強い店' }
+        ];
+        const LIMITS = { best: 5.5, good: 6.5, fair: 7.2 }; // 物件探しツールと同じ線
+        const PORTAL_MULT = 1.1, PORTAL_FEE = 0.35, OFFICIAL_FEE = 0.035, WD = 22, WE = 8;
+        const $ = id => document.getElementById(id);
+        const man = n => { const m = n / 10000; return (Math.abs(m) >= 100 ? Math.round(m) : Math.round(m * 10) / 10).toLocaleString() + '万円'; };
+        const NUM_IDS = ['rent', 'size', 'shiki', 'rei', 'chukai', 'hosho', 'kasai', 'kagiV', 'mirrorW', 'lightV', 'airconV', 'otherV', 'floorD', 'floorU', 'wd', 'we', 'otherCost', 'myH'];
+        const CHK_IDS = ['kagi', 'maebarai', 'light', 'aircon', 'other', 'autoRate'];
+        const SEL_IDS = ['mirror', 'floor', 'share'];
+        const KEY = 'dance-sim-v1';
+        let myH = 7;
+
+        function renderItems(saved) {
+            const box = $('items'); box.innerHTML = '';
+            ITEMS.forEach(it => {
+                const id = 'it_' + it.k; const st = saved && saved[id];
+                const on = st ? st.on : it.on; const v = st ? st.v : it.v;
+                const row = document.createElement('div'); row.className = 'row';
+                row.innerHTML = '<label class="name" for="' + id + '"><input type="checkbox" id="' + id + '"' + (on ? ' checked' : '') + '><span>' + it.n + '</span></label>'
+                    + '<input type="number" id="' + id + '_v" value="' + v + '" step="0.1" min="0"><span class="unit">万円</span>';
+                box.appendChild(row);
+            });
+            box.querySelectorAll('input').forEach(e => e.addEventListener('input', calc));
+        }
+        function suggest(size) {
+            if (size >= 70) return { wd: 2000, we: 2500, basis: '70㎡以上の型' };
+            if (size >= 50) return { wd: 1500, we: 2000, basis: '50〜70㎡の型' };
+            return { wd: 1000, we: 1500, basis: '50㎡未満の型' };
+        }
+        function netPerHour(rate, share) { return share * rate * PORTAL_MULT * (1 - PORTAL_FEE) + (1 - share) * rate * (1 - OFFICIAL_FEE); }
+        function gradeOf(h) { return h <= LIMITS.best ? ['◎', 'g-best'] : h <= LIMITS.good ? ['○', 'g-good'] : h <= LIMITS.fair ? ['△', 'g-fair'] : ['✕', 'g-ng']; }
+
+        function calc() {
+            const rent = +$('rent').value || 0, size = +$('size').value || 0;
+            // 1) 契約のお金
+            const shikiY = rent * (+$('shiki').value || 0), reiY = rent * (+$('rei').value || 0), chukaiY = rent * (+$('chukai').value || 0), hoshoY = rent * (+$('hosho').value || 0);
+            const kasaiY = (+$('kasai').value || 0) * 10000, kagiY = $('kagi').checked ? (+$('kagiV').value || 0) * 10000 : 0, maeY = $('maebarai').checked ? rent : 0;
+            const keiyaku = shikiY + reiY + chukaiY + hoshoY + kasaiY + kagiY + maeY;
+            // 2) 鏡と工事
+            const mirrorY = (+$('mirror').value || 0) * (+$('mirrorW').value || 0);
+            const fl = $('floor').value; const floorY = fl === 'diy' ? size * (+$('floorD').value || 0) : fl === 'pro' ? size * (+$('floorU').value || 0) : 0;
+            const lightY = $('light').checked ? (+$('lightV').value || 0) * 10000 : 0, airconY = $('aircon').checked ? (+$('airconV').value || 0) * 10000 : 0, otherY = $('other').checked ? (+$('otherV').value || 0) * 10000 : 0;
+            const koji = mirrorY + floorY + lightY + airconY + otherY;
+            // 3) 備品
+            let bihin = 0; const bihinRows = [];
+            ITEMS.forEach(it => { const c = $('it_' + it.k); if (!c || !c.checked) return; const sub = (+$('it_' + it.k + '_v').value || 0) * 10000; bihin += sub; if (sub > 0) bihinRows.push([it.n, sub]); });
+            const total = keiyaku + koji + bihin;
+
+            $('total').innerHTML = '約' + man(total).replace('万円', '') + '<small> 万円</small>';
+            const p = v => total > 0 ? (v / total * 100) : 0;
+            $('bar1').style.width = p(keiyaku) + '%'; $('bar2').style.width = p(koji) + '%'; $('bar3').style.width = p(bihin) + '%';
+            $('l1').textContent = man(keiyaku); $('l2').textContent = man(koji); $('l3').textContent = man(bihin);
+            const months = rent > 0 ? keiyaku / rent : 0;
+            let vc = '契約のお金は、家賃の <b>' + months.toFixed(1) + 'ヶ月分</b>。';
+            vc += months <= 4 ? '4ヶ月分以内なので、いい条件です。' : months <= 6 ? '4〜6ヶ月分。ふつうの範囲です。' : '<b>6ヶ月分を超えています。</b>敷金や礼金を下げてもらえないか、交渉してみてください。';
+            if (mirrorY === 0) vc += ' 鏡が付いている物件は、それだけで数十万円安くなります。';
+            else if (+$('mirror').value >= 80000) vc += ' 鏡を業者さんに頼むと、いちばんきれいですが、いちばん高くなります。1部屋だけならパネルミラーで十分です。';
+            $('verdictCost').innerHTML = vc;
+
+            // 4) 黒字に必要な時間
+            const auto = $('autoRate').checked; const sg = suggest(size);
+            if (auto) { $('wd').value = sg.wd; $('we').value = sg.we; }
+            $('wd').disabled = auto; $('we').disabled = auto; $('rateBasis').textContent = auto ? sg.basis : '自分で入力';
+            const wd = +$('wd').value || 0, we = +$('we').value || 0, share = +$('share').value;
+            const avgNet = (WD * netPerHour(wd, share) + WE * netPerHour(we, share)) / (WD + WE); // 1時間あたりの手取り(平均)
+            const fixed = rent + (+$('otherCost').value || 0) * 10000;
+            const needDay = avgNet > 0 ? fixed / avgNet / (WD + WE) : Infinity;
+            const g = gradeOf(needDay);
+            $('beBig').innerHTML = Number.isFinite(needDay) ? '<small>1日</small>' + needDay.toFixed(1) + '<small>時間</small><span class="grade ' + g[1] + '">' + g[0] + '</span>' : '—';
+            $('beSub').textContent = Number.isFinite(needDay) ? '週' + Math.round(needDay * 7) + '時間の予約で、トントン' : '';
+            $('fixedBig').innerHTML = man(fixed).replace('万円', '') + '<small> 万円</small>';
+            $('fixedSub').textContent = '1時間あたりの手取り 平均' + Math.round(avgNet).toLocaleString() + '円';
+            $('verdictBe').innerHTML = g[0] === '◎' ? '<b>◎ 出していい水準です。</b>きくりんの店でいちばん低かった月(1日6.5時間)と同じ結果でも、黒字になります。'
+                : g[0] === '○' ? '<b>○ 定期利用が入れば安心な水準です。</b>立ち上がりの数ヶ月は、赤字の月があるつもりで。'
+                : g[0] === '△' ? '<b>△ ぎりぎりです。</b>ふつうに回っている店の実測(1日8時間前後)が、黒字の前提になります。'
+                : '<b>✕ やめておく水準です。</b>ずっと好調でないと黒字になりません。家賃が高すぎるか、部屋が小さすぎます。';
+            $('verdictBe').innerHTML += '<br><span style="font-size:12.5px;color:#8a7d6c">目安: 1日5.5時間まで=◎ / 6.5時間まで=○ / 7.2時間まで=△ / それ以上=✕(物件探しツールと同じ線です)</span>';
+
+            // 5) 利益と回収
+            const real = Math.max(total - shikiY, 0);
+            const cur = $('myH'); if (cur) myH = +cur.value || 0;
+            const fillRow = (tr, h) => {
+                const net = h * (WD + WE) * avgNet, profit = net - fixed;
+                const pb = profit > 0 ? (total / profit) : null, pbr = profit > 0 ? (real / profit) : null;
+                const td = tr.querySelectorAll('td');
+                td[1].textContent = man(net);
+                td[2].textContent = (profit >= 0 ? '+' : '−') + man(Math.abs(profit)); td[2].className = profit >= 0 ? 'plus' : 'minus';
+                td[3].textContent = pb ? pb.toFixed(1) + 'ヶ月' : '—'; td[4].textContent = pbr ? pbr.toFixed(1) + 'ヶ月' : '—';
+            };
+            const trs = $('scn').querySelectorAll('tr.r');
+            ACTUAL.forEach((a, i) => fillRow(trs[i], a.h)); fillRow(trs[ACTUAL.length], myH);
+            const pf = h => h * (WD + WE) * avgNet - fixed;
+            const pLow = pf(6.5), pMid = pf(8);
+            let vp = '';
+            if (pMid <= 0) vp = '<b>ふつうの店の実測(1日8時間)でも、利益が出ません。</b>家賃か値段の設定を見なおしてください。';
+            else {
+                const mMid = total / pMid;
+                vp = 'ふつうの店の実測(1日8時間)なら、月の利益は <b>' + man(pMid) + '</b>、回収は <b>' + mMid.toFixed(1) + 'ヶ月</b>。';
+                vp += mMid <= 14 ? '1年ちょっとで回収できるので、合格です。' : mMid <= 24 ? '1年をこえます。初期費用をおさえられないか、見なおしてみてください。' : '<b>2年をこえます。</b>家賃か初期費用のどちらかが高すぎます。';
+                if (pLow > 0 && total / pLow > 24) vp += ' いちばん低い月(1日6.5時間)が続くと、回収に2年以上かかります。';
+                if (pLow <= 0) vp += ' いちばん低い月(1日6.5時間)だと、赤字になります。';
+            }
+            $('verdictPb').innerHTML = vp;
+
+            // 明細
+            const rows = [['<th colspan="2">契約のお金</th>', '']];
+            [['敷金・保証金', shikiY], ['礼金', reiY], ['仲介手数料', chukaiY], ['保証会社', hoshoY], ['火災保険', kasaiY], ['鍵交換', kagiY], ['前払いの家賃', maeY]].forEach(r => { if (r[1]) rows.push(r); });
+            if (koji) { rows.push(['<th colspan="2">鏡と工事</th>', '']); [['鏡(幅' + $('mirrorW').value + 'm)', mirrorY], ['床(クッションフロア)', floorY], ['照明', lightY], ['エアコン交換', airconY], ['そのほかの工事', otherY]].forEach(r => { if (r[1]) rows.push(r); }); }
+            if (bihin) { rows.push(['<th colspan="2">備品</th>', '']); bihinRows.forEach(r => rows.push(r)); }
+            let h = ''; rows.forEach(r => { h += r[1] === '' ? '<tr>' + r[0] + '</tr>' : '<tr><td>' + r[0] + '</td><td class="n">' + man(r[1]) + '</td></tr>'; });
+            h += '<tr class="sum"><td>合計</td><td class="n">' + man(total) + '</td></tr>'; $('detail').innerHTML = h;
+            save();
+        }
+
+        function collect() {
+            const o = {};
+            NUM_IDS.forEach(id => { if (id === 'myH') o.myH = myH; else if ($(id)) o[id] = $(id).value; });
+            CHK_IDS.forEach(id => o[id] = $(id).checked ? 1 : 0); SEL_IDS.forEach(id => o[id] = $(id).value);
+            ITEMS.forEach(it => { const id = 'it_' + it.k; if ($(id)) o[id] = { on: $(id).checked ? 1 : 0, v: +$(id + '_v').value || 0 }; });
+            return o;
+        }
+        function save() { try { localStorage.setItem(KEY, JSON.stringify(collect())); } catch (e) {} }
+        function apply(o) {
+            if (!o) return;
+            NUM_IDS.forEach(id => { if (id === 'myH') { if (o.myH != null) myH = +o.myH; } else if (o[id] != null && $(id)) $(id).value = o[id]; });
+            CHK_IDS.forEach(id => { if (o[id] != null) $(id).checked = !!+o[id]; }); SEL_IDS.forEach(id => { if (o[id] != null) $(id).value = o[id]; });
+        }
+        function fromURL() {
+            const q = new URLSearchParams(location.search); if (![...q.keys()].length) return null; const o = {};
+            for (const [k, val] of q) { if (k.startsWith('it_')) { const [on, v] = val.split('-'); o[k] = { on: +on, v: +v }; } else o[k] = val; }
+            return o;
+        }
+        function toURL() {
+            const o = collect(), q = new URLSearchParams();
+            Object.keys(o).forEach(k => { const v = o[k]; q.set(k, (v && typeof v === 'object') ? v.on + '-' + v.v : v); });
+            return location.origin + location.pathname + '?' + q.toString();
+        }
+        function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('on'); setTimeout(() => t.classList.remove('on'), 1600); }
+
+        (function init() {
+            let saved = fromURL(); if (!saved) { try { saved = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { saved = null; } }
+            apply(saved); renderItems(saved);
+            let t = '<tr><th>実際に埋まる時間</th><th>月の手取り</th><th>月の利益</th><th>回収(用意する現金)</th><th>回収(戻る敷金を除く)</th></tr>';
+            ACTUAL.forEach(a => { t += '<tr class="r"><td>1日' + a.h + '時間(週' + Math.round(a.h * 7) + '時間)<small>' + a.label + '</small></td><td></td><td></td><td></td><td></td></tr>'; });
+            t += '<tr class="r me"><td>1日 <input type="number" id="myH" value="' + myH + '" step="0.5" min="0" max="24"> 時間<small>自分で入れる</small></td><td></td><td></td><td></td><td></td></tr>';
+            $('scn').innerHTML = t;
+            document.querySelectorAll('.card input, .card select').forEach(e => { e.addEventListener('input', calc); e.addEventListener('change', calc); });
+            $('shareBtn').addEventListener('click', () => { const url = toURL(); (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(() => toast('リンクをコピーしました')).catch(() => prompt('このリンクをコピーしてください', url)); });
+            $('reset').addEventListener('click', () => { try { localStorage.removeItem(KEY); } catch (e) {} location.href = location.pathname; });
+            calc();
+        })();
+    </script>
+</body>
+</html>
