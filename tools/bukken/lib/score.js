@@ -101,6 +101,51 @@ function residentialFromStats(st, priority) {
 }
 
 // Phase 0: データが無い駅は本人の観察(3問)で暫定採点
+// ===== 駅力15点と駅の性格(条件づくり・全国一覧・1件判定で共通。2026-09-17 実態に合わせて改定) =====
+// 改定① 乗降3万人台でも住宅地性が13点以上なら、4万人台と同じ13点(○まで)。住宅地として満点級なのに「4万人」の線だけで落ちる駅(例: 緑地公園・桃山台)を拾う
+// 用途地域のデータが無い駅(大阪市内など)は住宅地性が甘く出るので、格上げの対象にしない(hasZoning=false のとき)
+function isRidersUpgraded(riders, residPts, hasZoning) { return hasZoning !== false && riders >= 30000 && riders < 40000 && residPts != null && residPts >= 13; }
+function eki15(riders, residPts, hasZoning) {
+  if (riders >= 50000) return 15;
+  if (riders >= 40000) return 13;
+  if (riders >= 30000) return isRidersUpgraded(riders, residPts, hasZoning) ? 13 : 10;
+  return 3;
+}
+// 駅の性格: 学生街(大学施設4件以上) > オフィス街(乗降客が住民の4倍超) > 商業・繁華街(商業地域5.5割超、または住民比2倍超で商業3.5割以上) > 住宅街(住居系6割以上) > 混在
+// 改定② 「商業」と出ても、商業地域が7割未満・1km圏の住民3万人以上・子ども11%以上・合計23点以上なら「混在」に戻す。ベッドタウンやニュータウンの中心駅(例: 千里中央・東川口・津田沼)は駅前に商業施設が集まるだけで、まわりは住宅地のため
+function kindOfStation(st, total) {
+  const p = st.pop1km || 0, ratio = p > 0 && st.riders ? st.riders / p : null;
+  const z = st.zoning_cov != null && st.zoning_cov >= 0.3;
+  let kind;
+  if ((st.univ1km || 0) >= 4) kind = 'stu';
+  else if (ratio != null && ratio > 4) kind = 'biz';
+  else if (z && st.com_share >= 0.55) kind = 'com';
+  else if (ratio != null && ratio > 2 && z && st.com_share >= 0.35) kind = 'com';
+  else if (z ? st.res_share >= 0.6 : (ratio != null && ratio <= 1)) kind = 'res';
+  else kind = 'mix';
+  let relaxed = false;
+  if (kind === 'com' && !(z && st.com_share >= 0.7) && p >= 30000 && (st.kidsRatio || 0) >= 0.11 && total != null && total >= 23) { kind = 'mix'; relaxed = true; }
+  return { kind, relaxed };
+}
+// おすすめ駅の判定(◎○参考)。戻り値 null=対象外
+function stationMark(st, priority) {
+  const resid = residentialFromStats(st, priority);
+  const hasZoning = st.zoning_cov != null && st.zoning_cov >= 0.3;
+  const eki = eki15(st.riders || 0, resid.pts, hasZoning);
+  const total = resid.pts + eki;
+  const upgraded = isRidersUpgraded(st.riders || 0, resid.pts, hasZoning);
+  const k = kindOfStation(st, total);
+  let mark = null;
+  if (upgraded) mark = total >= 23 ? '○' : null;            // 格上げ組は○まで(◎にはしない)
+  else if (total >= 26 && eki >= 13) mark = '◎';
+  else if (total >= 23 && total <= 25 && eki >= 13) mark = '○';
+  else if (eki < 13 && resid.pts >= 11) mark = '参考';
+  const notes = [];
+  if (upgraded) notes.push('乗降3万人台だが住宅地性が高い(13点以上)ので○');
+  if (k.relaxed) notes.push('駅前は商業地だが、まわりは住民と子どもが多い住宅地');
+  return { resid, eki, total, mark, kind: k.kind, relaxed: k.relaxed, upgraded, note: notes.join(' / ') };
+}
+
 function residentialFromManual(m) {
   const TYPE = { residential: [10, '住宅街'], mixed: [7, '商店街・住宅混在'], student: [5, '学生街'], tourist: [4, '観光地'], business: [3, 'ビジネス街'], downtown: [3, '繁華街'] };
   const t = TYPE[m.type] || [6, '不明'];
@@ -357,6 +402,12 @@ function judge(prop, opts = {}) {
       residentialSource: res.source, station: stationName,
     });
     breakdown['住宅地性'] = { pts: res.pts, max: 15 };
+    // 改定①(2026-09-17): 乗降3万人台でも住宅地性13点以上なら、駅力は4万人台と同じ扱い(○)
+    if (riders != null && res.source === 'stats' && isRidersUpgraded(riders, res.pts, best.data.stats.zoning_cov != null && best.data.stats.zoning_cov >= 0.3)) {
+      const it = items.find((x) => x.key === 'station');
+      if (it) { it.grade = '○'; it.comment = '3万人台だが、住宅地性が高い(13点以上)ので基準クリア扱い'; }
+      breakdown['エリア駅力'] = scaled(16, 20, 15);
+    }
   } else {
     items.push({
       key: 'residential', label: '住宅地性・エリア', value: `${stationName || '最寄駅'}: データ未登録`, grade: '?',
@@ -463,5 +514,5 @@ function judge(prop, opts = {}) {
   return { property: prop, items, breakdown, total, verdict, verdictClass, verdictNote, ng, questions, breakeven };
 }
 
-return { judge, setData, residentialFromStats, _residentialFromStats: residentialFromStats };
+return { judge, setData, residentialFromStats, _residentialFromStats: residentialFromStats, eki15, isRidersUpgraded, kindOfStation, stationMark };
 });

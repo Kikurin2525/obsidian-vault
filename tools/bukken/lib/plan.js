@@ -49,7 +49,7 @@
     const w = draft.wish;
     const prefs = PREFS.map((p, i) => { const c = String(i + 1).padStart(2, '0'); return '<label class="chk"><input type="checkbox" name="pref" value="' + c + '"' + (w.prefs.includes(c) ? ' checked' : '') + '>' + p + '</label>'; }).join('');
     $('plan-form').innerHTML = '<div class="pl-row"><span class="pl-k">都道府県</span><div><div class="pl-prefs">' + prefs + '</div><div><button type="button" class="linkbtn" data-act="prefall" style="display:inline;margin:4px 10px 0 0">すべて選択</button><button type="button" class="linkbtn" data-act="prefnone" style="display:inline;margin:4px 0 0">すべて外す</button></div></div></div>'
-      + '<div class="pl-row"><span class="pl-k">駅の乗降客数</span><div><select name="riders">' + opt(RIDERS, w.riders || '40000') + '</select><div class="muted">4万人未満の駅は「参考」扱い</div></div></div>'
+      + '<div class="pl-row"><span class="pl-k">駅の乗降客数</span><div><select name="riders">' + opt(RIDERS, w.riders || '40000') + '</select><div class="muted">3万人台でも住宅地性が高い駅(13点以上)は○。それ以外の4万人未満は「参考」</div></div></div>'
       + '<div class="pl-row"><span class="pl-k">駅の性格</span><div class="pl-chks">' + chk(KINDS, w.kinds || ['res', 'mix'], 'kinds') + '<span class="muted">データから機械判定(観光地は判定不可)</span></div></div>'
       + '<div class="pl-row"><span class="pl-k">金額</span><div><select name="money">' + opt([['tsubo', '坪単価の上限で探す(おすすめ)'], ['rent', '賃料の上限で探す']], w.money) + '</select> '
       + '<select name="tsubo"' + (w.money === 'tsubo' ? '' : ' hidden') + '>' + opt(TSUBO_TO, w.tsubo) + '</select><select name="rent"' + (w.money === 'rent' ? '' : ' hidden') + '>' + opt(RENT_TO, w.rent) + '</select>'
@@ -80,18 +80,7 @@
     try { const r = await fetch(DATA_BASE + 'pref/' + code + '.json'); prefCache[code] = r.ok ? (await r.json()).stations : {}; } catch (_) { prefCache[code] = {}; }
     return prefCache[code];
   }
-  function eki15(r) { return r >= 50000 ? 15 : r >= 40000 ? 13 : r >= 30000 ? 10 : 3; }
-  // 駅の性格: 学生街(大学施設4件以上) > オフィス街(乗降客が住民の4倍超) > 商業・繁華街(商業地域が5.5割超、または住民比2倍超で商業寄り) > 住宅街(住居系6割以上、または用途地域データなしで住民比1倍以下) > 混在
-  function kindOf(st) {
-    const p = st.pop1km || 0, ratio = p > 0 && st.riders ? st.riders / p : null;
-    const z = st.zoning_cov != null && st.zoning_cov >= 0.3;
-    if ((st.univ1km || 0) >= 4) return 'stu';
-    if (ratio != null && ratio > 4) return 'biz';
-    if (z && st.com_share >= 0.55) return 'com';
-    if (ratio != null && ratio > 2 && z && st.com_share >= 0.35) return 'com';
-    if (z ? st.res_share >= 0.6 : (ratio != null && ratio <= 1)) return 'res';
-    return 'mix';
-  }
+  // 駅力15点・駅の性格・◎○参考の判定は lib/score.js の stationMark に集約(2026-09-17)
   async function scoreStations(prefCodes, w) {
     const rec = new Set(await App().recommended());
     const minR = Number(w.riders || 40000);
@@ -103,21 +92,19 @@
       const rows = [];
       for (const [name, cands] of Object.entries(data)) {
         const st = cands.slice().sort((a, b) => (b.riders || 0) - (a.riders || 0))[0];
-        if (!st || !st.riders || st.riders < minR) continue;
-        const kind = kindOf(st);
+        if (!st || !st.riders) continue;
+        const m = window.Score.stationMark(st, rec.has(name));
+        // 乗降客数の線: 線未満は対象外。ただし線が4万人以下のとき、3万人台で住宅地性13点以上の駅は○として残す
+        if (st.riders < minR && !(m.upgraded && minR <= 40000)) continue;
+        const kind = m.kind;
         if (!kinds.has(kind)) continue;
-        const resid = window.Score.residentialFromStats(st, rec.has(name));
-        const eki = eki15(st.riders);
-        const total = resid.pts + eki;
-        let mark = null;
-        if (total >= 26 && eki >= 13) mark = '◎';
-        else if (total >= 23 && total <= 25 && eki >= 13) mark = '○';
-        else if (eki < 13 && resid.pts >= 11) mark = '参考';
+        const resid = m.resid, eki = m.eki, total = m.total, mark = m.mark;
         if (!mark) continue;
         const ex = MANUAL_EX[name + '|' + pref] || '';
-        rows.push({ name, pref, prefCode: code, city: st.city || '', cityCode: st.cityCode || '', lines: (st.lines || []).slice(0, 3).join('/'), riders: st.riders, pop1km: st.pop1km || 0, kids: st.kidsRatio, res: st.res_share, resid: resid.pts, eki, total, mark, kind, ex, detail: resid.detail });
+        rows.push({ name, pref, prefCode: code, city: st.city || '', cityCode: st.cityCode || '', lines: (st.lines || []).slice(0, 3).join('/'), riders: st.riders, pop1km: st.pop1km || 0, kids: st.kidsRatio, res: st.res_share, resid: resid.pts, eki, total, mark, kind, ex, note: m.note, detail: resid.detail });
       }
-      rows.sort((a, b) => (b.total - a.total) || (b.pop1km - a.pop1km));
+      const MO = { '◎': 0, '○': 1, '参考': 2 };
+      rows.sort((a, b) => (MO[a.mark] - MO[b.mark]) || (b.total - a.total) || (b.pop1km - a.pop1km));
       out[pref] = rows;
     }
     return out;
@@ -149,11 +136,11 @@
         html += '<tr' + (isOn(r) ? '' : ' class="pl-off"') + '><td><input type="checkbox" data-act="st" data-key="' + esc(keyOf(r)) + '"' + (isOn(r) ? ' checked' : '') + '></td>'
           + '<td><span class="pill ' + (r.mark === '◎' ? 'p-go' : r.mark === '○' ? 'p-maybe' : 'p-cond') + '">' + r.mark + '</span></td><td><b>' + esc(r.name) + '</b></td><td class="muted">' + esc(KIND_LABEL[r.kind] || '') + '</td><td>' + esc(r.city) + (r.cityCode ? '' : ' <span class="flag f-warn">市区町村コードなし</span>') + '</td><td class="muted">' + esc(r.lines) + '</td>'
           + '<td>' + r.riders.toLocaleString() + '</td><td>' + r.pop1km.toLocaleString() + '</td><td>' + (r.kids != null ? Math.round(r.kids * 100) + '%' : '-') + '</td><td>' + (r.res != null ? Math.round(r.res * 100) + '%' : '-') + '</td>'
-          + '<td title="' + esc(r.detail) + '">' + r.resid + '</td><td>' + r.eki + '</td><td><b>' + r.total + '</b></td><td class="muted">' + (r.ex ? '<span class="flag f-bad">目視で除外: ' + esc(r.ex) + '</span>' : r.mark === '参考' ? '乗降4万人未満=駅力が基準未達' : '') + '</td></tr>';
+          + '<td title="' + esc(r.detail) + '">' + r.resid + '</td><td>' + r.eki + '</td><td><b>' + r.total + '</b></td><td class="muted">' + (r.ex ? '<span class="flag f-bad">目視で除外: ' + esc(r.ex) + '</span>' : r.mark === '参考' ? '乗降4万人未満=駅力が基準未達' : esc(r.note || '')) + '</td></tr>';
       }
       html += '</tbody></table></div></div>';
     }
-    html += '<details class="acc"><summary>点数の見方</summary><div class="acc-body">住宅地性15点+駅力15点。◎=26点以上で乗降4万人以上(既存店と同じ型)/○=23〜25点/参考=4万人未満で住宅地性が強い駅。家賃・競合はまだ見ていません。自分のおすすめ駅(1件判定の下)は+2点</div></details>';
+    html += '<details class="acc"><summary>点数の見方</summary><div class="acc-body">住宅地性15点+駅力15点。◎=26点以上で乗降4万人以上(既存店と同じ型)/○=23〜25点、または乗降3万人台で住宅地性13点以上/参考=4万人未満で住宅地性が強い駅。駅前に商業施設が集まっていても、まわりに住民と子どもが多い駅(ベッドタウンの中心駅)は「混在」として残します。家賃・競合はまだ見ていません。自分のおすすめ駅(1件判定の下)は+2点</div></details>';
     box.innerHTML = html;
     renderRange();
   }
