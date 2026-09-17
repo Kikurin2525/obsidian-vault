@@ -102,17 +102,26 @@ function residentialFromStats(st, priority) {
 
 // Phase 0: データが無い駅は本人の観察(3問)で暫定採点
 // ===== 駅力15点と駅の性格(条件づくり・全国一覧・1件判定で共通。2026-09-17 実態に合わせて改定) =====
-// 改定① 乗降3万人台でも住宅地性が13点以上なら、4万人台と同じ13点(○まで)。住宅地として満点級なのに「4万人」の線だけで落ちる駅(例: 緑地公園・桃山台)を拾う
+// 大都市圏(首都圏4都県+大阪・兵庫)は乗降客数の線=4万人。それ以外(地方・京都など)は車やバスの街で駅の利用が少ないので、線を1万人下げる(改定A)
+const METRO_PREFS = ['東京都', '神奈川県', '埼玉県', '千葉県', '大阪府', '兵庫県'];
+function isLocalPref(pref) { return !!pref && METRO_PREFS.indexOf(pref) < 0; }
+function ridersShift(pref) { return isLocalPref(pref) ? 10000 : 0; }
+// 改定① 線の1段下(大都市圏=3万人台/地方=2万人台)でも、住宅地性が13点以上なら線の上と同じ13点(○まで)。住宅地として満点級なのに乗降客数の線だけで落ちる駅(例: 緑地公園・桃山台・香椎)を拾う
 // 用途地域のデータが無い駅(大阪市内など)は住宅地性が甘く出るので、格上げの対象にしない(hasZoning=false のとき)
-function isRidersUpgraded(riders, residPts, hasZoning) { return hasZoning !== false && riders >= 30000 && riders < 40000 && residPts != null && residPts >= 13; }
-function eki15(riders, residPts, hasZoning) {
-  if (riders >= 50000) return 15;
-  if (riders >= 40000) return 13;
-  if (riders >= 30000) return isRidersUpgraded(riders, residPts, hasZoning) ? 13 : 10;
+function isRidersUpgraded(riders, residPts, hasZoning, pref) {
+  const sh = ridersShift(pref);
+  return hasZoning !== false && riders >= 30000 - sh && riders < 40000 - sh && residPts != null && residPts >= 13;
+}
+function eki15(riders, residPts, hasZoning, pref) {
+  const sh = ridersShift(pref);
+  if (riders >= 50000 - sh) return 15;
+  if (riders >= 40000 - sh) return 13;
+  if (riders >= 30000 - sh) return isRidersUpgraded(riders, residPts, hasZoning, pref) ? 13 : 10;
   return 3;
 }
 // 駅の性格: 学生街(大学施設4件以上) > オフィス街(乗降客が住民の4倍超) > 商業・繁華街(商業地域5.5割超、または住民比2倍超で商業3.5割以上) > 住宅街(住居系6割以上) > 混在
-// 改定② 「商業」と出ても、商業地域が7割未満・1km圏の住民3万人以上・子ども11%以上・合計23点以上なら「混在」に戻す。ベッドタウンやニュータウンの中心駅(例: 千里中央・東川口・津田沼)は駅前に商業施設が集まるだけで、まわりは住宅地のため
+// 改定② 「商業」と出ても、商業地域が7割未満・1km圏の住民3万人以上・子ども11%以上・合計23点以上なら「混在」に戻す(ベッドタウンやニュータウンの中心駅。例: 千里中央・東川口・津田沼)
+// 改定B 「学生街」と出ても、大学施設が8件未満・住民3万人以上・子ども11%以上・合計23点以上なら「混在」に戻す(大学施設はキャンパスや学部ごとに数えるので、大きな住宅地ではすぐ4件を超える。例: 西宮北口・駒沢大学)
 function kindOfStation(st, total) {
   const p = st.pop1km || 0, ratio = p > 0 && st.riders ? st.riders / p : null;
   const z = st.zoning_cov != null && st.zoning_cov >= 0.3;
@@ -123,28 +132,35 @@ function kindOfStation(st, total) {
   else if (ratio != null && ratio > 2 && z && st.com_share >= 0.35) kind = 'com';
   else if (z ? st.res_share >= 0.6 : (ratio != null && ratio <= 1)) kind = 'res';
   else kind = 'mix';
-  let relaxed = false;
-  if (kind === 'com' && !(z && st.com_share >= 0.7) && p >= 30000 && (st.kidsRatio || 0) >= 0.11 && total != null && total >= 23) { kind = 'mix'; relaxed = true; }
+  let relaxed = '';
+  const family = p >= 30000 && (st.kidsRatio || 0) >= 0.11 && total != null && total >= 23;
+  if (kind === 'com' && !(z && st.com_share >= 0.7) && family) { kind = 'mix'; relaxed = 'com'; }
+  else if (kind === 'stu' && (st.univ1km || 0) < 8 && family) { kind = 'mix'; relaxed = 'stu'; }
   return { kind, relaxed };
 }
-// おすすめ駅の判定(◎○参考)。戻り値 null=対象外
+// きくりん式のおすすめ駅の判定(◎○参考)。mark=null は対象外
 function stationMark(st, priority) {
   const resid = residentialFromStats(st, priority);
   const hasZoning = st.zoning_cov != null && st.zoning_cov >= 0.3;
-  const eki = eki15(st.riders || 0, resid.pts, hasZoning);
+  const pref = st.pref || '';
+  const sh = ridersShift(pref);
+  const eki = eki15(st.riders || 0, resid.pts, hasZoning, pref);
   const total = resid.pts + eki;
-  const upgraded = isRidersUpgraded(st.riders || 0, resid.pts, hasZoning);
+  const upgraded = isRidersUpgraded(st.riders || 0, resid.pts, hasZoning, pref);
   const k = kindOfStation(st, total);
   let mark = null;
   if (upgraded) mark = total >= 23 ? '○' : null;            // 格上げ組は○まで(◎にはしない)
   else if (total >= 26 && eki >= 13) mark = '◎';
   else if (total >= 23 && total <= 25 && eki >= 13) mark = '○';
   else if (eki < 13 && resid.pts >= 11) mark = '参考';
+  const man = (n) => (n / 10000) + '万人';
   const notes = [];
-  if (upgraded) notes.push('乗降3万人台だが住宅地性が高い(13点以上)ので○');
-  if (k.relaxed) notes.push('駅前は商業地だが、まわりは住民と子どもが多い住宅地');
+  if (sh && eki >= 13) notes.push('地方の駅は乗降客数の線を1万人下げて判定');
+  if (upgraded) notes.push('乗降' + man(30000 - sh) + '台だが住宅地性が高い(13点以上)ので○');
+  if (k.relaxed === 'com') notes.push('駅前は商業地だが、まわりは住民と子どもが多い住宅地');
+  if (k.relaxed === 'stu') notes.push('大学はあるが、まわりは住民と子どもが多い住宅地');
   if (!hasZoning) notes.push('用途地域データなし(住宅地かどうかは現地で確認)');
-  return { resid, eki, total, mark, kind: k.kind, relaxed: k.relaxed, upgraded, note: notes.join(' / ') };
+  return { resid, eki, total, mark, kind: k.kind, relaxed: k.relaxed, upgraded, local: !!sh, lineRiders: 40000 - sh, note: notes.join(' / ') };
 }
 
 function residentialFromManual(m) {
@@ -191,6 +207,7 @@ function stationPoints(r) {
   if (r >= 30000) return 10;
   return 3;
 }
+function prefOf(address) { const a = String(address || ''); return PREFS.find((p) => a.startsWith(p)) || ''; }
 
 function judge(prop, opts = {}) {
   const rent = (prop.rentYen || 0) + (prop.mgmtYen || 0);
@@ -214,16 +231,18 @@ function judge(prop, opts = {}) {
   const riders = ridersOverride != null && best ? ridersOverride : (best && best.data ? best.data.riders : null);
   if (best && riders != null) {
     const r = riders;
-    stationPts = stationPoints(r);
+    const sh = ridersShift(prefOf(prop.address));   // 地方は線を1万人下げる(改定A)
+    const man = (n) => (n / 10000) + '万人';
+    stationPts = stationPoints(r + sh);
     const src = ridersOverride != null ? '手入力値' : `${best.data.line ? best.data.line + '・' : ''}${best.data.ridersSource || '内蔵の概算値'}`;
     items.push({
       key: 'station', label: '駅力(乗降客数)',
       value: `${stationName}駅 約${(r / 10000).toFixed(1)}万人/日 (${src})`,
-      grade: r >= 50000 ? '◎' : r >= 40000 ? '○' : r >= 30000 ? '△' : '✕',
-      comment: r >= 40000 ? '基準(4万人以上)クリア' : r >= 30000 ? '3万人台。住宅地性と物件条件が良ければ可の水準' : '基準(3〜4万人以上)を大きく下回る',
+      grade: r + sh >= 50000 ? '◎' : r + sh >= 40000 ? '○' : r + sh >= 30000 ? '△' : '✕',
+      comment: (r + sh >= 40000 ? '基準(' + man(40000 - sh) + '以上)クリア' : r + sh >= 30000 ? man(30000 - sh) + '台。住宅地性と物件条件が良ければ可の水準' : '基準(' + man(30000 - sh) + '以上)を大きく下回る') + (sh ? '。地方の駅なので、乗降客数の線を1万人下げて見ています' : ''),
       station: stationName, ridersSource: ridersOverride != null ? 'manual' : 'builtin',
     });
-    if (r < 30000) ng.push(`最寄駅の駅力不足(${stationName}駅 約${(r / 10000).toFixed(1)}万人/日 < 基準3万人)`);
+    if (r + sh < 30000) ng.push(`最寄駅の駅力不足(${stationName}駅 約${(r / 10000).toFixed(1)}万人/日 < 基準${man(30000 - sh)})`);
   } else if (best) {
     items.push({
       key: 'station', label: '駅力(乗降客数)',
@@ -404,9 +423,9 @@ function judge(prop, opts = {}) {
     });
     breakdown['住宅地性'] = { pts: res.pts, max: 15 };
     // 改定①(2026-09-17): 乗降3万人台でも住宅地性13点以上なら、駅力は4万人台と同じ扱い(○)
-    if (riders != null && res.source === 'stats' && isRidersUpgraded(riders, res.pts, best.data.stats.zoning_cov != null && best.data.stats.zoning_cov >= 0.3)) {
+    if (riders != null && res.source === 'stats' && isRidersUpgraded(riders, res.pts, best.data.stats.zoning_cov != null && best.data.stats.zoning_cov >= 0.3, prefOf(prop.address))) {
       const it = items.find((x) => x.key === 'station');
-      if (it) { it.grade = '○'; it.comment = '3万人台だが、住宅地性が高い(13点以上)ので基準クリア扱い'; }
+      if (it) { it.grade = '○'; it.comment = '乗降客数は線の1段下だが、住宅地性が高い(13点以上)ので基準クリア扱い'; }
       breakdown['エリア駅力'] = scaled(16, 20, 15);
     }
   } else {
@@ -515,5 +534,5 @@ function judge(prop, opts = {}) {
   return { property: prop, items, breakdown, total, verdict, verdictClass, verdictNote, ng, questions, breakeven };
 }
 
-return { judge, setData, residentialFromStats, _residentialFromStats: residentialFromStats, eki15, isRidersUpgraded, kindOfStation, stationMark };
+return { judge, setData, residentialFromStats, _residentialFromStats: residentialFromStats, eki15, isRidersUpgraded, kindOfStation, stationMark, isLocalPref };
 });

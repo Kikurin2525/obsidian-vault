@@ -22,8 +22,10 @@
   const KIND_LABEL = Object.fromEntries(KINDS);
   const GYOSYU = 'tp005,tp001,tp002,tp003,tp004,tp006,tp007,tp008,tp009,tp999';
   const RANK = ['埼玉県', '千葉県', '神奈川県', '東京都', '茨城県', '大阪府', '兵庫県', '京都府', '奈良県', '滋賀県', '愛知県', '福岡県'];
+  // データでは落ちるが、きくりんの土地勘で追加した駅(理由つき。○として出す)
+  const MANUAL_IN = { '江坂|大阪府': '駅前はデータ上は商業地域だが、実際はマンションが多い住宅街', '東三国|大阪府': '大阪市内で用途地域データがないが、実際は住宅街' };
   // 点数は届くが目視で除外した駅(9/7 の候補駅一覧と同じ。理由つき)
-  const MANUAL_EX = { '堺筋本町|大阪府': 'ビジネス街', '北浜|大阪府': 'ビジネス街', '肥後橋|大阪府': 'ビジネス街', '長堀橋|大阪府': '繁華街(心斎橋隣接)', '谷町四丁目|大阪府': '官庁・ビジネス街', '谷町九丁目|大阪府': '繁華街隣接', '日本橋|大阪府': '繁華街', '南森町|大阪府': 'ビジネス街', '天満|大阪府': '飲食街', '天神橋筋六丁目|大阪府': '商店街・繁華街', '十三|大阪府': '繁華街・深夜飲食', 'ユニバーサルシティ|大阪府': 'テーマパーク・人口1万', '西九条|大阪府': 'ターミナル・工業地隣接', '大阪上本町|大阪府': 'ターミナル・繁華街', '森ノ宮|大阪府': 'ビジネス街隣接', '福島|大阪府': '飲食街', '姫路|兵庫県': 'ターミナル・1km人口1.6万', '名古屋城|愛知県': '官庁街', '出町柳|京都府': '学生街(京大・同志社)', '獨協大学前|埼玉県': '学生街(駅名が大学)', '秋津|埼玉県': '住居系19%・商業寄り', '東松戸|千葉県': '1km人口1.3万', '心斎橋|大阪府': '繁華街(用途地域データなしで素通り)', '大阪難波|大阪府': 'ターミナル・繁華街(同)', '近鉄日本橋|大阪府': '繁華街(同)', '大阪天満宮|大阪府': 'ビジネス街(南森町と同じ場所・同)', '西中島南方|大阪府': 'ビジネス街・歓楽街(新大阪の隣・同)', '八王子|東京都': 'ターミナル・繁華街(同)', '下北沢|東京都': '若者の街・繁華街(乗降客が住民の3.8倍。土地は住宅用でも、よそから人が来る街)' };
+  const MANUAL_EX = { '堺筋本町|大阪府': 'ビジネス街', '北浜|大阪府': 'ビジネス街', '肥後橋|大阪府': 'ビジネス街', '長堀橋|大阪府': '繁華街(心斎橋隣接)', '谷町四丁目|大阪府': '官庁・ビジネス街', '谷町九丁目|大阪府': '繁華街隣接', '日本橋|大阪府': '繁華街', '南森町|大阪府': 'ビジネス街', '天満|大阪府': '飲食街', '天神橋筋六丁目|大阪府': '商店街・繁華街', '十三|大阪府': '繁華街・深夜飲食', 'ユニバーサルシティ|大阪府': 'テーマパーク・人口1万', '西九条|大阪府': 'ターミナル・工業地隣接', '大阪上本町|大阪府': 'ターミナル・繁華街', '森ノ宮|大阪府': 'ビジネス街隣接', '福島|大阪府': '飲食街', '姫路|兵庫県': 'ターミナル・1km人口1.6万', '名古屋城|愛知県': '官庁街', '出町柳|京都府': '学生街(京大・同志社)', '獨協大学前|埼玉県': '学生街(駅名が大学)', '秋津|埼玉県': '住居系19%・商業寄り', '東松戸|千葉県': '1km人口1.3万', '心斎橋|大阪府': '繁華街(用途地域データなしで素通り)', '大阪難波|大阪府': 'ターミナル・繁華街(同)', '近鉄日本橋|大阪府': '繁華街(同)', '大阪天満宮|大阪府': 'ビジネス街(南森町と同じ場所・同)', '西中島南方|大阪府': 'ビジネス街・歓楽街(新大阪の隣・同)', '八王子|東京都': 'ターミナル・繁華街(同)', '下北沢|東京都': '若者の街・繁華街(乗降客が住民の3.8倍。土地は住宅用でも、よそから人が来る街)', '麻布十番|東京都': '都心の高級住宅地。家賃が高く、教室利用の住宅地とは違う' };
 
   const ls = { get(k, fb) { try { const v = localStorage.getItem(k); return v == null ? fb : JSON.parse(v); } catch (_) { return fb; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (_) { return false; } } };
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -93,15 +95,21 @@
       for (const [name, cands] of Object.entries(data)) {
         const st = cands.slice().sort((a, b) => (b.riders || 0) - (a.riders || 0))[0];
         if (!st || !st.riders) continue;
+        st.pref = st.pref || pref;
         const m = window.Score.stationMark(st, rec.has(name));
-        // 乗降客数の線: 線未満は対象外。ただし線が4万人以下のとき、3万人台で住宅地性13点以上の駅は○として残す
-        if (st.riders < minR && !(m.upgraded && minR <= 40000)) continue;
-        const kind = m.kind;
+        const added = MANUAL_IN[name + '|' + pref] || '';
+        // 乗降客数の線: 地方は線を1万人下げて見る。線未満は対象外。ただし線が4万人以下のとき、1段下で住宅地性13点以上の駅は○として残す
+        const line = minR - (m.local ? 10000 : 0);
+        if (!added && st.riders < line && !(m.upgraded && minR <= 40000)) continue;
+        let kind = m.kind;
+        if (added && !kinds.has(kind)) kind = 'mix';
         if (!kinds.has(kind)) continue;
-        const resid = m.resid, eki = m.eki, total = m.total, mark = m.mark;
+        const resid = m.resid, eki = m.eki, total = m.total;
+        let mark = m.mark;
+        if (added && mark !== '◎') mark = '○';
         if (!mark) continue;
         const ex = MANUAL_EX[name + '|' + pref] || '';
-        rows.push({ name, pref, prefCode: code, city: st.city || '', cityCode: st.cityCode || '', lines: (st.lines || []).slice(0, 3).join('/'), riders: st.riders, pop1km: st.pop1km || 0, kids: st.kidsRatio, res: st.res_share, resid: resid.pts, eki, total, mark, kind, ex, note: m.note, detail: resid.detail });
+        rows.push({ name, pref, prefCode: code, city: st.city || '', cityCode: st.cityCode || '', lines: (st.lines || []).slice(0, 3).join('/'), riders: st.riders, pop1km: st.pop1km || 0, kids: st.kidsRatio, res: st.res_share, resid: resid.pts, eki, total, mark, kind, ex, note: added ? 'きくりんの目で追加: ' + added : m.note, detail: resid.detail });
       }
       const MO = { '◎': 0, '○': 1, '参考': 2 };
       rows.sort((a, b) => (MO[a.mark] - MO[b.mark]) || (b.total - a.total) || (b.pop1km - a.pop1km));
@@ -122,7 +130,7 @@
     const box = $('plan-stations');
     if (!stationsByPref) { box.innerHTML = ''; return; }
     const prefs = Object.keys(stationsByPref);
-    let html = '<h3 class="bh">② おすすめ駅 <span class="muted">チェックを外した駅は範囲から外れます</span> <button type="button" class="small" data-act="torange" style="margin:0 0 0 auto">③ 探す範囲・保存へ ↓</button></h3>';
+    let html = '<h3 class="bh">② きくりん式のおすすめ駅 <span class="muted">チェックを外した駅は範囲から外れます</span> <button type="button" class="small" data-act="torange" style="margin:0 0 0 auto">③ 探す範囲・保存へ ↓</button></h3>';
     let any = 0;
     for (const pref of prefs) {
       const rows = stationsByPref[pref];
@@ -140,7 +148,8 @@
       }
       html += '</tbody></table></div></div>';
     }
-    html += '<details class="acc"><summary>点数の見方</summary><div class="acc-body">住宅地性15点+駅力15点。◎=26点以上で乗降4万人以上(既存店と同じ型)/○=23〜25点、または乗降3万人台で住宅地性13点以上/参考=4万人未満で住宅地性が強い駅。駅前に商業施設が集まっていても、まわりに住民と子どもが多い駅(ベッドタウンの中心駅)は「混在」として残します。家賃・競合はまだ見ていません。自分のおすすめ駅(1件判定の下)は+2点</div></details>';
+    html = html.replace('</h3>', '</h3><div class="help" style="margin:0 0 10px"><b>「人が多い駅」の一覧ではありません。</b>きくりん式(住宅地の駅に出して、ダンスやヨガの先生に教室として定期的に使ってもらう)で出すときのおすすめです。繁華街・オフィス街・学生街・観光地は、どれだけ人が多くても入れていません。駅から近いことは前提で、選んでいるのは駅の種類です</div>');
+    html += '<details class="acc"><summary>点数の見方</summary><div class="acc-body">住宅地性15点+駅力15点。◎=26点以上で乗降4万人以上(既存店と同じ型)/○=23〜25点、または乗降客数が線の1段下(3万人台)でも住宅地性13点以上/参考=線に届かないが住宅地性が強い駅。首都圏4都県と大阪・兵庫以外は、車やバスの街で駅の利用が少ないので、乗降客数の線を1万人下げています(3万人以上・2万人台でも住宅地性13点以上なら○)。駅前に商業施設が集まっていても、大学があっても、まわりに住民と子どもが多い駅は「混在」として残します。データでは落ちるけれど実際は住宅街の駅は「きくりんの目で追加」、点は届くけれどコンセプトと違う駅(繁華街・若者の街など)は「目視で除外」と、備考に理由を出します。家賃・競合はまだ見ていません。自分のおすすめ駅(1件判定の下)は+2点</div></details>';
     box.innerHTML = html;
     renderRange();
   }
