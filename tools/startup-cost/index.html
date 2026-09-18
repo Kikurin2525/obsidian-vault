@@ -60,11 +60,37 @@
         .cta p.sub { font-size:12px; color:var(--muted); margin:10px 0 0; }
         footer { text-align:center; font-size:12px; color:var(--muted); padding:18px 14px 0; }
         footer a { color:var(--accent); }
+        .tool-nav { max-width:640px; margin:0 auto; padding:8px 14px; font-size:13px; color:var(--muted); }
+        .tool-nav a { color:var(--navy); font-weight:700; text-decoration:none; }
+        .tool-nav a:hover { text-decoration:underline; }
+        .tool-footer { margin:28px 0 0; }
+        .kyokasho-banner { display:flex; gap:16px; align-items:center; background:#f3f8ff; border:2px solid #1a73e8; border-radius:14px; padding:16px; margin:0 0 16px; box-shadow:0 2px 10px rgba(26,115,232,.12); }
+        .kyokasho-banner .kb-thumb { flex-shrink:0; }
+        .kyokasho-banner .kb-thumb img { width:200px; height:auto; border-radius:10px; display:block; }
+        .kyokasho-banner .kb-title { font-weight:800; font-size:1.05rem; margin:0 0 6px; color:#333; line-height:1.5; }
+        .kyokasho-banner .kb-sub { font-size:.88rem; color:#666; margin:0 0 12px; line-height:1.6; }
+        .kyokasho-banner .kb-actions { display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
+        .kyokasho-banner .kb-btn { background:linear-gradient(135deg,#2563eb,#0f3fa8); color:#fff; padding:10px 22px; border-radius:999px; font-weight:700; text-decoration:none; font-size:.95rem; }
+        @media (max-width:640px) { .kyokasho-banner { flex-direction:column; align-items:stretch; } .kyokasho-banner .kb-thumb img { width:100%; } .kyokasho-banner .kb-title span { white-space:normal !important; } }
+        .tf-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px; }
+        @media (max-width:560px) { .tf-grid { grid-template-columns:1fr; } }
+        .tf-card { border:1px solid var(--line); border-radius:12px; padding:14px 16px; background:#fffaf0; }
+        .tf-card.tf-x { background:#f5f8fa; border-color:#d9e1e8; }
+        .tf-h { font-weight:700; color:var(--navy); margin:0 0 6px; font-size:14.5px; }
+        .tf-card p { margin:4px 0 0; font-size:14px; }
+        .tf-sub { color:var(--muted); font-size:13px; }
+        .tf-big { font-weight:700; font-size:15.5px; }
+        .tf-big a, .tf-series a { color:#0b63ce; }
+        .tf-series { border:1px solid var(--line); border-radius:12px; padding:14px 16px; background:#fff; }
+        .tf-series ol { margin:0 0 10px; padding-left:1.3em; font-size:14.5px; }
+        .tf-series li { margin:4px 0; }
+        .tf-links { margin:0; font-size:14px; }
         @media (max-width:480px) { .total { font-size:32px; } header h1 { font-size:18px; } }
     </style>
 </head>
 
 <body>
+<nav class="tool-nav" aria-label="パンくずリスト"><a href="../../">きくりんのノウハウ垂れ流し</a> › <a href="../../rental-space/">レンタルスペース経営</a> › <span>契約費用かんたん計算</span></nav>
     <header>
         <h1>契約のとき、いくら出ていく?</h1>
         <p>家賃と敷礼を入れるだけ・10秒でわかります</p>
@@ -105,10 +131,39 @@
             <p class="sub">全10通・無料。ほかにも実績シート・物件問い合わせ文テンプレをお渡ししています。</p>
         </div>
 
-        <footer>
-            <a href="https://rental-space.net/articles/2026-08-25-rental-space-startup-cost.html">初期費用の考え方を記事で読む</a><br>
-            <a href="https://rental-space.net/">きくりんのブログ</a>
-        </footer>
+<!-- tool-footer start -->
+        <section class="tool-footer" aria-label="関連">
+<!-- kyokasho-banner-rensupe start -->
+<aside class="kyokasho-banner kb-rensupe"><a href="/kyokasho/" class="kb-thumb"><img src="../../assets/kyokasho_rensupe_banner_v2.png" alt="AIに食われない副業 — レンタルスペース経営の教科書" loading="lazy" width="640" height="335"></a><div class="kb-body"><p class="kb-title">レンタルスペース経営の教科書、先行3部限定で発売中📘</p><p class="kb-sub">AIに食われない副業。23部屋・売上1.5億超の数字を1円も隠さず、物件探しから撤退まで全部書きました。付録15点つき。公式サイト最安¥17,800(発売記念・3部ごとに2,000円ずつ値上げ、定価¥27,800まで)。</p><div class="kb-actions"><a href="/kyokasho/" class="kb-btn kb-btn-rensupe">くわしく見る・買う</a></div></div></aside>
+<!-- kyokasho-banner-rensupe end -->
+            <div class="tf-grid">
+                <div class="tf-card">
+                    <p class="tf-h">▼ 無料で遊べる</p>
+                    <p class="tf-big"><a href="../../game/">ゲームで学ぶレンスペ経営</a></p>
+                    <p class="tf-sub">物件探しから初期投資の回収まで、スマホで体験できる無料ゲームです。</p>
+                </div>
+                <div class="tf-card tf-x">
+                    <p class="tf-h">▼ Xでフォロー</p>
+                    <p class="tf-big"><a href="https://x.com/rentalspace_k" target="_blank" rel="noopener" data-track="x">きくりん @rentalspace_k</a></p>
+                    <p class="tf-sub">23部屋を運営するきくりんの実録。物件・内装・集客の実数を発信しています。</p>
+                </div>
+            </div>
+            <div class="tf-series">
+                <p class="tf-h">▼ このツールのもとになった記事</p>
+                <p style="margin:0 0 10px;"><a href="../../articles/2026-08-25-rental-space-startup-cost.html"><b>レンタルスペース経営 初期費用はいくら？23部屋分の実額を公開</b></a></p>
+                <p class="tf-h">▼ これから始める人に読んでほしい記事</p>
+                <ol>
+                    <li><a href="../../articles/2026-09-17-rental-space-start-three-steps.html">【まずこの3つ】レンタルスペースの始め方</a></li>
+                    <li><a href="../../articles/2026-09-15-rental-space-start-eight-steps.html">レンタルスペースのはじめ方(5年 23部屋の極意)</a></li>
+                    <li><a href="../../articles/2026-09-03-rent-100k-profit.html">家賃10万円のレンタルスペース、月いくら残るの?</a></li>
+                    <li><a href="../../articles/2026-08-23-rental-space-profit-truth.html">レンタルスペースは儲からない?23部屋・赤字ゼロの答え</a></li>
+                    <li><a href="../../articles/2026-09-16-real-estate-side-business-no-loan.html">融資ゼロ・90万円の不動産副業、7ヶ月で回収しました</a></li>
+                </ol>
+                <p class="tf-links"><a href="../../rental-space/">レンタルスペース経営の記事まとめ</a> ・ <a href="../../">ブログのトップ(レンスペ×eBay)</a></p>
+            </div>
+        </section>
+<!-- tool-footer end -->
+        <footer>&copy; 2026 きくりんのノウハウ垂れ流し</footer>
     </div>
 
     <script>
@@ -148,6 +203,13 @@
             html += '<tr class="sum"><td>合計</td><td class="n">' + man(total) + '</td></tr>';
             $('detail').innerHTML = html;
         }
+        document.querySelectorAll('.tool-footer a').forEach(function (a) {
+            a.addEventListener('click', function () {
+                if (!window.gtag) return;
+                var kind = a.closest('.kyokasho-banner') ? 'kyokasho' : (a.dataset.track || 'link');
+                gtag('event', 'tool_footer_click', { tool: 'startup-cost', kind: kind, href: a.getAttribute('href') });
+            });
+        });
         IDS.forEach(id => $(id).addEventListener('input', calc));
         calc();
     </script>
