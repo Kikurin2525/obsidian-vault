@@ -258,13 +258,13 @@ a {
 
 .main-layout {
     display: grid;
-    grid-template-columns: 1fr 300px;
+    grid-template-columns: minmax(0, 1fr) 300px;
     gap: 30px;
 }
 
 @media (max-width: 850px) {
     .main-layout {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
     }
 
     .logo-area {
@@ -1243,3 +1243,9 @@ blockquote.tip-box strong {
 .article-body th, .article-body td { border: 1px solid #ddd; padding: 8px 10px; text-align: left; vertical-align: top; white-space: nowrap; }
 .article-body th { background: #f5f5f5; font-weight: 700; }
 .article-body td:first-child { white-space: normal; min-width: 8em; }
+
+/* Grid children must be able to shrink to the mobile viewport. */
+.main-layout > *, .post-info, .hub-entry-card { min-width: 0; }
+.content-area { overflow-wrap: anywhere; }
+/* Price notices must wrap rather than determine the whole column width. */
+.kb-title span { white-space: normal !important; }

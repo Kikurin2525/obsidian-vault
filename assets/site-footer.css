@@ -1,0 +1,6 @@
+/* Shared navigation, scoped to avoid changing product and article footers. */
+.site-home-nav{box-sizing:border-box;max-width:100%;padding:16px;text-align:center;font-family:'Noto Sans JP',sans-serif;font-size:14px;line-height:1.7;white-space:normal}
+.site-home-nav a{display:inline-block;box-sizing:border-box;max-width:100%;padding:10px 14px;color:inherit;text-decoration:underline;text-underline-offset:4px;overflow-wrap:anywhere;white-space:normal}
+.site-home-nav a:focus-visible{outline:3px solid #075bc8;outline-offset:3px}
+.site-home-footer{box-sizing:border-box;width:auto;min-width:0;clear:both;background:#fff;color:#111;border-top:1px solid #ddd}
+@media print{.site-home-nav{display:none}}
