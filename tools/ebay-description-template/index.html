@@ -59,11 +59,36 @@
         .pick { display:inline-flex; align-items:center; gap:8px; font-size:14.5px; }
         #color { width:48px; height:36px; padding:0; border:1px solid #c9c9c9; border-radius:8px; background:#fff; cursor:pointer; }
         .hex { margin-left:8px; font-family:ui-monospace,Menlo,monospace; font-size:13px; color:var(--muted); }
+        .tool-nav { max-width:860px; margin:0 auto; padding:8px 16px; font-size:13px; color:var(--muted); }
+        .tool-nav a { color:var(--navy); font-weight:700; text-decoration:none; }
+        .tool-nav a:hover { text-decoration:underline; }
+        .tool-footer { max-width:860px; margin:40px auto 0; padding:0 16px; }
+        .kyokasho-banner { display:flex; gap:18px; align-items:center; background:#fffaf5; border:2px solid #f57c00; border-radius:14px; padding:18px; margin:0 0 20px; box-shadow:0 2px 10px rgba(230,81,0,.10); }
+        .kyokasho-banner .kb-thumb { flex-shrink:0; }
+        .kyokasho-banner .kb-thumb img { width:230px; height:auto; border-radius:10px; display:block; }
+        .kyokasho-banner .kb-title { font-weight:800; font-size:1.12rem; margin:0 0 6px; color:#333; line-height:1.5; }
+        .kyokasho-banner .kb-sub { font-size:.9rem; color:#666; margin:0 0 12px; line-height:1.6; }
+        .kyokasho-banner .kb-actions { display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
+        .kyokasho-banner .kb-btn { background:linear-gradient(135deg,#ff9100,#e65100); color:#fff; padding:10px 22px; border-radius:999px; font-weight:700; text-decoration:none; font-size:.95rem; }
+        @media (max-width:640px) { .kyokasho-banner { flex-direction:column; align-items:stretch; } .kyokasho-banner .kb-thumb img { width:100%; } .kyokasho-banner .kb-title span { white-space:normal !important; } }
+        .tf-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px; }
+        @media (max-width:600px) { .tf-grid { grid-template-columns:1fr; } }
+        .tf-card { border:1px solid var(--line); border-radius:12px; padding:14px 16px; background:#fffaf0; }
+        .tf-card.tf-x { background:#f5f8fa; border-color:#d9e1e8; }
+        .tf-h { font-weight:700; color:var(--navy); margin:0 0 6px; }
+        .tf-card p { margin:4px 0 0; font-size:14px; }
+        .tf-card .tf-sub { color:var(--muted); font-size:13.5px; }
+        .tf-big { font-weight:700; font-size:16px; }
+        .tf-series { border:1px solid var(--line); border-radius:12px; padding:14px 16px; }
+        .tf-series ol { margin:0 0 10px; }
+        .tf-links { margin:0; font-size:14.5px; }
+        .site-footer { text-align:center; font-size:13px; color:var(--muted); padding:28px 16px 0; }
         a { color:#0b63ce; }
         code { background:#f3f4f6; padding:1px 5px; border-radius:4px; font-size:.95em; }
     </style>
 </head>
 <body>
+<nav class="tool-nav" aria-label="パンくずリスト"><a href="../../">きくりんのノウハウ垂れ流し</a> › <a href="../../ebay/">eBay輸出</a> › <span>説明文テンプレート</span></nav>
 <header>
     <h1>eBay説明文テンプレート</h1>
     <p>受賞セラー18店の説明文のエッセンスを、1枚に🐹</p>
@@ -161,11 +186,60 @@
     <pre id="code" tabindex="0"></pre>
     <p class="note">JavaScriptや外部リンクは入れていません。スマホでも崩れない形です。ご自身の責任でお使いください。</p>
 
-    <div class="card">
-        <p style="margin:0 0 6px;"><b>▼このテンプレのもとになった調査</b></p>
-        <p style="margin:0;"><a href="../../articles/2026-09-18-ebay-award-seller-description.html">eBay有力セラーの説明文を読んでみた結果</a></p>
-    </div>
 </main>
+<!-- tool-footer start -->
+<section class="tool-footer" aria-label="関連">
+<!-- kyokasho-banner start -->
+<aside class="kyokasho-banner">
+    <a href="/kyokasho/ebay/" class="kb-thumb">
+        <img src="../../assets/kyokasho_ebay_banner.png" alt="AI × eBay輸出の教科書 — 梱包以外、ぜんぶAI" loading="lazy" width="640" height="335">
+    </a>
+    <div class="kb-body">
+        <p class="kb-title">AI × eBay輸出の教科書🐹<br><span style="color:#b42318;white-space:nowrap">3部売れるごとに値上げ・次の値上げまで残り2部</span></p>
+        <p class="kb-sub">梱包発送以外ぜんぶAIに任せて、初月から利益10万円。開店から月次締めまで、実店舗の記録を全部書きました。公式サイト最安¥14,800(発売時¥8,800→累計10部でいま4段目。3部売れるごとに2,000円ずつ値上げ)。</p>
+        <div class="kb-actions">
+            <a href="/kyokasho/ebay/" class="kb-btn">くわしく見る・買う</a>
+        </div>
+    </div>
+</aside>
+<!-- kyokasho-banner end -->
+    <div class="tf-grid">
+        <div class="tf-card">
+            <p class="tf-h">▼ eBay輸出の実録ブログ</p>
+            <p class="tf-big"><a href="../../ebay/">eBay輸出の記事まとめ</a></p>
+            <p class="tf-sub">AIで回すeBay店の月次の利益、始め方、失敗と対策。実数つきで書いています。</p>
+        </div>
+        <div class="tf-card tf-x">
+            <p class="tf-h">▼ Xでフォロー</p>
+            <p class="tf-big"><a href="https://x.com/cham_ebay" target="_blank" rel="noopener" data-track="x">チャム🐹 @cham_ebay</a></p>
+            <p class="tf-sub">AI社員だけで回すeBay店の実録。有力セラー調査の続きや、ツールの更新をお知らせします。</p>
+        </div>
+    </div>
+    <div class="tf-series">
+        <p class="tf-h">▼ このツールのもとになった調査</p>
+        <p style="margin:0 0 10px;"><a href="../../articles/2026-09-18-ebay-award-seller-description.html"><b>eBay有力セラーの説明文を読んでみた結果</b></a></p>
+        <p class="tf-h">▼ 有力セラー調査シリーズ(ブログ)</p>
+        <ol>
+            <li><a href="../../articles/2026-09-11-ebay-award-seller-return-shipping.html">第1弾: ビジネスポリシー(返品・配送除外国)</a></li>
+            <li><a href="../../articles/2026-09-14-ebay-award-seller-shipping.html">第2弾: 発送(配送方法・日数)</a></li>
+            <li><a href="../../articles/2026-09-16-ebay-award-seller-listing-count-price.html">第3弾: 出品数と価格</a></li>
+            <li><a href="../../articles/2026-09-17-ebay-award-seller-product-page.html">第4弾: 商品ページ</a></li>
+            <li><a href="../../articles/2026-09-18-ebay-award-seller-description.html">第5弾: 説明文</a></li>
+        </ol>
+        <p class="tf-links"><a href="../../ebay/">eBay輸出の記事まとめ</a> ・ <a href="../../">ブログのトップ(eBay×レンスペ)</a></p>
+    </div>
+</section>
+<!-- tool-footer end -->
+<footer class="site-footer">&copy; 2026 きくりんのノウハウ垂れ流し</footer>
+<script>
+document.querySelectorAll('.tool-footer a').forEach(function (a) {
+    a.addEventListener('click', function () {
+        if (!window.gtag) return;
+        var kind = a.closest('.kyokasho-banner') ? 'kyokasho' : (a.dataset.track || 'link');
+        gtag('event', 'tool_footer_click', { tool: 'ebay-description-template', kind: kind, href: a.getAttribute('href') });
+    });
+});
+</script>
 <script>
 (function () {
     var PRESETS = [['青', '#3665f3'], ['赤', '#e53238'], ['緑', '#2e7d32'], ['オレンジ', '#f57c00'], ['むらさき', '#6a3fb5'], ['ネイビー', '#24345c'], ['黒', '#222222']];
