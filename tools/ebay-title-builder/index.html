@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CHWF6QKRJ6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-CHWF6QKRJ6');
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="eBayの受賞セラー18店・9,842件のタイトルを読んで作った、タイトル組み立てツール。品物の型(機械・電子もの/ブランド・アパレル/ホビー・キャラもの/パーツ・道具)を選ぶと、その型の決め手を入れて上位店と同じ順番で組み立てます。無料。">
+    <meta property="og:title" content="eBayタイトル組み立てツール(無料)｜チャム">
+    <meta property="og:description" content="ブランド・モデル名・品目・特徴を入れるだけ。受賞セラー18店と同じ順番で、80字以内のタイトルを組み立てます。">
+    <meta property="og:url" content="https://rental-space.net/tools/ebay-title-builder/">
+    <meta property="og:type" content="website">
+    <title>eBayタイトル組み立てツール(無料)｜チャム</title>
+    <link rel="icon" href="../../assets/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&amp;display=swap" rel="stylesheet">
+    <style>
+        :root { --primary:#f57c00; --accent:#29b6f6; --text:#333; --bg:#ffffff; --line:#f0e2c8; --muted:#8a7d6c; --navy:#24345c; --warn-bg:#fff7e0; --warn:#9a5b00; --ng:#c62828; --ok:#2e7d32; }
+        * { box-sizing:border-box; }
+        [hidden] { display:none !important; }
+        body { margin:0; padding:0 0 50px; background:var(--bg); color:var(--text);
+            font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,sans-serif; line-height:1.75; -webkit-text-size-adjust:100%; }
+        header { background:linear-gradient(180deg,#ffb300,#ff9100); color:#fff; padding:22px 16px 18px; text-align:center; }
+        header h1 { margin:0; font-size:22px; line-height:1.4; }
+        header p { margin:6px 0 0; font-size:14px; }
+        main { max-width:860px; margin:0 auto; padding:0 16px; }
+        main > h2 { font-size:18px; color:var(--navy); margin:32px 0 10px; padding-left:10px; border-left:5px solid var(--primary); }
+        .panel { border:1px solid var(--line); border-radius:12px; padding:6px 14px 16px; background:#fffaf0; }
+        .row { margin:14px 0 0; }
+        .row > label, .lbl { display:block; font-weight:700; color:var(--navy); margin-bottom:4px; font-size:15px; }
+        .hint { font-size:13px; color:var(--muted); margin:2px 0 0; }
+        input[type=text] { width:100%; padding:10px 12px; font:16px/1.4 Arial,Helvetica,'Noto Sans JP',sans-serif; border:1px solid #d9cdb4; border-radius:8px; background:#fff; }
+        input[type=text]:focus { outline:3px solid var(--accent); outline-offset:1px; border-color:var(--accent); }
+        .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:0 14px; }
+        @media (max-width:600px) { .grid2 { grid-template-columns:1fr; } }
+        .opts { display:flex; flex-wrap:wrap; gap:8px 10px; }
+        .opts label { display:inline-flex; align-items:center; gap:6px; padding:8px 12px; border:1px solid var(--line); border-radius:999px; background:#fff; cursor:pointer; font-size:14.5px; }
+        .opts label:has(input:checked) { border-color:var(--primary); box-shadow:0 0 0 2px rgba(245,124,0,.25); }
+        .opts input { accent-color:var(--primary); width:18px; height:18px; }
+        .opts input:focus-visible { outline:3px solid var(--accent); outline-offset:2px; }
+        .samples { display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 0; }
+        .samples button { padding:7px 12px; border:1px dashed var(--primary); background:#fff; color:var(--primary); border-radius:999px; font:700 13.5px 'Noto Sans JP',sans-serif; cursor:pointer; }
+        .types { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:6px; }
+        @media (max-width:600px) { .types { grid-template-columns:1fr; } }
+        .types label { display:block; border:2px solid var(--line); border-radius:12px; padding:10px 12px; background:#fff; cursor:pointer; }
+        .types label:has(input:checked) { border-color:var(--primary); box-shadow:0 0 0 3px rgba(245,124,0,.2); }
+        .types input { accent-color:var(--primary); margin-right:6px; }
+        .types b { color:var(--navy); font-size:15.5px; }
+        .types small { display:block; color:var(--muted); font-size:13px; margin:2px 0 0 24px; line-height:1.5; }
+        .key { display:inline-block; background:var(--primary); color:#fff; font-size:11.5px; font-weight:700; border-radius:99px; padding:1px 8px; margin-left:6px; vertical-align:2px; }
+        .result { border:2px solid var(--navy); border-radius:12px; padding:14px 16px; background:#fff; }
+        #title { font:700 18px/1.5 Arial,Helvetica,sans-serif; color:#111; word-break:break-word; min-height:1.5em; margin:0; }
+        .count { margin:8px 0 0; font-size:14px; font-weight:700; }
+        .count.ok { color:var(--ok); } .count.over { color:var(--ng); }
+        .bar { height:8px; background:#eee; border-radius:99px; overflow:hidden; margin-top:6px; }
+        .bar > span { display:block; height:100%; background:var(--ok); width:0; transition:width .15s; }
+        .bar.over > span { background:var(--ng); }
+        #warns { list-style:none; padding:0; margin:12px 0 0; }
+        #warns li { background:var(--warn-bg); color:var(--warn); border-radius:8px; padding:8px 12px; margin:6px 0; font-size:14px; }
+        #warns li.ng { background:#fdecea; color:var(--ng); }
+        .btns { display:flex; flex-wrap:wrap; gap:10px; margin:14px 0 6px; }
+        .btn { flex:1 1 220px; display:inline-block; text-align:center; padding:14px 16px; border-radius:10px; border:0; cursor:pointer; font:700 16px 'Noto Sans JP',sans-serif; text-decoration:none; }
+        .btn-main { background:var(--primary); color:#fff; }
+        .btn-sub { background:#fff; color:var(--navy); border:2px solid var(--navy); }
+        .btn:focus-visible, .samples button:focus-visible { outline:3px solid var(--accent); outline-offset:2px; }
+        #msg { min-height:1.6em; font-size:14px; color:var(--primary); font-weight:700; }
+        pre { background:#1f2937; color:#e5e7eb; padding:14px; border-radius:12px; white-space:pre-wrap; font-size:13px; line-height:1.6; }
+        ol, ul { padding-left:1.3em; } li { margin:4px 0; }
+        .note { font-size:14px; color:var(--muted); }
+        .card { border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin-top:28px; background:#fffaf0; }
+        a { color:#0b63ce; }
+    </style>
+</head>
+<body>
+<header>
+    <h1>eBayタイトル組み立てツール</h1>
+    <p>受賞セラー18店・9,842件のタイトルを、4つの型に🐹</p>
+</header>
+<main>
+    <p>eBayジャパンの受賞セラー18店のタイトルを読んで、ジャンルごとの型をツールにしました。品物の型を選んで欄を埋めると、上の店と同じ順番でタイトルを組み立てます。入力は英語(半角)で書いてください。</p>
+
+    <h2>1. 品物の型を選ぶ</h2>
+    <p class="note" style="margin-top:0;">受賞セラー18店を読むと、タイトルに入れる「決め手」はジャンルで4つに分かれていました。</p>
+    <div class="types" role="radiogroup" aria-label="品物の型">
+        <label><input type="radio" name="type" value="machine" checked><b>機械・電子もの</b><small>カメラ・ゲーム機・楽器など。決め手=型番と状態</small></label>
+        <label><input type="radio" name="type" value="apparel"><b>ブランド・アパレル</b><small>バッグ・腕時計・アクセサリー・靴など。決め手=色と素材</small></label>
+        <label><input type="radio" name="type" value="hobby"><b>ホビー・キャラもの</b><small>トレカ・フィギュアなど。決め手=作品名と日本版</small></label>
+        <label><input type="radio" name="type" value="parts"><b>パーツ・道具</b><small>自動車パーツ・ゴルフなど。決め手=型番と、合うかどうか</small></label>
+    </div>
+
+    <h2>2. 商品の情報を入れる</h2>
+    <div class="panel">
+        <div class="samples">
+            <button type="button" id="sampleBtn">この型の入力例を入れる</button>
+            <button type="button" id="clearBtn">空にする</button>
+        </div>
+        <div class="row" data-t="hobby"><label for="char">キャラクター・作品名<span class="key">決め手</span></label>
+            <input type="text" id="char" placeholder="例: Pikachu" autocomplete="off"><p class="hint">1語目になります。お客さんはキャラクターの名前で探します。</p></div>
+        <div class="grid2">
+            <div class="row" data-t="machine apparel hobby parts"><label for="brand" data-l-hobby="作品・メーカー(例: Pokemon)">ブランド</label>
+                <input type="text" id="brand" placeholder="例: Canon" autocomplete="off"></div>
+            <div class="row" data-t="machine apparel hobby parts"><label for="model" data-l-hobby="シリーズ名" data-l-parts="モデル名・対応する車種" data-k="machine parts">モデル名</label>
+                <input type="text" id="model" placeholder="例: EOS R6 Mark II" autocomplete="off"></div>
+            <div class="row" data-t="machine hobby parts"><label for="mpn" data-l-hobby="番号・レアリティ(例: 001/100 SAR)" data-k="machine parts">型番</label>
+                <input type="text" id="mpn" placeholder="例: 型番・品番" autocomplete="off"></div>
+            <div class="row" data-t="machine apparel hobby parts"><label for="kind">何の品か</label>
+                <input type="text" id="kind" list="kinds" placeholder="例: Mirrorless Camera Body" autocomplete="off">
+                <datalist id="kinds"><option value="Camera Body"><option value="Lens"><option value="Game Console"><option value="Amplifier"><option value="Electric Guitar"><option value="Effects Pedal">
+                <option value="Shoulder Bag"><option value="Handbag"><option value="Wallet"><option value="Watch"><option value="Ring"><option value="Necklace"><option value="Sneakers">
+                <option value="Card"><option value="Figure"><option value="Plush"><option value="Driver"><option value="Iron Set"><option value="Brake Pads"><option value="Seat Cover"></datalist></div>
+            <div class="row" data-t="apparel"><label for="material">素材<span class="key">決め手</span></label>
+                <input type="text" id="material" placeholder="例: Leather / Nylon / 18K Gold" autocomplete="off"></div>
+            <div class="row" data-t="machine apparel"><label for="color" data-k="apparel">色</label>
+                <input type="text" id="color" placeholder="例: Black" autocomplete="off"></div>
+            <div class="row" data-t="apparel"><label for="size">サイズ(靴・指輪・服・時計の径)</label>
+                <input type="text" id="size" placeholder="例: US 9 / Men's Size / 42mm" autocomplete="off"></div>
+            <div class="row" data-t="machine parts"><label for="spec" data-l-parts="スペック・合うもの(例: 9.0° Stiff)" data-k="parts">スペック(例: 24-70mm F2.8)</label>
+                <input type="text" id="spec" placeholder="例: 24-70mm F2.8" autocomplete="off"></div>
+        </div>
+
+        <div class="row" data-t="machine apparel hobby parts">
+            <span class="lbl" id="condLbl">状態をタイトルに入れるか</span>
+            <div class="opts" role="radiogroup" aria-labelledby="condLbl">
+                <label><input type="radio" name="cond" value="" checked> 入れない</label>
+                <label><input type="radio" name="cond" value="New"> New</label>
+                <label><input type="radio" name="cond" value="Near Mint"> Near Mint</label>
+                <label><input type="radio" name="cond" value="Excellent"> Excellent</label>
+                <label><input type="radio" name="cond" value="For Parts"> For Parts</label>
+            </div>
+            <p class="hint" id="condHint"></p>
+        </div>
+
+        <div class="row" data-t="machine apparel hobby parts">
+            <span class="lbl">そのほか</span>
+            <div class="opts">
+                <label data-t="machine"><input type="checkbox" id="tested"> Tested Working(自分で動作を確かめた品だけ)</label>
+                <label data-t="apparel"><input type="checkbox" id="auth"> Auth(偽物が多い品だけ)</label>
+                <label data-t="hobby"><input type="checkbox" id="jp"> Japanese(日本版の品)</label>
+                <label data-t="parts"><input type="checkbox" id="genuine"> Genuine(純正品)</label>
+                <label data-t="machine apparel parts"><input type="checkbox" class="acc" value="Box"> Box</label>
+                <label data-t="apparel"><input type="checkbox" class="acc" value="Papers"> Papers</label>
+                <label data-t="machine"><input type="checkbox" class="acc" value="Manual"> Manual</label>
+            </div>
+        </div>
+
+        <div class="row" data-t="machine apparel hobby parts"><label for="sku">管理番号(なくてもOK)</label>
+            <input type="text" id="sku" placeholder="例: #1024" autocomplete="off"><p class="hint">問い合わせのとき、お客さんに番号で伝えてもらえます。</p></div>
+    </div>
+
+    <h2>3. できあがったタイトル</h2>
+    <div class="result" aria-live="polite">
+        <p id="title"></p>
+        <p class="count" id="count"></p>
+        <div class="bar" id="bar"><span></span></div>
+        <ul id="warns"></ul>
+    </div>
+    <div class="btns">
+        <button class="btn btn-main" id="copy" type="button">タイトルをコピー</button>
+        <button class="btn btn-sub" id="copyAi" type="button">AIに頼む文をコピー</button>
+    </div>
+    <div id="msg" role="status" aria-live="polite"></div>
+    <p class="note">英語に自信がないときは「AIに頼む文をコピー」を押して、ChatGPTやClaudeに貼ってください。上の店の書き方のルールつきで頼めます。</p>
+
+    <h2>上の店のタイトル、4つの型</h2>
+    <ul>
+        <li><b>機械・電子もの</b>(型番と状態): 状態の言葉を入れる品は51%。同じ型番なら、状態で値段が決まるからです</li>
+        <li><b>ブランド・アパレル</b>(色と素材): 色は73%、素材は52%の品に。状態は4%でほぼ入れません</li>
+        <li><b>ホビー・キャラもの</b>(作品名と日本版): 1語目はキャラクター名。Japan系の言葉は46%の品に</li>
+        <li><b>パーツ・道具</b>(型番と、合うかどうか): 自動車パーツの店は80%の品に「Genuine(純正)」</li>
+    </ul>
+    <p>どの型でも同じだったのは、<b>1語目はお客さんが最初に打つ言葉</b>・<b>送料無料と記号は入れない</b>(17店・14店が1品も入れていない)・<b>80字は使い切らなくていい</b>(eBay公式は「80字を全部使って、関係のある言葉に絞って」。上の店は決め手を書き切ったら止めていて、18店の真ん中は64字)の3つです。</p>
+    <p class="note">2026年9月、eBayジャパンの受賞セラー18店の出品から最大600件ずつ(合計9,842件)を調べた結果です。同じ型の中でも、店によって差があります。</p>
+
+    <div class="card">
+        <p style="margin:0 0 6px;"><b>▼このツールのもとになった調査</b></p>
+        <p style="margin:0 0 10px;"><a href="../../articles/2026-09-18-ebay-award-seller-title.html">eBay有力セラーのタイトルを読んでみた結果</a></p>
+        <p style="margin:0 0 6px;"><b>▼説明文はこちら(無料)</b></p>
+        <p style="margin:0;"><a href="../ebay-description-template/">eBay説明文テンプレート</a></p>
+    </div>
+</main>
+<script>
+(function () {
+    var $ = function (id) { return document.getElementById(id); };
+    var TYPES = {
+        machine: { name: '機械・電子もの', key: '型番と状態',
+            order: ['brand', 'model', 'mpn', 'kind', 'spec', 'color', 'COND', 'TESTED', 'ACC', 'sku'],
+            condHint: '機械・電子ものの上の店は、51%の品に状態の言葉を入れていました。同じ型番なら、状態で値段が決まるからです。',
+            sample: { brand: 'Canon', model: 'EOS R6 Mark II', mpn: '', kind: 'Mirrorless Camera Body', spec: '', color: 'Black', cond: 'Near Mint', sku: '' } },
+        apparel: { name: 'ブランド・アパレル', key: '色と素材',
+            order: ['brand', 'model', 'material', 'color', 'kind', 'size', 'AUTH', 'ACC', 'sku'],
+            condHint: 'ブランド・アパレルの上の店は、状態の言葉を4%の品にしか入れていません。eBayの「状態」の欄に書くのがおすすめです。',
+            sample: { brand: 'PRADA', model: 'Re-Edition 2005', material: 'Nylon', color: 'Black', kind: 'Shoulder Bag', size: '', cond: '', sku: '' } },
+        hobby: { name: 'ホビー・キャラもの', key: '作品名と日本版',
+            order: ['char', 'mpn', 'model', 'brand', 'kind', 'JP', 'COND', 'sku'],
+            condHint: '新品のフィギュアは「New」を入れる店もありました(フィギュアの店は50%)。',
+            sample: { char: 'Pikachu', mpn: '001/100 SAR', model: '', brand: 'Pokemon', kind: 'Card', cond: '', jp: true, sku: '' } },
+        parts: { name: 'パーツ・道具', key: '型番と、合うかどうか',
+            order: ['brand', 'model', 'kind', 'spec', 'mpn', 'GENUINE', 'ACC', 'sku'],
+            condHint: 'パーツ・道具の上の店が状態を入れる品は13%。未使用の新品(Open Box・Newなど)のときに入れていました。',
+            sample: { brand: 'Titleist', model: 'TSR3', kind: 'Driver', spec: '9.0° Tour AD Stiff', mpn: '', cond: '', sku: '' } }
+    };
+    var FIELDS = ['char', 'brand', 'model', 'mpn', 'kind', 'material', 'color', 'size', 'spec', 'sku'];
+    function type() { return document.querySelector('input[name=type]:checked').value; }
+    function val(id) { return $(id).value.trim().replace(/\s+/g, ' '); }
+    function accs() { return Array.prototype.filter.call(document.querySelectorAll('.acc'), function (c) { return c.checked && !c.closest('[hidden]'); }).map(function (c) { return c.value; }); }
+    function applyType() {
+        var t = type();
+        Array.prototype.forEach.call(document.querySelectorAll('[data-t]'), function (el) { el.hidden = el.getAttribute('data-t').split(' ').indexOf(t) < 0; });
+        Array.prototype.forEach.call(document.querySelectorAll('label[for]'), function (l) {
+            if (!l.dataset.base) l.dataset.base = l.childNodes[0].nodeValue;
+            l.childNodes[0].nodeValue = l.getAttribute('data-l-' + t) || l.dataset.base;
+            var k = l.querySelector('.key'), isKey = (l.getAttribute('data-k') || '').split(' ').indexOf(t) >= 0;
+            if (l.getAttribute('data-k') !== null) { if (isKey && !k) { k = document.createElement('span'); k.className = 'key'; k.textContent = '決め手'; l.appendChild(k); } if (!isKey && k) k.remove(); }
+        });
+        $('condHint').textContent = TYPES[t].condHint;
+    }
+    function build() {
+        var t = type(), cond = document.querySelector('input[name=cond]:checked').value, a = accs(), parts = [];
+        TYPES[t].order.forEach(function (k) {
+            if (k === 'COND') parts.push(cond);
+            else if (k === 'TESTED') parts.push($('tested').checked ? 'Tested Working' : '');
+            else if (k === 'AUTH') parts.push($('auth').checked ? 'Auth' : '');
+            else if (k === 'JP') parts.push($('jp').checked ? 'Japanese' : '');
+            else if (k === 'GENUINE') parts.push($('genuine').checked ? 'Genuine' : '');
+            else if (k === 'ACC') parts.push(a.length ? 'w/ ' + a.join(' & ') : '');
+            else parts.push(val(k));
+        });
+        if (t === 'apparel' || t === 'parts') { /* 状態は型の順番に無いが、選んだら最後の付属品の前に入れる */
+            if (cond) { var i = parts.lastIndexOf(parts.filter(function (x) { return /^w\/ /.test(x); })[0]); if (i < 0) i = parts.length - 1; parts.splice(i, 0, cond); }
+        }
+        var words = parts.filter(Boolean).join(' ').split(' '), out = [];
+        words.forEach(function (w) { if (!out.length || out[out.length - 1].toLowerCase() !== w.toLowerCase()) out.push(w); });
+        return out.join(' ');
+    }
+    function checks(title) {
+        var t = type(), w = [], cond = document.querySelector('input[name=cond]:checked').value;
+        if (t === 'hobby' && !val('char')) w.push(['ng', '決め手の「キャラクター・作品名」が入っていません。ホビー・キャラものは、1語目がキャラクターの名前です。']);
+        if ((t === 'machine' || t === 'parts') && !val('model') && !val('mpn')) w.push(['ng', '決め手の「モデル名・型番」が入っていません。お客さんは型番で探します。']);
+        if (t === 'apparel' && !val('color')) w.push(['', '決め手の「色」が入っていません。ブランド・アパレルの上の店は、73%の品に色を入れていました。']);
+        if (t === 'apparel' && !val('material')) w.push(['', '決め手の「素材」が入っていません。ブランド・アパレルの上の店は、52%の品に素材を入れていました。']);
+        if (t === 'parts' && !val('spec')) w.push(['', '「合うかどうか」の情報(対応する車種・サイズ・スペック)が入っていません。お客さんは、自分のものに合うかをタイトルで確かめます。']);
+        if (t === 'apparel' && cond) w.push(['', 'ブランド・アパレルの上の店が状態を入れる品は4%だけ。eBayの「状態」の欄に書くのがおすすめです。']);
+        if (/free\s*ship|\bf\/s\b/i.test(title)) w.push(['ng', '「送料無料」は入れなくてOK。上の店の17店は、1品も入れていませんでした。送料は配送の欄に出ます。']);
+        if (/[★☆!！【】♪♥◆■※]/.test(title)) w.push(['ng', '記号(★・!・【】など)は外しましょう。上の店の14店は、1品も使っていませんでした。']);
+        if (/[^\x00-\x7F°×★☆!！【】♪♥◆■※]/.test(title)) w.push(['ng', '日本語や全角の文字が入っています。タイトルは半角の英数字で書きます。']);
+        if (t !== 'hobby' && /\bjapan(ese)?\b|\bjdm\b|\bjpn?\b/i.test(title)) {
+            var pct = { machine: '17%(入れていたのは楽器とゲーム機の店)', apparel: '1%', parts: '4%' }[t];
+            w.push(['', '「Japan」系の言葉が入っています。' + TYPES[t].name + 'の上の店で入れている品は' + pct + '。日本製・日本版であることが選ぶ決め手のときだけ入れましょう。']);
+        }
+        if (/\btested\b|\bworking\b|\bworks\b/i.test(title)) w.push(['', '「Tested / Working」は、自分で動作を確かめた品だけに。確かめていない品に入れると、動かなかったときに返品の理由になります。']);
+        var seen = {}, dup = [];
+        title.toLowerCase().split(' ').forEach(function (x) { if (x.length > 2 && !/^\d/.test(x) && x !== 'w/') { if (seen[x] && dup.indexOf(x) < 0) dup.push(x); seen[x] = 1; } });
+        if (dup.length) w.push(['', '同じ言葉が2回入っています(' + dup.join(', ') + ')。1回で十分です。']);
+        if (title.length > 80) w.push(['ng', '80字を超えています。後ろから削りましょう(管理番号 → 付属品 → 決め手でない言葉の順)。']);
+        return w;
+    }
+    function render() {
+        var t = build(), n = t.length;
+        $('title').textContent = t || 'ここにタイトルができます';
+        $('title').style.color = t ? '#111' : '#999';
+        $('count').textContent = n + ' / 80字' + (n > 80 ? '(' + (n - 80) + '字オーバー)' : '');
+        $('count').className = 'count ' + (n > 80 ? 'over' : 'ok');
+        $('bar').className = 'bar' + (n > 80 ? ' over' : '');
+        $('bar').firstElementChild.style.width = Math.min(100, n / 80 * 100) + '%';
+        var ul = $('warns'); ul.textContent = '';
+        checks(t).forEach(function (c) { var li = document.createElement('li'); li.textContent = c[1]; if (c[0]) li.className = c[0]; ul.appendChild(li); });
+    }
+    function aiText() {
+        var t = type(), T = TYPES[t], cond = document.querySelector('input[name=cond]:checked').value;
+        var labels = { char: 'キャラクター・作品名', brand: t === 'hobby' ? '作品・メーカー' : 'ブランド', model: t === 'hobby' ? 'シリーズ名' : (t === 'parts' ? 'モデル名・対応する車種' : 'モデル名'),
+            mpn: t === 'hobby' ? '番号・レアリティ' : '型番', kind: '何の品か', material: '素材', color: '色', size: 'サイズ', spec: t === 'parts' ? 'スペック・合うもの' : 'スペック', sku: '管理番号(最後に入れる)' };
+        var L = ['次の情報で、eBayの商品タイトルを英語で1つ作ってください。', '',
+            'ルール:',
+            '・品物の型は「' + T.name + '」。お客さんが選ぶ決め手は「' + T.key + '」なので、必ず入れる',
+            '・1語目は' + (t === 'hobby' ? 'キャラクター・作品名' : 'ブランド'),
+            '・半角80文字以内。決め手を書き切ったら、80字に届かなくてよい',
+            '・送料無料、記号(★や!)、飾りの言葉(Beautiful・Rareなど)は入れない',
+            t === 'hobby' ? '・日本版なら Japanese を入れる' : '・Japan は、日本製・日本版が選ぶ決め手のときだけ入れる',
+            t === 'apparel' ? '・状態の言葉は入れない' : '', '', '情報:'];
+        FIELDS.forEach(function (k) { if (!$(k).closest('[hidden]') && val(k)) L.push('・' + labels[k] + ': ' + val(k)); });
+        if (cond) L.push('・状態(タイトルに入れる): ' + cond);
+        [['tested', 'Tested Working を入れる(動作確認済み)'], ['auth', 'Auth を入れる'], ['jp', 'Japanese を入れる'], ['genuine', 'Genuine を入れる(純正品)']].forEach(function (x) { if ($(x[0]).checked && !$(x[0]).closest('[hidden]')) L.push('・' + x[1]); });
+        if (accs().length) L.push('・付属品: ' + accs().join(', '));
+        L.push('', 'いまの案: ' + build());
+        return L.filter(function (x, i) { return x !== '' || (L[i - 1] !== ''); }).join('\n');
+    }
+    function copy(text, ok) {
+        var m = $('msg');
+        function fb() { var ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} ta.remove(); m.textContent = ok; }
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function () { m.textContent = ok; }, fb); else fb();
+    }
+    function clearAll() {
+        FIELDS.forEach(function (k) { $(k).value = ''; });
+        ['tested', 'auth', 'jp', 'genuine'].forEach(function (k) { $(k).checked = false; });
+        Array.prototype.forEach.call(document.querySelectorAll('.acc'), function (c) { c.checked = false; });
+        document.querySelector('input[name=cond][value=""]').checked = true;
+    }
+    function sample() {
+        var s = TYPES[type()].sample; clearAll();
+        Object.keys(s).forEach(function (k) { if (k === 'cond') document.querySelector('input[name=cond][value="' + s.cond + '"]').checked = true; else if (k === 'jp') $('jp').checked = s.jp; else $(k).value = s[k]; });
+        render();
+    }
+    Array.prototype.forEach.call(document.querySelectorAll('input[name=type]'), function (r) {
+        r.addEventListener('change', function () { applyType(); sample(); if (window.gtag) gtag('event', 'title_type', { type: type() }); });
+    });
+    $('sampleBtn').addEventListener('click', function () { sample(); if (window.gtag) gtag('event', 'title_sample', { type: type() }); });
+    $('clearBtn').addEventListener('click', function () { clearAll(); render(); });
+    document.querySelector('main').addEventListener('input', render);
+    $('copy').addEventListener('click', function () {
+        var t = build(); if (!t) { $('msg').textContent = 'まず、上の欄を埋めてください。'; return; }
+        copy(t, 'コピーしました。eBayの出品画面のタイトル欄に貼ってください。');
+        if (window.gtag) gtag('event', 'title_copy', { tool: 'ebay-title-builder', type: type(), length: t.length });
+    });
+    $('copyAi').addEventListener('click', function () {
+        copy(aiText(), 'AIに頼む文をコピーしました。ChatGPTやClaudeに貼ってください。');
+        if (window.gtag) gtag('event', 'title_ai_copy', { tool: 'ebay-title-builder', type: type() });
+    });
+    applyType(); sample();
+})();
+</script>
+</body>
+</html>
