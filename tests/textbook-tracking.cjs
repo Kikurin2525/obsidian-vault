@@ -23,3 +23,10 @@ receipt('?p=rental');receipt('?p=rental&s=cs_test_abc');assert.equal(events.leng
 receipt('?p=rental&s=cs_live_abc');receipt('?p=rental&s=cs_live_abc');assert.equal(events.length,1);assert.equal(events[0][1],'checkout_return');assert.equal(events[0][2].value,undefined);assert.equal(events.some(e=>e[1]==='purchase'),false);
 for(const rel of ['kyokasho/index.html','kyokasho/ebay/index.html','mail/index.html']) assert.equal((fs.readFileSync(path.join(base,rel),'utf8').match(/src="\/track\.js/g)||[]).length,1);
 console.log('PASS: LP mapping, both banners, CTA deduplication, query redaction, checkout-return guards, no fabricated purchases, all 3 pages load tracking');
+function lpEvents(product,cta){let handler,events=[];const a={dataset:{cta,position:'offer'},getAttribute:()=>cta,href:'https://buy.stripe.com/example'};
+const dummy={addEventListener(){},querySelector(){return this}};
+let source=product==='rental'?fs.readFileSync(path.join(base,'kyokasho/lp-v4-de38d585be.js'),'utf8'):[...fs.readFileSync(path.join(base,'kyokasho/ebay/index.html'),'utf8').matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m=>m[1]).find(s=>s.includes('ebay_checkout_click'));
+vm.runInNewContext(source,{document:{querySelector:()=>dummy,querySelectorAll:()=>[],addEventListener:(name,fn)=>handler=fn},window:{},location:{href:'https://rental-space.net/kyokasho/'},gtag:(...args)=>events.push(args)});
+handler({target:{closest:()=>a}});return events;}
+for(const p of ['rental','ebay']){assert.equal(lpEvents(p,'stripe_'+p).filter(e=>e[1]===p+'_checkout_click').length,1);assert.equal(lpEvents(p,'jump_buy').filter(e=>e[1]===p+'_checkout_click').length,0);assert.equal(lpEvents(p,'stripe_'+p).filter(e=>e[1]==='kyokasho_click').length,1);}
+console.log('PASS: real LP handlers distinguish checkout clicks from price-section jumps');
