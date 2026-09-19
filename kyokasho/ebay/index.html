@@ -411,12 +411,13 @@ A. eBayもAIも変化が速いので、確認日つきで書き、改訂を続�
 </main>
 <a class="mobile-sticky" href="#buy">4段目 ¥14,800 で読む ↓</a>
 <script>
-(function(){document.addEventListener('click',function(e){var a=e.target&&e.target.closest?e.target.closest('a[data-cta]'):null;if(!a||typeof gtag!=='function')return;gtag('event','kyokasho_click',{dest:a.getAttribute('data-cta'),placement:'lp_kyokasho_ebay',link_url:a.href,page_location:location.href,transport_type:'beacon'});},true);})();
+(function(){document.addEventListener('click',function(e){var a=e.target&&e.target.closest?e.target.closest('a[data-cta]'):null;if(!a||typeof gtag!=='function')return;if(a.getAttribute('data-cta')==='stripe_ebay')gtag('event','ebay_checkout_click',{product:'ebay',transport_type:'beacon'});gtag('event','kyokasho_click',{dest:a.getAttribute('data-cta'),placement:'lp_kyokasho_ebay',link_url:a.href,page_location:location.href,transport_type:'beacon'});},true);})();
 </script>
 <footer class="site-home-footer">
 <!-- site-home-link start -->
 <nav class="site-home-nav" aria-label="サイトトップ"><a href="/">きくりんのノウハウ垂れ流し TOP</a></nav>
 <!-- site-home-link end -->
 </footer>
+<script src="/track.js?v=20260919"></script>
 </body>
 </html>
