@@ -24,529 +24,305 @@
     <link rel="stylesheet" href="../style.css?v=1.1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;family=Noto+Sans+JP:wght@400;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&amp;family=Noto+Serif+JP:wght@700;900&amp;family=Great+Vibes&amp;display=swap" rel="stylesheet">
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <style>
-        :root {
-            --mail-ink: #111111;
-            --mail-blue: #29b6f6;
-            --mail-blue-dark: #0578b4;
-            --mail-orange: #f57c00;
-            --mail-orange-dark: #b84a00;
-            --mail-cream: #ffffff;
-            --mail-yellow: #fff176;
-            --mail-green: #9bd63a;
-        }
+:root{
+  --blue:#1d7fe6; --blue-d:#0f5fc2; --blue-l:#3fb2f5; --sky:#e9f5ff; --navy:#16305a;
+  --ink:#1f2a37; --muted:#5b6776; --yellow:#fff34d; --orange:#ff8a00; --orange-d:#f25c05; --line:#d7e6f5;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body.mail-page{margin:0;background:#eef3f8;color:var(--ink);font-family:'Noto Sans JP',sans-serif;line-height:1.8;-webkit-font-smoothing:antialiased}
+body.mail-page img{max-width:100%;height:auto;display:block}
+.lp{max-width:600px;margin:0 auto;background:#fff;box-shadow:0 0 40px rgba(22,48,90,.12);overflow:hidden}
+.serif{font-family:'Noto Serif JP',serif}
+.script{font-family:'Great Vibes',cursive;font-weight:400}
+.mk{background:linear-gradient(transparent 62%,var(--yellow) 62%);padding:0 .1em}
+.mk-u{border-bottom:3px solid var(--yellow)}
+.hl{color:var(--blue)}
+.orange{color:var(--orange-d)}
 
-        html { scroll-behavior: smooth; }
-        body.mail-page {
-            margin: 0;
-            overflow-x: hidden;
-            color: var(--mail-ink);
-            background: #ffffff;
-        }
-        .mail-page * { box-sizing: border-box; }
-        .mail-page img { max-width: 100%; height: auto; }
-        .mail-page a:focus-visible,
-        .mail-page button:focus-visible,
-        .mail-page input:focus-visible { outline: 4px solid rgba(41,182,246,.35); outline-offset: 3px; }
+/* top band */
+.topband{background:linear-gradient(90deg,var(--blue-d),var(--blue-l));color:#fff;text-align:center;padding:14px 16px 12px;font-weight:700;font-size:15px;line-height:1.6;letter-spacing:.02em}
+.topband small{display:block;font-size:12px;font-weight:500;opacity:.92}
 
-        .mail-topbar {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            min-height: 42px;
-            padding: 8px 16px;
-            color: #fff;
-            background: var(--mail-ink);
-            font: 700 13px/1.5 'Noto Sans JP', sans-serif;
-            letter-spacing: .03em;
-        }
-        .mail-topbar strong { color: var(--mail-yellow); }
-        .mail-topbar-dot { width: 8px; height: 8px; border-radius: 50%; background: #7ee63c; box-shadow: 0 0 0 4px rgba(126,230,60,.15); }
+/* hero */
+.hero{position:relative;padding:26px 20px 0;background:
+  radial-gradient(circle at 12% 18%,rgba(63,178,245,.12),transparent 40%),
+  radial-gradient(circle at 90% 60%,rgba(29,127,230,.10),transparent 45%),
+  linear-gradient(180deg,#fff 0%,#f3f9ff 100%);text-align:center}
+.hero-badge{display:inline-block;background:#fff;border:2px solid var(--blue);color:var(--blue);font-weight:700;border-radius:999px;padding:4px 16px;font-size:14px}
+.hero-num{margin:12px 0 0;font-size:30px;line-height:1.35;color:var(--navy);font-weight:900}
+.hero-num .big{font-size:84px;line-height:1;color:var(--orange-d);letter-spacing:-.02em;text-shadow:3px 3px 0 #ffe0b8}
+.hero-num .unit{font-size:40px}
+.hero-num .star{color:#ffb400;font-size:26px;vertical-align:top}
+.hero-sub{margin:4px 0 0;font-size:34px;line-height:1.35;color:var(--navy)}
+.hero-sub .kira{color:var(--orange-d)}
+.hero-note{margin:8px auto 0;max-width:470px;font-size:11px;line-height:1.6;color:var(--muted)}
+.tokuten-trio{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0 0}
+.trio{position:relative;background:#fff;border:3px solid var(--navy);border-radius:14px;padding:6px;box-shadow:0 8px 18px rgba(22,48,90,.18)}
+.trio img{border-radius:8px;aspect-ratio:1/1.05;object-fit:cover;object-position:top center;width:100%}
+.trio-tag{position:absolute;top:-16px;left:50%;transform:translateX(-50%);width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--blue-l),var(--blue));color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center;line-height:1.15;border:2px solid #fff;box-shadow:0 3px 8px rgba(0,0,0,.18)}
+.trio p{margin:6px 0 2px;font-size:11.5px;font-weight:700;line-height:1.45;color:var(--navy)}
+.hero-title{margin:22px 0 0;line-height:1.3;color:var(--navy)}
+.hero-title .l1{display:block;font-size:32px}
+.hero-title .box{display:inline-block;border:2px solid var(--blue);color:var(--blue);padding:0 6px;margin:0 2px;background:#fff}
+.hero-title .l2{display:block;font-size:46px;margin-top:6px}
+.hero-title .l2 em{font-style:normal;color:var(--blue);font-size:64px}
+.hero-foot{margin:24px -20px 0;background:linear-gradient(180deg,var(--blue-l),var(--blue));color:#fff;padding:18px 16px 24px}
+.hero-foot .strip{display:inline-block;background:#fff;color:var(--blue);font-weight:900;font-size:17px;padding:4px 14px;border-radius:4px}
+.hero-foot p{margin:10px 0 0;font-size:20px;font-weight:900;line-height:1.55}
+.hero-foot .y{color:var(--yellow)}
 
-        .mail-wrap { max-width: 1120px; margin: 0 auto; padding: 22px 18px 96px; }
-        .mail-hero {
-            position: relative;
-            overflow: hidden;
-            background: rgba(255,255,255,.94);
-            border: 3px solid var(--mail-ink);
-            border-radius: 30px;
-            box-shadow: 10px 10px 0 rgba(35,49,59,.12);
-        }
-        .mail-hero::before,
-        .mail-hero::after {
-            content: '';
-            position: absolute;
-            z-index: 0;
-            border-radius: 50%;
-            pointer-events: none;
-        }
-        .mail-hero::before { width: 260px; height: 260px; left: -150px; top: -145px; background: rgba(255,177,43,.28); }
-        .mail-hero::after { width: 220px; height: 220px; right: -110px; bottom: -120px; background: rgba(41,182,246,.2); }
-        .hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.02fr .98fr; align-items: center; min-height: 565px; }
-        .hero-copy { padding: 54px 24px 46px 52px; }
-        .hero-kicker {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin: 0 0 15px;
-            padding: 7px 14px;
-            border-radius: 999px;
-            color: #fff;
-            background: var(--mail-orange);
-            box-shadow: 0 4px 0 var(--mail-orange-dark);
-            font: 800 14px/1.4 'Noto Sans JP', sans-serif;
-            transform: rotate(-1.5deg);
-        }
-        .hero-copy h1 {
-            margin: 0;
-            color: var(--mail-ink);
-            font: 700 clamp(26px, 3.3vw, 44px)/1.32 'Noto Sans JP', sans-serif;
-            letter-spacing: .015em;
-        }
-        .hero-copy h1 .blue { color: var(--mail-blue-dark); }
-        .hero-copy h1 .underline { background: linear-gradient(transparent 67%, var(--mail-yellow) 67%); }
-        .hero-lead { max-width: 560px; margin: 20px 0 0; color: #111; font-size: 15.5px; line-height: 1.95; }
-        .hero-lead strong { color: var(--mail-ink); }
-        .hero-fastfacts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin: 24px 0 0; }
-        .fastfact {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            min-height: 71px;
-            padding: 9px 8px;
-            text-align: center;
-            background: #fff;
-            border: 2px solid var(--mail-ink);
-            border-radius: 14px;
-            box-shadow: 3px 3px 0 rgba(35,49,59,.12);
-            font: 700 12px/1.35 'Noto Sans JP', sans-serif;
-        }
-        .fastfact:nth-child(2) { transform: translateY(-4px) rotate(1deg); }
-        .fastfact b { display: block; margin-bottom: 2px; color: var(--mail-orange); font-size: 20px; line-height: 1.1; }
-        .hero-visual { position: relative; align-self: stretch; min-height: 510px; background: linear-gradient(145deg, rgba(155,214,58,.23), rgba(41,182,246,.2)); }
-        .hero-visual img { width: 100%; height: 100%; min-height: 510px; object-fit: cover; object-position: right center; display: block; }
-        .hero-seal {
-            position: absolute;
-            top: 26px;
-            left: 20px;
-            display: grid;
-            place-items: center;
-            width: 112px;
-            height: 112px;
-            padding: 10px;
-            border: 3px solid var(--mail-ink);
-            border-radius: 50%;
-            color: var(--mail-ink);
-            background: var(--mail-yellow);
-            box-shadow: 5px 5px 0 rgba(35,49,59,.18);
-            text-align: center;
-            font: 800 15px/1.25 'Noto Sans JP', sans-serif;
-            transform: rotate(8deg);
-        }
-        .hero-seal strong { display: block; color: var(--mail-orange-dark); font-size: 25px; }
-        .hero-bottomline {
-            position: relative;
-            z-index: 2;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin: 0;
-            padding: 12px 18px;
-            border-top: 2px dashed rgba(35,49,59,.22);
-            color: #333;
-            background: #ffffff;
-            font-size: 13px;
-            font-weight: 700;
-        }
-        .hero-bottomline span { display: inline-flex; align-items: center; gap: 5px; }
+/* CTA */
+.cta{display:flex;align-items:center;justify-content:center;gap:10px;max-width:460px;margin:16px auto 0;padding:14px 18px;border-radius:12px;background:linear-gradient(180deg,#ffa01e,var(--orange-d));color:#fff;text-decoration:none;font-weight:900;font-size:21px;line-height:1.35;box-shadow:0 5px 0 #c24500,0 10px 18px rgba(242,92,5,.28);border:2px solid #fff}
+.cta small{display:block;font-size:13px;font-weight:700}
+.cta .arrow{flex:none;width:28px;height:28px;border-radius:50%;background:#fff;color:var(--orange-d);display:grid;place-items:center;font-size:14px}
+.cta:hover{filter:brightness(1.05)}
+.cta-note{margin:10px 0 0;font-size:12px;color:var(--muted);text-align:center}
+.cta-lead{margin:26px 0 0;text-align:center;font-family:'Noto Serif JP',serif;font-weight:900;color:var(--orange-d);font-size:17px}
+.cta-lead b{font-size:32px}
 
-        .section-head { max-width: 760px; margin: 0 auto 30px; text-align: center; }
-        .section-kicker { margin: 0 0 8px; color: var(--mail-orange-dark); font: 700 17px/1.5 'Noto Sans JP', sans-serif; letter-spacing: .06em; }
-        .section-head h2 { margin: 0; color: var(--mail-ink); font: 700 clamp(28px, 4vw, 43px)/1.35 'Noto Sans JP', sans-serif; }
-        .section-head h2 span { background: linear-gradient(transparent 66%, rgba(41,182,246,.32) 66%); }
-        .section-head p { margin: 14px auto 0; color: #333; font-size: 15px; line-height: 1.85; }
+/* section base */
+.sec{padding:40px 20px}
+.sec-head{text-align:center;margin:0 0 20px;position:relative}
+.sec-head .script{display:block;color:rgba(29,127,230,.35);font-size:34px;line-height:1}
+.sec-head h2{margin:-10px 0 0;font-size:26px;line-height:1.45;color:var(--navy);font-weight:900}
+.sec-head h2 .rule{display:inline-block;padding:0 26px;position:relative}
+.sec-head h2 .rule::before,.sec-head h2 .rule::after{content:"";position:absolute;top:50%;width:18px;height:2px;background:var(--blue)}
+.sec-head h2 .rule::before{left:0}.sec-head h2 .rule::after{right:0}
 
-        .benefits { padding: 84px 4px 54px; }
-        .benefit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch; }
-        .benefit-card {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            background: #fff;
-            border: 2px solid var(--mail-ink);
-            border-radius: 24px;
-            box-shadow: 7px 7px 0 rgba(35,49,59,.13);
-        }
-        .benefit-card:nth-child(1) { transform: rotate(-1.1deg); }
-        .benefit-card:nth-child(2) { transform: translateY(-9px) rotate(.8deg); }
-        .benefit-card:nth-child(3) { transform: rotate(-.6deg); }
-        .hero-visual img { object-position: center center !important; }
-        .benefit-receive { margin: 18px auto 0; max-width: 760px; text-align: center; font-size: 15px; line-height: 1.8; color: #43545e; }
-        .benefit-image { aspect-ratio: 1.55/1; overflow: hidden; background: #ffffff; border-bottom: 2px solid var(--mail-ink); }
-        .benefit-image img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center 38%; }
-        .benefit-body { flex: 1; padding: 24px 22px 23px; }
-        .benefit-number {
-            position: absolute;
-            top: 14px;
-            left: 14px;
-            display: grid;
-            place-items: center;
-            width: 50px;
-            height: 50px;
-            border: 2px solid var(--mail-ink);
-            border-radius: 50%;
-            color: #fff;
-            background: var(--mail-orange);
-            box-shadow: 3px 3px 0 rgba(35,49,59,.22);
-            font: 800 23px/1 'Noto Sans JP', sans-serif;
-        }
-        .benefit-label { display: inline-block; margin-bottom: 8px; color: var(--mail-blue-dark); font: 800 12px/1.4 'Noto Sans JP', sans-serif; letter-spacing: .08em; }
-        .benefit-body h3 { margin: 0; font: 800 20px/1.5 'Noto Sans JP', sans-serif; }
-        .benefit-body p { margin: 11px 0 0; color: #333; font-size: 14px; line-height: 1.85; }
-        .benefit-body strong { color: var(--mail-orange-dark); }
-        .honest-note { max-width: 780px; margin: 34px auto 0; padding: 14px 20px; text-align: center; border: 2px dashed var(--mail-orange); border-radius: 16px; color: #614d3d; background: rgba(255,255,255,.68); font-size: 14px; line-height: 1.75; transform: rotate(-.4deg); }
+/* worries */
+.worry{background:var(--blue);padding:34px 20px 32px}
+.worry h2{margin:0;color:#fff;font-size:27px;line-height:1.45;font-weight:900;text-align:center}
+.worry h2 .y{color:var(--yellow)}
+.worry-list{list-style:none;margin:20px 0 0;padding:6px 18px;background:#fff;border-radius:6px}
+.worry-list li{display:flex;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line);font-size:16.5px;line-height:1.55;color:var(--ink)}
+.worry-list li:last-child{border-bottom:0}
+.worry-list li::before{content:"✓";flex:none;width:30px;height:30px;border-radius:50%;border:2px solid var(--navy);display:grid;place-items:center;font-weight:900;color:var(--navy)}
+.worry-list b{color:var(--blue-d)}
+.worry-cta{background:linear-gradient(180deg,#f3f9ff,#fff);padding:26px 20px 34px;text-align:center}
+.worry-cta .q{display:inline-block;background:var(--blue);color:#fff;font-weight:700;padding:4px 16px;border-radius:4px;font-size:14px}
+.worry-cta h3{margin:10px 0 0;font-size:24px;line-height:1.5;color:var(--navy);font-weight:900}
 
-        .register-section { scroll-margin-top: 18px; padding: 44px 0 66px; }
-        .register-shell {
-            display: grid;
-            grid-template-columns: .78fr 1.22fr;
-            overflow: hidden;
-            border: 3px solid var(--mail-ink);
-            border-radius: 28px;
-            background: #fff;
-            box-shadow: 10px 10px 0 rgba(35,49,59,.13);
-        }
-        .register-aside { position: relative; overflow: hidden; padding: 38px 30px; color: #fff; background: linear-gradient(145deg, #078bc7, var(--mail-blue)); }
-        .register-aside::after { content: ''; position: absolute; width: 190px; height: 190px; right: -85px; bottom: -85px; border-radius: 50%; background: rgba(255,255,255,.16); }
-        .register-aside .mini { margin: 0 0 9px; color: var(--mail-yellow); font: 700 15px/1.4 'Noto Sans JP', sans-serif; }
-        .register-aside h2 { margin: 0; color: #fff; font: 700 31px/1.42 'Noto Sans JP', sans-serif; }
-        .register-aside ul { position: relative; z-index: 1; display: grid; gap: 12px; margin: 24px 0 0; padding: 0; list-style: none; }
-        .register-aside li { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 1.65; }
-        .register-aside li::before { content: '✓'; flex: 0 0 25px; display: grid; place-items: center; width: 25px; height: 25px; margin-top: 1px; border-radius: 50%; color: var(--mail-blue-dark); background: #fff; font-weight: 800; }
-        .form-card { padding: 38px 42px 32px; background: linear-gradient(180deg, #fff 0%, #f9fdff 100%); }
-        .form-micro { margin: 0 0 4px; text-align: center; color: var(--mail-orange-dark); font: 700 16px/1.5 'Noto Sans JP', sans-serif; }
-        .form-card h2 { margin: 0 0 7px; text-align: center; font: 800 clamp(24px, 3vw, 34px)/1.45 'Noto Sans JP', sans-serif; }
-        .form-intro { margin: 0 auto 23px; text-align: center; color: #333; font-size: 13.5px; line-height: 1.7; }
-        .form-card label { display: block; margin-bottom: 7px; color: var(--mail-ink); font-weight: 700; font-size: 14px; }
-        .form-card input[type="email"] { width: 100%; min-height: 54px; padding: 13px 15px; border: 2px solid #a8bbc5; border-radius: 12px; background: #fff; font-size: 16px; transition: border-color .2s, box-shadow .2s; }
-        .form-card input[type="email"]:focus { border-color: var(--mail-blue); box-shadow: 0 0 0 4px rgba(41,182,246,.14); outline: none; }
-        .form-card .cf-turnstile { min-height: 65px; margin: 14px 0 4px; }
-        .form-card button[type="submit"] {
-            width: 100%;
-            min-height: 59px;
-            margin-top: 8px;
-            padding: 15px 12px;
-            cursor: pointer;
-            border: 2px solid var(--mail-ink);
-            border-radius: 15px;
-            color: #fff;
-            background: linear-gradient(180deg, #ff912e, var(--mail-orange));
-            box-shadow: 0 6px 0 var(--mail-orange-dark);
-            font: 800 18px/1.35 'Noto Sans JP', sans-serif;
-            transition: transform .15s, box-shadow .15s, filter .15s;
-        }
-        .form-card button[type="submit"]:hover { filter: brightness(1.04); transform: translateY(-1px); }
-        .form-card button[type="submit"]:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--mail-orange-dark); }
-        .form-card button[type="submit"]:disabled { cursor: wait; opacity: .6; }
-        #rondo-status { min-height: 1.5em; margin: 11px 0 0; color: var(--mail-blue-dark); font-size: 14px; font-weight: 700; }
-        .mail-note { margin: 13px 0 0; color: #333; font-size: 12px; line-height: 1.75; }
+/* why */
+.why-head{background:linear-gradient(180deg,var(--blue-l),var(--blue));color:#fff;text-align:center;padding:24px 20px;font-weight:900;font-size:25px;line-height:1.45}
+.why-head .y{color:var(--yellow)}
+.why{padding:28px 22px 36px;text-align:center;background:#fff}
+.why p{margin:0 0 14px;font-size:16px;color:var(--ink)}
+.pill{display:inline-block;background:var(--navy);color:#fff;font-weight:700;padding:6px 20px;border-radius:4px;margin:10px 0 16px;font-size:16px;position:relative}
+.pill::after{content:"";position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);border:8px solid transparent;border-top-color:var(--navy);border-bottom:0}
+.formula{display:inline-block;margin:6px 0 16px;padding:14px 18px;border:2px solid var(--blue);border-radius:10px;background:var(--sky);font-weight:900;font-size:18px;color:var(--navy);line-height:1.6}
+.why .answer{font-size:22px;line-height:1.6;font-weight:900;color:var(--blue)}
+.why .answer .u{border-bottom:2px dashed var(--blue)}
 
-        .proof-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; margin: 24px 0 0; overflow: hidden; border: 2px solid var(--mail-ink); border-radius: 18px; background: #fff; }
-        .proof-item { padding: 15px 8px; text-align: center; border-right: 1px dashed #bdc8ce; font-size: 11px; font-weight: 700; line-height: 1.4; }
-        .proof-item:last-child { border-right: 0; }
-        .proof-item b { display: block; margin-bottom: 2px; color: var(--mail-orange-dark); font: 800 17px/1.2 'Noto Sans JP', sans-serif; }
+/* tokuten */
+.tk{background:#f3f9ff}
+.tk-circles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 22px}
+.tk-circles div{aspect-ratio:1/1;border-radius:50%;border:2px solid var(--blue-l);background:#fff;display:grid;place-items:center;text-align:center;font-size:13px;font-weight:700;color:var(--navy);line-height:1.4;position:relative;padding:8px}
+.tk-circles span{position:absolute;top:6px;left:8px;width:28px;height:28px;border-radius:50%;background:var(--blue);color:#fff;font-size:12px;display:grid;place-items:center}
+.tk-card{background:#fff;border:1px solid var(--line);border-left:6px solid var(--blue);border-radius:6px;margin:0 0 18px;overflow:hidden;box-shadow:0 6px 16px rgba(22,48,90,.08)}
+.tk-card img{width:100%;aspect-ratio:1.55/1;object-fit:cover;object-position:top;border-bottom:1px solid var(--line)}
+.tk-body{padding:14px 16px 16px}
+.tk-no{display:flex;align-items:baseline;gap:10px}
+.tk-no .n{font-family:'Noto Serif JP',serif;font-size:34px;font-weight:900;color:var(--blue);line-height:1}
+.tk-no .lbl{font-size:12px;font-weight:700;color:var(--blue-d);letter-spacing:.06em}
+.tk-body h3{margin:6px 0 6px;font-size:19px;line-height:1.5;color:var(--navy)}
+.tk-body p{margin:0;font-size:15px;color:var(--ink)}
+.tk-receive{margin:6px 0 0;text-align:center;font-size:15px;font-weight:700;color:var(--navy)}
+.honest{margin:14px 0 0;text-align:center;font-size:12.5px;color:var(--muted)}
 
-        .course-section { padding: 54px 0 64px; }
-        .course-card { padding: 36px; border: 2px solid var(--mail-ink); border-radius: 26px; background: #fff; box-shadow: 7px 7px 0 rgba(35,49,59,.11); }
-        .day-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 22px; margin: 0; padding: 0; list-style: none; counter-reset: day; }
-        .day-grid li { counter-increment: day; display: grid; grid-template-columns: 48px 1fr; gap: 12px; align-items: center; min-height: 68px; padding: 10px 12px 10px 9px; border-bottom: 1px dashed #c8d1d6; color: #43545e; font-size: 14px; line-height: 1.65; }
-        .day-grid li::before { content: counter(day); display: grid; place-items: center; width: 43px; height: 43px; border: 2px solid var(--mail-ink); border-radius: 14px; color: #fff; background: var(--mail-blue); box-shadow: 3px 3px 0 rgba(35,49,59,.15); font: 800 18px/1 'Noto Sans JP', sans-serif; transform: rotate(-3deg); }
-        .day-grid li:nth-child(even)::before { background: var(--mail-orange); transform: rotate(3deg); }
-        .day-grid strong { color: var(--mail-ink); }
+/* 8 days steps */
+.steps{list-style:none;margin:0;padding:0}
+.step{position:relative;border:1px solid var(--line);background:#fff;margin:0 0 16px;padding:18px 18px 16px;box-shadow:6px 6px 0 #eaf3fc}
+.step .bar{position:absolute;top:0;left:0;right:88px;height:30px;background:linear-gradient(90deg,rgba(29,127,230,.9),rgba(63,178,245,.75));clip-path:polygon(0 0,100% 0,94% 100%,0 100%)}
+.step .bar .script{position:absolute;left:14px;top:0;color:rgba(255,255,255,.75);font-size:24px;line-height:30px}
+.step .num{position:absolute;right:14px;top:4px;font-size:46px;line-height:1;font-weight:700;color:var(--blue);font-family:'Noto Sans JP',sans-serif;letter-spacing:-.03em}
+.step h3{margin:44px 0 8px 0;font-size:18px;line-height:1.5;color:var(--navy)}
+.step p{margin:0;font-size:14.5px;line-height:1.75;color:var(--muted)}
 
-        .fit-section { display: grid; grid-template-columns: .88fr 1.12fr; gap: 30px; align-items: center; padding: 46px 52px; border-radius: 27px; background: #24333d; color: #fff; }
-        .fit-section h2 { margin: 0; color: #fff; font: 700 clamp(27px, 3.5vw, 41px)/1.45 'Noto Sans JP', sans-serif; }
-        .fit-section h2 span { color: var(--mail-yellow); }
-        .fit-list { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
-        .fit-list li { position: relative; padding: 14px 16px 14px 47px; border: 1px solid rgba(255,255,255,.2); border-radius: 13px; background: rgba(255,255,255,.08); font-size: 14px; line-height: 1.65; }
-        .fit-list li::before { content: '✓'; position: absolute; left: 15px; top: 14px; color: var(--mail-yellow); font-weight: 800; font-size: 18px; }
+/* proof */
+.proof{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:0 20px 36px}
+.proof div{background:#fff;border:2px solid var(--blue);border-radius:10px;text-align:center;padding:12px 6px;font-size:12.5px;color:var(--muted);font-weight:700}
+.proof b{display:block;font-size:22px;color:var(--blue);font-weight:900;line-height:1.3}
 
-        .final-cta { padding: 78px 18px 24px; text-align: center; }
-        .final-cta p { margin: 0 0 8px; color: var(--mail-orange-dark); font: 700 16px/1.5 'Noto Sans JP', sans-serif; }
-        .final-cta h2 { margin: 0; font: 700 clamp(28px, 4vw, 43px)/1.4 'Noto Sans JP', sans-serif; }
-        .cta-link {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-width: min(100%, 440px);
-            min-height: 60px;
-            margin-top: 23px;
-            padding: 15px 26px;
-            border: 2px solid var(--mail-ink);
-            border-radius: 16px;
-            color: #fff;
-            background: var(--mail-orange);
-            box-shadow: 0 6px 0 var(--mail-orange-dark);
-            text-decoration: none;
-            font: 800 18px/1.4 'Noto Sans JP', sans-serif;
-        }
-        .back-home { margin: 44px 0 0; text-align: center; font-size: 14px; }
-        .back-home a { color: var(--mail-blue-dark); font-weight: 700; text-decoration: none; }
-        .back-home a:hover { text-decoration: underline; }
-        .mobile-sticky { display: none; }
+/* register */
+.reg{background:linear-gradient(180deg,var(--blue),var(--blue-d));padding:36px 18px 40px;color:#fff}
+.reg-head{text-align:center}
+.reg-head .strip{display:inline-block;background:#fff;color:var(--blue);font-weight:900;padding:3px 14px;border-radius:4px;font-size:14px}
+.reg-head h2{margin:10px 0 4px;font-size:27px;line-height:1.45;font-weight:900}
+.reg-head ul{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 14px;font-size:14px;font-weight:700}
+.reg-head li::before{content:"✓ ";color:var(--yellow)}
+.form-card{margin:20px 0 0;background:#fff;color:var(--ink);border-radius:12px;padding:22px 18px;box-shadow:0 12px 26px rgba(0,0,0,.2)}
+.form-card .micro{margin:0;text-align:center;color:var(--orange-d);font-weight:900}
+.form-card h3{margin:2px 0 6px;text-align:center;font-size:22px;color:var(--navy)}
+.form-card .intro{margin:0 0 12px;text-align:center;font-size:13.5px;color:var(--muted)}
+#rondo-subscribe label{display:block;font-weight:700;font-size:14px;margin:0 0 6px}
+#rondo-subscribe input[type=email]{width:100%;font-size:17px;padding:13px 14px;border:2px solid var(--line);border-radius:8px;margin:0 0 12px}
+#rondo-subscribe input[type=email]:focus{outline:none;border-color:var(--blue)}
+#rondo-subscribe .cf-turnstile{margin:0 0 12px;min-height:65px}
+#rondo-subscribe button{width:100%;border:2px solid #fff;border-radius:12px;padding:15px 12px;font-size:20px;font-weight:900;color:#fff;cursor:pointer;background:linear-gradient(180deg,#ffa01e,var(--orange-d));box-shadow:0 5px 0 #c24500}
+#rondo-subscribe button:disabled{opacity:.7}
+#rondo-status{margin:10px 0 0;font-size:14px;font-weight:700;color:var(--blue-d);min-height:1.2em}
+.mail-note{margin:12px 0 0;font-size:12.5px;line-height:1.75;color:var(--muted)}
 
-        @media (max-width: 850px) {
-            .hero-grid { grid-template-columns: 1fr; }
-            .hero-copy { padding: 38px 26px 28px; }
-            .hero-visual { min-height: 380px; }
-            .hero-visual img { min-height: 380px; max-height: 480px; }
-            .benefit-grid { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; gap: 22px; }
-            .benefit-card:nth-child(n) { transform: none; }
-            .benefit-card:nth-child(2) { transform: rotate(.6deg); }
-            .register-shell { grid-template-columns: 1fr; }
-            .register-aside { padding: 28px; }
-            .proof-strip { grid-template-columns: repeat(3, 1fr); }
-            .proof-item { border-bottom: 1px dashed #bdc8ce; }
-            .proof-item:nth-child(3) { border-right: 0; }
-            .proof-item:nth-child(n+4) { border-bottom: 0; }
-            .course-card { padding: 28px 22px; }
-            .day-grid { grid-template-columns: 1fr; }
-            .fit-section { grid-template-columns: 1fr; padding: 36px 30px; }
-        }
-
-        @media (max-width: 540px) {
-            body.mail-page { padding-bottom: 78px; }
-            .mail-topbar { font-size: 11.5px; }
-            .mail-wrap { padding: 12px 12px 66px; }
-            .mail-hero { border-radius: 22px; box-shadow: 6px 6px 0 rgba(35,49,59,.12); }
-            .hero-copy { padding: 28px 18px 23px; text-align: center; }
-            .hero-kicker { margin-bottom: 12px; font-size: 12px; }
-            .hero-copy h1 { font-size: clamp(31px, 9.8vw, 40px); }
-            .hero-lead { margin-top: 17px; text-align: left; font-size: 14px; line-height: 1.82; }
-            .hero-fastfacts { gap: 6px; margin-top: 18px; }
-            .fastfact { min-height: 62px; padding: 8px 4px; font-size: 10px; }
-            .fastfact b { font-size: 17px; }
-            .hero-visual { min-height: 270px; }
-            .hero-visual img { min-height: 270px; max-height: 320px; object-position: right center; }
-            .hero-seal { top: 12px; left: 10px; width: 86px; height: 86px; font-size: 11px; }
-            .hero-seal strong { font-size: 20px; }
-            .hero-bottomline { flex-wrap: wrap; gap: 4px 12px; padding: 10px 8px; font-size: 10.5px; }
-            .benefits { padding: 66px 2px 38px; }
-            .section-head { margin-bottom: 24px; }
-            .section-kicker { font-size: 15px; }
-            .section-head h2 { font-size: 29px; }
-            .section-head p { font-size: 13.5px; }
-            .benefit-body { padding: 21px 19px 22px; }
-            .benefit-body h3 { font-size: 18px; }
-            .honest-note { padding: 12px 14px; font-size: 12.5px; }
-            .register-section { padding: 35px 0 48px; }
-            .register-shell { border-radius: 22px; box-shadow: 6px 6px 0 rgba(35,49,59,.13); }
-            .register-aside { padding: 26px 21px; }
-            .register-aside h2 { font-size: 27px; }
-            .form-card { padding: 26px 18px 23px; }
-            .form-card h2 { font-size: 24px; }
-            .form-card button[type="submit"] { font-size: 16px; }
-            .proof-strip { grid-template-columns: repeat(2, 1fr); border-radius: 14px; }
-            .proof-item:nth-child(n) { border-right: 1px dashed #bdc8ce; border-bottom: 1px dashed #bdc8ce; }
-            .proof-item:nth-child(even) { border-right: 0; }
-            .proof-item:last-child { grid-column: 1 / -1; border-right: 0; border-bottom: 0; }
-            .course-section { padding: 42px 0 48px; }
-            .course-card { padding: 23px 13px; border-radius: 20px; }
-            .day-grid li { grid-template-columns: 44px 1fr; gap: 9px; padding: 9px 5px; font-size: 12.5px; }
-            .day-grid li::before { width: 39px; height: 39px; font-size: 16px; }
-            .fit-section { padding: 31px 21px; border-radius: 21px; }
-            .fit-section h2 { font-size: 28px; }
-            .fit-list li { padding: 12px 12px 12px 42px; font-size: 12.5px; }
-            .fit-list li::before { left: 13px; top: 11px; }
-            .final-cta { padding: 61px 5px 18px; }
-            .final-cta h2 { font-size: 29px; }
-            .cta-link { min-height: 56px; padding: 13px 16px; font-size: 15px; }
-            .mobile-sticky {
-                position: fixed;
-                z-index: 20;
-                left: 10px;
-                right: 10px;
-                bottom: max(9px, env(safe-area-inset-bottom));
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                min-height: 54px;
-                padding: 11px 16px;
-                border: 2px solid var(--mail-ink);
-                border-radius: 15px;
-                color: #fff;
-                background: var(--mail-orange);
-                box-shadow: 0 5px 0 var(--mail-orange-dark), 0 10px 24px rgba(35,49,59,.24);
-                text-decoration: none;
-                font: 800 15px/1.3 'Noto Sans JP', sans-serif;
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            html { scroll-behavior: auto; }
-            .mail-page *, .mail-page *::before, .mail-page *::after { transition: none !important; animation: none !important; }
-        }
-    </style>
+/* final */
+.final{padding:38px 20px 44px;text-align:center;background:#fff}
+.final h2{margin:0;font-size:26px;line-height:1.5;color:var(--navy);font-weight:900}
+.back-home{text-align:center;margin:0;padding:0 0 28px;font-size:14px}
+.back-home a{color:var(--muted)}
+.mobile-sticky{position:fixed;left:50%;bottom:10px;transform:translateX(-50%);width:calc(100% - 24px);max-width:560px;z-index:50;text-align:center;text-decoration:none;color:#fff;font-weight:900;font-size:16px;padding:13px 10px;border-radius:999px;background:linear-gradient(180deg,#ffa01e,var(--orange-d));box-shadow:0 6px 16px rgba(0,0,0,.25);border:2px solid #fff}
+body.mail-page{padding-bottom:70px}
+@media (max-width:420px){
+  .hero-num{font-size:24px}.hero-num .big{font-size:68px}.hero-num .unit{font-size:32px}
+  .hero-sub{font-size:27px}.hero-title .l1{font-size:24px}.hero-title .l2{font-size:36px}.hero-title .l2 em{font-size:50px}
+  .hero-foot p{font-size:17px}.cta{font-size:18px}
+  .worry h2,.why-head{font-size:22px}.sec-head h2{font-size:23px}
+  .trio p{font-size:10.5px}
+}
+</style>
 <link rel="stylesheet" href="/assets/site-footer.css?v=20260919">
 </head>
 
 <body class="mail-page">
-    <div class="mail-topbar">
-        <span class="mail-topbar-dot" aria-hidden="true"></span>
-        <span><strong>無料・8日間</strong>｜レンタルスペース開業の教科書メール講座</span>
+<div class="lp">
+    <div class="topband">会社員のかたわら、累計23部屋<small>レンスペ歴5年超のきくりんが教える無料講座</small></div>
+
+    <section class="hero" aria-labelledby="mail-title">
+        <span class="hero-badge">＼ 無料メール講座・全8通 ／</span>
+        <p class="hero-num serif">1部屋で <span class="big">10</span><span class="unit">万円</span>前後<span class="star">✦</span></p>
+        <p class="hero-sub serif">月の<span class="kira mk">利益</span>を残す手順</p>
+        <p class="hero-note">※ぼくの部屋のうち、軌道に乗った部屋の手残りの平均です(家賃・光熱費・清掃などの店舗費用を引いたあと)。同じ成果を保証するものではありません。</p>
+
+        <div class="tokuten-trio" aria-label="登録特典3点">
+            <div class="trio"><span class="trio-tag">特典<br>①</span><img src="../assets/2026_09_24_mail_t1_tool.png" alt="特典①初期費用シミュレーターの画面" width="930" height="600"><p>初期費用<br>シミュレーター</p></div>
+            <div class="trio"><span class="trio-tag">特典<br>②</span><img src="../assets/2026_09_24_mail_t2_plan.png" alt="特典②出店企画書の表紙" width="930" height="600"><p>ぼくの<br>出店企画書</p></div>
+            <div class="trio"><span class="trio-tag">特典<br>③</span><img src="../assets/2026_09_24_mail_t3_check.png" alt="特典③開業チェックリスト" width="930" height="600"><p>開業<br>チェックリスト</p></div>
+        </div>
+
+        <h1 id="mail-title" class="hero-title serif"><span class="l1">レンタルスペースの</span><span class="l1"><span class="box">はじめ方</span>が</span><span class="l2"><em>8</em>日で分かる！</span></h1>
+
+        <div class="hero-foot">
+            <span class="strip">物件探しから、オープンまで</span>
+            <p>出店までの手順を、<span class="y">1日1通のメール</span>で<br>無料で受け取りませんか？</p>
+            <a class="cta" href="#register"><span>今すぐ無料で受け取る<small>＋3大特典つき</small></span><span class="arrow">▶</span></a>
+        </div>
+    </section>
+
+    <section class="worry" aria-labelledby="worry-title">
+        <h2 id="worry-title">レンタルスペースを<br><span class="y">始めてみたい</span>けど…</h2>
+        <ul class="worry-list">
+            <li><span><b class="mk">何から始めればいいか</b>が<br>分からない…</span></li>
+            <li><span><b class="mk">どんな物件を借りればいいか</b><br>見当がつかない…</span></li>
+            <li><span>借りたあとに<br><b class="mk">本当に利益が残るか</b>不安…</span></li>
+        </ul>
+    </section>
+    <div class="worry-cta">
+        <span class="q">このようなお悩みを抱えている方は</span>
+        <h3>今すぐ<span class="mk">無料メール講座</span>に<br>登録してください！</h3>
+        <a class="cta" href="#register"><span>まずは無料で受け取る<small>登録30秒・いつでも解除できます</small></span><span class="arrow">▶</span></a>
     </div>
 
-    <main class="mail-wrap">
-        <section class="mail-hero" aria-labelledby="mail-title">
-            <div class="hero-grid">
-                <div class="hero-copy">
-                    <p class="hero-kicker">＼ 無料メール講座・全8通 ／</p>
-                    <h1 id="mail-title">何から始めればいい？<br><span class="blue">レンタルスペースのはじめ方</span>が<br><span class="underline">8日で分かる！</span></h1>
-                    <p class="hero-lead">
-                        「レンタルスペース、やってみたい。でも何から？」——この講座は、開業までに<strong>何を・どの順番で・どう判断するか</strong>を8日で手に入れる教科書です。会社員のかたわら始めて累計23部屋。売上も、家賃も、失敗も、実際の数字をそのまま見せながらお伝えします。
-                    </p>
-                    <div class="hero-fastfacts" aria-label="講座の特徴">
-                        <span class="fastfact"><b>無料</b>登録料なし</span>
-                        <span class="fastfact"><b>8日間</b>全8通</span>
-                        <span class="fastfact"><b>3大特典</b>登録者限定</span>
-                    </div>
+    <div class="why-head">部屋を借りるだけでは<br><span class="y">利益は残らない!?</span></div>
+    <section class="why" aria-label="なぜ借りる前の計算が大事か">
+        <p>家賃が高すぎれば、<br>予約が入っても手元に残らない。</p>
+        <p>使いたい人がいなければ、<br>きれいに作っても予約は入らない。</p>
+        <span class="pill">それはなぜか？</span>
+        <p>レンタルスペースの利益は、</p>
+        <div class="formula">売上 − 手数料 − 家賃 − 経費</div>
+        <p>で決まるからです。</p>
+        <span class="pill">つまり</span>
+        <p class="answer">借りる前に、<span class="u">競合を調べて</span><br><span class="mk">月いくら残るか</span>を計算する。</p>
+        <p>この講座では、その手順を<br>ぼくの実績とともに、8日間でお伝えします。</p>
+    </section>
+
+    <section class="sec tk" aria-labelledby="tk-title">
+        <div class="sec-head"><span class="script">Present</span><h2 id="tk-title"><span class="rule">登録特典</span></h2></div>
+        <div class="tk-circles" aria-hidden="true">
+            <div><span>01</span>開業に<br>いくら必要？</div>
+            <div><span>02</span>ぼくなら<br>どう出す？</div>
+            <div><span>03</span>次に<br>何をする？</div>
+        </div>
+        <article class="tk-card">
+            <img src="../assets/2026_09_24_mail_t1_tool.png" alt="初期費用シミュレーターの入力画面。家賃・広さ・敷金などを入れる" width="930" height="600" loading="lazy">
+            <div class="tk-body"><div class="tk-no"><span class="n">01</span><span class="lbl">WEB TOOL</span></div>
+            <h3>初期費用シミュレーター</h3>
+            <p>家賃・広さ・ジャンルを入れると、開業に<strong>いくら必要か</strong>の目安と、何ヶ月で戻るかが出ます。</p></div>
+        </article>
+        <article class="tk-card">
+            <img src="../assets/2026_09_24_mail_t2_plan.png" alt="出店企画書「【公開】ぼくがいま本気でやりたいレンタルスペース」の1ページ目" width="930" height="600" loading="lazy">
+            <div class="tk-body"><div class="tk-no"><span class="n">02</span><span class="lbl">企画書 PDF・5ページ</span></div>
+            <h3>【公開】ぼくがいま本気でやりたいレンタルスペース</h3>
+            <p>出すなら<strong>どこで・どんな部屋を・いくらで</strong>。50㎡・家賃15万円のスタジオで、出店費用と12ヶ月の回収計画まで公開します。</p></div>
+        </article>
+        <article class="tk-card">
+            <img src="../assets/2026_09_24_mail_t3_check.png" alt="開業チェックリストの1ページ目。ジャンル・物件の確認項目" width="930" height="600" loading="lazy">
+            <div class="tk-body"><div class="tk-no"><span class="n">03</span><span class="lbl">CHECKLIST PDF</span></div>
+            <h3>開業チェックリスト</h3>
+            <p>物件探しから開業まで、<strong>次にやること</strong>を上から順に確認できます。</p></div>
+        </article>
+        <p class="tk-receive">3点のリンクは、登録確認のあとに届く<br><span class="mk">1通目のメール</span>でお渡しします(通常5分以内)。</p>
+        <p class="honest">「○○円相当」とは言いません。価値は盛らず、使える中身をそのまま渡します。</p>
+    </section>
+
+    <section class="sec" aria-labelledby="course-title">
+        <div class="sec-head"><span class="script">8 days</span><h2 id="course-title"><span class="rule">8日間で届くこと</span></h2></div>
+        <ol class="steps">
+            <li class="step"><span class="bar"><span class="script">Day one</span></span><span class="num">01</span><h3>1部屋で、月いくら残るのか</h3><p>ぼくの実績と、会社員のまま部屋を増やせた仕組み。3大特典もここでお渡しします。</p></li>
+            <li class="step"><span class="bar"><span class="script">Day two</span></span><span class="num">02</span><h3>どのジャンルが稼げるのか</h3><p>貸会議室・パーティー・撮影・ダンスを、利益・初期費用・手間で比べます。</p></li>
+            <li class="step"><span class="bar"><span class="script">Day three</span></span><span class="num">03</span><h3>物件は、どうやって探すのか</h3><p>使うサイト、家賃の目安、駅からの距離、問い合わせのしかた。</p></li>
+            <li class="step"><span class="bar"><span class="script">Day four</span></span><span class="num">04</span><h3>契約する前に、近くの競合を調べる</h3><p>予約カレンダーから売上を出し、視察で初期費用をつかむ流れ。</p></li>
+            <li class="step"><span class="bar"><span class="script">Day five</span></span><span class="num">05</span><h3>借りたら、月いくら残るか計算する</h3><p>手数料・家賃・経費を引いて、回収期間まで。借りるかどうかを決めます。</p></li>
+            <li class="step"><span class="bar"><span class="script">Day six</span></span><span class="num">06</span><h3>契約したら、オープンまでに何をする？</h3><p>入居前の発注、ジャンルで違う内装の考え方、設営の段取り。</p></li>
+            <li class="step"><span class="bar"><span class="script">Day seven</span></span><span class="num">07</span><h3>予約サイトに載せて、最初のお客さんを迎える</h3><p>載せるサイト、写真、最初の1ヶ月の値付け、レビューの集め方。</p></li>
+            <li class="step"><span class="bar"><span class="script">Day eight</span></span><span class="num">08</span><h3>ぼくがいま出すなら、こうする</h3><p>特典の企画書をもとに、出店案と12ヶ月の回収計画を解説します。</p></li>
+        </ol>
+    </section>
+
+    <div class="proof" aria-label="きくりんの運営実績">
+        <div><b>累計23部屋</b>運営実績</div>
+        <div><b>1.5億円超</b>累計売上</div>
+        <div><b>赤字物件ゼロ</b>借りる前に計算</div>
+        <div><b>5年超</b>現場の実録</div>
+    </div>
+
+    <section class="reg" id="register" aria-labelledby="register-title">
+        <div class="reg-head">
+            <span class="strip">＼ 30秒で登録完了 ／</span>
+            <h2>いますぐ<br>無料で受け取る</h2>
+            <ul><li>8日間、1日1通</li><li>3大特典は1通目で</li><li>解除はいつでも1クリック</li></ul>
+        </div>
+        <div class="form-card">
+            <p class="micro">メール、けっこう本気で書いてます。</p>
+            <h3 id="register-title">メールアドレスを入力</h3>
+            <p class="intro">入力して、bot確認を完了してください。</p>
+            <form id="rondo-subscribe">
+                <label for="rondo-email">メールアドレス</label>
+                <input id="rondo-email" name="email" type="email" inputmode="email" autocomplete="email" spellcheck="false" placeholder="you@example.com" required>
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAAEV9IwiuZXn-MyO5" data-language="ja"></div>
+                <div aria-hidden="true" style="position:absolute;left:-10000px">
+                    <label for="rondo-website">Website</label>
+                    <input id="rondo-website" name="website" type="text" tabindex="-1" autocomplete="off">
                 </div>
-                <div class="hero-visual">
-                    <img src="../assets/2026_09_24_mail_hero_tokuten3.png" alt="3大特典の現物。出店企画書、初期費用シミュレーター、開業チェックリスト" width="1200" height="1200">
-                    <div class="hero-seal">盛らない<br><strong>3大特典</strong>つき</div>
-                </div>
-            </div>
-            <p class="hero-bottomline">
-                <span>✓ 累計23部屋</span>
-                <span>✓ 売上1.5億円超</span>
-                <span>✓ 赤字物件ゼロ</span>
-                <span>✓ 5年超の実録</span>
+                <button type="submit">無料で8日間講座を受け取る</button>
+                <p id="rondo-status" role="status" aria-live="polite"></p>
+            </form>
+            <p class="mail-note">
+                登録確認メールが届きます。リンクを開くと登録完了です(ダブルオプトイン)。<br><strong>※確認メールが「迷惑メール」フォルダに入ることがあります。</strong>見つからないときはそちらをご確認ください。<br>
+                講座はいつでも1クリックで解除できます。メールアドレスは講座の配信以外に使いません。
             </p>
-        </section>
+        </div>
+    </section>
 
-        <section class="benefits" aria-labelledby="benefits-title">
-            <div class="section-head">
-                <p class="section-kicker">＼ まず、この3つをお渡しします ／</p>
-                <h2 id="benefits-title"><span>3大特典を、箱推し。</span></h2>
-                <p>借りる前に、いくらかかり、どう出して、何を確かめるか。実際に使える3点です。</p>
-            </div>
-            <div class="benefit-grid">
-                <article class="benefit-card">
-                    <span class="benefit-number" aria-hidden="true">1</span>
-                    <div class="benefit-image"><img src="../assets/2026_09_24_mail_t1_tool.png" alt="初期費用シミュレーターの入力画面。家賃・広さ・敷金などを入れる" width="930" height="600" loading="lazy"></div>
-                    <div class="benefit-body">
-                        <span class="benefit-label">WEB TOOL</span>
-                        <h3>初期費用<br>シミュレーター</h3>
-                        <p>家賃・広さ・ジャンルを入れると、開業に<strong>いくら必要か</strong>の目安と、何ヶ月で戻るかが出ます。</p>
-                    </div>
-                </article>
-                <article class="benefit-card">
-                    <span class="benefit-number" aria-hidden="true">2</span>
-                    <div class="benefit-image"><img src="../assets/2026_09_24_mail_t2_plan.png" alt="出店企画書「【公開】ぼくがいま本気でやりたいレンタルスペース」の1ページ目" width="930" height="600" loading="lazy"></div>
-                    <div class="benefit-body">
-                        <span class="benefit-label">企画書 PDF・5ページ</span>
-                        <h3>【公開】ぼくがいま本気で<br>やりたいレンタルスペース</h3>
-                        <p>出すなら<strong>どこで・どんな部屋を・いくらで</strong>。50㎡・家賃15万円のスタジオで、出店費用と12ヶ月の回収計画まで公開します。</p>
-                    </div>
-                </article>
-                <article class="benefit-card">
-                    <span class="benefit-number" aria-hidden="true">3</span>
-                    <div class="benefit-image"><img src="../assets/2026_09_24_mail_t3_check.png" alt="開業チェックリストの1ページ目。ジャンル・物件の確認項目" width="930" height="600" loading="lazy"></div>
-                    <div class="benefit-body">
-                        <span class="benefit-label">CHECKLIST PDF</span>
-                        <h3>開業チェックリスト</h3>
-                        <p>物件探しから開業まで、<strong>次にやること</strong>を上から順に確認できます。</p>
-                    </div>
-                </article>
-            </div>
-            <p class="benefit-receive">3点のリンクは、登録確認のあとに届く<strong>1通目のメール</strong>でお渡しします(通常5分以内)。</p>
-            <p class="honest-note">💡 「○○円相当」とは言いません。価値は盛らず、使える中身をそのまま渡します。</p>
-        </section>
+    <section class="final" aria-labelledby="final-cta-title">
+        <p class="cta-lead">＼ 最初の一歩は、<br><b>地図</b>を手に入れること ／</p>
+        <h2 id="final-cta-title">8日後には、<br>「何から始めるか」で<br>迷わなくなります。</h2>
+        <a class="cta" href="#register"><span>無料で8日間講座を受け取る</span><span class="arrow">▲</span></a>
+    </section>
 
-        <section class="register-section" id="register" aria-labelledby="register-title">
-            <div class="register-shell">
-                <div class="register-aside">
-                    <p class="mini">メール、けっこう本気で書いてます。</p>
-                    <h2>読み終わるころには、<br>開業までの道のりが見えている。</h2>
-                    <ul>
-                        <li>8日間、1日1通ずつお届け</li>
-                        <li>3大特典は1通目でお届け</li>
-                        <li>解除はいつでも1クリック</li>
-                    </ul>
-                </div>
-                <div class="form-card">
-                    <p class="form-micro">＼ 30秒で登録完了 ／</p>
-                    <h2 id="register-title">いますぐ無料で受け取る</h2>
-                    <p class="form-intro">メールアドレスを入力し、bot確認を完了してください。</p>
-                    <form id="rondo-subscribe">
-                        <label for="rondo-email">メールアドレス</label>
-                        <input id="rondo-email" name="email" type="email" inputmode="email" autocomplete="email" spellcheck="false" placeholder="you@example.com" required>
-                        <div class="cf-turnstile" data-sitekey="0x4AAAAAAEV9IwiuZXn-MyO5" data-language="ja"></div>
-                        <div aria-hidden="true" style="position:absolute;left:-10000px">
-                            <label for="rondo-website">Website</label>
-                            <input id="rondo-website" name="website" type="text" tabindex="-1" autocomplete="off">
-                        </div>
-                        <button type="submit">無料で8日間講座を受け取る</button>
-                        <p id="rondo-status" role="status" aria-live="polite"></p>
-                    </form>
-                    <p class="mail-note">
-                        登録確認メールが届きます。リンクを開くと登録完了です(ダブルオプトイン)。<br><strong>※確認メールが「迷惑メール」フォルダに入ることがあります。</strong>見つからないときはそちらをご確認ください。<br>
-                        講座はいつでも1クリックで解除できます。メールアドレスは講座の配信以外に使いません。
-                    </p>
-                </div>
-            </div>
-
-            <div class="proof-strip" aria-label="きくりんの運営実績">
-                <div class="proof-item"><b>累計23部屋</b>運営実績</div>
-                <div class="proof-item"><b>1.5億円超</b>累計売上</div>
-                <div class="proof-item"><b>赤字物件ゼロ</b>堅実に判断</div>
-                <div class="proof-item"><b>8ヶ月〜</b>投資回収</div>
-                <div class="proof-item"><b>5年超</b>現場の実録</div>
-            </div>
-        </section>
-
-        <section class="course-section" aria-labelledby="course-title">
-            <div class="section-head">
-                <p class="section-kicker">＼ 開業までの道のりを、1日1歩ずつ ／</p>
-                <h2 id="course-title"><span>8日間で届くこと</span></h2>
-            </div>
-            <div class="course-card">
-                <ol class="day-grid">
-                    <li><span><strong>1部屋で月いくら残るのか</strong>——ぼくの実績と、稼げる仕組み（＋特典のお渡し）</span></li>
-                    <li><span>どのジャンルが稼げるのか——会議室・パーティー・撮影・ダンスを比べる</span></li>
-                    <li><span>物件の探し方——使うサイト・家賃の目安・駅徒歩</span></li>
-                    <li><span>契約する前に、近くの競合を調べる</span></li>
-                    <li><span>家賃10万円の部屋を借りたら、月いくら残るか</span></li>
-                    <li><span>契約したら、オープンまでに何をするか</span></li>
-                    <li><span>予約サイトに載せて、最初のお客さんを迎える</span></li>
-                    <li><span>ぼくがいま出すなら、こうする——特典の企画書を解説</span></li>
-                </ol>
-            </div>
-        </section>
-
-        <section class="fit-section" aria-labelledby="fit-title">
-            <h2 id="fit-title">「やってみたい。<br><span>でも、何から？</span>」という方へ。</h2>
-            <ul class="fit-list">
-                <li>会社の給料だけの未来に、うっすら不安がある</li>
-                <li>勢いではなく、実際の数字で物件を判断したい</li>
-                <li>大きな借金やリスクを背負わず、堅実に副業を育てたい</li>
-                <li>いつか自分の店・自分の事業を持ってみたい</li>
-            </ul>
-        </section>
-
-        <section class="final-cta" aria-labelledby="final-cta-title">
-            <p>＼ 最初の一歩は、地図を手に入れること ／</p>
-            <h2 id="final-cta-title">8日後、「何から始めるか」で<br>もう迷いません。</h2>
-            <a class="cta-link" href="#register">無料で8日間講座を受け取る ↑</a>
-        </section>
-
-        <p class="back-home"><a href="../index.html">← ブログ「きくりんのノウハウ垂れ流し」へ戻る</a></p>
-    </main>
+    <p class="back-home"><a href="../index.html">← ブログ「きくりんのノウハウ垂れ流し」へ戻る</a></p>
+</div>
 
     <a class="mobile-sticky" href="#register">無料8日間講座＋3大特典を受け取る ↑</a>
 
@@ -592,11 +368,6 @@
             });
         })();
     </script>
-<footer class="site-home-footer">
-<!-- site-home-link start -->
-<nav class="site-home-nav" aria-label="サイトトップ"><a href="/">きくりんのノウハウ垂れ流し TOP</a></nav>
-<!-- site-home-link end -->
-</footer>
 <script src="/track.js?v=20260919"></script>
 </body>
 
