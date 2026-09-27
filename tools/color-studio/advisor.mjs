@@ -1,5 +1,5 @@
-import {contrast,toHsl,fromHsl,rgb,toHex,normalizeHex,ROLE_NAMES} from './engine.mjs?v=20260928-composition1';
-import {composePool,compositionNotes,visiblyDifferent,oklab} from './composition.mjs?v=20260928-composition1';
+import {contrast,toHsl,fromHsl,rgb,toHex,normalizeHex,ROLE_NAMES} from './engine.mjs?v=20260928-recolor1';
+import {composePool,compositionNotes,visiblyDifferent,oklab} from './composition.mjs?v=20260928-recolor1';
 
 export const USAGES={web:'Webサイト',lp:'LP',app:'スマホアプリ',illustration:'イラスト'};
 export const isUsage=value=>Object.hasOwn(USAGES,value);

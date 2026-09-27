@@ -1,4 +1,4 @@
-import {rgb,toHex,toHsl,fromHsl,normalizeHex,parseRequest} from './engine.mjs?v=20260928-composition1';
+import {rgb,toHex,toHsl,fromHsl,normalizeHex,parseRequest} from './engine.mjs?v=20260928-recolor1';
 
 // Original recipes: strong identity, a supporting tone, and a deliberately limited accent.
 // Names and hex combinations are authored for this tool, not copied from a palette service.
