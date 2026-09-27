@@ -43,6 +43,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // メニューの「/#ailab」などから一覧を切り替える(2026-09-27)
+    const HASH_CATEGORIES = { '#ailab': ['ailab', '副業③ AI活用実験室'], '#rental': ['rental', '副業① レンタルスペース'], '#ebay': ['ebay', '副業② eBay輸出'] };
+    const applyHashCategory = () => {
+        const c = HASH_CATEGORIES[location.hash];
+        if (c && document.getElementById(`posts-${c[0]}`)) window.switchCategory(c[0], c[1]);
+    };
+    window.addEventListener('hashchange', applyHashCategory);
+    // スマホの三本線メニュー: 項目を押したら閉じる
+    document.querySelectorAll('.site-menu-list a').forEach(a => a.addEventListener('click', () => {
+        const t = document.getElementById('site-menu-toggle'); if (t) t.checked = false;
+    }));
+    applyHashCategory();
+
     // Share Functions
     window.shareOnX = function () {
         const url = encodeURIComponent(window.location.href);
