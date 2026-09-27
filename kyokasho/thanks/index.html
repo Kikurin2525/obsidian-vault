@@ -36,10 +36,10 @@ body{margin:0;background:#fff;color:#111;font-family:'Noto Sans JP',-apple-syste
 <script>
 (function(){
   var q=new URLSearchParams(location.search);var p=q.get('p')||'';var s=q.get('s')||'';
-  var f=document.getElementById('form-link');if(f&&(p==='rental'||p==='ebay'||p==='hp'))f.href='https://rental-space.net/form/?p='+p;
+  var f=document.getElementById('form-link');if(f&&(p==='rental'||p==='ebay'||p==='hp'||p==='dance'))f.href='https://rental-space.net/form/?p='+p;
   // A redirect is not payment verification. Actual orders/amounts come from the shop ledger.
   // Never manufacture a purchase or value from URL parameters or a current price table.
-  if (!/^(rental|ebay|hp|k1|kit|kit_set)$/.test(p) || !/^cs_live_[A-Za-z0-9]+$/.test(s)) return;
+  if (!/^(rental|ebay|hp|k1|kit|kit_set|dance)$/.test(p) || !/^cs_live_[A-Za-z0-9]+$/.test(s)) return;
   try { if (sessionStorage.getItem('checkout_return_'+s)) return; } catch(e) {}
   if (typeof gtag === 'function') {
     gtag('event','checkout_return',{product:p,lp:'kyokasho',transport_type:'beacon',page_location:location.origin+location.pathname});
