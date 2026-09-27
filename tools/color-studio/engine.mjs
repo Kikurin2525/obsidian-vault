@@ -1,12 +1,22 @@
 export const MOODS = [
+ {id:'standard',label:'スタンダード',title:'ブルー × イエロー',colors:['#2563EB','#FACC15','#DC2626','#16A34A','#F97316','#9333EA','#06B6D4','#DB2777']},
  {id:'natural',label:'ナチュラル',title:'森と、やわらかな光',colors:['#52796F','#B9C6AD','#DDA892','#E3D7B8','#889E81','#796A56','#DBE6D5','#B6957D']},
- {id:'clean',label:'爽やか',title:'風の通る、青',colors:['#347F9E','#A7D7CB','#EDCF89','#728AB0','#C3E5E5','#D6B89D','#628B87','#BCD2E8']},
- {id:'elegant',label:'上品',title:'静かな、余韻',colors:['#594E70','#C5B0BC','#BEA377','#8C919F','#DFD5C5','#70566C','#B5C5BA','#A58488']},
- {id:'warm',label:'温かい',title:'日だまりの、ぬくもり',colors:['#B86949','#E6C5A2','#7A8C63','#DB9A6D','#C4B778','#94705F','#E8D4BF','#AE9D84']},
- {id:'pop',label:'ポップ',title:'今日は、遊び心を',colors:['#D66070','#F0C65B','#638DC0','#82B6A2','#AF87B3','#E49C57','#D59CBB','#A7C65C']},
- {id:'trust',label:'信頼感',title:'まっすぐな、信頼',colors:['#294F78','#8DB9C0','#D4A85D','#687D96','#CBD7E3','#4F8D83','#A1B6C7','#BDA991']},
+ {id:'clean',label:'爽やか',title:'風の通る、青',colors:['#0284C7','#22C55E','#FACC15','#2563EB','#06B6D4','#F97316','#0D9488','#7C3AED']},
+ {id:'elegant',label:'上品',title:'静かな、余韻',colors:['#312E81','#D97706','#BE123C','#7C3AED','#0F766E','#1E3A8A','#DB2777','#CA8A04']},
+ {id:'warm',label:'温かい',title:'日だまりの、ぬくもり',colors:['#EA580C','#FACC15','#DC2626','#16A34A','#F59E0B','#C2410C','#BE123C','#92400E']},
+ {id:'pop',label:'ポップ',title:'今日は、遊び心を',colors:['#E11D48','#FACC15','#2563EB','#22C55E','#9333EA','#F97316','#DB2777','#06B6D4']},
+ {id:'trust',label:'信頼感',title:'まっすぐな、信頼',colors:['#1E40AF','#0284C7','#F59E0B','#0D9488','#16A34A','#7C3AED','#DC2626','#334155']},
+ {id:'muted',label:'くすみ',title:'落ち着いた、くすみカラー',colors:['#52796F','#B9C6AD','#DDA892','#E3D7B8','#889E81','#796A56','#DBE6D5','#B6957D']},
  {id:'pastel',label:'パステル',title:'ふんわり、夢の色',colors:['#C8A5BC','#BBD6D0','#E8D8A7','#B9C5E0','#E8BCB2','#C9D3AF','#DBBEDA','#A6CCD8']},
- {id:'modern',label:'モダン',title:'余白と、小さな刺激',colors:['#414A57','#B7BAB2','#D3A85B','#899BA5','#A39286','#C1CDBD','#88849A','#D5C6B6']}
+ {id:'modern',label:'モダン',title:'余白と、小さな刺激',colors:['#111111','#2563EB','#F97316','#6B7280','#16A34A','#9333EA','#DC2626','#06B6D4']}
+];
+const STANDARD_PALETTES = [
+ {name:'ブルー × イエロー',colors:['#2563EB','#FACC15','#DC2626','#16A34A','#F97316','#9333EA','#06B6D4','#DB2777']},
+ {name:'ブルー × オレンジ',colors:['#2563EB','#F97316','#16A34A','#FACC15','#DC2626','#9333EA','#06B6D4','#DB2777']},
+ {name:'レッド × ネイビー',colors:['#DC2626','#1E3A8A','#FACC15','#16A34A','#F97316','#9333EA','#06B6D4','#DB2777']},
+ {name:'グリーン × イエロー',colors:['#16A34A','#FACC15','#2563EB','#F97316','#DC2626','#9333EA','#06B6D4','#DB2777']},
+ {name:'オレンジ × ブルー',colors:['#EA580C','#2563EB','#FACC15','#16A34A','#DC2626','#9333EA','#06B6D4','#DB2777']},
+ {name:'パープル × イエロー',colors:['#9333EA','#FACC15','#06B6D4','#16A34A','#F97316','#2563EB','#DC2626','#DB2777']}
 ];
 export const ROLE_NAMES=['メイン','サブ','アクセント','補助 1','補助 2','補助 3','補助 4','補助 5'];
 export const CSS_ROLES=['primary','secondary','accent','support-1','support-2','support-3','support-4','support-5'];
@@ -19,8 +29,8 @@ export function fromHsl(h,s,l){h=((h%360)+360)%360;s=clamp(s,0,100)/100;l=clamp(
 export function luminance(hex){return rgb(hex).map(v=>{v/=255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4}).reduce((a,v,i)=>a+v*[.2126,.7152,.0722][i],0);}
 export function contrast(a,b){let l1=luminance(a),l2=luminance(b);return (Math.max(l1,l2)+.05)/(Math.min(l1,l2)+.05);}
 export function inkFor(hex){return contrast(hex,'#111111')>=contrast(hex,'#FFFFFF')?'#111111':'#FFFFFF';}
-const COLOR_WORDS=[{label:'青',pattern:'青|ブルー|blue|ネイビー|紺',h:215,hex:'#426CA6'}, {label:'赤',pattern:'赤|レッド|red',h:2,hex:'#BC5550'}, {label:'緑',pattern:'緑|グリーン|green',h:145,hex:'#568867'}, {label:'黄色',pattern:'黄色|黄|イエロー|yellow',h:49,hex:'#DDC15D'}, {label:'ピンク',pattern:'ピンク|pink|桃色',h:337,hex:'#D38CA7'}, {label:'紫',pattern:'紫|パープル|purple',h:275,hex:'#9A7BAE'}, {label:'オレンジ',pattern:'オレンジ|橙|orange',h:28,hex:'#D39357'}, {label:'水色',pattern:'水色|シアン|cyan',h:190,hex:'#74B9C7'}, {label:'茶色',pattern:'茶色|ブラウン|brown',h:28,hex:'#947354'}, {label:'黒',pattern:'黒|ブラック|black',h:null,hex:'#282A2B'}, {label:'白',pattern:'白|ホワイト|white',h:null,hex:'#F2F0E8'}, {label:'グレー',pattern:'グレー|灰色|gray|grey',h:null,hex:'#90928C'}];
-const moodWords=[['natural',/ナチュラル|自然|北欧|オーガニック|森|植物|natural/i],['clean',/爽やか|さわやか|清潔|透明感|海|空|clean/i],['elegant',/上品|高級|エレガント|ラグジュアリー|大人|elegant/i],['warm',/温か|暖か|ぬくもり|カフェ|秋|warm/i],['pop',/ポップ|元気|楽しい|子ども|子供|にぎやか|カラフル|pop/i],['trust',/信頼|誠実|ビジネス|企業|知的|trust/i],['pastel',/パステル|かわいい|可愛い|可愛い|春|pastel/i],['modern',/モダン|都会|ミニマル|シンプル|スタイリッシュ|modern/i]];
+const COLOR_WORDS=[{label:'青',pattern:'青|ブルー|blue|ネイビー|紺',h:215,hex:'#2563EB'}, {label:'赤',pattern:'赤|レッド|red',h:2,hex:'#DC2626'}, {label:'緑',pattern:'緑|グリーン|green',h:145,hex:'#16A34A'}, {label:'黄色',pattern:'黄色|黄|イエロー|yellow',h:49,hex:'#FACC15'}, {label:'ピンク',pattern:'ピンク|pink|桃色',h:337,hex:'#DB2777'}, {label:'紫',pattern:'紫|パープル|purple',h:275,hex:'#9333EA'}, {label:'オレンジ',pattern:'オレンジ|橙|orange',h:28,hex:'#F97316'}, {label:'水色',pattern:'水色|シアン|cyan',h:190,hex:'#06B6D4'}, {label:'茶色',pattern:'茶色|ブラウン|brown',h:28,hex:'#92400E'}, {label:'黒',pattern:'黒|ブラック|black',h:null,hex:'#111111'}, {label:'白',pattern:'白|ホワイト|white',h:null,hex:'#FFFFFF'}, {label:'グレー',pattern:'グレー|灰色|gray|grey',h:null,hex:'#808080'}];
+const moodWords=[['standard',/スタンダード|標準|ベーシック|基本色|standard|basic/i],['muted',/くすみ|低彩度|muted/i],['natural',/ナチュラル|自然|北欧|オーガニック|森|植物|natural/i],['clean',/爽やか|さわやか|清潔|透明感|海|空|clean/i],['elegant',/上品|高級|エレガント|ラグジュアリー|大人|elegant/i],['warm',/温か|暖か|ぬくもり|カフェ|秋|warm/i],['pop',/ポップ|元気|楽しい|子ども|子供|にぎやか|カラフル|pop/i],['trust',/信頼|誠実|ビジネス|企業|知的|trust/i],['pastel',/パステル|かわいい|可愛い|可愛い|春|pastel/i],['modern',/モダン|都会|ミニマル|シンプル|スタイリッシュ|modern/i]];
 export function parseRequest(text=''){
  const normalized=text.toLowerCase().replace(/\s+/g,' '),avoid=[],prefer=[],labels=[];
  for(const c of COLOR_WORDS){const word=`(?:${c.pattern})`;const neg=new RegExp(`${word}(?:色)?(?:は|を|が|系は|系を|系)?(?:あまり)?(?:使わない|使いたくない|入れない|避け|なし|無し|抜き|除外|禁止|いらない|不要|やめ|なしで)|(?:避けたい色|使わない色)[：: ]*${word}|(?:no|avoid|without) +${word}`,'i');
@@ -37,26 +47,26 @@ const distanceHue=(a,b)=>Math.min(Math.abs(a-b),360-Math.abs(a-b));
 function isAvoided(hex,avoids){const [h,s,l]=toHsl(hex);return avoids.some(c=>c.h===null?(c.label==='黒'?l<24:c.label==='白'?l>89:s<12):(s>12&&distanceHue(h,c.h)<(c.label==='茶色'?19:23)&&(c.label!=='茶色'||l<57)));}
 function removeAvoided(hex,avoids){if(!isAvoided(hex,avoids))return hex;let[h,s,l]=toHsl(hex);for(let n=1;n<=24;n++){const candidate=fromHsl(h+n*31,Math.max(s,28),clamp(l,30,82));if(!isAvoided(candidate,avoids))return candidate;}return hex;}
 export function ratios(n){const maps={2:[70,30],3:[60,30,10],4:[55,25,12,8],5:[50,25,12,8,5],6:[45,25,12,8,6,4],7:[42,24,12,8,6,5,3],8:[40,23,12,8,6,5,4,2]};return maps[n]||maps[3];}
-export function generatePalettes({count=3,mood='natural',source='mood',base='#52796F',imageColors=[],referenceColors=[],comment='',locks={},seed=0}={}){
- count=clamp(Math.round(count)||3,2,8);const parsed=parseRequest(comment),m=MOODS.find(x=>x.id===(parsed.mood||mood))||MOODS[0];const names=['そのまま、心地よく','やわらかな余白','ひとさじの遊び心','静かなコントラスト','色で、印象をつくる','少し違う、新しい色'];const offsets=[0,-18,25,155,70,-40],results=[];
+export function generatePalettes({count=3,mood='standard',source='mood',base='#2563EB',imageColors=[],referenceColors=[],comment='',locks={},seed=0}={}){
+ count=clamp(Math.round(count)||3,2,8);const parsed=parseRequest(comment),m=MOODS.find(x=>x.id===(parsed.mood||mood))||MOODS[0];const names=['基本の組み合わせ','色相を少し変える','アクセントを変える','深い色で引き締める','鮮やかな組み合わせ','別の組み合わせ'];const standard=m.id==='standard'&&source==='mood'&&!referenceColors.length;const offsets=[0,-18,25,155,70,-40],results=[];
  for(let v=0;v<6;v++){
   let colors=[];for(let i=0;i<count;i++){
-   let raw=m.colors[i%m.colors.length];
-   if(source==='color'){const [h,s,l]=toHsl(base);const shift=i===0?0:([0,30,180,150,210,60,270,90][i]+offsets[v]);raw=i===0?base:fromHsl(h+shift+seed*13,clamp(s+(i===2?8:-10),12,75),[l,73,58,43,82,62,34,68][i]);}
+   let raw=standard?STANDARD_PALETTES[v].colors[i]:m.colors[i%m.colors.length];
+   if(source==='color'){const [h,s,l]=toHsl(base);const shift=i===0?0:([0,30,180,150,210,60,270,90][i]+offsets[v]);raw=i===0?base:fromHsl(h+shift+seed*13,clamp(s+(i===2?8:0),0,100),[l,52,50,40,65,58,34,60][i]);}
    else if(source==='image'&&imageColors.length){raw=imageColors[i%imageColors.length];if(i>=imageColors.length){let[h,s,l]=toHsl(raw);raw=fromHsl(h+(i+1)*25,s,clamp(l+((i%2)?16:-16),18,85));}}
    if(referenceColors.length&&referenceColors[i%referenceColors.length])raw=referenceColors[i%referenceColors.length];
    let [h,s,l]=toHsl(raw);
-   if(v||seed){h+=offsets[v]*(i===0?.2:1)+(referenceColors.length?((seed%7)-3)*3:(seed%17)*9);s+=([0,-9,9,-8,15,-3][v]);l+=([0,7,0,-6,-3,4][v]);}
+   if((v||seed)&&!(standard&&seed===0)){h+=offsets[v]*(i===0?.2:1)+(referenceColors.length?((seed%7)-3)*3:(seed%17)*9);s+=([0,0,6,0,10,0][v]);l+=([0,4,0,-6,0,3][v]);}
    const f=parsed.flags;if(f.warm)h=distanceHue(h,30)<90?h:30+(i*19)%55;if(f.cool)h=180+(i*27+v*9)%90;
    if(f.pastel){s=Math.min(s,45);l=Math.max(l,72)+(i%2)*4;}if(f.muted)s=Math.min(s,26);if(f.vivid)s=Math.max(s,65);if(f.light)l+=12;if(f.dark)l-=18;if(f.accent&&i===Math.min(2,count-1)){s=Math.max(s,62);l=48;}
-   colors.push(fromHsl(h,clamp(s,4,85),clamp(l,17,89)));
+   colors.push(fromHsl(h,clamp(s,0,100),clamp(l,0,100)));
   }
   const anchor=source==='color'?base:null;
   parsed.prefer.slice(0,count-(anchor?1:0)).forEach((c,i)=>{let index=i+(anchor?1:0);let[h,s,l]=toHsl(c.hex);if(!/^#/.test(c.label)){h+=[0,-6,8,-9,12,3][v];l+=[0,8,-5,-10,4,12][v];}if(parsed.flags.pastel&&!/^#/.test(c.label))l=Math.max(l,76);if(parsed.flags.muted&&!/^#/.test(c.label))s=Math.min(s,26);colors[index]=/^#/.test(c.label)?c.hex:fromHsl(h,s,l);});
-  colors=colors.map(c=>removeAvoided(c,parsed.avoid));if(anchor)colors[0]=normalizeHex(anchor)||'#52796F';
+  colors=colors.map(c=>removeAvoided(c,parsed.avoid));if(anchor)colors[0]=normalizeHex(anchor)||'#2563EB';
   const warnings=[];if(anchor&&normalizeHex(locks[0])&&normalizeHex(locks[0])!==normalizeHex(anchor))warnings.push('メインの固定色が基準色より優先されています。');for(let i=0;i<count;i++){if(normalizeHex(locks[i]))colors[i]=normalizeHex(locks[i]);if(isAvoided(colors[i],parsed.avoid))warnings.push('固定色・基準色を優先したため、避けたい色が残っています。');}
   const seen=new Set();for(let i=0;i<count;i++){if(seen.has(colors[i])&&!locks[i]&&!(anchor&&i===0)){let[h,s,l]=toHsl(colors[i]);let candidate=colors[i];for(let j=1;j<=24&&seen.has(candidate);j++)candidate=removeAvoided(fromHsl(h+j*17,s,clamp(l+(j%2?7:-9),15,89)),parsed.avoid);colors[i]=candidate;}seen.add(colors[i]);}
-  results.push({name:v===0&&seed===0?m.title:names[v],description:['バランス重視','やさしく、軽やか','アクセントに変化','落ち着きと深み','印象をはっきり','新しい組み合わせ'][v],colors,warnings:[...new Set(warnings)]});
+  results.push({name:standard&&seed===0?STANDARD_PALETTES[v].name:v===0&&seed===0?m.title:names[v],description:standard&&seed===0?'基本色を使った定番配色':['バランス重視','色相に変化','アクセントに変化','明暗に変化','印象をはっきり','新しい組み合わせ'][v],colors,warnings:[...new Set(warnings)]});
  }
  const unique=results.filter((p,i)=>results.findIndex(q=>q.colors.join()===p.colors.join())===i);return {palettes:unique,parsed};
 }

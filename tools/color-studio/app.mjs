@@ -1,6 +1,6 @@
-import {MOODS,ROLE_NAMES,CSS_ROLES,normalizeHex,rgb,contrast,inkFor,generatePalettes,extractColors,exportData,exportPrompt,exportCss} from './engine.mjs';
+import {MOODS,ROLE_NAMES,CSS_ROLES,normalizeHex,rgb,contrast,inkFor,generatePalettes,extractColors,exportData,exportPrompt,exportCss} from './engine.mjs?v=20260928';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-const state={count:3,mood:'natural',source:'mood',base:'#52796F',imageColors:[],comment:'',locks:{},seed:0,palettes:[],selected:0,view:'web',format:'prompt',history:[],favorites:[]};
+const state={count:3,mood:'standard',source:'mood',base:'#2563EB',imageColors:[],comment:'',locks:{},seed:0,palettes:[],selected:0,view:'web',format:'prompt',history:[],favorites:[]};
 let toastTimer,imageUrl=null;
 function toast(message){$('#toast').textContent=message;$('#toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').hidden=true,3200);}
 function el(tag,className,text){const node=document.createElement(tag);if(className)node.className=className;if(text!==undefined)node.textContent=text;return node;}
@@ -33,7 +33,7 @@ function persistFavorites(){try{localStorage.setItem('iro-atelierv1',JSON.string
 function validSaved(p){return p&&typeof p.name==='string'&&Array.isArray(p.colors)&&p.colors.length>=2&&p.colors.length<=8&&p.colors.every(c=>normalizeHex(c));}
 function setup(){
  const moods=$('#moods');MOODS.forEach(m=>{const b=el('button','mood-button');b.dataset.mood=m.id;b.setAttribute('aria-pressed',state.mood===m.id);b.append(swatches(m.colors.slice(0,3),'mini-dots'),el('span',null,m.label));b.addEventListener('click',()=>{state.mood=m.id;state.seed=0;updateMood();generate();});moods.append(b);});
- ['#52796F','#416C9B','#B4575F','#BF8861','#9275A1','#D5B65B','#414A57','#7CA8A3'].forEach(c=>{let b=el('button');b.style.setProperty('--s',c);b.title=c;b.setAttribute('aria-label',`基準色を${c}にする`);b.addEventListener('click',()=>{$('#base-color').value=c;$('#base-hex').value=c;state.base=c;state.seed=0;generate();});$('#base-presets').append(b);});
+ ['#2563EB','#DC2626','#FACC15','#16A34A','#F97316','#9333EA','#06B6D4','#111111'].forEach(c=>{let b=el('button');b.style.setProperty('--s',c);b.title=c;b.setAttribute('aria-label',`基準色を${c}にする`);b.addEventListener('click',()=>{$('#base-color').value=c;$('#base-hex').value=c;state.base=c;state.seed=0;generate();});$('#base-presets').append(b);});
  $$('[data-source]').forEach(b=>b.addEventListener('click',()=>{setSource(b.dataset.source);if(state.source!=='image'||state.imageColors.length){state.seed=0;generate();}}));
  $('#color-count').addEventListener('input',()=>{$('#count-label').value=$('#color-count').value+'色'});$('#color-count').addEventListener('change',()=>{const n=+$('#color-count').value;for(const k of Object.keys(state.locks))if(+k>=n)delete state.locks[k];generate();});
  $('#base-color').addEventListener('input',()=>{$('#base-hex').value=$('#base-color').value.toUpperCase();$('#base-error').hidden=true;});$('#base-color').addEventListener('change',()=>{state.seed=0;generate();});$('#base-hex').addEventListener('change',()=>{state.seed=0;generate();});
