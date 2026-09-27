@@ -1,6 +1,6 @@
-import {MOODS,ROLE_NAMES,normalizeHex,extractColors} from './engine.mjs?v=20260928-advisor';
-import {USAGES,isUsage,STRATEGIES,SOURCES,defaultGoal,recommend,designPalette,exportDesign,promptDesign,cssDesign} from './advisor.mjs?v=20260928-advisor';
-import {previewMarkup} from './previews.mjs?v=20260928-advisor';
+import {MOODS,ROLE_NAMES,normalizeHex,extractColors} from './engine.mjs?v=20260928-advisor2';
+import {USAGES,isUsage,STRATEGIES,SOURCES,defaultGoal,recommend,designPalette,exportDesign,promptDesign,cssDesign} from './advisor.mjs?v=20260928-advisor2';
+import {previewMarkup} from './previews.mjs?v=20260928-advisor2';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const state={count:3,mood:'standard',source:'mood',base:'#2563EB',imageColors:[],comment:'',locks:{},seed:0,palettes:[],selected:0,view:'web',mode:'light',goal:'reading',legibility:'normal',focus:'subject',evaluated:0,rejected:0,format:'prompt',history:[],favorites:[]};
 let toastTimer,imageUrl=null;
@@ -63,6 +63,13 @@ function renderExport(){
 function renderFavorites(){const div=$('#favorites');div.replaceChildren();$('#favorites-section').hidden=!state.favorites.length;state.favorites.forEach((p,index)=>{const wrap=el('div','favorite-item'),load=el('button');load.title=p.name;load.setAttribute('aria-label',p.name+'を読み込む');load.append(...swatches(p.colors,'').children);load.addEventListener('click',()=>{stash();state.palettes=[{...p,colors:[...p.colors],description:'保存した配色',warnings:[]}];state.selected=0;state.count=p.colors.length;state.locks={};state.evaluated=0;state.rejected=0;if(isUsage(p.view)){state.view=p.view;state.mode=p.mode==='dark'?'dark':'light';state.goal=STRATEGIES[state.view].some(x=>x.id===p.strategy)?p.strategy:defaultGoal(state.view);state.legibility=p.legibility==='high'?'high':'normal';state.focus=p.focus==='accent'?'accent':'subject';}render();toast('保存した配色を読み込みました');});const remove=el('button',null,'×');remove.setAttribute('aria-label',p.name+'を保存から削除');remove.addEventListener('click',()=>{state.favorites.splice(index,1);persistFavorites();renderFavorites();});wrap.append(load,remove);div.append(wrap);});}
 function persistFavorites(){try{localStorage.setItem('iro-atelierv1',JSON.stringify(state.favorites));return true;}catch{toast('このブラウザでは保存できません。共有リンクか配色画像をご利用ください。');return false;}}
 function validSaved(p){return p&&typeof p.name==='string'&&Array.isArray(p.colors)&&p.colors.length>=2&&p.colors.length<=8&&p.colors.every(c=>normalizeHex(c));}
+function loadSharedPalette(){
+ const params=new URLSearchParams(location.hash.slice(1)),shared=params.get('palette');if(!shared)return false;
+ const colors=shared.split('-').map(x=>normalizeHex(x));
+ if(colors.length<2||colors.length>8||!colors.every(Boolean)){toast('共有リンクの配色を読み込めませんでした');return false;}
+ state.view=isUsage(params.get('view'))?params.get('view'):'web';state.mode=params.get('mode')==='dark'?'dark':'light';state.goal=STRATEGIES[state.view].some(x=>x.id===params.get('goal'))?params.get('goal'):defaultGoal(state.view);state.legibility=params.get('legibility')==='high'?'high':'normal';state.focus=params.get('focus')==='accent'?'accent':'subject';
+ state.count=colors.length;state.selected=0;state.locks={};state.evaluated=0;state.comment='';$('#request').value='';state.palettes=[{name:'共有された配色',description:'共有リンクから読み込みました',colors,warnings:[],strategy:state.goal}];toast('共有された配色を読み込みました');return true;
+}
 function setup(){
  const moods=$('#moods');MOODS.forEach(m=>{const b=el('button','mood-button');b.dataset.mood=m.id;b.setAttribute('aria-pressed',state.mood===m.id);b.append(swatches(m.colors.slice(0,3),'mini-dots'),el('span',null,m.label));b.addEventListener('click',()=>{state.mood=m.id;state.seed=0;updateMood();generate();});moods.append(b);});
  ['#2563EB','#DC2626','#FACC15','#16A34A','#F97316','#9333EA','#06B6D4','#111111'].forEach(c=>{let b=el('button');b.style.setProperty('--s',c);b.title=c;b.setAttribute('aria-label',`基準色を${c}にする`);b.addEventListener('click',()=>{$('#base-color').value=c;$('#base-hex').value=c;state.base=c;state.seed=0;generate();});$('#base-presets').append(b);});
@@ -87,7 +94,8 @@ function setup(){
  $('#download').addEventListener('click',downloadImage);$('#share').addEventListener('click',()=>{const url=new URL(location.href);url.hash='palette='+palette().colors.map(c=>c.slice(1)).join('-')+'&view='+state.view+'&mode='+state.mode+'&goal='+(palette().strategy||state.goal)+'&legibility='+state.legibility+'&focus='+state.focus;copy(url.toString());});
  $('#image-input').addEventListener('change',loadImage);
  try{const saved=JSON.parse(localStorage.getItem('iro-atelierv1')||'[]');if(Array.isArray(saved))state.favorites=saved.filter(validSaved).slice(0,12).map(p=>({...p,name:p.name.slice(0,80),colors:p.colors.map(normalizeHex)}));}catch{}
- const initial=recommend(state);state.palettes=initial.palettes;state.evaluated=initial.evaluated;const params=new URLSearchParams(location.hash.slice(1)),shared=params.get('palette');if(shared){const colors=shared.split('-').map(x=>normalizeHex(x));if(colors.length>=2&&colors.length<=8&&colors.every(Boolean)){state.count=colors.length;state.palettes=[{name:'共有された配色',description:'共有リンクから読み込みました',colors,warnings:[]}];if(isUsage(params.get('view')))state.view=params.get('view');state.mode=params.get('mode')==='dark'?'dark':'light';state.goal=STRATEGIES[state.view].some(x=>x.id===params.get('goal'))?params.get('goal'):defaultGoal(state.view);state.legibility=params.get('legibility')==='high'?'high':'normal';state.focus=params.get('focus')==='accent'?'accent':'subject';state.palettes[0].strategy=state.goal;state.evaluated=0;toast('共有された配色を読み込みました');}else toast('共有リンクの配色を読み込めませんでした');}
+ const initial=recommend(state);state.palettes=initial.palettes;state.evaluated=initial.evaluated;loadSharedPalette();
+ window.addEventListener('hashchange',()=>{if(new URLSearchParams(location.hash.slice(1)).has('palette')){stash();if(loadSharedPalette())render();}});
  $('#theory-sources').replaceChildren(...SOURCES.map(s=>{const p=el('p');const a=el('a',null,s.title);a.href=s.url;a.target='_blank';a.rel='noopener';p.append(a,el('span',null,' — '+s.rule));return p;}));
  render();renderFavorites();
 }

@@ -1,4 +1,4 @@
-import {generatePalettes,contrast,inkFor,toHsl,fromHsl,rgb,toHex,normalizeHex,ROLE_NAMES,MOODS} from './engine.mjs?v=20260928-advisor';
+import {generatePalettes,contrast,inkFor,toHsl,fromHsl,rgb,toHex,normalizeHex,ROLE_NAMES,MOODS} from './engine.mjs?v=20260928-advisor2';
 
 export const USAGES={web:'Webサイト',lp:'LP',app:'スマホアプリ',illustration:'イラスト'};
 export const isUsage=value=>Object.hasOwn(USAGES,value);
