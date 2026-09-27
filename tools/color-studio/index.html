@@ -8,8 +8,8 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%23111'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%232563EB'/%3E%3Ccircle cx='26' cy='22' r='9' fill='%23FACC15'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20260928-advisor2">
-<script type="module" src="app.mjs?v=20260928-advisor2"></script>
+<link rel="stylesheet" href="style.css?v=20260928-composition1">
+<script type="module" src="app.mjs?v=20260928-composition1"></script>
 </head>
 <body>
 <header class="app-header"><a class="brand" href="./"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>いろのアトリエ<span class="brand-sub">COLOR STUDIO</span></a><a href="#export" class="header-link">AIに配色を渡す <span aria-hidden="true">↗</span></a></header>
@@ -30,7 +30,7 @@
 <div class="comment-heading"><label class="field-label" for="request">もう少し、こんな感じに</label><span>自由コメント</span></div><textarea id="request" rows="3" maxlength="1000" placeholder="例：青をメインに、黄色をアクセントにしたい。"></textarea>
 <div class="quick-requests"><button data-request="鮮やかに">鮮やかに</button><button data-request="もっと明るく">明るく</button><button data-request="アクセントを強く">メリハリ</button><button data-request="暖色寄り">暖かく</button></div>
 <p class="hint comment-help">色名・明るさ・鮮やかさ・雰囲気の語句を読み取り調整します。複雑な要望は、AIへの指示文に引き継ぎます。</p>
-<button id="generate" class="button primary generate"><span aria-hidden="true">✳</span> 用途に合う3案を提案 <span aria-hidden="true">→</span></button>
+<button id="generate" class="button primary generate"><span aria-hidden="true">✳</span> 用途に合う配色を提案 <span aria-hidden="true">→</span></button>
 <div id="interpretation" class="interpretation" role="status"></div>
 </aside>
 <div class="results">
@@ -40,12 +40,13 @@
 <div class="preview-frame"><div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i><span id="preview-caption">WEBSITE PREVIEW</span><span class="live-dot">LIVE</span></div><div id="preview" class="preview"></div></div>
 <div class="selected-head"><div><span class="small-label">SELECTED PALETTE</span><h3 id="selected-name">ブルー × イエロー</h3></div><div class="small-actions"><button id="undo" disabled title="前の配色に戻す">↶ 戻す</button><button id="save-favorite">＋ 保存</button></div></div>
 <div id="active-colors" class="active-colors"></div><p class="hint palette-hint">コードを押すとコピー。色を編集したり、固定して再提案できます。</p>
+<section class="theme-role-section" aria-labelledby="theme-roles-heading"><h3 id="theme-roles-heading">選んだ色、それぞれの役割</h3><p class="hint">元のテーマ色と、読みやすさのために調整した使用色を分けて示しています。</p><div id="theme-roles"></div></section>
 <section class="advice-panel" aria-label="配色の提案理由"><div class="advice-heading"><h3 id="advice-title">この案をすすめる理由</h3><span id="evaluation-status"></span></div><div id="advice-reasons"></div><h4>どこに使う？</h4><ul id="usage-instructions"></ul><div id="role-colors" class="role-colors"></div><h4>画面・絵の面積の目安</h4><div id="allocation" class="allocation"></div><div id="allocation-labels" class="allocation-labels"></div><p class="hint">背景を含む設計目安です。実際の作品の面積を測定した値ではありません。</p><h4>避けたい使い方</h4><p id="avoid-advice"></p><div id="design-warnings"></div><details class="quality-details"><summary>色の組み合わせの検査結果</summary><div id="contrast" class="contrast"></div><p id="check-scope" class="hint"></p></details></section>
 </section>
-<section class="candidates-section" aria-labelledby="candidates-heading"><div class="section-head"><div><h2 id="candidates-heading">目的に合わせて選んだ、3つの方向性。</h2><p class="hint">候補を検査し、色の使い方が異なる3案を提案します。</p></div><button id="more" class="text-button">別の3案 ↻</button></div><p id="pool-summary" class="hint"></p><div id="candidates" class="candidates"></div></section>
+<section class="candidates-section" aria-labelledby="candidates-heading"><div class="section-head"><div><h2 id="candidates-heading">目的に合わせて選んだ、3つの方向性。</h2><p class="hint">同じ色の並べ替えや、わずかな色違いを省いて最大3案。</p></div><button id="more" class="text-button">別の配色 ↻</button></div><p id="pool-summary" class="hint"></p><div id="candidates" class="candidates"></div></section>
 <section id="favorites-section" class="favorites-section" hidden><div class="section-head"><h2>保存した配色</h2><span class="hint">このブラウザに保存・最大12件</span></div><div id="favorites" class="favorites"></div></section>
 <section id="export" class="export-section" aria-labelledby="export-heading"><div class="section-head"><div class="section-label"><span>03</span><h2 id="export-heading">この配色を、AIに渡そう。</h2></div><span class="export-badge">COPY & CREATE</span></div><p class="export-description">色の役割・使用比率・変更してほしくない部分まで。<br>コピーして、制作中のAIとの会話に貼り付けてください。</p><div class="export-tabs" role="group" aria-label="出力形式"><button data-format="prompt" aria-pressed="true">AIへの指示文</button><button data-format="css" aria-pressed="false">CSS</button><button data-format="json" aria-pressed="false">JSON</button></div><textarea id="export-text" readonly rows="9" aria-label="配色の出力内容"></textarea><div class="export-actions"><button id="copy-export" class="button primary">指示文をコピー <span aria-hidden="true">↗</span></button><button id="download" class="button secondary">配色画像を保存</button><button id="share" class="text-button">共有リンク</button></div><p class="hint">共有リンクには配色・用途・表示設定が含まれます。写真・コメントは含みません。</p></section>
-<details class="theory-notes"><summary>提案に使っているセオリーと出典</summary><p>文字や操作部品の読みやすさは数値で検査し、面積・強調の配置は用途別の設計指針として扱います。好みの良し悪しを点数で断定しません。</p><div id="theory-sources"></div><p>色の役割・候補の順位・面積の目安は、このツールの設計判断です。自由コメントは対応語句による処理で、会話AIによる解釈はまだ行っていません。</p></details>
+<details class="theory-notes"><summary>提案に使っているセオリーと出典</summary><p>主役・支える色・差し色を組にした33組の配色を用意。近い色相でまとめる、反対側の色を少量添える、明暗と彩度に差をつける、といった方針で構成しています。基準色がある場合は、その色を保って濃淡や差し色を組み立てます。似た配色は見た目の色の距離で省き、文字と操作部品の読みやすさも検査します。</p><div id="theory-sources"></div><p>配色・役割・候補を省く基準・面積の目安は、このツールの設計判断です。センスの良さを客観的な点数で保証するものではありません。自由コメントは対応語句による処理で、会話AIによる解釈はまだ行っていません。</p></details>
 </div>
 </div>
 <footer><span>いろのアトリエ</span><p>色の組み合わせから、次のアイデアへ。</p><a href="https://rental-space.net/">きくりんのブログ ↗</a></footer>

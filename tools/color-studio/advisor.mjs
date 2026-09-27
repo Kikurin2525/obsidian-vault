@@ -1,8 +1,10 @@
-import {generatePalettes,contrast,inkFor,toHsl,fromHsl,rgb,toHex,normalizeHex,ROLE_NAMES,MOODS} from './engine.mjs?v=20260928-advisor2';
+import {contrast,toHsl,fromHsl,rgb,toHex,normalizeHex,ROLE_NAMES} from './engine.mjs?v=20260928-composition1';
+import {composePool,compositionNotes,visiblyDifferent,oklab} from './composition.mjs?v=20260928-composition1';
 
 export const USAGES={web:'Webサイト',lp:'LP',app:'スマホアプリ',illustration:'イラスト'};
 export const isUsage=value=>Object.hasOwn(USAGES,value);
 export const SOURCES=[
+ {id:'difference',title:'Oklab：見た目の色の違いを扱う色空間',url:'https://bottosson.github.io/posts/oklab/',rule:'候補間の色の違いを比較するために使用。似た案を除く閾値は、このツール独自の設計判断です。'},
  {id:'text',title:'W3C：文字のコントラスト',url:'https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html',rule:'通常の文字は4.5:1以上。読みやすさ優先では7:1を目標にする。'},
  {id:'controls',title:'W3C：操作部品などのコントラスト',url:'https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html',rule:'操作部品の識別に必要な境界・状態の表示は隣接色と3:1以上を確保する。装飾には一律適用しない。'},
  {id:'meaning',title:'W3C：色だけで情報を伝えない',url:'https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html',rule:'リンクには下線、選択中には印と文字、エラーには記号と説明を添える。'},
@@ -33,7 +35,7 @@ function shareList(view,strategy,colors,roles){
 export function designPalette(palette,{view='web',mode='light',goal,legibility='normal',focus='subject'}={}){
  if(!isUsage(view))view='web';
  const strategy=strategyFor(view,goal||palette.strategy||defaultGoal(view));
- const colors=palette.colors.map(normalizeHex),p=colors[0],s=colors[1],a=colors[2]||p;
+ const colors=palette.colors.map(normalizeHex),p=colors[0],s=colors[1],a=colors[2]||s;
  const dark=mode==='dark'&&view!=='illustration',background=dark?'#111111':'#FFFFFF',text=dark?'#FFFFFF':'#111111',min=legibility==='high'?7:4.5;
  const surface=blend(s,background,dark?.88:.94);
  let action=view==='lp'||(view==='web'&&strategy.id==='action')|| (view==='app'&&strategy.id==='brand')?a:p;
@@ -63,39 +65,44 @@ export function designPalette(palette,{view='web',mode='light',goal,legibility='
  [`背景 ${background}、本文 ${text}、カードの面 ${surface}。`,`主要ボタンは ${action}、その上の文字は ${roles.onAction}。`,`リンクは ${roles.link} と下線をセットにする。`];
  if(view==='app')instructions.push(`選択中は ${roles.selectedSurface} の面＋${roles.selectedText} の文字＋下線と「選択中」。`,`エラーは ${roles.error} と「!」＋原因の説明。破壊的な操作には明確な動詞を付ける。`);
  const avoid=view==='illustration'?'すべてのモチーフを同じ明るさ・同じ面積で強調しない。背景の派手さで主役を埋もれさせない。':view==='lp'?'申込みボタンと同じ強調色を見出し・囲み・装飾に大量に使わない。この配色だけで売上向上を保証するものではありません。':view==='app'?'未選択・選択中・エラーを色だけで区別しない。装飾をボタンと同じ形・色にしない。':'本文全体をテーマ色にしない。リンクとただの強調を色だけで区別しない。';
- const reason=[strategy.reason,view==='illustration'?'主役と背景の明暗差を確認し、区別しにくい輪郭を補います。':`文字と背景の組み合わせを${min}:1以上、必要な操作境界を3:1以上に調整します。`];
- return {view,mode:dark?'dark':'light',goal:strategy.id,legibility,focus,strategy:strategy.id,strategyLabel:strategy.label,roles,checks,warnings:[...new Set(warnings)],instructions,avoid,reason,allocation:shareList(view,strategy.id,colors,roles),pass:checks.every(c=>c.pass),ruleIds:view==='illustration'?['hierarchy']:['text','controls','meaning','hierarchy']};
+ const composition=compositionNotes(colors);
+ const themeRoles=themeAssignments(colors,roles,{view,strategy:strategy.id,focus});
+ const reason=[...(palette.intent?[palette.intent]:[]),...composition.notes,strategy.reason,view==='illustration'?'主役と背景の明暗差を確認し、区別しにくい輪郭を補います。':`文字と背景の組み合わせを${min}:1以上、必要な操作境界を3:1以上に調整します。`];
+ return {view,mode:dark?'dark':'light',goal:strategy.id,legibility,focus,strategy:strategy.id,strategyLabel:strategy.label,roles,checks,warnings:[...new Set(warnings)],instructions,avoid,reason,themeRoles,harmony:composition.relationship,allocation:shareList(view,strategy.id,colors,roles),pass:checks.every(c=>c.pass),ruleIds:view==='illustration'?['hierarchy']:['text','controls','meaning','hierarchy']};
 }
-function qualityCost(p,d,anchor){
- let cost=d.warnings.length*2;
- // Preserve the requested impression before optimizing optional contrast preferences.
- if(anchor)cost+=Math.hypot(...rgb(p.colors[0]).map((x,i)=>x-rgb(anchor)[i]))/22;
- cost+=p.colors.slice(0,3).filter(c=>toHsl(c)[1]>97&&toHsl(c)[2]>45&&toHsl(c)[2]<65).length;
- // Measurable constraints are gates; these preferences rank only already valid role assignments.
- if(d.view==='illustration')cost+=Math.max(0,2.5-contrast(d.roles.subject,d.roles.sceneBackground))*6;
- else cost+=d.roles.link!==p.colors[0]?3:0;
- const h=hueDistance(p.colors[0],p.colors[2]||p.colors[1]);
- if(d.strategy==='action'||d.strategy==='bold')cost+=Math.max(0,70-h)/20;
- if(d.strategy==='reading'||d.strategy==='quiet')cost+=Math.max(0,h-130)/40;
- return cost;
+// Describe original theme colors separately from adjusted colors used on screen.
+function themeAssignments(colors,r,{view,strategy,focus}){
+ const actionIndex=view==='lp'||(view==='web'&&strategy==='action')||(view==='app'&&strategy==='brand')?(colors.length>2?2:1):0;
+ return colors.map((hex,i)=>{
+  let uses=[],note='';
+  if(view==='illustration'){
+   const subjectIndex=focus==='accent'?(colors.length>2?2:1):0,focalIndex=focus==='accent'?0:colors.length>2?2:1;
+   if(i===subjectIndex)uses.push('主役のモチーフ');if(i===focalIndex)uses.push('注目させる小物');
+   if(i===1){uses.push('背景の元色');note=`背景には明暗を調整した ${r.sceneBackground} を使います。`;}
+  }else{
+   if(i===0){uses.push('ブランド・見出しの装飾','リンクの元色');note=`リンク文字は ${r.link}。`;if(view==='app'){uses.push('選択状態の元色');note+=` 選択面 ${r.selectedSurface}、文字 ${r.selectedText}。`;}}
+   if(i===1){uses.push('カード・補助面の元色');note=`広い面には ${r.surface} を使い、元の色は図や小さな装飾に。`;}
+   if(i===actionIndex){uses.push(view==='lp'?'申込みボタン':'主要ボタン');note+=` ボタン ${r.action}、上の文字 ${r.onAction}。`;}
+   if(i===2&&i!==actionIndex){uses.push('小さな強調・図のポイント');note='強調したい一箇所に少量使います。通常の本文には使いません。';}
+  }
+  if(i>=3){uses=['図・イラストの補助'];note='テーマ色の濃淡を補うための色。文字・ボタンの役割は増やさず、必要な箇所だけに使います。';}
+  return {role:ROLE_NAMES[i],hex,usage:uses.join('／'),note};
+ });
 }
 export function recommend(options={}){
- const view=isUsage(options.view)?options.view:'web',pool=[],seen=new Set();let parsed;
- for(let i=0;i<5;i++){
-  const result=generatePalettes({...options,seed:(options.seed||0)+i});parsed=result.parsed;
-  for(const p of result.palettes){const key=p.colors.join();if(!seen.has(key)){seen.add(key);pool.push(p);}}
- }
- const anchor=options.source==='color'?options.base:parsed.prefer[0]?.hex||options.referenceColors?.[0]||(options.source==='image'?options.imageColors?.[0]:null)||(MOODS.find(m=>m.id===(parsed.mood||options.mood))||MOODS[0]).colors[0];
- const strategies=[...STRATEGIES[view]].sort((a,b)=>(a.id===options.goal?-1:b.id===options.goal?1:0)),palettes=[];let rejected=0;
+ const view=isUsage(options.view)?options.view:'web',result=composePool(options),pool=result.palettes;
+ const strategies=[...STRATEGIES[view]].sort((a,b)=>(a.id===options.goal?-1:b.id===options.goal?1:0)),palettes=[];let rejected=0,similar=0;
  for(const strategy of strategies){
-  const ranked=pool.map(p=>{const design=designPalette(p,{...options,view,goal:strategy.id});return {...p,name:strategy.label,description:strategy.reason,strategy:strategy.id,design,cost:qualityCost(p,design,anchor)};});
-  const eligible=ranked.filter(p=>p.design.pass);rejected+=ranked.length-eligible.length;
+  const ranked=pool.map((p,index)=>{const design=designPalette(p,{...options,view,goal:strategy.id});return {...p,strategy:strategy.id,design,cost:index*.35+design.warnings.length*.25+(strategy.id==='reading'||strategy.id==='quiet'?Math.max(0,oklab(p.colors[0])[0]-.7):0)};});
+  const eligible=ranked.filter(p=>p.design.pass&&!p.constraintFailure);rejected+=ranked.length-eligible.length;
   eligible.sort((a,b)=>a.cost-b.cost);
-  // Strategy and allocation can differ even when all theme colors are fixed.
-  const chosen=eligible.find(p=>!palettes.some(q=>q.colors.join()===p.colors.join()))||eligible[0]||ranked.sort((a,b)=>a.cost-b.cost)[0];
+  const chosen=eligible.find(p=>{const distinct=palettes.every(q=>visiblyDifferent(p.colors,q.colors));if(!distinct)similar++;return distinct;});
   if(chosen){delete chosen.cost;palettes.push(chosen);}
  }
- return {palettes,parsed,evaluated:pool.length,rejected,usage:view};
+ // A fully constrained palette is one answer, never three relabelled copies.
+ if(!palettes.length){const p=pool[0];palettes.push({...p,strategy:strategies[0].id,design:designPalette(p,{...options,view,goal:strategies[0].id})});}
+ const shortage=palettes.length<3?(palettes[0].constraintFailure?'除外条件に合う候補がありません。条件を見直してください。':`見た目に十分な差がある配色は${palettes.length}案です。似た案は省きました。色の固定や条件を減らすと候補を広げられます。`):'';
+ return {palettes,parsed:result.parsed,evaluated:pool.length,rejected,similar,shortage,usage:view};
 }
 export function exportDesign(palette,options={},comment=''){
  const design=designPalette(palette,{...options,goal:palette.strategy||options.goal});
@@ -105,6 +112,6 @@ export function exportDesign(palette,options={},comment=''){
 }
 export function promptDesign(palette,options={},comment=''){
  const d=exportDesign(palette,options,comment);
- return `制作中の${d.usage}の配色を、次の設計に変更してください。\n方針：${d.strategyLabel}／${d.mode==='dark'?'ダーク':'ライト'}\n\n【テーマカラー ${d.themeColorCount}色】\n${d.themeColors.map(c=>`${c.role}：${c.hex}`).join('\n')}\n\n【使う場所と色】\n${d.instructions.join('\n')}\n\n【用途別の色指定（背景・文字・同系の補助色はテーマ色数の別枠）】\n${Object.entries(d.roles).filter(([k])=>!k.startsWith('bad')).map(([k,v])=>`${k}: ${v}`).join('\n')}\n\n【面積の目安】\n${d.allocation.map(x=>`${x.label} ${x.hex}：${x.percent}%`).join('\n')}\n${d.allocationNote}\n\n【この案の理由】\n${d.reason.join('\n')}\n\n【避ける使い方】\n${d.avoid}\n\n【確認した組み合わせ】\n${d.checks.map(c=>`${c.label}：${c.ratio.toFixed(2)}:1／目標${c.min}:1 ${c.pass?'通過':'要調整'}${c.standard==='heuristic'?'（構図確認の目安。WCAG基準ではない）':''}`).join('\n')}\n${d.warnings.length?'\n【注意】\n'+d.warnings.join('\n')+'\n':''}\n${d.scope}\n配色以外のレイアウト・文言・機能・人物・モチーフは維持してください。元のテーマ色を別の色に置換せず、指定した補助色を用途ごとに使ってください。\n${comment?'\n【追加の要望（原文）】\n'+comment+'\n色指定と矛盾する要望がある場合は、勝手に変更せず矛盾点を伝えてください。':''}`;
+ return `制作中の${d.usage}の配色を、次の設計に変更してください。\n方針：${d.strategyLabel}／${d.mode==='dark'?'ダーク':'ライト'}\n\n【テーマカラー ${d.themeColorCount}色】\n${d.themeRoles.map(c=>`${c.role}：${c.hex} → ${c.usage}\n${c.note}`).join('\n')}\n\n【使う場所と色】\n${d.instructions.join('\n')}\n\n【用途別の色指定（背景・文字・同系の補助色はテーマ色数の別枠）】\n${Object.entries(d.roles).filter(([k])=>!k.startsWith('bad')).map(([k,v])=>`${k}: ${v}`).join('\n')}\n\n【面積の目安】\n${d.allocation.map(x=>`${x.label} ${x.hex}：${x.percent}%`).join('\n')}\n${d.allocationNote}\n\n【この案の理由】\n${d.reason.join('\n')}\n\n【避ける使い方】\n${d.avoid}\n\n【確認した組み合わせ】\n${d.checks.map(c=>`${c.label}：${c.ratio.toFixed(2)}:1／目標${c.min}:1 ${c.pass?'通過':'要調整'}${c.standard==='heuristic'?'（構図確認の目安。WCAG基準ではない）':''}`).join('\n')}\n${d.warnings.length?'\n【注意】\n'+d.warnings.join('\n')+'\n':''}\n${d.scope}\n配色以外のレイアウト・文言・機能・人物・モチーフは維持してください。元のテーマ色を別の色に置換せず、指定した補助色を用途ごとに使ってください。\n${comment?'\n【追加の要望（原文）】\n'+comment+'\n色指定と矛盾する要望がある場合は、勝手に変更せず矛盾点を伝えてください。':''}`;
 }
-export function cssDesign(palette,options={}){const d=exportDesign(palette,options);return `/* ${d.usage} / ${d.strategyLabel} / ${d.mode} */\n:root {\n${palette.colors.map((c,i)=>`  --theme-${i+1}: ${c};`).join('\n')}\n\n${Object.entries(d.roles).filter(([k])=>!k.startsWith('bad')).map(([k,v])=>`  --color-${k.replace(/[A-Z]/g,m=>'-'+m.toLowerCase())}: ${v};`).join('\n')}\n}\n/* 選択状態・エラーは色だけに頼らず、文字と形でも示す。 */`;}
+export function cssDesign(palette,options={}){const d=exportDesign(palette,options);return `/* ${d.usage} / ${d.strategyLabel} / ${d.mode} */\n:root {\n${palette.colors.map((c,i)=>`  --theme-${i+1}: ${c}; /* ${d.themeRoles[i].role}: ${d.themeRoles[i].usage} */`).join('\n')}\n\n${Object.entries(d.roles).filter(([k])=>!k.startsWith('bad')).map(([k,v])=>`  --color-${k.replace(/[A-Z]/g,m=>'-'+m.toLowerCase())}: ${v};`).join('\n')}\n}\n/* 選択状態・エラーは色だけに頼らず、文字と形でも示す。 */`;}
