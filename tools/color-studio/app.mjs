@@ -1,20 +1,21 @@
-import {MOODS,ROLE_NAMES,normalizeHex,extractColors} from './engine.mjs?v=20260928-recolor1';
-import {USAGES,isUsage,STRATEGIES,SOURCES,defaultGoal,recommend,designPalette,exportDesign,promptDesign,cssDesign} from './advisor.mjs?v=20260928-recolor1';
-import {RECIPES} from './composition.mjs?v=20260928-recolor1';
-import {previewMarkup} from './previews.mjs?v=20260928-recolor1';
-import {setupRecolor} from './recolor-ui.mjs?v=20260928-recolor1';
+import {MOODS,ROLE_NAMES,normalizeHex,extractColors} from './engine.mjs?v=20260928-knowledge1';
+import {USAGES,isUsage,STRATEGIES,SOURCES,defaultGoal,recommend,designPalette,exportDesign,promptDesign,cssDesign} from './advisor.mjs?v=20260928-knowledge1';
+import {KNOWLEDGE,HARMONIES} from './palette-knowledge.mjs?v=20260928-knowledge1';
+import {RECIPES} from './composition.mjs?v=20260928-knowledge1';
+import {previewMarkup} from './previews.mjs?v=20260928-knowledge1';
+import {setupRecolor} from './recolor-ui.mjs?v=20260928-knowledge1';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-const state={count:3,mood:'standard',source:'mood',base:'#2563EB',imageColors:[],comment:'',locks:{},seed:0,palettes:[],selected:0,view:'web',mode:'light',goal:'reading',legibility:'normal',focus:'subject',evaluated:0,rejected:0,shortage:'',format:'prompt',history:[],favorites:[]};
+const state={count:3,harmony:'auto',mood:'standard',source:'mood',base:'#2563EB',imageColors:[],comment:'',locks:{},seed:0,palettes:[],selected:0,view:'web',mode:'light',goal:'reading',legibility:'normal',focus:'subject',evaluated:0,rejected:0,shortage:'',format:'prompt',history:[],favorites:[]};
 let toastTimer,imageUrl=null,recolor=null,referenceFile=null;
 function toast(message){$('#toast').textContent=message;$('#toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').hidden=true,3200);}
 function el(tag,className,text){const node=document.createElement(tag);if(className)node.className=className;if(text!==undefined)node.textContent=text;return node;}
 function swatches(colors,className){const div=el('div',className);for(const c of colors){const i=el('i');i.style.setProperty('--s',c);div.append(i);}return div;}
 function palette(){return state.palettes[state.selected];}
-function stash(){if(!palette())return;state.history.push(JSON.stringify({palettes:state.palettes,selected:state.selected,locks:state.locks,count:palette().colors.length,view:state.view,mode:state.mode,goal:state.goal,legibility:state.legibility,focus:state.focus,evaluated:state.evaluated,rejected:state.rejected,shortage:state.shortage}));if(state.history.length>20)state.history.shift();$('#undo').disabled=false;}
+function stash(){if(!palette())return;state.history.push(JSON.stringify({palettes:state.palettes,selected:state.selected,locks:state.locks,count:palette().colors.length,harmony:state.harmony,view:state.view,mode:state.mode,goal:state.goal,legibility:state.legibility,focus:state.focus,evaluated:state.evaluated,rejected:state.rejected,shortage:state.shortage}));if(state.history.length>20)state.history.shift();$('#undo').disabled=false;}
 async function copy(text){try{await navigator.clipboard.writeText(text);toast('コピーしました');}catch{const field=el('textarea');field.value=text;field.style.cssText='position:fixed;left:0;top:0;opacity:0';document.body.append(field);field.select();let ok=false;try{ok=document.execCommand('copy')}catch{}field.remove();toast(ok?'コピーしました':'コピーできませんでした。出力欄の文字を選択してコピーしてください。');}}
 function setSource(source){state.source=source;$$('[data-source]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.source===source));for(const name of ['mood','color','image'])$('#'+name+'-panel').hidden=name!==source;}
 function updateMood(){for(const b of $$('[data-mood]'))b.setAttribute('aria-pressed',b.dataset.mood===state.mood);}
-function readInputs(){state.count=+$('#color-count').value;state.comment=$('#request').value.trim();if(state.source==='color'){const hex=normalizeHex($('#base-hex').value);$('#base-error').hidden=!!hex;if(!hex){$('#base-hex').focus();return false;}state.base=hex;$('#base-color').value=hex;$('#base-hex').value=hex;}if(state.source==='image'&&!state.imageColors.length){toast('先に参考画像を選んでください');$('#image-input').focus();return false;}return true;}
+function readInputs(){state.count=+$('#color-count').value;state.harmony=$('#harmony').value;state.comment=$('#request').value.trim();if(state.source==='color'){const hex=normalizeHex($('#base-hex').value);$('#base-error').hidden=!!hex;if(!hex){$('#base-hex').focus();return false;}state.base=hex;$('#base-color').value=hex;$('#base-hex').value=hex;}if(state.source==='image'&&!state.imageColors.length){toast('先に参考画像を選んでください');$('#image-input').focus();return false;}return true;}
 function options(){return {view:state.view,mode:state.mode,goal:state.goal,legibility:state.legibility,focus:state.focus};}
 function currentDesign(p=palette()){return designPalette(p,{...options(),goal:p.strategy||state.goal});}
 function generate(advance=false){
@@ -25,6 +26,7 @@ function generate(advance=false){
  render();
 }
 function renderControls(){
+ $('#harmony').value=state.harmony||'auto';
  $('#usage').value=state.view;$('#goal').replaceChildren(...STRATEGIES[state.view].map(x=>{const o=el('option',null,x.label);o.value=x.id;return o;}));$('#goal').value=state.goal;
  $('#legibility').value=state.legibility;$('#legibility').hidden=state.view==='illustration';$('label[for="legibility"]').hidden=state.view==='illustration';$('#art-focus').hidden=state.view!=='illustration';$('#focus').value=state.focus;
  $('.mode-buttons').hidden=state.view==='illustration';$$('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.mode===state.mode));
@@ -44,6 +46,7 @@ function renderAdvice(d){
  $('#theme-roles').replaceChildren(...d.themeRoles.map(c=>{const row=el('div','theme-role-row'),dot=el('i');dot.style.background=c.hex;const title=el('strong',null,c.role+' '+c.hex),copyButton=el('button','theme-role-code');copyButton.title='色コードをコピー';copyButton.append(dot,title);copyButton.addEventListener('click',()=>copy(c.hex));const use=el('div');use.append(el('strong',null,c.usage),el('p',null,c.note));row.append(copyButton,use);return row;}));
  $('#evaluation-status').textContent=palette().constraintFailure?'条件を見直してください':d.pass?(state.view==='illustration'?'構図の目安を確認':'指定した色の検査を通過'):'要調整';
  $('#advice-reasons').replaceChildren(...d.reason.map(x=>el('p',null,x)));
+ $('#applied-rules').replaceChildren(...d.appliedRules.map(r=>{const li=el('li');const source=SOURCES.find(s=>s.id===r.source),a=el('a',null,source.title);a.href=source.url;a.target='_blank';a.rel='noopener';li.append(el('strong',null,r.title+' — '+r.action),el('p',null,r.detail),a);return li;}));
  $('#usage-instructions').replaceChildren(...d.instructions.map(x=>el('li',null,x)));
  const roleEntries=state.view==='illustration'?[['背景',d.roles.sceneBackground],['主役',d.roles.subject],['アクセント',d.roles.focal],['輪郭',d.roles.sceneLine]]:[['背景',d.roles.background],['本文',d.roles.text],['カード',d.roles.surface],['主要ボタン',d.roles.action],['ボタン文字',d.roles.onAction],['リンク',d.roles.link],...(state.view==='app'?[['選択中の面',d.roles.selectedSurface],['選択中の文字',d.roles.selectedText],['エラー',d.roles.error]]:[])];
  $('#role-colors').replaceChildren(...roleEntries.map(([label,hex])=>{const b=el('button','role-chip');const dot=el('i');dot.style.background=hex;b.append(dot,el('span',null,label+' '+hex));b.title='この色をコピー';b.addEventListener('click',()=>copy(hex));return b;}));
@@ -88,6 +91,7 @@ function setup(){
  function changeUsage(view){if(view===state.view)return;state.view=view;state.goal=defaultGoal(view);state.seed=0;generate();}
  $('#usage').addEventListener('change',()=>changeUsage($('#usage').value));
  $$('[data-view]').forEach(b=>b.addEventListener('click',()=>changeUsage(b.dataset.view)));
+ $('#harmony').addEventListener('change',()=>{state.seed=0;generate();});
  $('#goal').addEventListener('change',()=>{state.goal=$('#goal').value;generate();});
  $('#legibility').addEventListener('change',()=>{state.legibility=$('#legibility').value;generate();});
  $('#focus').addEventListener('change',()=>{state.focus=$('#focus').value;render();});
@@ -100,8 +104,12 @@ function setup(){
  $('#download').addEventListener('click',downloadImage);$('#share').addEventListener('click',()=>{const url=new URL(location.href);url.hash='palette='+palette().colors.map(c=>c.slice(1)).join('-')+'&view='+state.view+'&mode='+state.mode+'&goal='+(palette().strategy||state.goal)+'&legibility='+state.legibility+'&focus='+state.focus;copy(url.toString());});
  $('#image-input').addEventListener('change',loadImage);
  try{const saved=JSON.parse(localStorage.getItem('iro-atelierv1')||'[]');if(Array.isArray(saved))state.favorites=saved.filter(validSaved).slice(0,12).map(p=>({...p,name:p.name.slice(0,80),colors:p.colors.map(normalizeHex)}));}catch{}
+ $('#harmony').replaceChildren(...Object.entries(HARMONIES).map(([id,label])=>{const o=el('option',null,label);o.value=id;return o;}));
  const initial=recommend(state);state.palettes=initial.palettes;state.evaluated=initial.evaluated;state.shortage=initial.shortage;loadSharedPalette();
  window.addEventListener('hashchange',()=>{if(new URLSearchParams(location.hash.slice(1)).has('palette')){stash();if(loadSharedPalette())render();}});
+ $('#knowledge-summary').textContent=`${SOURCES.length}の一次資料を参照し、${KNOWLEDGE.length}項目に整理。33組の基本配色に6種類の構成を展開し、役割・明暗・彩度の競合・案同士の違いで候補を選びます。`;
+ const categories=[...new Set(KNOWLEDGE.map(r=>r.category))];
+ $('#knowledge-library').replaceChildren(...categories.map(category=>{const detail=el('details'),summary=el('summary',null,category),list=el('ul');for(const r of KNOWLEDGE.filter(r=>r.category===category)){const li=el('li'),a=el('a',null,SOURCES.find(s=>s.id===r.source).title);a.href=SOURCES.find(s=>s.id===r.source).url;a.target='_blank';a.rel='noopener';li.append(el('strong',null,r.title+'（'+r.action+'）'),el('p',null,r.detail),a);list.append(li);}detail.append(summary,list);return detail;}));
  $('#theory-sources').replaceChildren(...SOURCES.map(s=>{const p=el('p');const a=el('a',null,s.title);a.href=s.url;a.target='_blank';a.rel='noopener';p.append(a,el('span',null,' — '+s.rule));return p;}));
  render();renderFavorites();
 }

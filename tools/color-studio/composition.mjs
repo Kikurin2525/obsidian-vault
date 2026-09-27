@@ -1,4 +1,4 @@
-import {rgb,toHex,toHsl,fromHsl,normalizeHex,parseRequest} from './engine.mjs?v=20260928-recolor1';
+import {rgb,toHex,toHsl,fromHsl,normalizeHex,parseRequest} from './engine.mjs?v=20260928-knowledge1';
 
 // Original recipes: strong identity, a supporting tone, and a deliberately limited accent.
 // Names and hex combinations are authored for this tool, not copied from a palette service.
@@ -39,14 +39,9 @@ const recipes=[
 ];
 export const RECIPES=recipes.map(([id,name,tags,hexes,intent])=>({id,name,tags:tags.split(' '),colors:hexes.split(' '),intent}));
 
-// Oklab matrices by Björn Ottosson, public-domain implementation:
-// https://bottosson.github.io/posts/oklab/ (2021 matrices).
-export function oklab(hex){
- const [r,g,b]=rgb(hex).map(v=>{v/=255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4;});
- const l=Math.cbrt(.4122214708*r+.5363325363*g+.0514459929*b),m=Math.cbrt(.2119034982*r+.6806995451*g+.1073969566*b),s=Math.cbrt(.0883024619*r+.2817188376*g+.6299787005*b);
- return [.2104542553*l+.793617785*m-.0040720468*s,1.9779984951*l-2.428592205*m+.4505937099*s,.0259040371*l+.7827717662*m-.808675766*s];
-}
-export const colorDistance=(a,b)=>Math.hypot(...oklab(a).map((x,i)=>x-oklab(b)[i]));
+import {oklab,colorDistance,oklch,fromOklch} from './color-math.mjs?v=20260928-knowledge1';
+export {oklab,colorDistance};
+import {HARMONIES} from './palette-knowledge.mjs?v=20260928-knowledge1';
 const chroma=hex=>Math.hypot(...oklab(hex).slice(1));
 const mix=(a,b,t)=>toHex(...rgb(a).map((x,i)=>x*(1-t)+rgb(b)[i]*t));
 const hueGap=(a,b)=>{const d=Math.abs(toHsl(a)[0]-toHsl(b)[0]);return Math.min(d,360-d);};
@@ -64,11 +59,28 @@ export function compositionNotes(colors){
  const [p,s,a]=colors,lightness=colors.slice(0,3).map(c=>oklab(c)[0]),span=Math.max(...lightness)-Math.min(...lightness);
  const relationship=chroma(p)<.035||chroma(a||s)<.035?'無彩色＋有彩色':hueGap(p,a||s)<48?'近い色相でまとめる':hueGap(p,a||s)>135?'離れた色相で対比する':'色相に変化をつける';
  const support=chroma(s)<.08?'サブ色は彩りを抑え、強い色を引き立てます。':oklab(s)[0]>.82?'サブ色の明るさで、濃い色との間に余白をつくります。':'サブ色も存在感があるため、小さな面や図に限定します。';
- return {relationship,notes:[`${relationship}構成です。${support}`,span>=.22?'明るい色と深い色を分け、形や情報のまとまりを見せます。':'テーマ色の明暗差は控えめです。白・黒の基本色や輪郭で区別を補います。',...(colors.length>3?['4色目以降は補助に使います。同系色の濃淡を中心に使うと、色相が増えすぎるのを防げます。']:[])]};
+ return {relationship,notes:[`${relationship}構成です。${support}`,span>=.22?'明るい色と深い色を分け、形や情報のまとまりを見せます。':'テーマ色の明暗差は控えめです。白・黒の基本色や輪郭で区別を補います。',...(colors.length>3?['4色目は第2アクセントです。別の小物・図の分類に少量使い、5色目以降の濃淡とは役割を分けます。']:[])]};
 }
 export function isAvoided(hex,avoids){const [h,s,l]=toHsl(hex);return avoids.some(c=>c.h===null?(c.label==='黒'?l<24:c.label==='白'?l>89:s<12):(s>12&&Math.min(Math.abs(h-c.h),360-Math.abs(h-c.h))<(c.label==='茶色'?19:23)&&(c.label!=='茶色'||l<57)));}
 function modify(hex,f,i){let[h,s,l]=toHsl(hex);if(f.warm&&h>70&&h<300)h=20+i*12;if(f.cool&&(h<160||h>280))h=200+i*18;if(f.pastel){s=Math.min(s,55);l=Math.max(l,74);}if(f.muted)s=Math.min(s,28);if(f.vivid&&i!==1)s=Math.max(s,70);if(f.light)l=Math.min(94,l+10);if(f.dark)l=Math.max(16,l-14);if(f.accent&&i===2){s=Math.max(s,65);l=Math.min(60,l);}return fromHsl(h,s,l);}
-function extend(colors,count){const result=[...colors];const tones=[[0,'#FFFFFF',.55],[0,'#111111',.35],[2,'#FFFFFF',.55],[1,'#111111',.30],[0,'#FFFFFF',.83]];for(const [i,b,t]of tones)result.push(mix(colors[i]||colors[0],b,t));return result.slice(0,count);}
+function extend(colors,count,family){
+ const result=[...colors], [L,C,h]=oklch(colors[0]),[aL,aC,ah]=oklch(colors[2]||colors[1]);
+ const angles=family==='mono'?[h]:family==='analogous'?[h-35,h+20]:family==='complement'?[h,h+180]:family==='split'?[h-150,h+150]:family==='triadic'?[h+240,h+120]:[h+120,h-120,ah+70,ah-70];
+ const alternatives=angles.flatMap(x=>[.38,.58,.76].map(light=>fromOklch(light,Math.max(.09,Math.min(.17,aC)),x)));
+ alternatives.sort((a,b)=>Math.min(...colors.map(c=>colorDistance(b,c)))-Math.min(...colors.map(c=>colorDistance(a,c))));
+ result.push(alternatives[0]);
+ for(const [light,ch]of [[.35,C*.8],[.88,C*.4],[.75,C*.65],[.95,C*.18]])result.push(fromOklch(light,ch,h));
+ return result.slice(0,count);
+}
+function harmonyRecipes(recipe){
+ const[L,C,h]=oklch(recipe.colors[0]),main=recipe.colors[0];
+ return ['mono','analogous','complement','split','triadic','neutral'].map((family,i)=>{
+  const angle={mono:0,analogous:35,complement:180,split:150,triadic:120,neutral:0}[family];
+  const support=fromOklch(.92,Math.min(.04,C*.25),h+(family==='triadic'?240:family==='split'?-150:0));
+  const accent=family==='neutral'?recipe.colors[2]:fromOklch(L>.65?.43:.73,Math.max(.09,Math.min(.20,C)),h+angle);
+  return {id:recipe.id+'-'+family,name:recipe.name.split('と')[0]+'・'+HARMONIES[family],tags:recipe.tags,family,colors:[family==='neutral'?fromOklch(.3,.012,h):main,support,accent],intent:'色相の構成と明暗差を組み合わせた案です。'};
+ });
+}
 function anchoredRecipes(base){const[h,s,l]=toHsl(base),sat=Math.max(45,Math.min(78,s));return [
  ['同系色の濃淡',fromHsl(h,35,88),fromHsl(h,sat,l>55?30:65)],
  ['暖かい差し色',fromHsl(h,28,88),fromHsl(27,85,55)],
@@ -103,11 +115,13 @@ export function composePool(options={}){
  }else if(fixed[0])pool=anchoredRecipes(fixed[0]);
  else pool=RECIPES.filter(p=>p.tags.includes(chosenMood));
  if(!pool.length)pool=RECIPES.filter(p=>p.tags.includes('standard'));
+ const family=Object.hasOwn(HARMONIES,options.harmony)?options.harmony:'auto';
+ if(source!=='image')pool=pool.flatMap(p=>family==='auto'?[{...p,family:'curated'},...harmonyRecipes(p)]:harmonyRecipes(p).filter(q=>q.family===family));
  if(source==='image')pool.sort((a,b)=>{const cost=p=>Math.abs(oklab(p.colors[0])[0]-.5)+Math.max(0,.06-chroma(p.colors[0]))*4+Math.max(0,.8-oklab(p.colors[1])[0])+chroma(p.colors[1]);return cost(a)-cost(b);});
- const offset=(seed*3)%pool.length;pool=[...pool.slice(offset),...pool.slice(0,offset)];
+ const offset=(seed*13)%pool.length;pool=[...pool.slice(offset),...pool.slice(0,offset)];
  const palettes=[],seen=new Set();
  for(const recipe of pool){
-  let colors=extend(recipe.colors,count).map((c,i)=>modify(c,parsed.flags,i));
+  let colors=extend(recipe.colors,count,recipe.family).map((c,i)=>modify(c,parsed.flags,i));
   for(const [i,c]of Object.entries(fixed))colors[i]=c;
   const warnings=[];
   if(base&&fixed[0]!==base)warnings.push('メインの固定色が基準色より優先されています。');
@@ -116,7 +130,7 @@ export function composePool(options={}){
   if(colors.some((c,i)=>fixed[i]&&isAvoided(c,parsed.avoid)))warnings.push('固定色・指定色を優先したため、避けたい色が残っています。');
   const key=colors.join();if(seen.has(key))continue;seen.add(key);
   const edited=colors.slice(0,3).some((c,i)=>c!==recipe.colors[i]);
-  palettes.push({name:edited?`指定色の配色 ${palettes.length+1}・${compositionNotes(colors).relationship}`:recipe.name,recipeId:recipe.id,colors,warnings,intent:edited?'':recipe.intent,description:compositionNotes(colors).relationship});
+  palettes.push({name:edited?`指定色の配色 ${palettes.length+1}・${compositionNotes(colors).relationship}`:recipe.name,recipeId:recipe.id,family:edited?'custom':recipe.family||'curated',colors,warnings,intent:edited?'':recipe.intent,description:compositionNotes(colors).relationship});
  }
  // Contradictory exclusions may eliminate the whole library. Preserve explicit
  // colors and say why we cannot supply three, rather than silently ignoring them.

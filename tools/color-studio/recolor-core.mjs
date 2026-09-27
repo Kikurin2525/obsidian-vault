@@ -1,26 +1,30 @@
-import {rgb,toHex} from './engine.mjs?v=20260928-recolor1';
-import {extractColors} from './engine.mjs?v=20260928-recolor1';
-import {oklab} from './composition.mjs?v=20260928-recolor1';
+import {rgb,toHex,toHsl} from './engine.mjs?v=20260928-knowledge1';
+import {extractColors} from './engine.mjs?v=20260928-knowledge1';
+import {oklab} from './color-math.mjs?v=20260928-knowledge1';
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-// Inverse of Ottosson's public-domain Oklab matrices. sRGB output is gamut-clipped.
-export function labToRgb([L,a,b]){
- const l=(L+.3963377774*a+.2158037573*b)**3,m=(L-.1055613458*a-.0638541728*b)**3,s=(L-.0894841775*a-1.291485548*b)**3;
- return [4.0767416621*l-3.3077115913*m+.2309699292*s,-1.2684380046*l+2.6097574011*m-.3413193965*s,-.0041960863*l-.7034186147*m+1.707614701*s].map(v=>Math.round(clamp(v<=.0031308?12.92*v:1.055*Math.max(0,v)**(1/2.4)-.055,0,1)*255));
-}
+export {labToRgb} from './color-math.mjs?v=20260928-knowledge1';
+import {labToRgb} from './color-math.mjs?v=20260928-knowledge1';
 export const isNeutral=hex=>{const [L,a,b]=oklab(hex);return Math.hypot(a,b)<.03||L<.12||L>.985;};
-export function recolorPixels(data,width,height,mappings,{tolerance=.10,keepNeutrals=true,preserveShading=true,region=null}={}){
+export function recolorPixels(data,width,height,mappings,{tolerance=.10,keepNeutrals=true,preserveShading=true,region=null,patches=[]}={}){
  const out=new Uint8ClampedArray(data),cache=new Map(),sources=mappings.map(m=>({...m,lab:oklab(m.from),target:m.to?oklab(m.to):null,rgb:m.to?rgb(m.to):null}));let changed=0;
  const radius=clamp(tolerance,.01,.3);
+ const local=patches.filter(p=>p.region&&p.to).map(p=>({...p,lab:oklab(p.from),target:oklab(p.to),rgb:rgb(p.to)}));
+ const inside=(x,y,r)=>x/width>=r.x&&x/width<r.x+r.width&&y/height>=r.y&&y/height<r.y+r.height;
  for(let y=0;y<height;y++)for(let x=0;x<width;x++){
   const i=(y*width+x)*4;if(data[i+3]===0)continue;
-  if(region&&(x/width<region.x||x/width>=region.x+region.width||y/height<region.y||y/height>=region.y+region.height))continue;
-  const key=(data[i]<<16)|(data[i+1]<<8)|data[i+2];let result;
+  const hex=toHex(data[i],data[i+1],data[i+2]);
+  let patchIndex=-1;
+  // Local additions override the base mapping inside their rectangle, using
+  // ORIGINAL pixels. A later matching patch wins; never recolor a prior result.
+  if(local.length){const lab=oklab(hex);for(let j=local.length-1;j>=0;j--){const p=local[j];if(inside(x,y,p.region)&&Math.hypot((lab[0]-p.lab[0])*.7,lab[1]-p.lab[1],lab[2]-p.lab[2])<radius){patchIndex=j;break;}}}
+  if(patchIndex<0&&region&&!inside(x,y,region))continue;
+  const key=((data[i]<<16)|(data[i+1]<<8)|data[i+2])+16777216*(patchIndex+1);let result;
   if(cache.has(key))result=cache.get(key);
   else{
    const hex=toHex(data[i],data[i+1],data[i+2]),lab=oklab(hex);result=null;
    if(!(keepNeutrals&&isNeutral(hex))){
     let nearest=null,distance=Infinity;
-    for(const s of sources){const d=Math.hypot((lab[0]-s.lab[0])*.7,lab[1]-s.lab[1],lab[2]-s.lab[2]);if(d<distance){nearest=s;distance=d;}}
+    for(const s of (patchIndex>=0?[local[patchIndex]]:sources)){const d=Math.hypot((lab[0]-s.lab[0])*.7,lab[1]-s.lab[1],lab[2]-s.lab[2]);if(d<distance){nearest=s;distance=d;}}
     if(nearest?.target&&distance<radius&&nearest.from!==nearest.to){
      const weight=1-clamp((distance-radius*.6)/(radius*.4),0,1);
      const target=preserveShading?nearest.target.map((v,j)=>v+lab[j]-nearest.lab[j]):nearest.target;
@@ -48,4 +52,22 @@ export function dominantImageColors(data,max=8){
   if(chosen.length>=max)break;
  }
  return chosen.length?chosen:extractColors(data,max);
+}
+
+// Input is frequency-ordered. Group related hues rather than assigning slots
+// cyclically. These are editable color heuristics, not object/skin recognition.
+export function initialMappings(colors,count){
+ const chromatic=colors.filter(c=>!isNeutral(c));
+ const quietWarm=c=>{const[h,s,l]=toHsl(c);return h>=12&&h<=52&&l>72&&s<85;};
+ const main=chromatic.find(c=>!quietWarm(c))||chromatic[0];
+ const gap=(a,b)=>{const d=Math.abs(toHsl(a)[0]-toHsl(b)[0]);return Math.min(d,360-d);};
+ const accent=chromatic.find(c=>c!==main&&!quietWarm(c)&&gap(c,main)>48&&Math.hypot(...oklab(c).slice(1))>.06);
+ let extra=3;
+ return colors.map(from=>{
+  if(isNeutral(from)||quietWarm(from))return {from,target:'keep'};
+  if(main&&gap(from,main)<=48)return {from,target:'theme:0'};
+  if(accent&&gap(from,accent)<=40)return {from,target:'theme:'+Math.min(2,count-1)};
+  if(oklab(from)[0]>.8&&Math.hypot(...oklab(from).slice(1))<.10)return {from,target:'theme:1'};
+  return {from,target:extra<count?'theme:'+extra++:'keep'};
+ });
 }

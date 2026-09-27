@@ -18,7 +18,7 @@ const STANDARD_PALETTES = [
  {name:'オレンジ × ブルー',colors:['#EA580C','#2563EB','#FACC15','#16A34A','#DC2626','#9333EA','#06B6D4','#DB2777']},
  {name:'パープル × イエロー',colors:['#9333EA','#FACC15','#06B6D4','#16A34A','#F97316','#2563EB','#DC2626','#DB2777']}
 ];
-export const ROLE_NAMES=['メイン','サブ','アクセント','補助 1','補助 2','補助 3','補助 4','補助 5'];
+export const ROLE_NAMES=['メイン','サブ','アクセント','第2アクセント','深い補助色','明るい補助色','中間の補助色','淡い補助色'];
 export const CSS_ROLES=['primary','secondary','accent','support-1','support-2','support-3','support-4','support-5'];
 const clamp=(n,a,b)=>Math.min(b,Math.max(a,n));
 export function normalizeHex(s){let t=String(s).trim();if(/^#?[0-9a-f]{3}$/i.test(t))t='#'+t.replace('#','').split('').map(x=>x+x).join('');else if(/^[0-9a-f]{6}$/i.test(t))t='#'+t;return /^#[0-9a-f]{6}$/i.test(t)?t.toUpperCase():null;}

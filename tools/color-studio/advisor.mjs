@@ -1,15 +1,11 @@
-import {contrast,toHsl,fromHsl,rgb,toHex,normalizeHex,ROLE_NAMES} from './engine.mjs?v=20260928-recolor1';
-import {composePool,compositionNotes,visiblyDifferent,oklab} from './composition.mjs?v=20260928-recolor1';
+import {contrast,toHsl,fromHsl,rgb,toHex,normalizeHex,ROLE_NAMES} from './engine.mjs?v=20260928-knowledge1';
+import {composePool,compositionNotes,visiblyDifferent,oklab} from './composition.mjs?v=20260928-knowledge1';
 
 export const USAGES={web:'Webサイト',lp:'LP',app:'スマホアプリ',illustration:'イラスト'};
 export const isUsage=value=>Object.hasOwn(USAGES,value);
-export const SOURCES=[
- {id:'difference',title:'Oklab：見た目の色の違いを扱う色空間',url:'https://bottosson.github.io/posts/oklab/',rule:'候補間の色の違いを比較するために使用。似た案を除く閾値は、このツール独自の設計判断です。'},
- {id:'text',title:'W3C：文字のコントラスト',url:'https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html',rule:'通常の文字は4.5:1以上。読みやすさ優先では7:1を目標にする。'},
- {id:'controls',title:'W3C：操作部品などのコントラスト',url:'https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html',rule:'操作部品の識別に必要な境界・状態の表示は隣接色と3:1以上を確保する。装飾には一律適用しない。'},
- {id:'meaning',title:'W3C：色だけで情報を伝えない',url:'https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html',rule:'リンクには下線、選択中には印と文字、エラーには記号と説明を添える。'},
- {id:'hierarchy',title:'Adobe：明暗・彩度と視線誘導',url:'https://www.adobe.com/uk/creativecloud/design/discover/color-contrast.html',rule:'主役と周囲の明暗・彩度・面積に差をつける。グレースケールでも構図を確認する。'}
-];
+export {SOURCES} from './palette-knowledge.mjs?v=20260928-knowledge1';
+import {SOURCES,appliedKnowledge} from './palette-knowledge.mjs?v=20260928-knowledge1';
+import {colorDistance,oklch} from './color-math.mjs?v=20260928-knowledge1';
 export const STRATEGIES={
  web:[{id:'reading',label:'読みやすさ重視',reason:'本文と余白を中心に、装飾色の面積を抑えます。'}, {id:'action',label:'導線の分かりやすさ重視',reason:'主要な操作に強調色をまとめ、リンクと装飾を区別します。'}, {id:'brand',label:'ブランドの印象重視',reason:'メイン色を図や見出し周りに繰り返し使い、本文は基本色で読みやすくします。'}],
  lp:[{id:'action',label:'申込み導線重視',reason:'申込みボタンに強調を集め、ほかの装飾との競合を抑えます。'}, {id:'reading',label:'説明の読みやすさ重視',reason:'説明や比較を読むための余白を広くし、強い色を使う面積を抑えます。'}, {id:'brand',label:'商品の印象重視',reason:'商品を紹介する面にメイン色を使い、申込みボタンとは役割を分けます。'}],
@@ -44,6 +40,11 @@ export function designPalette(palette,{view='web',mode='light',goal,legibility='
  const roles={background,text,surface,muted:readable(dark?'#B0B0B0':'#666666',background,min),brand:p,secondary:s,accent:a,action,onAction:bestInk(action),onBrand:bestInk(p),onSecondary:bestInk(s),link:readable(p,background,min),border:readable('#888888',surface,3)};
  roles.brandSurface=contrast(p,bestInk(p))>=min?p:readable(p,dark?'#111111':'#FFFFFF',min);roles.onBrand=bestInk(roles.brandSurface);
  roles.actionBorder=readable(action,background,3);roles.focus=readable(p,background,3);roles.selected=roles.link;roles.selectedSurface=blend(p,background,.92);roles.selectedText=readable(p,roles.selectedSurface,min);
+ for(const [key,amount]of [['actionHover',.10],['actionPressed',.20]]){
+  let c=blend(action,dark?'#FFFFFF':'#000000',amount);
+  if(contrast(c,bestInk(c))<min)c=readable(c,dark?'#111111':'#FFFFFF',min);
+  roles[key]=c;roles['on'+key[0].toUpperCase()+key.slice(1)]=bestInk(c);
+ }
  roles.error=readable(dark?'#FF8080':'#B91C1C',background,min);roles.success=readable(dark?'#69DB9D':'#166534',background,min);
  const subject=focus==='accent'?a:p,focal=focus==='accent'?p:a;
  let sceneBackground=blend(s,'#FFFFFF',strategy.id==='bold'?.66:.9);
@@ -53,6 +54,7 @@ export function designPalette(palette,{view='web',mode='light',goal,legibility='
  const checks=view==='illustration'?
  [check('subject','主役と背景の明暗',subject,sceneBackground,1.8,'heuristic'),check('silhouette','輪郭と背景',roles.sceneLine,sceneBackground,3,'heuristic')]:
  [check('body','本文／背景',text,background,min),check('card','本文／カード',text,surface,min),check('muted','補助文字／背景',roles.muted,background,min),check('link','リンク／背景',roles.link,background,min),check('button','ボタン文字／ボタン',roles.onAction,action,min),check('brand','ブランド面の文字／背景',roles.onBrand,roles.brandSurface,min),check('boundary','操作の境界／背景',roles.actionBorder,background,3),check('focus','フォーカス枠／背景',roles.focus,background,3)];
+ if(view!=='illustration')checks.push(check('hover','hover時の文字／ボタン',roles.onActionHover,roles.actionHover,min),check('pressed','押下時の文字／ボタン',roles.onActionPressed,roles.actionPressed,min));
  if(view==='app')checks.push(check('selected','選択中の文字／選択面',roles.selectedText,roles.selectedSurface,min),check('error','エラー文字／背景',roles.error,background,min),check('input','入力枠／入力面',roles.border,surface,3));
  const warnings=[...(palette.warnings||[])];
  if(view==='illustration'&&contrast(focal,sceneBackground)<1.8)warnings.push('アクセントと背景の明暗差は小さめです。小物に輪郭を付けて、実際の構図でも確認してください。');
@@ -64,11 +66,15 @@ export function designPalette(palette,{view='web',mode='light',goal,legibility='
  [`主役は ${roles.subject}、背景は ${roles.sceneBackground}、小物は ${roles.focal}。`,`輪郭は ${roles.sceneLine}。グレースケールでも主役と背景を確認する。`]:
  [`背景 ${background}、本文 ${text}、カードの面 ${surface}。`,`主要ボタンは ${action}、その上の文字は ${roles.onAction}。`,`リンクは ${roles.link} と下線をセットにする。`];
  if(view==='app')instructions.push(`選択中は ${roles.selectedSurface} の面＋${roles.selectedText} の文字＋下線と「選択中」。`,`エラーは ${roles.error} と「!」＋原因の説明。破壊的な操作には明確な動詞を付ける。`);
+ if(view!=='illustration')instructions.push(`ボタンのhoverは ${roles.actionHover}（文字 ${roles.onActionHover}）、押下時は ${roles.actionPressed}（文字 ${roles.onActionPressed}）。`,`キーボード操作ではフォーカス枠 ${roles.focus} を使い、実画面で枠の面積・隠れ・背景との区別を確認する。`);
+ if(colors.length>3)instructions.push(`第2アクセント ${colors[3]} は別の小物や図の分類に。画像では使う範囲を囲んで指定し、主要操作の色を増やさない。`);
  const avoid=view==='illustration'?'すべてのモチーフを同じ明るさ・同じ面積で強調しない。背景の派手さで主役を埋もれさせない。':view==='lp'?'申込みボタンと同じ強調色を見出し・囲み・装飾に大量に使わない。この配色だけで売上向上を保証するものではありません。':view==='app'?'未選択・選択中・エラーを色だけで区別しない。装飾をボタンと同じ形・色にしない。':'本文全体をテーマ色にしない。リンクとただの強調を色だけで区別しない。';
  const composition=compositionNotes(colors);
  const themeRoles=themeAssignments(colors,roles,{view,strategy:strategy.id,focus});
- const reason=[...(palette.intent?[palette.intent]:[]),...composition.notes,strategy.reason,view==='illustration'?'主役と背景の明暗差を確認し、区別しにくい輪郭を補います。':`文字と背景の組み合わせを${min}:1以上、必要な操作境界を3:1以上に調整します。`];
- return {view,mode:dark?'dark':'light',goal:strategy.id,legibility,focus,strategy:strategy.id,strategyLabel:strategy.label,roles,checks,warnings:[...new Set(warnings)],instructions,avoid,reason,themeRoles,harmony:composition.relationship,allocation:shareList(view,strategy.id,colors,roles),pass:checks.every(c=>c.pass),ruleIds:view==='illustration'?['hierarchy']:['text','controls','meaning','hierarchy']};
+ const appliedRules=appliedKnowledge({view,mode:dark?'dark':'light',legibility,count:colors.length,family:palette.family});
+ const balance=paletteBalance(colors,strategy.id);
+ const reason=[...(palette.intent?[palette.intent]:[]),...composition.notes,strategy.reason,...balance.reasons,view==='illustration'?'主役と背景の明暗差を確認し、区別しにくい輪郭を補います。':`文字と背景の組み合わせを${min}:1以上、必要な操作境界を3:1以上に調整します。`];
+ return {view,mode:dark?'dark':'light',goal:strategy.id,legibility,focus,strategy:strategy.id,strategyLabel:strategy.label,roles,checks,warnings:[...new Set(warnings)],instructions,avoid,reason,themeRoles,harmony:composition.relationship,allocation:shareList(view,strategy.id,colors,roles),pass:checks.every(c=>c.pass),appliedRules,ruleIds:[...new Set(appliedRules.map(r=>r.source))],selectionAssessment:balance};
 }
 // Describe original theme colors separately from adjusted colors used on screen.
 function themeAssignments(colors,r,{view,strategy,focus}){
@@ -85,15 +91,22 @@ function themeAssignments(colors,r,{view,strategy,focus}){
    if(i===actionIndex){uses.push(view==='lp'?'申込みボタン':'主要ボタン');note+=` ボタン ${r.action}、上の文字 ${r.onAction}。`;}
    if(i===2&&i!==actionIndex){uses.push('小さな強調・図のポイント');note='強調したい一箇所に少量使います。通常の本文には使いません。';}
   }
-  if(i>=3){uses=['図・イラストの補助'];note='テーマ色の濃淡を補うための色。文字・ボタンの役割は増やさず、必要な箇所だけに使います。';}
+  if(i===3){uses=['別の小物・図の第2アクセント'];note='第1アクセントと競合しない別の小面積に。自分の画像では範囲を囲んで割り当てます。';}if(i>=4){uses=['明暗をつなぐ補助色'];note='奥行き・背景の段差・図の濃淡に使う色。文字や操作には検査済みの用途別カラーを使います。';}
   return {role:ROLE_NAMES[i],hex,usage:uses.join('／'),note};
  });
+}
+// Product ranking heuristics, not beauty, conversion or WCAG scores.
+export function paletteBalance(colors,strategy='reading'){
+ const [p,s,a]=[colors[0],colors[1],colors[2]||colors[1]],P=oklch(p),S=oklch(s),A=oklch(a),distance=colorDistance(p,a),valueGap=Math.abs(P[0]-A[0]);
+ const quiet=['reading','quiet'].includes(strategy),bold=['bold','brand'].includes(strategy);
+ const penalties={accentTooSimilar:Math.max(0,.14-distance)*8,supportTooStrong:Math.max(0,S[1]-.08)*(quiet?8:4),competingChroma:Math.max(0,Math.min(P[1],A[1])-.16)*(bold?1:5),flatValues:Math.max(0,.14-valueGap)*(quiet?2:1)};
+ return {method:'役割への適性を比較する独自の順位付け。美的な良さの点数ではありません。',penalties,cost:Object.values(penalties).reduce((a,b)=>a+b,0),reasons:[`主役 ${p} と差し色 ${a} は、${distance>=.14?'知覚的な色の差を確保':'近い色のまとまりを優先'}。${valueGap>=.14?'明暗にも差があります。':'隣接させる部分では輪郭・余白で補ってください。'}`,S[1]<=.08?`サブ ${s} は彩度を抑えた支え役。主役や操作に視線を集めやすくします。`:`サブ ${s} も色が強いため、広い面には用途別の薄い補助色を使います。`]};
 }
 export function recommend(options={}){
  const view=isUsage(options.view)?options.view:'web',result=composePool(options),pool=result.palettes;
  const strategies=[...STRATEGIES[view]].sort((a,b)=>(a.id===options.goal?-1:b.id===options.goal?1:0)),palettes=[];let rejected=0,similar=0;
  for(const strategy of strategies){
-  const ranked=pool.map((p,index)=>{const design=designPalette(p,{...options,view,goal:strategy.id});return {...p,strategy:strategy.id,design,cost:index*.35+design.warnings.length*.25+(strategy.id==='reading'||strategy.id==='quiet'?Math.max(0,oklab(p.colors[0])[0]-.7):0)};});
+  const ranked=pool.map((p,index)=>{const design=designPalette(p,{...options,view,goal:strategy.id});return {...p,strategy:strategy.id,design,cost:paletteBalance(p.colors,strategy.id).cost+index*.018+design.warnings.length*.025+(options.harmony&&options.harmony!=='auto'||p.family==='curated'?0:.07)+(palettes.some(q=>colorDistance(p.colors[0],q.colors[0])<.08)?.25:0)};});
   const eligible=ranked.filter(p=>p.design.pass&&!p.constraintFailure);rejected+=ranked.length-eligible.length;
   eligible.sort((a,b)=>a.cost-b.cost);
   const chosen=eligible.find(p=>{const distinct=palettes.every(q=>visiblyDifferent(p.colors,q.colors));if(!distinct)similar++;return distinct;});
@@ -106,12 +119,12 @@ export function recommend(options={}){
 }
 export function exportDesign(palette,options={},comment=''){
  const design=designPalette(palette,{...options,goal:palette.strategy||options.goal});
- const roleKeys=design.view==='illustration'?['background','text','sceneBackground','subject','focal','sceneLine']:['background','text','surface','muted','brand','brandSurface','onBrand','secondary','accent','action','onAction','actionBorder','link','border','focus',...(design.view==='app'?['selected','selectedSurface','selectedText','error','success']:[])];
+ const roleKeys=design.view==='illustration'?['background','text','sceneBackground','subject','focal','sceneLine']:['background','text','surface','muted','brand','brandSurface','onBrand','secondary','accent','action','onAction','actionHover','onActionHover','actionPressed','onActionPressed','actionBorder','link','border','focus',...(design.view==='app'?['selected','selectedSurface','selectedText','error','success']:[])];
  const exportedRoles=Object.fromEntries(roleKeys.map(k=>[k,design.roles[k]]));
- return {name:palette.name,usage:USAGES[design.view],themeColorCount:palette.colors.length,themeColors:palette.colors.map((hex,i)=>({role:ROLE_NAMES[i],hex,rgb:rgb(hex)})),...design,roles:exportedRoles,request:comment,allocationNote:'面積比率は背景を含む設計目安です。実作品の面積を測定した値ではありません。',scope:'検査対象はこの見本で指定した色の組み合わせです。実際の文字サイズ・写真・構図・操作性や全体のWCAG適合を保証するものではありません。'};
+ return {name:palette.name,usage:USAGES[design.view],themeColorCount:palette.colors.length,themeColors:palette.colors.map((hex,i)=>({role:ROLE_NAMES[i],hex,rgb:rgb(hex)})),...design,roles:exportedRoles,request:comment,sources:SOURCES.filter(s=>design.ruleIds.includes(s.id)),allocationNote:'面積比率は背景を含む設計目安です。実作品の面積を測定した値ではありません。',scope:'検査対象はこの見本で指定した色の組み合わせです。実際の文字サイズ・写真・構図・操作性や全体のWCAG適合を保証するものではありません。'};
 }
 export function promptDesign(palette,options={},comment=''){
  const d=exportDesign(palette,options,comment);
- return `制作中の${d.usage}の配色を、次の設計に変更してください。\n方針：${d.strategyLabel}／${d.mode==='dark'?'ダーク':'ライト'}\n\n【テーマカラー ${d.themeColorCount}色】\n${d.themeRoles.map(c=>`${c.role}：${c.hex} → ${c.usage}\n${c.note}`).join('\n')}\n\n【使う場所と色】\n${d.instructions.join('\n')}\n\n【用途別の色指定（背景・文字・同系の補助色はテーマ色数の別枠）】\n${Object.entries(d.roles).filter(([k])=>!k.startsWith('bad')).map(([k,v])=>`${k}: ${v}`).join('\n')}\n\n【面積の目安】\n${d.allocation.map(x=>`${x.label} ${x.hex}：${x.percent}%`).join('\n')}\n${d.allocationNote}\n\n【この案の理由】\n${d.reason.join('\n')}\n\n【避ける使い方】\n${d.avoid}\n\n【確認した組み合わせ】\n${d.checks.map(c=>`${c.label}：${c.ratio.toFixed(2)}:1／目標${c.min}:1 ${c.pass?'通過':'要調整'}${c.standard==='heuristic'?'（構図確認の目安。WCAG基準ではない）':''}`).join('\n')}\n${d.warnings.length?'\n【注意】\n'+d.warnings.join('\n')+'\n':''}\n${d.scope}\n配色以外のレイアウト・文言・機能・人物・モチーフは維持してください。元のテーマ色を別の色に置換せず、指定した補助色を用途ごとに使ってください。\n${comment?'\n【追加の要望（原文）】\n'+comment+'\n色指定と矛盾する要望がある場合は、勝手に変更せず矛盾点を伝えてください。':''}`;
+ return `制作中の${d.usage}の配色を、次の設計に変更してください。\n方針：${d.strategyLabel}／${d.mode==='dark'?'ダーク':'ライト'}\n\n【テーマカラー ${d.themeColorCount}色】\n${d.themeRoles.map(c=>`${c.role}：${c.hex} → ${c.usage}\n${c.note}`).join('\n')}\n\n【使う場所と色】\n${d.instructions.join('\n')}\n\n【用途別の色指定（背景・文字・同系の補助色はテーマ色数の別枠）】\n${Object.entries(d.roles).filter(([k])=>!k.startsWith('bad')).map(([k,v])=>`${k}: ${v}`).join('\n')}\n\n【面積の目安】\n${d.allocation.map(x=>`${x.label} ${x.hex}：${x.percent}%`).join('\n')}\n${d.allocationNote}\n\n【この案の理由】\n${d.reason.join('\n')}\n\n【適用した設計ルールと出典】\n${d.appliedRules.map(r=>`${r.title}（${r.action}）：${r.detail}\n${SOURCES.find(s=>s.id===r.source).url}`).join('\n')}\n\n【避ける使い方】\n${d.avoid}\n\n【確認した組み合わせ】\n${d.checks.map(c=>`${c.label}：${c.ratio.toFixed(2)}:1／目標${c.min}:1 ${c.pass?'通過':'要調整'}${c.standard==='heuristic'?'（構図確認の目安。WCAG基準ではない）':''}`).join('\n')}\n${d.warnings.length?'\n【注意】\n'+d.warnings.join('\n')+'\n':''}\n${d.scope}\n配色以外のレイアウト・文言・機能・人物・モチーフは維持してください。元のテーマ色を別の色に置換せず、指定した補助色を用途ごとに使ってください。\n${comment?'\n【追加の要望（原文）】\n'+comment+'\n色指定と矛盾する要望がある場合は、勝手に変更せず矛盾点を伝えてください。':''}`;
 }
 export function cssDesign(palette,options={}){const d=exportDesign(palette,options);return `/* ${d.usage} / ${d.strategyLabel} / ${d.mode} */\n:root {\n${palette.colors.map((c,i)=>`  --theme-${i+1}: ${c}; /* ${d.themeRoles[i].role}: ${d.themeRoles[i].usage} */`).join('\n')}\n\n${Object.entries(d.roles).filter(([k])=>!k.startsWith('bad')).map(([k,v])=>`  --color-${k.replace(/[A-Z]/g,m=>'-'+m.toLowerCase())}: ${v};`).join('\n')}\n}\n/* 選択状態・エラーは色だけに頼らず、文字と形でも示す。 */`;}
