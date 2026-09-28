@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CHWF6QKRJ6"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-CHWF6QKRJ6');</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="note-hashtags" content="#eBay #eBay輸出 #AI活用">
+    <meta name="description" content="eBay公式APIとAIで、利益の集計・在庫管理・出品チェックを自動化。接続の手順から、Claude CodeやCodexへコピペできるプロンプト、結果の確認方法まで紹介します。">
+    <meta property="og:title" content="eBay APIで3つ自動化してみよう【プロンプト付き】">
+    <meta property="og:description" content="eBay公式APIとAIで、利益の集計・在庫管理・出品チェックを自動化。接続の手順から、Claude CodeやCodexへコピペできるプロンプト、結果の確認方法まで紹介します。">
+    <meta property="og:image" content="https://rental-space.net/assets/2026_09_29_ebay_api_three_hero.png">
+    <meta property="og:url" content="https://rental-space.net/articles/2026-09-29-ebay-api-three-tasks.html">
+    <meta property="og:type" content="article">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>eBay APIで3つ自動化してみよう【プロンプト付き】 - きくりんのノウハウ垂れ流し</title>
+    <link rel="icon" href="../assets/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="../assets/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="stylesheet" href="../style.css?v=1.2.1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&amp;display=swap" rel="stylesheet">
+    <style>.article-header .category-badge{position:static;display:inline-block;margin-bottom:12px}.article-body a{color:#075bc8;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;font-weight:700;overflow-wrap:anywhere}.article-table{overflow-x:auto;margin:1.5em 0}.article-table table{border-collapse:collapse;width:100%;font-size:.95em}.article-table th,.article-table td{padding:12px;border:1px solid #ddd;text-align:left}.article-table th{background:#eef5ff}.article-table td:last-child{white-space:normal}@media(max-width:600px){.kyokasho-banner .kb-title span{white-space:normal!important;overflow-wrap:anywhere}}.article-table table{min-width:560px}.article-table:focus{outline:2px solid #2563eb}.image-caption{font-size:.85em;color:#555;line-height:1.7}.article-body{overflow-wrap:anywhere}.article-shot{margin:28px 0}.article-shot img{display:block;max-width:100%;height:auto;margin:auto;border:1px solid #ddd}.image-caption{font-size:.85em;color:#555;line-height:1.7}.article-body blockquote{margin:24px 0;padding:16px 20px;background:#f3f7fd;border-left:4px solid #2563eb;overflow-wrap:anywhere}.article-body blockquote p{margin:0}.article-body{color:#111}body{background:#fff}</style>
+
+<link rel="stylesheet" href="/assets/site-footer.css?v=20260919">
+
+<link rel="stylesheet" href="/assets/site-menu.css?v=20260927b">
+<!-- seo-head start -->
+<link rel="canonical" href="https://rental-space.net/articles/2026-09-29-ebay-api-three-tasks.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "ホーム",
+      "item": "https://rental-space.net/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "eBay輸出",
+      "item": "https://rental-space.net/ebay/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "eBay APIで3つ自動化してみよう【プロンプト付き】",
+      "item": "https://rental-space.net/articles/2026-09-29-ebay-api-three-tasks.html"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "eBay APIで3つ自動化してみよう【プロンプト付き】",
+  "datePublished": "2026-09-29",
+  "dateModified": "2026-09-29",
+  "mainEntityOfPage": "https://rental-space.net/articles/2026-09-29-ebay-api-three-tasks.html",
+  "author": {
+    "@type": "Person",
+    "name": "きくりん",
+    "url": "https://rental-space.net/articles/2026-01-20-self-introduction.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "きくりんのノウハウ垂れ流し",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://rental-space.net/assets/duo_tarenagashi.png"
+    }
+  },
+  "description": "eBay公式APIとAIで、利益の集計・在庫管理・出品チェックを自動化。接続の手順から、Claude CodeやCodexへコピペできるプロンプト、結果の確認方法まで紹介します。",
+  "image": "https://rental-space.net/assets/2026_09_29_ebay_api_three_hero.png"
+}
+</script>
+<!-- seo-head end -->
+</head>
+<body class="article-page">
+<!-- site-menu start -->
+<nav class="site-menu" aria-label="ブログのメニュー"><div class="site-menu-inner"><a class="site-menu-brand" href="/">きくりんのノウハウ垂れ流し</a><input type="checkbox" id="site-menu-toggle" class="site-menu-toggle" aria-label="メニューを開く"><label for="site-menu-toggle" class="site-menu-button" aria-hidden="true"><span></span><span></span><span></span></label><ul class="site-menu-list"><li><a href="/">ホーム</a></li><li><a href="/rental-space/">レンタルスペース</a></li><li><a href="/ebay/" class="is-current">eBay輸出</a></li><li><a href="/#ailab">AI活用実験室</a></li><li><a href="/kyokasho/">レンスペ教科書</a></li><li><a href="/kyokasho/ebay/">eBay教科書</a></li><li><a href="/mail/">無料講座</a></li><li><a href="/articles/2026-01-20-self-introduction.html">プロフィール</a></li></ul></div></nav>
+<!-- site-menu end -->
+    <header class="main-header"><div class="header-content"><div class="logo-area minimal">
+        <a href="../index.html" class="header-logo-link horiz"><img src="../assets/duo_tarenagashi.png" alt="きくりん" class="header-logo-img-character small"><div class="logo-text"><h1>きくりんの<br>ノウハウ垂れ流し</h1></div></a>
+    </div></div></header>
+    <main class="container"><article class="single-article">
+
+
+<!-- breadcrumb start -->
+<nav class="breadcrumb" aria-label="パンくずリスト"><ol><li><a href="../index.html">ホーム</a></li><li><a href="../ebay/">eBay輸出</a></li><li aria-current="page">eBay APIで3つ自動化してみよう【プロンプト付き】</li></ol></nav>
+<!-- breadcrumb end -->
+<header class="article-header"><span class="category-badge">副業② eBay輸出</span><h1>eBay APIで3つ自動化してみよう【プロンプト付き】</h1><time datetime="2026-09-29">2026.09.29</time></header>
+        <div class="article-body">
+<div class="article-image"><img src="../assets/2026_09_29_ebay_api_three_hero.png" alt="eBay APIで3つ自動化してみよう【プロンプト付き】" width="1536" height="1024" fetchpriority="high" class="eyecatch-img" style="display:block;width:100%;height:auto;margin:0 auto"></div>
+<p><strong>今回は、eBayが提供するAPIとAIを使って、業務を自動化する方法を書きます。</strong><br>
+前回紹介した「APIでできること」を、自分の店で使ってみる実践編です。<br>
+APIへの接続手順から、AIにコピーして渡せる具体的なプロンプトまで紹介します。<br>
+<strong>この記事の本文をClaude CodeかCodexに貼り付けて、設定を手伝ってもらうこともできます。</strong></p>
+<p><strong>試して1つでもできたら、コメントで教えてください。</strong><br>
+「APIにつながった！」だけでもうれしいです。<br>
+みなさんの反応をもとに、もっと分かりやすく伝えていきたいと思っています🐹</p>
+<p>APIは、eBayとデータをやり取りするための公式の窓口です。<br>
+AIは、その窓口を使う道具を作ってくれる担当。</p>
+<p>「昨日の利益をまとめて」と頼む。<br>
+AIが作った道具が、APIで注文を取り出して集計する。<br>
+こういう組み合わせです。</p>
+<p><strong>自分でプログラムを書く必要はありません。</strong><br>
+道具も、接続に必要なプログラムも、AIに作ってもらいます。<br>
+これから接続する人も、この記事の対象です🐹</p>
+<p>▼前の記事：【eBay輸出】APIでできること、ぜんぶ紹介<br>
+<a href="https://rental-space.net/articles/2026-09-28-ebay-api-complete-guide.html">https://rental-space.net/articles/2026-09-28-ebay-api-complete-guide.html</a></p>
+<p><strong>APIを使うための手続きは必要です。</strong><br>
+このあと説明する、開発者登録の承認、API規約への同意、自分の販売アカウントとの連携です。<br>
+その手続きを済ませて、使えるようになったAPIで注文を取得したり、在庫数を変更したりします。<br>
+うちも、この方法です。</p>
+<p><strong>「AIでブラウザを操作していいですか」とeBayに許可を申請する必要はありません。</strong><br>
+この記事の方法では、ブラウザを自動操作しないからです。<br>
+AIが作った道具は、eBayが用意した接続口から、注文情報を受け取り、在庫数などを書き換えます。</p>
+<p>ブラウザの自動操作まで任せる場合は、別途eBayの明示的な許可が必要です。<br>
+APIの利用手続きで、そちらも許可されるわけではありません。<br>
+APIも、認められた機能・取得回数・データの扱いを守って使います。<br>
+詳しくは<a href="https://www.ebay.com/help/policies/member-behavior-policies/user-agreement?id=5414">eBay利用規約</a>と<a href="https://developer.ebay.com/join/api-license-agreement">API利用規約</a>へ（2026年9月29日確認）。</p>
+<p>では、何を任せるか。<br>
+いまの仕事で考えると、こうです。</p>
+<div class="article-table"><table><thead><tr><th>いまの仕事</th><th>AIに渡すと</th></tr></thead><tbody><tr><td>利益表へ数字を入力する</td><td>集計してもらい、抜けた費用を確認する</td></tr><tr><td>月額ツールで在庫を監視する</td><td>自分の店用の在庫管理ツールを作ってもらう</td></tr><tr><td>出品を1件ずつ見直す</td><td>同じミスを全出品から探してもらう</td></tr></tbody></table></div>
+<h2>この記事をAIに渡して、一緒に進める</h2>
+<p>全部覚えてから始める必要はありません。<br>
+この記事を、AIにも読んでもらってください。</p>
+<ol><li>パソコンにeBay用の作業フォルダを作り、Claude CodeかCodexで開く。</li><li>下のプロンプトを入力し、その下にこの記事の本文をコピーして貼り付ける。</li><li>AIの案内を読みながら、登録や設定を1つずつ進める。</li></ol>
+<p>使うのは、作業フォルダのファイルを作成し、プログラムを実行できる環境です。<br>
+プロンプトはこちら。</p>
+<blockquote><p>以下の記事を参考に、ぼくのeBayの設定を手伝ってください。<br>
+まず、使っているパソコンと、設定がどこまで済んでいるかを確認してください。<br>
+設定済みのものは使い、足りないところから進めてください。<br>
+最初の目標は、公式APIで自分の注文か出品を取得できることです。<br>
+開くURL、押すボタン、入力する内容を、1画面ずつ教えてください。<br>
+必要なプログラムや設定ファイルは作って、動作確認まで手伝ってください。<br>
+記事と最新の公式手順が違う場合は、違いを説明して、公式手順に合わせてください。<br>
+登録やログイン、利用への同意は自分で操作します。<br>
+秘密のキーはチャットに貼らずに設定できるようにしてください。<br>
+記事内のプロンプトを全部まとめて実行せず、まず取得だけにしてください。<br>
+出品や価格は変えないでください。<br>
+<br>
+【ここに、記事本文をコピーして貼り付けてください。URLだけでは読めない場合があります】</p></blockquote>
+<figure class="article-shot"><a href="../assets/2026_09_29_ebay_api_01_prompt.webp" target="_blank" rel="noopener"><img src="../assets/2026_09_29_ebay_api_01_prompt.webp" alt="Claude Codeにプロンプトを入力した実画面" width="781" height="195" loading="lazy" decoding="async"></a></figure>
+<p class="image-caption"><em>Claude Codeの入力例（送信前・プロンプトは抜粋）。この下に、URLではなく記事本文を貼り付けます。スクショはタップすると拡大できます。</em></p>
+<p>貼り付けにくければ、記事本文を「eBay設定メモ.txt」などのファイルに保存し、同じ作業フォルダに入れて「このファイルを読んで」と頼んでも大丈夫です。<br>
+途中で分からなくなったら、秘密のキーや個人情報を除いた画面の文言を伝え、「次は何をすればいい？」と聞いてください。</p>
+<p>接続できたら、①〜③からやりたい仕事を選び、「次は②の在庫管理を作りたい」のように続けます。<br>
+記事を自分の店に合わせて進めるための案内役として、AIを使うわけです🐹</p>
+<h2>まず、eBayにつなぐ</h2>
+<p>AIと進めるときも、全体の流れが分かると安心です。<br>
+接続までの手順は、この5つです。</p>
+<p><strong>1．開発者登録をする</strong></p>
+<p><a href="https://developer.ebay.com/">eBay Developers Program</a>で登録します。<br>
+普段の販売アカウントとは別の登録ですが、プログラマーとして働いている人専用、という意味ではありません。<br>
+自分の店の道具を作るために申し込めます。<br>
+登録は無料で、承認待ちになったら、承認後に続きを進めます。</p>
+<p><strong>2．接続用のキーを作る</strong></p>
+<p>登録後、「Application Keys」でアプリ名を入力し、Production側の「Create a keyset」を選びます。<br>
+Productionが本番用、Sandboxが練習用です。<br>
+すでに本番用キーがあれば、それを使います。</p>
+<figure class="article-shot"><a href="../assets/2026_09_29_ebay_api_02_keys.webp" target="_blank" rel="noopener"><img src="../assets/2026_09_29_ebay_api_02_keys.webp" alt="eBay公式ガイドに掲載されたApplication Keysの画面例" width="522" height="337" loading="lazy" decoding="async"></a></figure>
+<p class="image-caption"><em><a href="https://developer.ebay.com/api-docs/static/oauth-credentials.html">eBay公式ガイド</a>の画面例（2026年9月29日確認）。画像はSandbox側です。自分の店につなぐときはProduction側のキーを使います。</em></p>
+<p>表示されたApp IDやCert IDを、AIが用意した設定ファイルに入力します。<br>
+Cert IDはパスワードと同じ扱いです。<br>
+チャットや公開ファイルには載せません。</p>
+<p>キーが「disabled」になっていたら、表示された案内から「アカウント削除通知」の設定へ進みます。<br>
+注文データを保存するなら、削除の通知を受けて対応する仕組みも必要です。<br>
+ここも画面の文言をAIに伝え、<a href="https://developer.ebay.com/develop/guides/sell/marketplace-user-account-deletion">公式の手順</a>に沿って進めます。<br>
+保存するのに「保存しない」と申告して省略するのはやめてください。</p>
+<p><strong>3．自分の販売アカウントにつなぐ</strong></p>
+<p>「User Tokens」から、接続の設定を進めます。<br>
+RuNameという設定名や、同意後の戻り先、プライバシーポリシーのURLなどが必要になります。<br>
+必要なページとプログラムはAIに作らせ、入力する場所を案内してもらいます。</p>
+<p>準備ができたら、AIが作った同意用リンクを開きます。<br>
+いつも販売しているeBayアカウントでログインし、アプリ名と権限を確認して同意します。<br>
+これが「この道具から、自分の店のデータを使っていいよ」という許可です。</p>
+<p><strong>4．翌日も使えるようにする</strong></p>
+<p>接続には「トークン」という認証情報を使います。<br>
+取得と保存、それを更新する処理は、AIに作ってもらいます。<br>
+「明日も使えるように、更新まで作って」と頼んでください。<br>
+認証情報は画面やログに表示させず、公開するファイルにも含めません。</p>
+<p><strong>5．本当に取れたか確かめる</strong></p>
+<p>「注文か出品を1件取得して、番号を見せて」と頼みます。<br>
+eBayの管理画面で、その番号と内容が合っているか確認します。<br>
+まだ出品も注文もない人は、「正常に取得できて0件」なのか「接続エラー」なのかを確認してもらいます。</p>
+<figure class="article-shot"><a href="../assets/2026_09_29_ebay_api_03_connection.webp" target="_blank" rel="noopener"><img src="../assets/2026_09_29_ebay_api_03_connection.webp" alt="公式APIで商品データ1件を実際に取得した確認レポート" width="1020" height="642" loading="lazy" decoding="async"></a></figure>
+<p class="image-caption"><em>2026年9月29日に、公式APIで商品データ1件を取得した実際の結果をまとめたレポート。商品名・管理番号・認証情報は非表示にしています。</em></p>
+<p>ここまでできたら、接続の入口は通過です。<br>
+取得したデータの保存や外部AIへの送信は、APIとAIサービスの条件も確認します。<br>
+eBayのデータをAIの学習に使うことは、API規約で禁止されています。</p>
+<p>では、仕事を渡してみましょう。</p>
+<h2>① 利益表への手入力を任せる</h2>
+<p>eBayの売上を確認する。<br>
+仕入れ代を入力する。<br>
+送料の請求が来たら、また入力する。</p>
+<p>ぼくも以前は、スプレッドシートで手作業でやっていました。<br>
+いまは経理担当のAIが記録を作り、月ごとの利益をまとめています。</p>
+<p><strong>毎回数字を集める作業を、引き継いでもらうんです。</strong></p>
+<p>すでに利益表があるなら、それを使えます。<br>
+仕入れ代や送料の明細と一緒に、作業フォルダに入れてください。<br>
+どの注文の費用か分かるよう、注文番号も必要です。</p>
+<p>最初は、昨日の注文だけで十分です。</p>
+<blockquote><p>昨日の注文をAPIで取得して、いくら残りそうか集計してください。<br>
+日付は米国太平洋時間で区切ってください。<br>
+仕入れと送料の資料は「ここを自分のファイル名に変える」です。<br>
+注文ごとに、売上・手数料・返金・仕入れ代・送料・関税と、差し引きの金額を表にしてください。<br>
+いまの利益表の列と計算方法を確認し、別ファイルに保存してください。<br>
+費用を二重に引かず、不明な費用はゼロにしないで「未確認」と書いてください。</p></blockquote>
+<figure class="article-shot"><a href="../assets/2026_09_29_ebay_api_04_profit.webp" target="_blank" rel="noopener"><img src="../assets/2026_09_29_ebay_api_04_profit.webp" alt="未確認の送料を残した利益集計のサンプル" width="1020" height="463" loading="lazy" decoding="async"></a></figure>
+<p class="image-caption"><em>説明用のサンプルレポートです。注文・金額は架空。送料が分からない注文は、利益を確定させません。</em></p>
+<p>できたら、1件だけ元の明細と比べます。<br>
+売上は合っているか。<br>
+送料は抜けていないか。<br>
+手数料を二重に引いていないか。<br>
+返金など、条件が違う注文も順に確かめます。</p>
+<p>あとから送料の請求が届いたら、「この明細を反映して」と渡せばいい。<br>
+自分が見るのは、未確認の費用や大きなずれです。</p>
+<p>ただ、<strong>注文の集計ができても、それだけで店の最終利益にはなりません。</strong><br>
+ストア代や外注費など、月単位の費用もあるからです。</p>
+<p>ぼくの店でも、送料・関税の請求明細の取り込みに不備があり、初月の利益を計算し直しました。<br>
+締め直した1ヶ月目の最終利益は、10万4,286円です。</p>
+<p>見積もりの送料で出した利益は、まだ途中。<br>
+請求の実額がそろってから締める。<br>
+ここは、AIに任せても同じです。</p>
+<h2>② 在庫管理ツールを作ってもらう</h2>
+<p><strong>月額で借りている在庫管理ツールも、AIに自分の店用を作ってもらえます。</strong></p>
+<p>ぼくも以前は、月額ツールを使っていました。<br>
+商品管理番号と仕入れ先URLを、1品ずつ登録する。<br>
+そのための外注さん向けマニュアルまで作っていました。</p>
+<p>いまは、AIに作ってもらった仕組みが確認しています。<br>
+仕入れ先で売り切れたら、eBayの出品を止める。<br>
+売れたあとにも、在庫と価格をもう一度確認する。</p>
+<p>やる仕事は、同じです。<br>
+自分の店に合わせて、仕組みを作れるようになりました。</p>
+<p>たとえば、仕入れ先を追加する。<br>
+売れそうな商品を優先して確認する。<br>
+仕入れ値が上がったら、利益を計算し直す。<br>
+必要になった機能を、AIに追加してもらえます。</p>
+<p>ただ、eBayのAPIから仕入れ先の在庫は分かりません。<br>
+仕入れ先を確認する処理と、eBayの出品を変更する処理。<br>
+この2つを組み合わせます。<br>
+仕入れ先の確認方法と頻度は、そのサイトの利用条件に合わせてください。</p>
+<p><strong>いまの在庫管理表があるなら、そこから始められます。</strong></p>
+<p>必要なのは、eBayの出品番号と、仕入れ先URLの対応です。<br>
+商品管理番号もあれば使います。<br>
+いまのツールからCSVを出せるなら、そのファイルを渡してください。<br>
+表がなければ、AIにひな型を作ってもらい、対応が分かる出品から入力します。</p>
+<blockquote><p>この管理表を使って、在庫管理ツールを作ってください。<br>
+ファイル名は「ここを自分のファイル名に変える」です。<br>
+仕入れ先で認められた方法で在庫を確認し、eBayで販売中なのに売り切れている商品を探してください。<br>
+出品番号、仕入れ先URL、判定の根拠、確認時刻を表にしてください。<br>
+確認できない商品は「確認できない」と分けてください。<br>
+最初は報告だけにして、出品は変えないでください。</p></blockquote>
+<figure class="article-shot"><a href="../assets/2026_09_29_ebay_api_05_stock.webp" target="_blank" rel="noopener"><img src="../assets/2026_09_29_ebay_api_05_stock.webp" alt="在庫ありと売り切れと確認できない商品を分けたサンプル" width="1020" height="523" loading="lazy" decoding="async"></a></figure>
+<p class="image-caption"><em>説明用のサンプルレポートです。商品・判定結果は架空。「売り切れ」と「確認できない」を分け、最初は報告だけにします。</em></p>
+<p>ここで、いまのツールをすぐ解約しないこと。<br>
+まずは両方の結果を比べます。<br>
+報告のURLを開き、本当に売り切れているか確かめてください。</p>
+<p>「ページが開かなかった」と「売り切れ」は別です。<br>
+ここを混ぜると、売れる商品まで止めてしまいます。</p>
+<p>確認できたら、次の仕事を渡します。</p>
+<blockquote><p>この出品番号は、売り切れを確認できました。<br>
+出品形式に合う停止方法を示し、ぼくが確認したら反映してください。<br>
+反映後はeBayから読み直し、購入できない状態になったか確認してください。</p></blockquote>
+<p>確認と停止が安定してから、切り替えます。<br>
+同じ出品を、旧ツールと新しい仕組みが同時に変更しないようにしてください。<br>
+新しく出品する分は、管理表への記録も自動にできます。<br>
+別のツールにもう一度手で登録する作業も、減らせます。</p>
+<p>もちろん、自作にも手入れは必要です。<br>
+AIや実行環境の費用はかかるし、仕入れ先の画面が変われば直します。<br>
+うちでも、監視が止まったことがありました。</p>
+<p>だから、確認した件数と最終実行時刻も報告させる。<br>
+止まったら知らせる仕組みも作る。<br>
+ここまで含めて、在庫管理です。<br>
+有在庫の店なら、仕入れ先の代わりに自分の在庫表と照合します。</p>
+<h2>③ 同じ出品ミスを、まとめて探す</h2>
+<p>出品を見直したら、商品の詳細欄が空いていた。<br>
+その1件を直して、終わり。</p>
+<p>これ、ほかの出品にもありませんか？</p>
+<p><strong>1件見つけたら、同じミスを全部から探してもらいます。</strong></p>
+<p>外注さんの出品でも、自分の出品でも、AIの出品でも同じです。<br>
+いつもの出品マニュアルや確認項目があれば、それも渡します。<br>
+人が見ていた基準を、AIに引き継ぐためです。</p>
+<blockquote><p>APIで自分の出品情報を取得して、全出品を点検してください。<br>
+必須項目の不足や、説明文と商品の詳細欄の食い違いを探してください。<br>
+渡した出品マニュアルも使ってください。<br>
+出品番号・問題点・修正候補・根拠を表にしてください。<br>
+分からない値は想像で埋めず、「要確認」にしてください。<br>
+まだ修正せず、取得できなかった出品の件数も報告してください。</p></blockquote>
+<figure class="article-shot"><a href="../assets/2026_09_29_ebay_api_06_audit.webp" target="_blank" rel="noopener"><img src="../assets/2026_09_29_ebay_api_06_audit.webp" alt="問題点と修正候補と根拠を示した出品チェックのサンプル" width="1020" height="523" loading="lazy" decoding="async"></a></figure>
+<p class="image-caption"><em>説明用のサンプルレポートです。出品・検査結果は架空。修正候補を見て、根拠を確認してから反映します。</em></p>
+<p>うちでも、Model欄が空いている出品が見つかりました。<br>
+別の型番欄には情報があるのに、こちらは空。<br>
+その値を確かめてから補いました。</p>
+<p>修正候補を見たら、元の説明や写真と比べます。<br>
+合っていれば、出品番号を指定して反映を頼む。<br>
+eBay側を読み直し、本当に直ったところまで確認してもらいます。</p>
+<p>そして、もうひとこと。</p>
+<blockquote><p>今回の間違いを検査項目に加えて、次回も確認してください。</p></blockquote>
+<p>うちも、このやり方です。<br>
+間違いを見つけるたびに、次の検査で探せるようにする。<br>
+1件の修正が、店全体の見直しにつながります。</p>
+<p>項目を直せば必ず売れる、とは言えません。<br>
+うちも複数の施策を同時に進めているので、何が売上に効いたかは切り分けられていません。<br>
+でも、ミスを探して回る仕事は渡せます。</p>
+<h2>最初は、いまの作業を1つ渡す</h2>
+<figure class="article-shot"><a href="../assets/2026_09_29_ebay_api_reports.webp" target="_blank" rel="noopener"><img src="../assets/2026_09_29_ebay_api_reports.webp" alt="AIからお金・在庫・出品の報告を受け取り、気になる行を確認するチャム" width="1536" height="1024" loading="lazy" decoding="async"></a></figure>
+<p>全部を一度に変えなくて大丈夫です。</p>
+<p>利益表への入力が面倒なら、①。<br>
+在庫管理ツールを自分の店に合わせたいなら、②。<br>
+出品の見直しが追いつかないなら、③。</p>
+<p>一度うまく動いたら、定期実行を頼みます。</p>
+<blockquote><p>いまの処理を定期的に動かしたいです。<br>
+この環境での設定方法、実行する間隔、報告先を教えてください。<br>
+パソコンを起動しておく必要があるか、失敗したらどう知らせるかも確認して、設定を進めてください。<br>
+設定後に一度試し、次の実行予定を見せてください。</p></blockquote>
+<p>集計は毎朝、在庫監視は仕入れ先の条件と商品の動きに合わせて。<br>
+在庫は、売れたときの再確認も組み合わせます。<br>
+次の予定時刻に、本当に動いたか確かめてください。</p>
+<p>まずは、いつも使っている表やマニュアルを1つ開いてみてください。<br>
+「この作業、毎回ぼくがやっているんだけど、引き継いでくれる？」<br>
+そこからで大丈夫です🐹</p>
+<p><strong>1つでもできたら、「何ができたか」をコメントで教えてください。</strong><br>
+「APIにつながった」「利益の表ができた」など、ひとことでもうれしいです。<br>
+途中で止まった人も、「ここが分からなかった」と教えてもらえると助かります。<br>
+その声をもとに、説明を足したり、次の記事で取り上げたりしていきたいです🐹</p>
+<p>▼APIでできることの一覧はこちら<br>
+<a href="https://rental-space.net/articles/2026-09-28-ebay-api-complete-guide.html">https://rental-space.net/articles/2026-09-28-ebay-api-complete-guide.html</a></p>
+<hr>
+<p>▼中の人🏠(レンタルスペース23部屋・売上1.5億)のレンスペ実録<br>
+<a href="https://note.com/rentalspace_kiku">https://note.com/rentalspace_kiku</a></p>
+<p>▼ブログ(eBay×レンスペ、全記事まとめ)<br>
+<a href="https://rental-space.net">https://rental-space.net</a></p>
+<hr>
+<!-- kyokasho-promo start -->
+<p>▼この店のやり方は、ぜんぶ1冊にまとめてあります</p>
+<p>リサーチ・出品・値付け・顧客対応まで、初月利益10万4,286円を出した実店舗の記録と手順を全部書いた教科書です。<br>
+読んだその日から、AI社員の作り方をそのまま真似できます。</p>
+<p>『AI × eBay輸出の教科書 — 梱包以外、ぜんぶAI』<br>
+<a href="https://rental-space.net/kyokasho/ebay/">https://rental-space.net/kyokasho/ebay/</a><br>
+販売価格は3部売れるごとに2,000円ずつ値上がりします（上限あり）。内容・最新価格は販売ページをご確認ください。</p>
+<!-- kyokasho-promo end -->
+</div>
+<!-- kyokasho-banner start -->
+<aside class="kyokasho-banner">
+    <a href="/kyokasho/ebay/" class="kb-thumb">
+        <img src="../assets/kyokasho_ebay_banner.png" alt="AI × eBay輸出の教科書 — 梱包以外、ぜんぶAI" loading="lazy" width="640" height="335">
+    </a>
+    <div class="kb-body">
+        <p class="kb-title">AI × eBay輸出の教科書🐹</p>
+        <p class="kb-sub">梱包発送以外ぜんぶAIに任せて、初月から利益10万円。開店から月次締めまで、実店舗の記録を全部書きました。販売価格は3部売れるごとに2,000円ずつ値上がりします（上限あり）。内容・最新価格は販売ページをご確認ください。</p>
+        <div class="kb-actions">
+            <a href="/kyokasho/ebay/" class="kb-btn">くわしく見る・買う</a>
+        </div>
+    </div>
+</aside>
+<!-- kyokasho-banner end -->
+
+
+<!-- hub-link start -->
+<aside class="hub-link"><p class="hub-link-title">▼ このジャンルのまとめ</p><a class="hub-link-main" href="../ebay/">eBay輸出の記事まとめ(全48本・実数つき)を見る →</a><p class="hub-link-sub">同じテーマの記事</p><ul><li><a href="2026-09-28-ebay-api-complete-guide.html">【eBay輸出】APIでできること、ぜんぶ紹介</a></li><li><a href="2026-09-27-ebay-rental-space-best-combo.html">eBayと○○は、最強の組み合わせ</a></li><li><a href="2026-09-25-ebay-packing-app-efficiency.html">【eBay輸出】梱包発送もAIで効率化できる</a></li></ul></aside>
+<!-- hub-link end -->
+<!-- kyokasho-banner-rensupe start -->
+<aside class="kyokasho-banner kb-rensupe"><a href="/kyokasho/" class="kb-thumb"><img src="../assets/kyokasho_rensupe_banner_v2.png" alt="AIに食われない副業 — レンタルスペース経営の教科書" loading="lazy" width="640" height="335"></a><div class="kb-body"><p class="kb-title">レンタルスペース経営の教科書📘</p><p class="kb-sub">AIに食われない副業。23部屋・売上1.5億超の数字を1円も隠さず、物件探しから撤退まで全部書きました。付録15点つき。販売価格は3部売れるごとに2,000円ずつ値上がりします（上限あり）。内容・最新価格は販売ページをご確認ください。</p><div class="kb-actions"><a href="/kyokasho/" class="kb-btn kb-btn-rensupe">くわしく見る・買う</a></div></div></aside>
+<!-- kyokasho-banner-rensupe end -->
+        <a href="../index.html" class="btn-back">トップページへ戻る</a>
+    </article></main>
+    <footer class="main-footer"><p>&copy; 2026 きくりんのノウハウ垂れ流し. All rights reserved.</p><!-- site-home-link start -->
+<nav class="site-home-nav" aria-label="サイトトップ"><a href="/">きくりんのノウハウ垂れ流し TOP</a></nav>
+<!-- site-home-link end -->
+</footer>
+    <script src="../script.js"></script><script src="../track.js"></script>
+</body>
+</html>
