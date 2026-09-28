@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CHWF6QKRJ6"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-CHWF6QKRJ6');</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="note-hashtags" content="#eBay #eBay輸出 #AI活用">
+    <meta name="description" content="eBay APIでできる仕事を9つに整理。出品・在庫・相場・注文・顧客対応から利用上限、申請で断られた実体験、AIと組み合わせた店の運営まで紹介します。">
+    <meta property="og:title" content="【eBay輸出】APIでできること、ぜんぶ紹介">
+    <meta property="og:description" content="eBay APIでできる仕事を9つに整理。出品・在庫・相場・注文・顧客対応から利用上限、申請で断られた実体験、AIと組み合わせた店の運営まで紹介します。">
+    <meta property="og:image" content="https://rental-space.net/assets/2026_09_28_ebay_api_hero.webp">
+    <meta property="og:url" content="https://rental-space.net/articles/2026-09-28-ebay-api-complete-guide.html">
+    <meta property="og:type" content="article">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>【eBay輸出】APIでできること、ぜんぶ紹介 - きくりんのノウハウ垂れ流し</title>
+    <link rel="icon" href="../assets/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="../assets/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="stylesheet" href="../style.css?v=1.2.1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&amp;display=swap" rel="stylesheet">
+    <style>.article-header .category-badge{position:static;display:inline-block;margin-bottom:12px}.article-body a{color:#075bc8;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;font-weight:700;overflow-wrap:anywhere}.article-table{overflow-x:auto;margin:1.5em 0}.article-table table{border-collapse:collapse;width:100%;font-size:.95em}.article-table th,.article-table td{padding:12px;border:1px solid #ddd;text-align:left}.article-table th{background:#eef5ff}.article-table td:last-child{white-space:normal}@media(max-width:600px){.kyokasho-banner .kb-title span{white-space:normal!important;overflow-wrap:anywhere}}.article-table table{min-width:560px}.article-table:focus{outline:2px solid #2563eb}.image-caption{font-size:.85em;color:#555;line-height:1.7}.article-body{overflow-wrap:anywhere}</style>
+
+<link rel="stylesheet" href="/assets/site-footer.css?v=20260919">
+
+<link rel="stylesheet" href="/assets/site-menu.css?v=20260927b">
+<!-- seo-head start -->
+<link rel="canonical" href="https://rental-space.net/articles/2026-09-28-ebay-api-complete-guide.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "ホーム",
+      "item": "https://rental-space.net/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "eBay輸出",
+      "item": "https://rental-space.net/ebay/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "【eBay輸出】APIでできること、ぜんぶ紹介",
+      "item": "https://rental-space.net/articles/2026-09-28-ebay-api-complete-guide.html"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "【eBay輸出】APIでできること、ぜんぶ紹介",
+  "datePublished": "2026-09-28",
+  "dateModified": "2026-09-28",
+  "mainEntityOfPage": "https://rental-space.net/articles/2026-09-28-ebay-api-complete-guide.html",
+  "author": {
+    "@type": "Person",
+    "name": "きくりん",
+    "url": "https://rental-space.net/articles/2026-01-20-self-introduction.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "きくりんのノウハウ垂れ流し",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://rental-space.net/assets/duo_tarenagashi.png"
+    }
+  },
+  "description": "eBay APIでできる仕事を9つに整理。出品・在庫・相場・注文・顧客対応から利用上限、申請で断られた実体験、AIと組み合わせた店の運営まで紹介します。",
+  "image": "https://rental-space.net/assets/2026_09_28_ebay_api_hero.webp"
+}
+</script>
+<!-- seo-head end -->
+</head>
+<body class="article-page">
+<!-- site-menu start -->
+<nav class="site-menu" aria-label="ブログのメニュー"><div class="site-menu-inner"><a class="site-menu-brand" href="/">きくりんのノウハウ垂れ流し</a><input type="checkbox" id="site-menu-toggle" class="site-menu-toggle" aria-label="メニューを開く"><label for="site-menu-toggle" class="site-menu-button" aria-hidden="true"><span></span><span></span><span></span></label><ul class="site-menu-list"><li><a href="/">ホーム</a></li><li><a href="/rental-space/">レンタルスペース</a></li><li><a href="/ebay/" class="is-current">eBay輸出</a></li><li><a href="/#ailab">AI活用実験室</a></li><li><a href="/kyokasho/">レンスペ教科書</a></li><li><a href="/kyokasho/ebay/">eBay教科書</a></li><li><a href="/mail/">無料講座</a></li><li><a href="/articles/2026-01-20-self-introduction.html">プロフィール</a></li></ul></div></nav>
+<!-- site-menu end -->
+    <header class="main-header"><div class="header-content"><div class="logo-area minimal">
+        <a href="../index.html" class="header-logo-link horiz"><img src="../assets/duo_tarenagashi.png" alt="きくりん" class="header-logo-img-character small"><div class="logo-text"><h1>きくりんの<br>ノウハウ垂れ流し</h1></div></a>
+    </div></div></header>
+    <main class="container"><article class="single-article">
+
+
+<!-- breadcrumb start -->
+<nav class="breadcrumb" aria-label="パンくずリスト"><ol><li><a href="../index.html">ホーム</a></li><li><a href="../ebay/">eBay輸出</a></li><li aria-current="page">【eBay輸出】APIでできること、ぜんぶ紹介</li></ol></nav>
+<!-- breadcrumb end -->
+<header class="article-header"><span class="category-badge">副業② eBay輸出</span><h1>【eBay輸出】APIでできること、ぜんぶ紹介</h1><time datetime="2026-09-28">2026.09.28</time></header>
+        <div class="article-body">
+<div class="article-image"><img src="../assets/2026_09_28_ebay_api_hero.webp" alt="【eBay輸出】APIでできること、ぜんぶ紹介" width="1536" height="1024" fetchpriority="high" class="eyecatch-img" style="display:block;width:100%;height:auto;margin:0 auto"></div>
+<hr>
+<p>eBayのAPIでできることを、ぜんぶ書き出します。</p>
+<p>APIというのは、eBayの画面を通さずに、プログラムから直接eBayに仕事を頼める窓口です。<br>ぼくの店は、この窓口を毎日10種類つかっています。<br>出品も、値付けも、在庫も、お客さん対応も、ここを通ってAI社員がやっています。</p>
+<p>でも、全部の窓口が開いているわけではありません。<br>ぼくは「売れた商品のデータ」が欲しくて、eBayに2回申請しました。<br>2回とも、断られました。</p>
+<p>この記事では、<br>・eBayのAPIで何ができるか(全部)<br>・申請すると何が広がるか(そして、どれくらい狭き門か)<br>・AIとAPIをつなぐと、店がどう回るか<br>を、うちの店の実例つきで書きます。</p>
+<h2>そもそもAPIとは</h2>
+<p>たこ焼き屋でたとえます。</p>
+<p>ふつうのお客さんは、店の前に立って「6個ください」と言います。<br>これが、eBayの画面をひらいて操作するやり方です。</p>
+<p>APIは、業務用の注文口です。<br>決まった書式の注文票を出すと、何百人分でもまとめて受けてくれます。<br>しかも、24時間あいています。</p>
+<p>人間が画面で1件ずつやっていた出品や値下げを、プログラムが注文票で一気に出す。<br>その注文票を書くのが、いまはAIです。</p>
+<h2>eBay APIでできること、全部</h2>
+<div class="article-image"><img src="../assets/2026_09_28_ebay_api_windows.webp" alt="出品からアプリの状態まで、APIの9つの窓口と申請が必要な扉" width="1536" height="1024" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;margin:0 auto"></div>
+<p>eBayの公式サイトに載っている窓口を、仕事ごとに9つに分けました。<br>★は、ぼくの店で毎日つかっている窓口です。</p>
+<h3>1. 出品する</h3>
+<ul><li>★Inventory API: 出品を作る・直す・終わらせる。価格と在庫数を、まとめて一気に書きかえる</li><li>★Trading API: 昔からある窓口。商品の情報を取る、説明文を直す、画像を上げる、出品を終わらせる。eBayは少しずつ新しい窓口に移していて、新しく作るなら新しいほうをすすめています</li><li>Media API: 画像・動画・書類(規制で必要な書類など)をeBayに上げる</li><li>Catalog API: eBayの商品カタログから、同じ商品をさがす。カタログに紐づけると、タイトル・項目・説明・商品画像が自動で埋まる</li><li>★Taxonomy API: どのカテゴリーに出すべきか、そのカテゴリーで必要な項目は何かを調べる</li><li>Metadata API: カテゴリーごとのルールを調べる(使える商品の状態、バリエーション出品ができるか、危険物の表示など)</li><li>Translation API(試験版): タイトルと説明文を、別の言語に翻訳する</li><li>Feed API: ファイルで、出品をまとめて上げる。レポートをまとめて落とす</li><li>Stores API: ストアのカテゴリーを作る・名前を変える・動かす・消す</li><li>Inventory Mapping API(新しい窓口): 写真やタイトルを渡すと、eBayのAIが出品の案(カテゴリー・項目・説明文)を作って返す。いまは米国のみ・1日20回まで・自動車部品は対象外</li></ul>
+<div class="article-image"><a href="../assets/2026_09_28_ebay_api_01_screenshot.webp" target="_blank" rel="noopener" aria-label="画像を拡大して表示"><img src="../assets/2026_09_28_ebay_api_01_screenshot.webp" alt="写真・タイトル・項目からAIが出品案を作るInventory Mapping API" width="1366" height="738" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;margin:0 auto"></a></div>
+<p class="image-caption"><em>出典: eBay Developers Program「Inventory Mapping API」(2026年9月28日閲覧)</em></p>
+<h3>2. 相場を調べる</h3>
+<ul><li>★Browse API: いま出品されている商品を、キーワード・カテゴリー・型番・画像でさがす。1件ずつの詳しい情報も取れる</li><li>Marketplace Insights API: 売れた商品のデータを取る。<strong>申請が必要で、ほぼ通りません</strong>(後で書きます)</li></ul>
+<h3>3. 注文と発送</h3>
+<ul><li>★Fulfillment API: 注文を取る。追跡番号を登録して「発送済み」にする。支払いのトラブル(ペイメントディスピュート)に対応する</li><li>Post-Order API: キャンセル、返品、問い合わせ、ケースに対応する</li><li>Logistics API: 送料の見積もりを取って、ラベルを作る(申請が必要)</li><li>eDIS API: 中国・香港・台湾のセラー向けの発送サービス用(日本のセラーは使えません)</li></ul>
+<h3>4. お金</h3>
+<ul><li>★Finances API: 入金の予定と実績、注文ごとの手取り、手数料、返金、送料ラベル代を取る</li></ul>
+<h3>5. お客さん対応</h3>
+<ul><li>Message API: お客さんとのやりとりを取る・送る・既読やアーカイブにする</li><li>Feedback API: 評価を取る・つける・評価に返信する。評価待ちの取引の一覧も取れる</li><li>★Negotiation API: ウォッチした人や、カートに入れて買わなかった人に、値下げのオファーを送る</li><li>(★Trading APIでも、メッセージの取得・返信、Best Offerの取得・返事、評価をつけることができます。ぼくの店はこちらを使っています)</li></ul>
+<h3>6. 広告・セール</h3>
+<ul><li>★Marketing API: 広告(Promoted Listings)を作る・止める、広告率を変える。セール(Discounts Manager)を作る。ストアのメールキャンペーンを送る</li><li>Recommendation API: どの出品に広告をかけるとよいか、eBayのおすすめを取る(米国・英国・ドイツ・オーストラリアのみ)</li></ul>
+<h3>7. 分析</h3>
+<ul><li>★Analytics API: 出品ごとの表示回数・閲覧数・売れた割合(トラフィックレポート)、セラーレベルの評価、お客さん対応の指標を取る</li></ul>
+<h3>8. 店の設定</h3>
+<ul><li>★Account API: ビジネスポリシー(支払い・返品・発送のルール)を作る・直す。出品できる枠の残りを見る</li><li>Notification API: eBay側で起きた出来事を、こちらに知らせてもらう</li><li>Compliance API: eBayのルールに合っていない出品を一覧で取る</li></ul>
+<h3>9. アプリの状態</h3>
+<ul><li>Developer Analytics API: 今日あと何回、窓口を使えるかを見る</li></ul>
+<h3>買う側の窓口(ほぼ申請制)</h3>
+<ul><li>Order API: eBayの商品を、自分のサイトやアプリから買えるようにする</li><li>Offer API: オークションに入札する</li><li>Deal API: eBayのセール情報を取る</li><li>Feed API(買う側): 商品データをファイルでまとめて取る</li></ul>
+<p>このうち買う側の多くは「限られた開発者だけ」の窓口です。<br>アフィリエイトの仕組み(eBay Partner Network)を通して申請し、eBayと契約します。<br>公式にも「申請しても承認される保証はない」と書いてあります。</p>
+<h2>窓口ごとに「1日何回まで」が決まっている</h2>
+<p>APIは、何回でも使えるわけではありません。<br>窓口ごとに、1日の上限があります。</p>
+<p>eBayの公式の数字です(個人・小さな会社向けの初期値)。</p>
+<ul><li>Inventory API(出品・在庫): 1日200万回</li><li>Negotiation API(値下げオファー): 1日100万回</li><li>Fulfillment API(注文): 1日10万回</li><li>Marketing API(セール): 1日10万回/(広告): 1日1万回</li><li>Account API(店の設定): 1日2万5,000回</li><li>Finances API(お金): 1日1万5,000回</li><li>Browse API(相場): 1日5,000回</li><li>Trading API: 1日5,000回</li><li>Analytics API(トラフィックレポート): 1日100回</li><li>Inventory Mapping API(AIの出品案): 1日20回</li></ul>
+<div class="article-image"><a href="../assets/2026_09_28_ebay_api_02_screenshot.webp" target="_blank" rel="noopener" aria-label="画像を拡大して表示"><img src="../assets/2026_09_28_ebay_api_02_screenshot.webp" alt="売る側の窓口の1日の上限。Inventory APIは200万回、Trading APIは5,000回" width="1996" height="3028" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;margin:0 auto"></a></div>
+<p class="image-caption"><em>出典: eBay Developers Program「API Call Limits(Sell)」(2026年9月28日閲覧)</em></p>
+<div class="article-image"><a href="../assets/2026_09_28_ebay_api_03_screenshot.webp" target="_blank" rel="noopener" aria-label="画像を拡大して表示"><img src="../assets/2026_09_28_ebay_api_03_screenshot.webp" alt="相場を調べるBrowse APIは1日5,000回" width="1996" height="511" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;margin:0 auto"></a></div>
+<p class="image-caption"><em>出典: eBay Developers Program「API Call Limits(Buy)」(2026年9月28日閲覧)</em></p>
+<p>見てのとおり、差がすごいです。<br>出品と在庫の窓口は、ほぼ使い放題。<br>相場を調べる窓口は、1日5,000回しかありません。</p>
+<p>ぼくの店は、これで一度止まりました。</p>
+<p>7月27日、全商品の値付けを見直す社員が、相場の窓口を1件に1回ずつ使っていました。<br>出品が増えるほど、回数も増えます。<br>5,000回を使い切って、その日のリサーチが全部止まりました。</p>
+<p><strong>防ぎ方:</strong> 同じ型番・同じ状態の問い合わせは、6時間は結果を使い回す。<br>これで、リサーチに使える回数が5割ほど増えました。</p>
+<h2>申請すると、何が広がるか</h2>
+<p>eBayには「Application Growth Check(アプリの成長チェック)」という審査があります。<br>無料です。</p>
+<p>この審査が必要なのは、2つのときです。</p>
+<ol><li>1日の上限を増やしたいとき</li><li>制限付きの窓口を、本番で使いたいとき</li></ol>
+<div class="article-image"><a href="../assets/2026_09_28_ebay_api_04_screenshot.webp" target="_blank" rel="noopener" aria-label="画像を拡大して表示"><img src="../assets/2026_09_28_ebay_api_04_screenshot.webp" alt="Application Growth Checkが必要なのは、上限を増やすときと、制限付きAPIを本番で使うとき" width="1912" height="924" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;margin:0 auto"></a></div>
+<p class="image-caption"><em>出典: eBay Developers Program「Application Growth Check」(2026年9月28日閲覧)</em></p>
+<p>審査で見られるのは、たとえばこんなところです。<br>・ちゃんと動くアプリがあるか<br>・eBayのライセンス規約を守っているか(ほかのセラーの情報を集計しない、カテゴリー全体の平均売価を出さない、など)<br>・エラーのときの再試行は2回までにしているか<br>・お客さんのeBayのパスワードを集めていないか<br>・窓口ごとに、1時間と1日で最大何回使うか</p>
+<h3>ぼくの申請① 売れた商品のデータ(2回とも不可)</h3>
+<p>値付けでいちばん欲しいのは、「いくらで売れたか」です。<br>出品中の値段(Browse API)ではなく、売れた値段。<br>それが取れるのが、Marketplace Insights APIです。</p>
+<p>6月27日に申請しました。<br>すぐに、8つの質問が返ってきました。<br>・会社とアプリは何か<br>・eBayのIDは何か<br>・アフィリエイトのパートナーか<br>・売れた商品のデータを何に使うか<br>・データを保存するか<br>・データを社内や社外で共有するか<br>・どのカテゴリーのデータが必要か<br>・連絡先</p>
+<p>「自分の店の値付けと仕入れにだけ使う。保存しない。だれにも渡さない」と答えました。</p>
+<p>7月12日の返事です。<br>「このAPIは、eBayが認めたパートナーだけに向けたもの。今回は許可できない」</p>
+<div class="article-image"><a href="../assets/2026_09_28_ebay_api_06_screenshot.webp" target="_blank" rel="noopener" aria-label="画像を拡大して表示"><img src="../assets/2026_09_28_ebay_api_06_screenshot.webp" alt="eBay Developer Supportから届いた、Marketplace Insights APIの申請を許可できないという返事" width="2204" height="562" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;margin:0 auto"></a></div>
+<p class="image-caption"><em>eBay Developer Supportからの返信メール(2026年7月12日・宛名は伏せています)</em></p>
+<p>8月にもう一度申請しましたが、通りませんでした。</p>
+<h3>ぼくの申請② 相場の窓口を5倍に(返事待ち)</h3>
+<p>9月7日、Browse APIの上限を1日5,000回から2万5,000回に上げてほしいと申請しました。</p>
+<p>理由はシンプルです。<br>出品が、7月の約1,400件から、9月に約6,700件まで増えました。<br>毎日150〜250件ずつ増えています。<br>全商品の値段を1日2回見直すと、5,000回では足りません。</p>
+<p>その日のうちに「確認中です」と返事が来ました。<br>1週間後に催促しました。<br>それから3週間、まだ返事は来ていません。</p>
+<p><strong>個人のセラーには、申請の窓口はかなり狭いです。</strong><br>申請が通る前提で店を作らない。<br>いまある窓口で回る形にしておく。<br>これが、2回断られて学んだことです。</p>
+<h3>申請の前に、全員がやること</h3>
+<p>もうひとつ、申請とは別に、全員に必須の手続きがあります。</p>
+<p>eBayのユーザーが「自分のデータを消して」と頼んだとき、その知らせを受け取る窓口を作ること。<br>データを保存しない人は、「受け取らなくていい」という申請をすること。</p>
+<p>どちらかをしないと、本番の窓口は使えません。<br>やらないまま放っておくと、使える窓口を減らされることがあります。</p>
+<div class="article-image"><a href="../assets/2026_09_28_ebay_api_05_screenshot.webp" target="_blank" rel="noopener" aria-label="画像を拡大して表示"><img src="../assets/2026_09_28_ebay_api_05_screenshot.webp" alt="アカウント削除通知の受け取りか対象外の申請は全員に必須。守らないと窓口を止められる" width="1436" height="923" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;margin:0 auto"></a></div>
+<p class="image-caption"><em>出典: eBay Developers Program「Marketplace User Account Deletion」(2026年9月28日閲覧)</em></p>
+<h2>AIとAPIをつなぐと、どうなるか</h2>
+<p>ここからが本題です。</p>
+<p>APIは、昔からあります。<br>でも、個人のセラーにはほとんど使われていませんでした。<br>理由は1つ。<br><strong>プログラムを書ける人しか、窓口に注文票を出せなかったからです。</strong></p>
+<p>いまは、ちがいます。<br>ぼくはClaude Code(クロード・コード)というAIに、日本語で頼むだけです。<br>「仕入れ先で在庫がなくなった商品は、eBayの在庫を0にして」<br>AIが、eBayの公式の説明書を読んで、注文票(プログラム)を書いて、実際に動かします。</p>
+<p>何をやるかは自分で決める。<br>どうやるかはAIに聞く。<br><strong>そしてAIに、APIを叩いてもらう。</strong></p>
+<h3>AIに画面を操作させるより、APIのほうがいい理由</h3>
+<p>AIにブラウザでeBayの画面を操作させる方法もあります。<br>でも、おすすめしません。</p>
+<ul><li>遅い。1件ずつ画面を読み込むので、何千件は回らない</li><li>画面の見た目が変わると、止まる</li></ul>
+<p>APIは、eBayが「ここから入ってください」と用意した正面玄関です。<br><strong>できることは、全部APIに寄せる。</strong><br>これがいちばん安全で、いちばん速いです。</p>
+<h3>うちの店の実例7つ</h3>
+<p><strong>① 出品(Inventory API)</strong><br>リサーチ担当が見つけた商品を、出品担当がAPIで出品します。<br>多い日で1日281件。<br>これまでの出品は1万件をこえました。</p>
+<p><strong>② 在庫(Inventory API)</strong><br>仕入れ先を10分に1回見て、売り切れた商品はeBayの在庫を0にします。<br>無在庫でいちばん怖い「売れたのに仕入れられない」を防ぐ係です。</p>
+<p><strong>③ 値付け(Browse API+Inventory API)</strong><br>同じ型番・同じ状態の出品をBrowse APIでさがして、最安に合わせます。<br>直した値段は、Inventory APIでまとめて書きかえます。</p>
+<p><strong>④ お客さん対応(Trading API)</strong><br>届いたメッセージをAPIで取って、AIが返信を書いて、APIで送ります。<br>13日で217通。<br>ぼくがさわったのは0通です。</p>
+<p><strong>⑤ 値下げ交渉(Trading API+Inventory API)</strong><br>Best Offer(「この値段なら買う」という交渉)が来たら、原価・送料・手数料から赤字になる線を計算して、その上でカウンターを返します。<br>13日で26件、ぼくは1件も考えていません。<br>さらに毎日18時30分、664件の「自動で承諾する金額」を点検して、赤字になっていた49件を直しました(9月19日)。</p>
+<p><strong>⑥ ウォッチした人へのオファー(Negotiation API)</strong><br>ウォッチしている人に、値下げのオファーを送ります。<br>ただし、送れる相手はeBayが決めます。<br>ウォッチ3人に送ったとき、届いたのは2人でした。</p>
+<p><strong>⑦ お金と分析(Finances API+Analytics API)</strong><br>注文ごとの手取りを取って、経理担当が1円単位で利益を出します。<br>出品ごとの閲覧数も取って、どの商品が見られているかを見ています。</p>
+<h3>AIとAPIの、やらかし</h3>
+<p>いいことばかりではありません。</p>
+<p><strong>「成功」と返ってきても、中で失敗している</strong><br>在庫と価格をまとめて書きかえる窓口は、1件だけ失敗しても全体では「成功(200)」を返します。<br>AIが「成功」を信じて帳簿に新しい値段を書き、eBay上は古い値段のまま。<br>8時間、だれも気づきませんでした。<br><strong>防ぎ方:</strong> 1件ずつの結果を必ず見るように、AIに言っておく。</p>
+<p><strong>回数切れで、翌日まで止まる</strong><br>Trading APIでも、8月10日に上限に当たりました。<br>300件中297件が失敗。<br>上限切れは、何回やり直しても当日は戻りません。<br><strong>防ぎ方:</strong> 大量に使う作業どうしを、同じ日に重ねない。</p>
+<h2>はじめ方</h2>
+<ol><li>eBay Developers Program(eBayの開発者向けサイト)に、ふだんのeBayアカウントで登録する</li><li>アプリのキー(窓口の合言葉)を作る。このとき、データ削除の知らせを受け取るか、受け取らない申請をする</li><li>自分のストアに「このアプリが操作していい」と許可を出す(OAuth)</li><li>AIに「このキーで、ぼくの出品中の商品を一覧にして」と頼んでみる</li></ol>
+<p>1〜3は、AIに「eBayのAPIを使えるようにしたい。手順を一緒にやって」と頼めば、画面のどこを押すかまで教えてくれます。<br>4で自分の商品の一覧が返ってきたら、もう窓口はあいています。</p>
+<p>最初は、初期の上限で十分です。<br>足りなくなるのは、出品が何千件にふえてからです。</p>
+<h2>まとめ</h2>
+<ul><li>eBayのAPIは、出品・相場・注文・お金・お客さん対応・広告・分析・店の設定まで、ほぼ全部そろっている</li><li>窓口ごとに1日の上限があり、相場の窓口(1日5,000回)がいちばん狭い</li><li>申請すると上限や使える窓口が広がるが、個人のセラーにはかなり狭き門。ぼくは2回断られ、1件は返事待ち</li><li>APIは昔からあった。変わったのは、AIが日本語の指示で注文票を書いてくれるようになったこと</li></ul>
+<p>あなたの店で、毎日いちばん時間を取られている作業は何ですか?<br>その作業は、たぶん上のどこかの窓口で、もうAIに渡せます🐹</p>
+<p>▶ 梱包以外ぜんぶAIでやる方法(8ステップで解説)<br><a href="https://rental-space.net/articles/2026-09-24-ebay-ai-eight-steps.html">https://rental-space.net/articles/2026-09-24-ebay-ai-eight-steps.html</a></p>
+<p>▶ eBay お客さん対応を完全自動化してみた結果<br><a href="https://rental-space.net/articles/2026-09-21-ebay-customer-service-automation.html">https://rental-space.net/articles/2026-09-21-ebay-customer-service-automation.html</a></p>
+<hr>
+<p>▼中の人🏠(レンタルスペース23部屋・売上1.5億)のレンスペ実録<br><a href="https://note.com/rentalspace_kiku">https://note.com/rentalspace_kiku</a></p>
+<p>▼ブログ(eBay×レンスペ、全記事まとめ)<br><a href="https://rental-space.net">https://rental-space.net</a></p>
+<hr>
+<!-- kyokasho-promo start -->
+<p>▼この店のやり方は、ぜんぶ1冊にまとめてあります</p>
+<p>リサーチ・出品・値付け・顧客対応まで、初月利益10万4,286円を出した実店舗の記録と手順を全部書いた教科書です。<br>読んだその日から、AI社員の作り方をそのまま真似できます。</p>
+<p>『AI × eBay輸出の教科書 — 梱包以外、ぜんぶAI』<br><a href="https://rental-space.net/kyokasho/ebay/">https://rental-space.net/kyokasho/ebay/</a><br>販売価格は3部売れるごとに2,000円ずつ値上がりします（上限あり）。内容・最新価格は販売ページをご確認ください。</p>
+<!-- kyokasho-promo end -->
+</div>
+<!-- kyokasho-banner start -->
+<aside class="kyokasho-banner">
+    <a href="/kyokasho/ebay/" class="kb-thumb">
+        <img src="../assets/kyokasho_ebay_banner.png" alt="AI × eBay輸出の教科書 — 梱包以外、ぜんぶAI" loading="lazy" width="640" height="335">
+    </a>
+    <div class="kb-body">
+        <p class="kb-title">AI × eBay輸出の教科書🐹</p>
+        <p class="kb-sub">梱包発送以外ぜんぶAIに任せて、初月から利益10万円。開店から月次締めまで、実店舗の記録を全部書きました。販売価格は3部売れるごとに2,000円ずつ値上がりします（上限あり）。内容・最新価格は販売ページをご確認ください。</p>
+        <div class="kb-actions">
+            <a href="/kyokasho/ebay/" class="kb-btn">くわしく見る・買う</a>
+        </div>
+    </div>
+</aside>
+<!-- kyokasho-banner end -->
+
+
+<!-- hub-link start -->
+<aside class="hub-link"><p class="hub-link-title">▼ このジャンルのまとめ</p><a class="hub-link-main" href="../ebay/">eBay輸出の記事まとめ(全47本・実数つき)を見る →</a><p class="hub-link-sub">同じテーマの記事</p><ul><li><a href="2026-09-27-ebay-rental-space-best-combo.html">eBayと○○は、最強の組み合わせ</a></li><li><a href="2026-09-25-ebay-packing-app-efficiency.html">【eBay輸出】梱包発送もAIで効率化できる</a></li><li><a href="2026-09-23-ebay-my-two-jobs.html">eBay輸出、ぼくの仕事は2つだけ</a></li></ul></aside>
+<!-- hub-link end -->
+<!-- kyokasho-banner-rensupe start -->
+<aside class="kyokasho-banner kb-rensupe"><a href="/kyokasho/" class="kb-thumb"><img src="../assets/kyokasho_rensupe_banner_v2.png" alt="AIに食われない副業 — レンタルスペース経営の教科書" loading="lazy" width="640" height="335"></a><div class="kb-body"><p class="kb-title">レンタルスペース経営の教科書📘</p><p class="kb-sub">AIに食われない副業。23部屋・売上1.5億超の数字を1円も隠さず、物件探しから撤退まで全部書きました。付録15点つき。販売価格は3部売れるごとに2,000円ずつ値上がりします（上限あり）。内容・最新価格は販売ページをご確認ください。</p><div class="kb-actions"><a href="/kyokasho/" class="kb-btn kb-btn-rensupe">くわしく見る・買う</a></div></div></aside>
+<!-- kyokasho-banner-rensupe end -->
+        <a href="../index.html" class="btn-back">トップページへ戻る</a>
+    </article></main>
+    <footer class="main-footer"><p>&copy; 2026 きくりんのノウハウ垂れ流し. All rights reserved.</p><!-- site-home-link start -->
+<nav class="site-home-nav" aria-label="サイトトップ"><a href="/">きくりんのノウハウ垂れ流し TOP</a></nav>
+<!-- site-home-link end -->
+</footer>
+    <script src="../script.js"></script><script src="../track.js"></script>
+</body>
+</html>
