@@ -1,6 +1,7 @@
-/* ブログ共通メニュー(2026-09-27)。白地・黒文字・上部固定。スマホは三本線で開閉(JSなし・チェックボックス) */
+/* ブログ共通メニュー(2026-09-27)。白地・黒文字・上部固定。スマホは三本線で開閉(JSなし・チェックボックス)
+   2026-09-30: 「ダンス向けレンタルスタジオ」を足して9項目。幅1260px未満はロゴ文字を隠し、1060px以下は三本線にする */
 .site-menu{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px solid #ddd;box-shadow:0 2px 8px rgba(0,0,0,.06);font-family:'Noto Sans JP',sans-serif}
-.site-menu-inner{position:relative;box-sizing:border-box;max-width:1100px;margin:0 auto;padding:0 12px;display:flex;align-items:center;gap:16px;min-height:48px}
+.site-menu-inner{position:relative;box-sizing:border-box;max-width:1260px;margin:0 auto;padding:0 12px;display:flex;align-items:center;gap:16px;min-height:48px}
 .site-menu-brand{flex-shrink:0;font-weight:900;font-size:.95rem;color:#111;text-decoration:none;white-space:nowrap}
 .site-menu-toggle{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
 .site-menu-button{display:none}
@@ -10,7 +11,8 @@
 .site-menu-list a:hover{color:#075bc8}
 .site-menu-list a[aria-current="page"],.site-menu-list a.is-current{border-bottom-color:#f57c00;color:#e65100}
 .site-menu-list a:focus-visible,.site-menu-brand:focus-visible{outline:3px solid #075bc8;outline-offset:-3px}
-@media (max-width:900px){
+@media (min-width:1061px) and (max-width:1259px){.site-menu-brand{display:none}}
+@media (max-width:1060px){
   .site-menu-inner{justify-content:space-between;padding:0 6px 0 14px;min-height:50px}
   .site-menu-brand{font-size:.95rem}
   .site-menu-button{display:flex;flex-direction:column;justify-content:center;gap:5px;width:48px;height:48px;padding:0 12px;box-sizing:border-box;cursor:pointer;border-radius:8px}
