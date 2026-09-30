@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CHWF6QKRJ6"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-CHWF6QKRJ6');</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="note-hashtags" content="#eBay #eBay輸出 #AI活用">
+    <meta name="description" content="eBayはお店の本部、APIは受付窓口、AIはロボットを作る係。AIとAPIがどうつながって店を自動化するのか、6枚の図解とたとえ話でやさしく説明します。">
+    <meta property="og:title" content="小学生でもわかる、eBayとAIとAPI">
+    <meta property="og:description" content="eBayはお店の本部、APIは受付窓口、AIはロボットを作る係。AIとAPIがどうつながって店を自動化するのか、6枚の図解とたとえ話でやさしく説明します。">
+    <meta property="og:image" content="https://rental-space.net/assets/2026_09_30_ebay_ai_api_hero.png">
+    <meta property="og:url" content="https://rental-space.net/articles/2026-09-30-ebay-ai-api-explained.html">
+    <meta property="og:type" content="article">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>小学生でもわかる、eBayとAIとAPI - きくりんのノウハウ垂れ流し</title>
+    <link rel="icon" href="../assets/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="../assets/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="stylesheet" href="../style.css?v=1.2.1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&amp;display=swap" rel="stylesheet">
+    <style>.article-header .category-badge{position:static;display:inline-block;margin-bottom:12px}.article-body a{color:#075bc8;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;font-weight:700;overflow-wrap:anywhere}.article-table{overflow-x:auto;margin:1.5em 0}.article-table table{border-collapse:collapse;width:100%;font-size:.95em}.article-table th,.article-table td{padding:12px;border:1px solid #ddd;text-align:left}.article-table th{background:#eef5ff}.article-table td:last-child{white-space:normal}@media(max-width:600px){.kyokasho-banner .kb-title span{white-space:normal!important;overflow-wrap:anywhere}}.article-table table{min-width:560px}.article-table:focus{outline:2px solid #2563eb}.image-caption{font-size:.85em;color:#555;line-height:1.7}.article-body{overflow-wrap:anywhere}.article-shot{margin:28px 0}.article-shot img{display:block;max-width:100%;height:auto;margin:auto;border:1px solid #ddd}.image-caption{font-size:.85em;color:#555;line-height:1.7}.article-body blockquote{margin:24px 0;padding:16px 20px;background:#f3f7fd;border-left:4px solid #2563eb;overflow-wrap:anywhere}.article-body blockquote p{margin:0}.article-body{color:#111}body{background:#fff}</style>
+
+<link rel="stylesheet" href="/assets/site-footer.css?v=20260919">
+
+<!-- seo-head start -->
+<link rel="canonical" href="https://rental-space.net/articles/2026-09-30-ebay-ai-api-explained.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "ホーム",
+      "item": "https://rental-space.net/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "eBay輸出",
+      "item": "https://rental-space.net/ebay/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "小学生でもわかる、eBayとAIとAPI",
+      "item": "https://rental-space.net/articles/2026-09-30-ebay-ai-api-explained.html"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "小学生でもわかる、eBayとAIとAPI",
+  "datePublished": "2026-09-30",
+  "dateModified": "2026-09-30",
+  "mainEntityOfPage": "https://rental-space.net/articles/2026-09-30-ebay-ai-api-explained.html",
+  "author": {
+    "@type": "Person",
+    "name": "きくりん",
+    "url": "https://rental-space.net/articles/2026-01-20-self-introduction.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "きくりんのノウハウ垂れ流し",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://rental-space.net/assets/duo_tarenagashi.png"
+    }
+  },
+  "description": "eBayはお店の本部、APIは受付窓口、AIはロボットを作る係。AIとAPIがどうつながって店を自動化するのか、6枚の図解とたとえ話でやさしく説明します。",
+  "image": "https://rental-space.net/assets/2026_09_30_ebay_ai_api_hero.png"
+}
+</script>
+<!-- seo-head end -->
+<link rel="stylesheet" href="/assets/site-menu.css?v=20260930a">
+</head>
+<body class="article-page">
+<!-- site-menu start -->
+<nav class="site-menu" aria-label="ブログのメニュー"><div class="site-menu-inner"><a class="site-menu-brand" href="/">きくりんのノウハウ垂れ流し</a><input type="checkbox" id="site-menu-toggle" class="site-menu-toggle" aria-label="メニューを開く"><label for="site-menu-toggle" class="site-menu-button" aria-hidden="true"><span></span><span></span><span></span></label><ul class="site-menu-list"><li><a href="/">ホーム</a></li><li><a href="/rental-space/">レンタルスペース</a></li><li><a href="/kyokasho/dance/?utm_source=blog&amp;utm_medium=nav&amp;utm_campaign=dance_nav">ダンス向けレンタルスタジオ</a></li><li><a href="/ebay/" class="is-current">eBay輸出</a></li><li><a href="/#ailab">AI活用実験室</a></li><li><a href="/kyokasho/">レンスペ教科書</a></li><li><a href="/kyokasho/ebay/">eBay教科書</a></li><li><a href="/mail/">無料講座</a></li><li><a href="/articles/2026-01-20-self-introduction.html">プロフィール</a></li></ul></div></nav>
+<!-- site-menu end -->
+    <header class="main-header"><div class="header-content"><div class="logo-area minimal">
+        <a href="../index.html" class="header-logo-link horiz"><img src="../assets/duo_tarenagashi.png" alt="きくりん" class="header-logo-img-character small"><div class="logo-text"><h1>きくりんの<br>ノウハウ垂れ流し</h1></div></a>
+    </div></div></header>
+    <main class="container"><article class="single-article">
+
+
+<!-- breadcrumb start -->
+<nav class="breadcrumb" aria-label="パンくずリスト"><ol><li><a href="../index.html">ホーム</a></li><li><a href="../ebay/">eBay輸出</a></li><li aria-current="page">小学生でもわかる、eBayとAIとAPI</li></ol></nav>
+<!-- breadcrumb end -->
+<header class="article-header"><span class="category-badge">副業② eBay輸出</span><h1>小学生でもわかる、eBayとAIとAPI</h1><time datetime="2026-09-30">2026.09.30</time></header>
+        <div class="article-body">
+<div class="article-image"><img src="../assets/2026_09_30_ebay_ai_api_hero.png" alt="小学生でもわかる、eBayとAIとAPI" width="1536" height="1024" fetchpriority="high" class="eyecatch-img" style="display:block;width:100%;height:auto;margin:0 auto"></div>
+<p>eBayを自動で回すしくみは、3つの言葉がわかれば、ぜんぶわかります。</p>
+<p><strong>eBay、AI、API。</strong></p>
+<p>「API」と聞くと、むずかしそうですよね。<br>
+ぼくも、最初はそう思いました。</p>
+<p>でも、APIは「受付の窓口」のことです。<br>
+それだけです。</p>
+<p>今日は、小学生にもわかるように、この3つのことを書きます🐹</p>
+<hr>
+<h2>まず、3つをひとことで</h2>
+<figure class="article-shot"><a href="../assets/2026_09_30_ebay_ai_api_01.webp" target="_blank" rel="noopener"><img src="../assets/2026_09_30_ebay_ai_api_01.webp" alt="eBayは本部、APIは受付窓口、AIはロボットを作る係、ぼくは店長" width="1536" height="1024" loading="lazy" decoding="async"></a></figure>
+<p>先に、答えです。</p>
+<p>・<strong>eBay</strong> = 大きなお店の「本部」<br>
+・<strong>API</strong> = 本部の「受付の窓口」<br>
+・<strong>AI</strong> = 窓口に通うロボットを、作ってくれる係</p>
+<p>それから、もう1人。<br>
+・<strong>ぼく</strong> = 店長。「こうしてほしい」と言うだけ</p>
+<p>出てくるのは、この4人だけです。<br>
+1人ずつ、見ていきます。</p>
+<hr>
+<h2>eBayは、遠い国の大きなお店の本部</h2>
+<figure class="article-shot"><a href="../assets/2026_09_30_ebay_ai_api_02.webp" target="_blank" rel="noopener"><img src="../assets/2026_09_30_ebay_ai_api_02.webp" alt="世界中のお客さんが集まる本部と、商品・売れた・メッセージの記録" width="1536" height="1024" loading="lazy" decoding="async"></a></figure>
+<p>eBayは、世界中の人が買いものに来る、大きなお店です。<br>
+ぼくの店も、このお店の中にあります。</p>
+<p>本部には、ぼくの店のことが、ぜんぶ書いてあります。</p>
+<p>・どの商品を、いくらで売っているか<br>
+・どの商品が、売れたか<br>
+・お客さんから、どんなメッセージが来たか</p>
+<p>ふだんは、これをパソコンの画面で見ます。<br>
+eBayのページを開いて、1ページずつ見ていきます。<br>
+これは、人間のための入り口です。</p>
+<p>でも、ぼくの店の商品は6,000個以上あります。<br>
+1つずつ画面で見ていたら、1日かかっても終わりません。</p>
+<hr>
+<h2>APIは、本部の「受付窓口」</h2>
+<figure class="article-shot"><a href="../assets/2026_09_30_ebay_ai_api_03.webp" target="_blank" rel="noopener"><img src="../assets/2026_09_30_ebay_ai_api_03.webp" alt="APIの窓口に必要な決まった用紙・合言葉・1日の回数" width="1536" height="1024" loading="lazy" decoding="async"></a></figure>
+<p>そこで、APIです。</p>
+<p>APIは、機械のための入り口です。<br>
+本部の横にある、受付の窓口だと思ってください。</p>
+<p>窓口には、決まりが3つあります。</p>
+<p><strong>① 決まった紙に書いて、たのむ</strong><br>
+「きのうの注文を見せてください」<br>
+「この商品を、売り切れにしてください」<br>
+決まった書き方でたのむと、すぐに答えが返ってきます。</p>
+<p><strong>② 合言葉がいる</strong><br>
+知らない人に、ぼくの店の注文を見られたら困ります。<br>
+だから窓口では、「この店の係です」という合言葉を言います。</p>
+<p><strong>③ 1日にたのめる回数が、決まっている</strong><br>
+窓口ごとに、1日にたのめる回数が決まっています。<br>
+たとえば、ほかの店の値段を調べる窓口は、ぼくの店では1日2万5,000回までです。</p>
+<p>むずかしいのは、これだけです。<br>
+APIは、「決まった紙と合言葉で、本部にたのみごとができる窓口」。<br>
+eBayに申しこめば、お金をはらわずに使えます。</p>
+<p>▼窓口の種類をぜんぶ見たい人はこちら<br>
+<a href="https://rental-space.net/articles/2026-09-28-ebay-api-complete-guide.html">https://rental-space.net/articles/2026-09-28-ebay-api-complete-guide.html</a></p>
+<hr>
+<h2>AIは、窓口に通うロボットを作る係</h2>
+<figure class="article-shot"><a href="../assets/2026_09_30_ebay_ai_api_04.webp" target="_blank" rel="noopener"><img src="../assets/2026_09_30_ebay_ai_api_04.webp" alt="AIが依頼を受けてロボットを作り、完成したロボットが毎日働く" width="1536" height="1024" loading="lazy" decoding="async"></a></figure>
+<p>ここで、よくあるかんちがいがあります。</p>
+<p>「AIが、毎回eBayに行って、仕事をしている」<br>
+じつは、ちがいます。</p>
+<p>AIの仕事は、<strong>ロボットを作ること</strong>です。<br>
+ここでいうロボットは、パソコンの中で、決まった仕事をくり返すしかけのことです。<br>
+(むずかしい言葉では、プログラムと言います)</p>
+<p>ぼくは、AIにこうたのむだけです。<br>
+「売れたら、すぐスマホで教えてほしい」<br>
+「毎日、値段が高すぎないか見てほしい」</p>
+<p>するとAIは、窓口へのたのみ方を調べて、ロボットを作ってくれます。<br>
+ぼくは、ロボットの作り方を知りません。</p>
+<p>できたロボットは、決まった時間に、窓口に通います。<br>
+休みません。わすれません。</p>
+<p>AIに毎回やってもらうと、時間がかかります。<br>
+AIを使える回数にも、すぐに届いてしまいます。</p>
+<p>だから、<strong>AIは作る係。毎日はたらくのはロボット。</strong><br>
+ここが、いちばん大事なところです。</p>
+<hr>
+<h2>3人がつながると、こう動く</h2>
+<figure class="article-shot"><a href="../assets/2026_09_30_ebay_ai_api_05.webp" target="_blank" rel="noopener"><img src="../assets/2026_09_30_ebay_ai_api_05.webp" alt="注文確認、伝票の受け取り、売れた通知、店長による購入の4コマ" width="1536" height="1024" loading="lazy" decoding="async"></a></figure>
+<p>ぼくの店のロボットたちの、1日の時間わりです。</p>
+<p>・注文の係: 売れていないか、ずっと見ている(3時間ごとに、見のがしがないかも確かめる)<br>
+・在庫の係: 4時間ごとに、仕入れ先にまだ商品があるか確かめる<br>
+・値段の係: 毎日16時12分に、値段を見直す<br>
+・出品の係: 毎日18時57分に、新しい商品を売り場に出す<br>
+・報告の係: 毎朝9時40分に、きのうの結果を教えてくれる</p>
+<p>時間わりの紙は、20枚近くあります。</p>
+<p>商品が売れたときは、こう動きます。</p>
+<ol><li>注文の係が、窓口で「新しい注文、ある?」と聞く</li><li>eBayの本部が「ありますよ」と答える</li><li>注文の係が、ぼくのスマホに「売れました」と知らせる</li><li>ぼくが、仕入れ先で「買う」ボタンを押す</li></ol>
+<p>この流れに、AIは出てきません。<br>
+AIがはたらいたのは、この係たちを作ったときです。<br>
+うまく動かないときや、もっとよくしたいときだけ、またAIに相談します。</p>
+<p>それから、ロボットはeBayのページをクリックしていません。<br>
+使っているのは、eBayが用意した窓口(API)だけです。</p>
+<hr>
+<h2>まとめ</h2>
+<figure class="article-shot"><a href="../assets/2026_09_30_ebay_ai_api_06.webp" target="_blank" rel="noopener"><img src="../assets/2026_09_30_ebay_ai_api_06.webp" alt="eBayの本部とAPIの窓口、行き来するロボット、ロボットを作るAIと店長の全体図" width="1536" height="1024" loading="lazy" decoding="async"></a></figure>
+<p>もう一度、まとめます。</p>
+<p>・eBayは、大きなお店の本部<br>
+・APIは、本部の受付の窓口<br>
+・AIは、窓口に通うロボットを作ってくれる係<br>
+・ぼくは、「こうしてほしい」と言う店長</p>
+<p><strong>APIのことを、自分で覚えなくて大丈夫です。</strong><br>
+覚えるのは、AIです。<br>
+ぼくたちは、「何をしてほしいか」を言えれば大丈夫。</p>
+<p>あなたが毎日、eBayでくり返している仕事は何ですか?<br>
+その中から1つ、「これを毎日やってくれるロボットを作って」とAIにたのんでみてください。</p>
+<p>▼窓口へのつなぎ方と、最初に任せる3つの仕事はこちら<br>
+<a href="https://rental-space.net/articles/2026-09-29-ebay-api-three-tasks.html">https://rental-space.net/articles/2026-09-29-ebay-api-three-tasks.html</a></p>
+<hr>
+<p>▼中の人🏠(レンタルスペース23部屋・売上1.5億)のレンスペ実録<br>
+<a href="https://note.com/rentalspace_kiku">https://note.com/rentalspace_kiku</a></p>
+<p>▼ブログ(eBay×レンスペ、全記事まとめ)<br>
+<a href="https://rental-space.net">https://rental-space.net</a></p>
+<hr>
+<p>▼この店のやり方は、ぜんぶ1冊にまとめてあります</p>
+<p>リサーチ・出品・値付け・顧客対応まで、初月利益10万4,286円を出した実店舗の記録と手順を全部書いた教科書です。<br>
+読んだその日から、AI社員の作り方をそのまま真似できます。</p>
+<p>『AI × eBay輸出の教科書 — 梱包以外、ぜんぶAI』<br>
+<a href="https://rental-space.net/kyokasho/ebay/">https://rental-space.net/kyokasho/ebay/</a><br>
+販売価格は3部売れるごとに2,000円ずつ値上がりします（上限あり）。内容・最新価格は販売ページをご確認ください。</p>
+<!-- kyokasho-promo end -->
+</div>
+<!-- kyokasho-banner start -->
+<aside class="kyokasho-banner">
+    <a href="/kyokasho/ebay/" class="kb-thumb">
+        <img src="../assets/kyokasho_ebay_banner.png" alt="AI × eBay輸出の教科書 — 梱包以外、ぜんぶAI" loading="lazy" width="640" height="335">
+    </a>
+    <div class="kb-body">
+        <p class="kb-title">AI × eBay輸出の教科書🐹</p>
+        <p class="kb-sub">梱包発送以外ぜんぶAIに任せて、初月から利益10万円。開店から月次締めまで、実店舗の記録を全部書きました。販売価格は3部売れるごとに2,000円ずつ値上がりします（上限あり）。内容・最新価格は販売ページをご確認ください。</p>
+        <div class="kb-actions">
+            <a href="/kyokasho/ebay/" class="kb-btn">くわしく見る・買う</a>
+        </div>
+    </div>
+</aside>
+<!-- kyokasho-banner end -->
+
+
+<!-- hub-link start -->
+<aside class="hub-link"><p class="hub-link-title">▼ このジャンルのまとめ</p><a class="hub-link-main" href="../ebay/">eBay輸出の記事まとめ(全49本・実数つき)を見る →</a><p class="hub-link-sub">同じテーマの記事</p><ul><li><a href="2026-09-29-ebay-api-three-tasks.html">eBay APIで3つ自動化してみよう【プロンプト付き】</a></li><li><a href="2026-09-28-ebay-api-complete-guide.html">【eBay輸出】APIでできること、ぜんぶ紹介</a></li><li><a href="2026-09-27-ebay-rental-space-best-combo.html">eBayと○○は、最強の組み合わせ</a></li></ul></aside>
+<!-- hub-link end -->
+<!-- kyokasho-banner-rensupe start -->
+<aside class="kyokasho-banner kb-rensupe"><a href="/kyokasho/" class="kb-thumb"><img src="../assets/kyokasho_rensupe_banner_v3.png" alt="AIに食われない副業 — レンタルスペース経営の教科書" loading="lazy" width="640" height="335"></a><div class="kb-body"><p class="kb-title">レンタルスペース経営の教科書📘</p><p class="kb-sub">AIに食われない副業。23店舗・売上1.5億超の数字を1円も隠さず、物件探しから撤退まで全部書きました。付録15点つき。販売価格は3部売れるごとに2,000円ずつ値上がりします（上限あり）。内容・最新価格は販売ページをご確認ください。</p><div class="kb-actions"><a href="/kyokasho/" class="kb-btn kb-btn-rensupe">くわしく見る・買う</a></div></div></aside>
+<!-- kyokasho-banner-rensupe end -->
+        <a href="../index.html" class="btn-back">トップページへ戻る</a>
+    </article></main>
+    <footer class="main-footer"><p>&copy; 2026 きくりんのノウハウ垂れ流し. All rights reserved.</p><!-- site-home-link start -->
+<nav class="site-home-nav" aria-label="サイトトップ"><a href="/">きくりんのノウハウ垂れ流し TOP</a></nav>
+<!-- site-home-link end -->
+</footer>
+    <script src="../script.js"></script><script src="../track.js"></script>
+</body>
+</html>
