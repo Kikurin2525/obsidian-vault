@@ -2,6 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://rental-space.net/</loc><lastmod>2026-10-02</lastmod><priority>1.0</priority></url>
   <url><loc>https://rental-space.net/rental-space/</loc><lastmod>2026-10-02</lastmod><priority>0.9</priority></url>
+  <url><loc>https://rental-space.net/rental-space/dance/</loc><lastmod>2026-10-02</lastmod><priority>0.8</priority></url>
   <url><loc>https://rental-space.net/ebay/</loc><lastmod>2026-10-02</lastmod><priority>0.9</priority></url>
   <url><loc>https://rental-space.net/articles/2026-01-20-self-introduction.html</loc><lastmod>2026-09-30</lastmod></url>
   <url><loc>https://rental-space.net/articles/2026-01-21-dance-studio-interior.html</loc><lastmod>2026-10-02</lastmod></url>
@@ -147,8 +148,11 @@
   <url><loc>https://rental-space.net/articles/2026-10-01-ebay-eu-ddp-day-fixes.html</loc><lastmod>2026-10-02</lastmod></url>
   <url><loc>https://rental-space.net/articles/2026-10-01-ebay-kyokasho-second-edition.html</loc><lastmod>2026-10-02</lastmod></url>
   <url><loc>https://rental-space.net/articles/2026-10-01-rental-space-store1.html</loc><lastmod>2026-10-02</lastmod></url>
+  <url><loc>https://rental-space.net/articles/2026-10-02-dance-studio-no-soundproofing.html</loc><lastmod>2026-10-02</lastmod></url>
+  <url><loc>https://rental-space.net/articles/2026-10-02-dance-studio-teacher-regular.html</loc><lastmod>2026-10-02</lastmod></url>
   <url><loc>https://rental-space.net/articles/2026-10-02-ebay-eu-pid-required.html</loc><lastmod>2026-10-02</lastmod></url>
   <url><loc>https://rental-space.net/articles/2026-10-02-rental-space-ai-business.html</loc><lastmod>2026-10-02</lastmod></url>
+  <url><loc>https://rental-space.net/articles/2026-10-02-rental-space-dance-residential-station.html</loc><lastmod>2026-10-02</lastmod></url>
   <url><loc>https://rental-space.net/mail/</loc></url>
   <url><loc>https://rental-space.net/lp/kensetsu-shorui-daiko.html</loc><lastmod>2026-09-07</lastmod></url>
   <url><loc>https://rental-space.net/lp/koji-hokokusho-template.html</loc><lastmod>2026-09-02</lastmod></url>
