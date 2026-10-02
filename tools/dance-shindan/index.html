@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CHWF6QKRJ6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-CHWF6QKRJ6');
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="家賃と広さを入れるだけで、ダンス向けのレンタルスペースが黒字になるのに1日何時間の予約が必要かがわかる無料診断。レンタルスペース累計23店舗・うちダンススタジオ11店舗のきくりんの実測と比べられます。">
+    <link rel="canonical" href="https://rental-space.net/tools/dance-shindan/">
+    <meta property="og:title" content="その物件、ダンス向けのレンタルスペースで黒字になる?30秒診断｜きくりん">
+    <meta property="og:description" content="家賃と広さを入れるだけ。黒字に必要な予約時間を、11店舗の実測と比べて判定します。">
+    <meta property="og:url" content="https://rental-space.net/tools/dance-shindan/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://rental-space.net/assets/hub_rental_dance_eyecatch_20261002.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>レンタルスペース黒字診断(ダンス向け・30秒)｜きくりん</title>
+    <link rel="icon" href="../../assets/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;800&amp;display=swap" rel="stylesheet">
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <style>
+        :root { --primary:#f57c00; --accent:#29b6f6; --text:#333; --bg:#ffffff; --line:#f0e2c8; --muted:#7a6d5c; --navy:#24345c;
+            --best:#1e8e3e; --good:#2f7dd1; --fair:#e08a00; --bad:#d93025; }
+        * { box-sizing:border-box; }
+        body { margin:0; padding:0 0 50px; background:var(--bg); color:var(--text);
+            font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,sans-serif; line-height:1.75; -webkit-text-size-adjust:100%; }
+        header { background:linear-gradient(180deg,#ffb300,#ff9100); color:#fff; padding:22px 16px 18px; text-align:center; }
+        header h1 { font-size:20px; margin:0 0 6px; line-height:1.45; }
+        header p { margin:0; font-size:13px; opacity:.95; }
+        .wrap { max-width:640px; margin:0 auto; padding:0 16px; }
+        .card { background:#fff; border:2px solid var(--line); border-radius:14px; padding:16px 16px 18px; margin:16px 0; }
+        .hint { font-size:12.5px; color:var(--muted); margin:0 0 10px; }
+        .row { display:flex; align-items:center; gap:10px; padding:9px 0; border-bottom:1px dashed #f2e8d5; flex-wrap:wrap; }
+        .row:last-child { border-bottom:none; }
+        .row label { flex:1 1 150px; font-size:14px; }
+        .row label small { display:block; font-size:11.5px; color:var(--muted); line-height:1.5; }
+        input[type=number] { font-family:inherit; font-size:16px; padding:7px 9px; border:2px solid #e2d6bd;
+            border-radius:8px; background:#fffdf7; width:120px; text-align:right; }
+        input[type=number]:focus { outline:none; border-color:var(--accent); }
+        .unit { font-size:13px; color:var(--muted); min-width:2.5em; }
+        .result { border-color:var(--primary); }
+        .verdict { display:flex; align-items:center; gap:14px; }
+        .grade { flex-shrink:0; width:76px; height:76px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+            font-size:40px; font-weight:800; color:#fff; background:var(--muted); }
+        .grade.g-best { background:var(--best); } .grade.g-good { background:var(--good); }
+        .grade.g-fair { background:var(--fair); } .grade.g-bad { background:var(--bad); }
+        .need-label { font-size:13px; color:var(--muted); margin:0; }
+        .need { font-size:34px; font-weight:800; color:var(--primary); margin:0; line-height:1.25; }
+        .need small { font-size:16px; }
+        .need-sub { font-size:13px; color:var(--muted); margin:2px 0 0; }
+        .comment { font-size:14px; margin:12px 0 4px; padding:10px 12px; background:#fff8ec; border-radius:10px; }
+        .bars { margin:16px 0 6px; }
+        .bars h3, .card h3 { font-size:14.5px; color:var(--navy); margin:0 0 8px; }
+        .bar { display:grid; grid-template-columns:118px 1fr 58px; align-items:center; gap:8px; margin:7px 0; font-size:12.5px; }
+        .bar .track { background:#f4efe6; border-radius:6px; height:16px; position:relative; overflow:hidden; }
+        .bar .track, .bar .fill { display:block; }
+        .bar .fill { height:100%; border-radius:6px; background:#c9b99c; }
+        .bar.you .fill { background:var(--primary); }
+        .bar .v { text-align:right; font-weight:700; white-space:nowrap; }
+        .bar .lb { line-height:1.35; }
+        .grow { margin-top:14px; padding:12px; border:2px dashed #b9d7f3; border-radius:12px; background:#f6fbff; font-size:14px; }
+        .grow b.big { font-size:20px; color:var(--good); }
+        table.sim { width:100%; border-collapse:collapse; font-size:13px; margin-top:6px; }
+        table.sim th, table.sim td { padding:6px 4px; border-bottom:1px solid #f2ebdd; text-align:right; }
+        table.sim th:first-child, table.sim td:first-child { text-align:left; }
+        table.sim th { font-size:12px; color:var(--muted); font-weight:400; }
+        table.sim td small { display:block; font-size:11px; color:var(--muted); }
+        .plus { color:var(--best); font-weight:700; } .minus { color:var(--bad); font-weight:700; }
+        .note { font-size:12px; color:var(--muted); margin-top:12px; line-height:1.7; }
+        .share { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+        .share a, .share button { font-family:inherit; font-size:14px; font-weight:700; border-radius:999px; padding:10px 18px; cursor:pointer; text-decoration:none; }
+        .share .x { background:#111; color:#fff; border:none; }
+        .share .copy { background:#fff; color:var(--navy); border:2px solid #d6dbe6; }
+        .ai { border-color:#d6e4f5; background:#f7faff; }
+        .ai ul { margin:6px 0 0; padding-left:1.2em; font-size:14px; }
+        .ai li { margin:3px 0; }
+        .cta { background:linear-gradient(180deg,#fff3d9,#ffe9bf); border:2px solid #ffc966; border-radius:14px; padding:20px 16px; margin:22px 0 10px; }
+        .cta h2 { font-size:18px; margin:0 0 8px; color:var(--navy); text-align:center; line-height:1.5; }
+        .cta p.lead { font-size:14px; margin:0 0 10px; }
+        .cta ul { margin:0 0 14px; padding-left:20px; font-size:14px; }
+        .cta li { margin:3px 0; }
+        .cta label { font-size:13px; font-weight:700; display:block; margin-bottom:4px; }
+        .cta input[type=email] { width:100%; height:50px; border:1px solid #b9a98c; border-radius:8px; padding:10px 12px; font-size:16px; background:#fff; }
+        .cta button[type=submit] { width:100%; margin-top:10px; background:var(--primary); color:#fff; border:none; padding:14px 18px;
+            border-radius:30px; font-weight:800; font-size:16px; font-family:inherit; cursor:pointer; box-shadow:0 4px 12px rgba(245,124,0,.28); }
+        .cta button[disabled] { opacity:.6; cursor:default; }
+        .cf-turnstile { margin-top:10px; min-height:65px; }
+        #rondo-status { font-size:13.5px; font-weight:700; color:var(--navy); margin:8px 0 0; }
+        .cta p.sub { font-size:12px; color:var(--muted); margin:10px 0 0; }
+        .next { border-color:#cfd8ea; }
+        .next p { margin:4px 0; font-size:14px; }
+        .next a { color:#0b63ce; font-weight:700; }
+        footer { text-align:center; font-size:12px; color:var(--muted); padding:18px 14px 0; }
+        .tool-nav { max-width:640px; margin:0 auto; padding:8px 16px; font-size:13px; color:var(--muted); }
+        .tool-nav a { color:var(--navy); font-weight:700; text-decoration:none; }
+        @media (max-width:480px) { .need { font-size:29px; } header h1 { font-size:18px; } .grade { width:64px; height:64px; font-size:34px; }
+            .bar { grid-template-columns:96px 1fr 52px; }
+            .row { flex-wrap:nowrap; } .row label { flex:1 1 auto; min-width:0; } input[type=number] { width:100px; flex-shrink:0; } .unit { min-width:1.4em; } }
+    </style>
+<link rel="stylesheet" href="/assets/site-footer.css?v=20260919">
+</head>
+<body>
+<nav class="tool-nav" aria-label="パンくずリスト"><a href="../../">きくりんのノウハウ垂れ流し</a> › <a href="../../rental-space/">レンタルスペース経営</a> › <a href="../../rental-space/dance/">ダンス向けレンタルスタジオ</a> › <span>黒字診断</span></nav>
+    <header>
+        <h1>その物件、ダンス向けの<br>レンタルスペースで黒字になる?</h1>
+        <p>家賃と広さを入れるだけ・30秒で診断</p>
+    </header>
+    <div class="wrap">
+        <div class="card">
+            <p class="hint">気になっている物件の数字を入れてください(入れるとすぐ結果が変わります)。</p>
+            <div class="row"><label for="rent">家賃<small>管理費・共益費こみの毎月の支払い</small></label><input type="number" id="rent" value="150000" step="5000" min="0" inputmode="numeric"><span class="unit">円</span></div>
+            <div class="row"><label for="area">広さ<small>踊れるスペースの広さ</small></label><input type="number" id="area" value="45" step="1" min="0" inputmode="numeric"><span class="unit">㎡</span></div>
+            <div class="row"><label for="other">家賃のほかの毎月の費用<small>電気・ネット・清掃・予約システムなど</small></label><input type="number" id="other" value="20000" step="1000" min="0" inputmode="numeric"><span class="unit">円</span></div>
+        </div>
+
+        <div class="card result" id="result" aria-live="polite">
+            <div class="verdict">
+                <div class="grade" id="grade">—</div>
+                <div>
+                    <p class="need-label">黒字に必要な予約</p>
+                    <p class="need" id="need">—</p>
+                    <p class="need-sub" id="needSub"></p>
+                </div>
+            </div>
+            <p class="comment" id="comment"></p>
+
+            <div class="bars">
+                <h3>きくりんの店の実測とくらべると(1日あたりの予約時間)</h3>
+                <div id="bars"></div>
+            </div>
+
+            <div class="grow" id="grow"></div>
+
+            <h3 style="margin-top:16px;">予約が入ったときの毎月の利益(開業すぐの場合)</h3>
+            <table class="sim" id="sim"></table>
+
+            <div class="share">
+                <a class="x" id="shareX" href="#" target="_blank" rel="noopener">結果をXでシェア</a>
+                <button class="copy" id="copyLink" type="button">この条件のURLをコピー</button>
+            </div>
+
+            <p class="note">
+                ※単価は広さで自動で決めています(50㎡未満=平日1,000円・休日1,500円/50〜70㎡=1,500円・2,000円/70㎡以上=2,000円・2,500円。1時間あたり)。<br>
+                ※「開業すぐ」は予約の7割がポータルサイト経由(ポータルの価格は1.1倍・手数料35%)、「公式サイトが育ったあと」は売上の6割が公式サイト経由(手数料3.5%)で計算しています。6割は、きくりんのダンス向けレンタルスタジオ5店舗の実測(2026年6〜7月・金額ベース)です。<br>
+                ※判定の目安: 1日5.5時間まで=◎/6.5時間まで=○/7.2時間まで=△/それ以上=✕。実測は、きくりんのダンス向けレンタルスタジオ5店舗(2026年4〜8月)です。<br>
+                ※ひと月30日(平日22日・休日8日)で計算した目安です。利益を約束するものではありません。駅・物件の条件で、予約の入り方は大きく変わります。
+            </p>
+        </div>
+
+        <div class="card ai">
+            <h3>毎日の運営は、AIと仕組みに任せています</h3>
+            <p style="margin:0;font-size:14px;">建物と立地はAIにはまねできません。でも、毎日の運営はAIに任せられます。ぼくの店では、たとえば</p>
+            <ul>
+                <li>お客さまからの電話は、AIの自動応答が答えています</li>
+                <li>清掃スタッフの報告は、アプリから店ごとのLINEに届き、支払いの計算まで自動です</li>
+                <li>予約の売上は、毎月自動で集計されます</li>
+                <li>物件探しも、ツールが条件に合う物件をしぼりこみます</li>
+            </ul>
+        </div>
+
+        <div class="cta" id="mail">
+            <h2>この時間に届くかは、<br>「駅」と「物件」で決まります</h2>
+            <p class="lead">無料のメール講座(全8通)で、ぼくが物件を決めるときの順番を1日1通ずつお送りします。</p>
+            <ul>
+                <li>駅の選び方・物件の見方・内見で見るところ</li>
+                <li>初期費用シミュレーター・出店企画書・開業チェックリストの3つの特典</li>
+                <li>開業まで、ぜんぶ数字つき</li>
+            </ul>
+            <form id="rondo-subscribe">
+                <label for="rondo-email">メールアドレス</label>
+                <input id="rondo-email" name="email" type="email" inputmode="email" autocomplete="email" spellcheck="false" placeholder="you@example.com" required>
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAAEV9IwiuZXn-MyO5" data-language="ja"></div>
+                <div aria-hidden="true" style="position:absolute;left:-10000px">
+                    <label for="rondo-website">Website</label>
+                    <input id="rondo-website" name="website" type="text" tabindex="-1" autocomplete="off">
+                </div>
+                <button type="submit">無料でメール講座を受け取る</button>
+                <p id="rondo-status" role="status" aria-live="polite"></p>
+            </form>
+            <p class="sub">確認メールのリンクを開くと登録完了です。いつでもメール内のリンクから配信を解除できます。メールアドレスは講座の配信以外に使いません。</p>
+        </div>
+
+        <div class="card next">
+            <h3>もっとくわしく知りたい人へ</h3>
+            <p>▶ <a href="../../rental-space/dance/?utm_source=tool&amp;utm_medium=shindan&amp;utm_campaign=dance_shindan">ダンス向けレンタルスタジオの記事まとめ(無料)</a></p>
+            <p>▶ <a href="/kyokasho/dance/?utm_source=tool&amp;utm_medium=shindan&amp;utm_campaign=dance_shindan">【きくりん式】レンタルスペースは「ダンススタジオ」で稼ぐ！完全ロードマップ</a><br><span style="font-size:12.5px;color:var(--muted);">駅の選び方から、教室の先生に毎週使ってもらうまで。第0部は無料で読めます。</span></p>
+        </div>
+
+        <footer>&copy; 2026 きくりんのノウハウ垂れ流し<!-- site-home-link start -->
+<nav class="site-home-nav" aria-label="サイトトップ"><a href="/">きくりんのノウハウ垂れ流し TOP</a></nav>
+<!-- site-home-link end -->
+</footer>
+    </div>
+
+    <script src="../bukken/lib/breakeven.js"></script>
+    <script>
+        (function () {
+            var $ = function (id) { return document.getElementById(id); };
+            var B = window.Breakeven;
+            var OPEN_SHARE = 0.7;   // 開業すぐ: 予約の7割がポータル経由(物件探しツールと同じ既定値)
+            var GROWN_SHARE = 0.4;  // 公式サイトが育ったあと: 公式6割=ダンス5店舗の実測(2026年6〜7月・金額ベース)
+            var GRADE_CLASS = { '◎': 'g-best', '○': 'g-good', '△': 'g-fair', '✕': 'g-bad' };
+            var yen = function (n) { return (n < 0 ? '-' : '') + Math.abs(Math.round(n)).toLocaleString('ja-JP') + '円'; };
+            var man = function (n) { var m = Math.round(n / 1000) / 10; return (n < 0 ? '-' : '+') + Math.abs(m).toLocaleString('ja-JP') + '万円'; };
+
+            // URLの条件で始める(シェアされたリンク用)
+            var q = new URLSearchParams(location.search);
+            ['rent', 'area', 'other'].forEach(function (k) { var v = q.get(k); if (v !== null && v !== '' && isFinite(+v)) $(k).value = +v; });
+
+            var last = null, tracked = false;
+            function render() {
+                var rent = Math.max(0, +$('rent').value || 0);
+                var area = +$('area').value || null;
+                var other = Math.max(0, +$('other').value || 0);
+                var rates = B.suggestRates(area);
+                var base = { weekdayRate: rates.weekdayRate, weekendRate: rates.weekendRate, otherCosts: other, openHours: 24 };
+                var r = B.calc(rent, Object.assign({}, base, { portalShare: OPEN_SHARE }));
+                var g = B.calc(rent, Object.assign({}, base, { portalShare: GROWN_SHARE }));
+                var h = r.breakevenHoursPerDay;
+                last = { rent: rent, area: area, other: other, h: h, grade: r.hoursGrade, hg: g.breakevenHoursPerDay };
+
+                var gr = $('grade');
+                gr.textContent = r.hoursGrade;
+                gr.className = 'grade ' + (GRADE_CLASS[r.hoursGrade] || '');
+                if (!isFinite(h)) {
+                    $('need').innerHTML = '—';
+                    $('needSub').textContent = '';
+                    $('comment').textContent = '数字を入れてください。';
+                } else {
+                    $('need').innerHTML = '1日 ' + h + '<small> 時間</small>';
+                    $('needSub').textContent = '週' + r.breakevenHoursPerWeek + '時間の予約で、家賃と費用をまかなえます';
+                    $('comment').textContent = h > 24 ? '24時間ずっと埋まっても黒字になりません。家賃が重すぎます。' : r.hoursComment;
+                }
+
+                // くらべる棒(最大12時間で目盛り)
+                var MAX = 12;
+                var items = [{ lb: 'この物件(黒字ライン)', v: h, you: true }].concat(B.ACTUAL_HOURS.map(function (a) {
+                    return { lb: a.label.replace('きくりんの店の実測: ', ''), v: a.h };
+                }));
+                $('bars').innerHTML = items.map(function (it) {
+                    var w = isFinite(it.v) ? Math.min(100, it.v / MAX * 100) : 100;
+                    return '<div class="bar' + (it.you ? ' you' : '') + '"><span class="lb">' + it.lb + '</span><span class="track"><span class="fill" style="width:' + w + '%"></span></span><span class="v">' + (isFinite(it.v) ? it.v + '時間' : '—') + '</span></div>';
+                }).join('');
+
+                var hg = g.breakevenHoursPerDay;
+                $('grow').innerHTML = isFinite(hg)
+                    ? '公式サイトからの予約が育つと(売上の6割)、黒字ラインは<br><b class="big">1日 ' + hg + '時間</b>(' + g.hoursGrade + ')まで下がります。<br><span style="font-size:12.5px;color:var(--muted);">ポータルの手数料35%が、公式サイトなら3.5%。先生の定期利用と公式サイトが、ぼくの店の利益の土台です。</span>'
+                    : '';
+
+                $('sim').innerHTML = '<tr><th>1日の予約</th><th>手取り(手数料のあと)</th><th>毎月の利益</th></tr>' +
+                    r.sim.filter(function (s) { return s.perDay >= 5; }).map(function (s) {
+                        return '<tr><td>' + s.perDay + '時間' + (s.label ? '<small>' + s.label.replace('きくりんの店の実測: ', '実測: ') + '</small>' : '') + '</td><td>' + yen(s.net) + '</td><td class="' + (s.profit >= 0 ? 'plus' : 'minus') + '">' + man(s.profit) + '</td></tr>';
+                    }).join('');
+
+                var url = location.origin + location.pathname + '?rent=' + rent + '&area=' + (area || '') + '&other=' + other;
+                var text = '家賃' + (rent / 10000) + '万円・' + (area || '?') + '㎡の物件、ダンス向けのレンタルスペースで黒字に必要な予約は「1日' + (isFinite(h) ? h : '?') + '時間」(' + r.hoursGrade + ')でした。';
+                $('shareX').href = 'https://x.com/intent/post?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(url + '&utm_source=x&utm_medium=share&utm_campaign=dance_shindan');
+                $('copyLink').dataset.url = url;
+            }
+
+            var timer = null;
+            ['rent', 'area', 'other'].forEach(function (id) {
+                $(id).addEventListener('input', function () {
+                    render();
+                    clearTimeout(timer);
+                    timer = setTimeout(function () {
+                        if (typeof gtag === 'function' && last) gtag('event', 'shindan_calc', { tool: 'dance-shindan', grade: last.grade, hours: last.h, first: !tracked });
+                        tracked = true;
+                    }, 1500);
+                });
+            });
+            $('shareX').addEventListener('click', function () { if (typeof gtag === 'function' && last) gtag('event', 'shindan_share', { tool: 'dance-shindan', method: 'x', grade: last.grade }); });
+            $('copyLink').addEventListener('click', function () {
+                var u = this.dataset.url, btn = this;
+                var done = function () { btn.textContent = 'コピーしました'; setTimeout(function () { btn.textContent = 'この条件のURLをコピー'; }, 1800); };
+                if (navigator.clipboard) navigator.clipboard.writeText(u).then(done, function () { prompt('URLをコピーしてください', u); });
+                else prompt('URLをコピーしてください', u);
+                if (typeof gtag === 'function') gtag('event', 'shindan_share', { tool: 'dance-shindan', method: 'copy' });
+            });
+            render();
+
+            // メール講座の登録(Rondo)。source で診断ツール経由とわかるようにする
+            var form = $('rondo-subscribe'), status = $('rondo-status'), button = form.querySelector('button[type="submit"]');
+            form.addEventListener('submit', async function (event) {
+                event.preventDefault();
+                var data = new FormData(form);
+                var cfToken = data.get('cf-turnstile-response');
+                if (!cfToken) { status.textContent = 'ロボットでないことの確認が終わってから、もう一度押してください。'; return; }
+                button.disabled = true; button.textContent = '送信中…'; status.textContent = '';
+                try {
+                    var res = await fetch('https://rondo.kikurin.workers.dev/api/subscribe', {
+                        method: 'POST', headers: { 'content-type': 'application/json' },
+                        body: JSON.stringify({ email: data.get('email'), website: data.get('website'), cfToken: cfToken, source: 'shindan-dance' }),
+                    });
+                    if (!res.ok) throw new Error('HTTP ' + res.status);
+                    if (typeof gtag === 'function') gtag('event', 'mail_signup', { method: 'rondo', tool: 'dance-shindan', page_location: location.href });
+                    form.reset();
+                    if (window.turnstile) window.turnstile.reset();
+                    status.textContent = '確認メールを送りました。受信箱のリンクを開いて登録を完了してください。';
+                } catch (e) {
+                    status.textContent = '送信できませんでした。通信状態を確認して、もう一度お試しください。';
+                    if (window.turnstile) window.turnstile.reset();
+                } finally {
+                    button.disabled = false; button.textContent = '無料でメール講座を受け取る';
+                }
+            });
+        })();
+    </script>
+    <script src="/track.js?v=20260919"></script>
+</body>
+</html>
