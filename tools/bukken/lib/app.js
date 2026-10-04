@@ -248,7 +248,8 @@
     v.className = 'hero ' + d.verdictClass;
     v.innerHTML = '<div class="ring" style="--p:' + d.total + '"><b>' + d.total + '</b><small>/ 100</small></div>'
       + '<div><div class="v-label">' + esc(d.verdict) + '</div>' + (d.verdictNote ? '<div class="v-note">' + esc(d.verdictNote) + '</div>' : '')
-      + '<div class="v-title">' + esc(p.address || '') + (p.title ? ' ｜ ' + esc(String(p.title).slice(0, 60)) : '') + '</div></div>';
+      + '<div class="v-title">' + esc(p.address || '') + (p.title ? ' ｜ ' + esc(String(p.title).slice(0, 60)) : '') + '</div>'
+      + (/^https?:\/\//.test(d.url || p.url || '') ? '<a class="v-link" href="' + esc(d.url || p.url) + '" target="_blank" rel="noopener">物件ページを開く ↗</a>' : '') + '</div>';
     const rent = (p.rentYen || 0) + (p.mgmtYen || 0);
     const rentItem = d.items.find((i) => i.key === 'rent') || {};
     const tsuboItem = d.items.find((i) => i.key === 'tsubo') || {};
