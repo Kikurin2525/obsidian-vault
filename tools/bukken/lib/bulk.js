@@ -61,8 +61,12 @@
       return new Promise((ok, ng) => { const tx = db.transaction('kv', 'readwrite'); tx.objectStore('kv').put(v, k); tx.oncomplete = () => ok(true); tx.onerror = () => ng(tx.error); });
     },
   };
+  // athomeの制限で1件も取れなかった回(古いブックマーク・拡張から来たもの)は、無かったことにする。残すと「前回」が空になり新着・消えたの比較が崩れる
+  const isEmptyBlocked = (r) => !!(r && r.partial && !r.fetched);
   async function loadRuns() {
-    try { return (await idb.get('runs')) || []; } catch (_) { return ls.get(RUNS_KEY, []); }
+    let runs;
+    try { runs = (await idb.get('runs')) || []; } catch (_) { runs = ls.get(RUNS_KEY, []); }
+    return runs.filter((r) => !isEmptyBlocked(r));
   }
   async function saveRuns(runs) {
     runs.sort((a, b) => a.at - b.at);
@@ -329,6 +333,10 @@
   }
   async function importRun(data, quiet) {
     if (!data || !Array.isArray(data.items)) throw new Error('データの形式が違います');
+    if (data.partial && !data.items.length) {
+      if (!quiet) msg('athomeのアクセス制限で、1件も取得できていませんでした(取り込んでいません)。30分ほど待ってから、もう一度集めてください。拡張機能かブックマークが古い場合は、このページから入れ直すと次からはathome側でお知らせします', true);
+      return;
+    }
     const runs = await loadRuns();
     const id = 'r' + data.at;
     if (runs.some((r) => r.id === id)) {
