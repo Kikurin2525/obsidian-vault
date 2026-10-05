@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CHWF6QKRJ6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-CHWF6QKRJ6');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="note-hashtags" content="#レンタルスペース #価格設定 #AI活用 #ダンススタジオ">
+<meta name="description" content="価格設定を1年ほどまちがえていた店を、予約を曜日と時間帯ごとに数えて直しました。予約を集める・稼働率の表・新しい価格表・反映・毎週の上げ下げの5ステップと、AIにそのまま貼れるプロンプト3本を紹介します。">
+<meta property="og:title" content="【プロンプト付き】レンスペの価格設定をAIに任せる5ステップ">
+<meta property="og:description" content="価格設定を1年ほどまちがえていた店を、予約を曜日と時間帯ごとに数えて直しました。予約を集める・稼働率の表・新しい価格表・反映・毎週の上げ下げの5ステップと、AIにそのまま貼れるプロンプト3本を紹介します。">
+<meta property="og:image" content="https://rental-space.net/assets/2026_10_06_rental_pricing_ai_hero.png">
+<meta property="og:url" content="https://rental-space.net/articles/2026-10-06-rental-space-pricing-ai-prompt.html">
+<meta property="og:type" content="article"><meta name="twitter:card" content="summary_large_image">
+<title>【プロンプト付き】レンスペの価格設定をAIに任せる5ステップ - きくりんのノウハウ垂れ流し</title>
+<link rel="icon" href="../assets/favicon.png" type="image/png"><link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../style.css?v=1.2.1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>.article-header .category-badge{position:static;display:inline-block;margin-bottom:12px}.article-body a{color:#075bc8;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;font-weight:700;overflow-wrap:anywhere}.article-table{overflow-x:auto;margin:1.5em 0}.article-table table{border-collapse:collapse;width:100%;font-size:.95em;display:table}.article-table th,.article-table td{padding:12px;border:1px solid #ddd;text-align:left;white-space:normal}.article-table th{background:#eef5ff}.article-table td:last-child{white-space:nowrap}.article-body blockquote{margin:1.5em 0;padding:16px 20px;background:#f7f7f7;border-left:4px solid #bbb;border-radius:0 8px 8px 0}.single-article .article-body blockquote p{margin-bottom:0}.article-body code{background:#f2f2f2;padding:2px 6px;border-radius:4px;font-size:.92em}.article-body .image-caption{margin:-20px 0 28px}@media(max-width:600px){.kyokasho-banner .kb-title span{white-space:normal!important;overflow-wrap:anywhere}}.article-table th,.article-table td{min-width:5em}.article-table:focus-visible{outline:2px solid #075bc8}.article-image img{background:#fff}</style>
+<link rel="stylesheet" href="/assets/renspe-game-promo-v1.css">
+<link rel="stylesheet" href="/assets/site-footer.css?v=20260919">
+<!-- seo-head start -->
+<link rel="canonical" href="https://rental-space.net/articles/2026-10-06-rental-space-pricing-ai-prompt.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "ホーム",
+      "item": "https://rental-space.net/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "レンタルスペース経営",
+      "item": "https://rental-space.net/rental-space/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "【プロンプト付き】レンスペの価格設定をAIに任せる5ステップ",
+      "item": "https://rental-space.net/articles/2026-10-06-rental-space-pricing-ai-prompt.html"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "【プロンプト付き】レンスペの価格設定をAIに任せる5ステップ",
+  "datePublished": "2026-10-06",
+  "dateModified": "2026-10-06",
+  "mainEntityOfPage": "https://rental-space.net/articles/2026-10-06-rental-space-pricing-ai-prompt.html",
+  "author": {
+    "@type": "Person",
+    "name": "きくりん",
+    "url": "https://rental-space.net/articles/2026-01-20-self-introduction.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "きくりんのノウハウ垂れ流し",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://rental-space.net/assets/duo_tarenagashi.png"
+    }
+  },
+  "description": "価格設定を1年ほどまちがえていた店を、予約を曜日と時間帯ごとに数えて直しました。予約を集める・稼働率の表・新しい価格表・反映・毎週の上げ下げの5ステップと、AIにそのまま貼れるプロンプト3本を紹介します。",
+  "image": "https://rental-space.net/assets/2026_10_06_rental_pricing_ai_hero.png"
+}
+</script>
+<!-- seo-head end -->
+<link rel="stylesheet" href="/assets/site-menu.css?v=20260930a">
+<link rel="stylesheet" href="/assets/link-card.css?v=20261005">
+</head>
+<body class="article-page">
+<!-- site-menu start -->
+<nav class="site-menu" aria-label="ブログのメニュー"><div class="site-menu-inner"><a class="site-menu-brand" href="/">きくりんのノウハウ垂れ流し</a><input type="checkbox" id="site-menu-toggle" class="site-menu-toggle" aria-label="メニューを開く"><label for="site-menu-toggle" class="site-menu-button" aria-hidden="true"><span></span><span></span><span></span></label><ul class="site-menu-list"><li><a href="/">ホーム</a></li><li><a href="/rental-space/" class="is-current">レンタルスペース</a></li><li><a href="/rental-space/dance/">ダンス向けレンタルスタジオ</a></li><li><a href="/ebay/">eBay輸出</a></li><li><a href="/#ailab">AI活用実験室</a></li><li><a href="/kyokasho/">レンスペ教科書</a></li><li><a href="/kyokasho/ebay/">eBay教科書</a></li><li><a href="/mail/">無料講座</a></li><li><a href="/articles/2026-01-20-self-introduction.html">プロフィール</a></li></ul></div></nav>
+<!-- site-menu end -->
+<header class="main-header"><div class="header-content"><div class="logo-area minimal"><a href="../index.html" class="header-logo-link horiz"><img src="../assets/duo_tarenagashi.png" alt="きくりん" class="header-logo-img-character small"><div class="logo-text"><h1>きくりんの<br>ノウハウ垂れ流し</h1></div></a></div></div></header>
+<main class="container"><article class="single-article">
+<!-- breadcrumb start -->
+<nav class="breadcrumb" aria-label="パンくずリスト"><ol><li><a href="../index.html">ホーム</a></li><li><a href="../rental-space/">レンタルスペース経営</a></li><li aria-current="page">【プロンプト付き】レンスペの価格設定をAIに任せる5ステ…</li></ol></nav>
+<!-- breadcrumb end -->
+<header class="article-header"><span class="category-badge">副業① レンタルスペース</span><h1>【プロンプト付き】レンスペの価格設定をAIに任せる5ステップ</h1><time datetime="2026-10-06">2026.10.06</time></header>
+<div class="article-body">
+<div class="article-image"><img src="../assets/2026_10_06_rental_pricing_ai_hero.png" alt="レンスペの価格設定 AIに任せる" width="1536" height="1024" class="eyecatch-img" fetchpriority="high" decoding="async" style="display:block;width:100%;height:auto"></div>
+<p>価格設定を1年ほど、まちがえていた店があります。<br>
+直したあと、月の利益は10万円近くまで戻りました。</p>
+<p>やったのは、予約を<strong>曜日と時間帯ごとに数えた</strong>ことです。<br>
+数えるのも、新しい価格の案を出すのも、AIに任せました。</p>
+<p>今日は、そのやり方を5つのステップで全部書きます。<br>
+AIにそのまま貼れるプロンプトも、3本つけました。</p>
+<ol><li>予約を集める</li><li>曜日・時間帯ごとの稼働率の表を作る(プロンプト①)</li><li>新しい価格表の案を出す(プロンプト②)</li><li>予約サイトに反映する</li><li>毎週、先の予約を見て価格を上げ下げする(プロンプト③)</li></ol>
+<p>5つとも、ぼくはAIに任せています。</p>
+<hr>
+<h2>東京のいい場所だから、高めにした</h2>
+<p>ぼくはレンタルスペースを、累計23店舗出してきました。<br>
+そのうち11店舗が、ダンスのレンタルスタジオです。</p>
+<p>10号店は、学生街の店です。<br>
+広さは40㎡。<br>
+人通りは、とても多い。</p>
+<p>「東京のいい場所だから」と、価格を少し高めにしました。</p>
+<p><strong>ところが、ぜんぜん予約が入りませんでした。</strong></p>
+<p>直近12ヶ月の月の利益は、平均3.3万円。<br>
+ほかの店が月十数万円なのに、ここだけ低いままでした。</p>
+<div class="article-image"><a href="../assets/2026_10_06_rental_pricing_ai_11stores.webp" aria-label="ダンスのレンタルスタジオ11店舗の表。10号店だけ月の利益が3.3万円を拡大表示"><img src="../assets/2026_10_06_rental_pricing_ai_11stores.webp" alt="ダンスのレンタルスタジオ11店舗の表。10号店だけ月の利益が3.3万円" width="1004" height="1282" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;max-width:520px;margin:0 auto"></a></div>
+<p class="image-caption"><em>出典: ダンス本 第0部(無料で読めます)の11店舗の表。オレンジの枠が10号店です</em></p>
+<hr>
+<h2>月の合計だけ見ていると、空いている時間が見えない</h2>
+<p>月の売上や稼働率の合計を見ても、「なんとなく悪い」しか分かりません。</p>
+<p>どの曜日の、どの時間が空いているのか。<br>
+そこまで分けて数えないと、どこを直せばいいか分からないんです。</p>
+<p>でも、これを手でやるのは大変です。<br>
+1ヶ月の予約を、曜日と時間帯ごとに足していく。<br>
+正直、やりたくありません。</p>
+<p>だから、AIに任せます。</p>
+<hr>
+<h2>ステップ1: 予約を集める</h2>
+<p>まず、1ヶ月分の予約を集めます。</p>
+<p>ぼくの店は、どの予約サイトの予約もGoogleカレンダーに入るようにしています。<br>
+そこからAIに、<strong>日付・始まりの時刻・終わりの時刻の3つだけ</strong>を書き出してもらいます。</p>
+<p>お客さんの名前や連絡先は、AIに渡しません。<br>
+清掃やメンテナンスの枠は、次のステップでAIに外してもらいます。</p>
+<hr>
+<h2>ステップ2: 曜日・時間帯ごとの稼働率の表を作る</h2>
+<p>集めた予約を、このプロンプトといっしょにAIに貼ります。</p>
+<blockquote class="prompt"><p>あなたはレンタルスペースの価格設定の担当です。<br>
+下に、ぼくの店の予約一覧(1ヶ月分)を貼ります。<br>
+1行が1件の予約で、「日付・始まり・終わり」だけが入っています。<br>
+<br>
+やってほしいこと:<br>
+1. 曜日(月〜日)× 時間帯ごとに、予約が入っている割合(稼働率%)の表を作ってください。祝日は土日あつかいにしてください<br>
+2. 時間帯の区切りは【あなたの店の値(うちは 3時間ごと)】<br>
+3. 営業時間は【あなたの店の値(うちは 24時間)】<br>
+4. 清掃・メンテナンス・予約止めの枠は数えないでください<br>
+5. 表のあとに、いちばん空いている曜日と時間帯を5つ、価格に関係なく予約が入っている曜日と時間帯を5つ書き出してください<br>
+<br>
+予約一覧:<br>
+(ここに貼る)</p></blockquote>
+<p>ぼくの店では、この形のレポートを、AIが毎朝出しています。</p>
+<div class="article-image"><a href="../assets/2026_10_06_rental_pricing_ai_report.webp" aria-label="AIが毎朝出しているレポート。曜日と時間帯ごとの稼働率と、空いている時間への提案を拡大表示"><img src="../assets/2026_10_06_rental_pricing_ai_report.webp" alt="AIが毎朝出しているレポート。曜日と時間帯ごとの稼働率と、空いている時間への提案" width="1920" height="1058" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></a></div>
+<p class="image-caption"><em>出典: ぼくのダンスのレンタルスタジオの朝レポート(AIがまとめたもの・2026年8月3日)。店名は消しています</em></p>
+<p>この店は、土曜はよく入るのに、月曜と金曜がほとんど空いていました。<br>
+1ヶ月の合計では見えなかったことが、曜日と時間帯に分けると一目で分かります。</p>
+<p>10号店も、こうして分けて数えたことで、どこを直せばいいかが分かりました。</p>
+<hr>
+<h2>ステップ3: 新しい価格表の案を出す</h2>
+<p>稼働率の表ができたら、同じ画面でつづけて、このプロンプトを貼ります。</p>
+<blockquote class="prompt"><p>上の稼働率の表をもとに、新しい価格表の案を作ってください。<br>
+<br>
+店の情報:<br>
+- 使いみち: 【あなたの店の値(うちは ダンスの練習・レッスン)】<br>
+- 広さ: 【あなたの店の値(うちは 40㎡)】<br>
+- いまの価格(1時間): 【あなたの店の値(いまの価格表をそのまま貼る)】<br>
+- 来てほしいお客さん: 【あなたの店の値(うちは 学生)】<br>
+- 近くの競合の価格(1時間): 【あなたの店の値(予約サイトで調べて書く)】<br>
+<br>
+ルール:<br>
+1. 時間帯の区切りは3つまで。お客さんが一目で「安い」と分かる、単純な価格表にする<br>
+2. 空いている時間は下げる。価格に関係なく予約が入っている時間は下げない<br>
+3. いちばん安い時間でも、1時間【あなたの店の値(うちは 500円)】より下げない<br>
+4. 長く使う人の割引: 【あなたの店の値(うちは 長く使うほど1時間あたりを安く)】<br>
+5. 毎週同じ枠で使ってくれている定期利用のお客さんの価格は、上げない<br>
+<br>
+出してほしいもの:<br>
+- 曜日×時間帯の価格表<br>
+- 変える理由(1つにつき1行)<br>
+- いまの稼働のままだと、月の売上がいくら変わるか<br>
+- いまの売上を保つには、予約が入る時間が何倍いるか</p></blockquote>
+<p>ルールの1番が、いちばん大事です。</p>
+<p>10号店のとき、AIが最初に出してきた案は、もっと細かく分かれていました。<br>
+なので、その案をそのまま使ったわけではありません。</p>
+<p><strong>時間帯を細かく分けるより、「ここは安い」と単純に思ってもらうほうがいい。</strong></p>
+<p>あわせて、「いまの稼働のままだと、売上はいくら下がるか」「何倍入れば元に戻るか」もAIに出してもらいます。<br>
+下げる前に、どこまで予約が入れば元がとれるかを知っておく。<br>
+これで、こわくなくなります。</p>
+<p>10号店のくわしい数字と価格表は、ダンス本に書いています。</p>
+<hr>
+<h2>ステップ4: 予約サイトへの反映もAIに任せる</h2>
+<p>価格表が決まったら、予約サイトに反映します。<br>
+ここも、ぼくはAIに任せています。</p>
+<p>ただし、<strong>予約サイトの規約で、AIでの自動化が制限されている可能性があります。</strong><br>
+<strong>使うかどうか・どこまで任せるかは、各サービスの規約を確認したうえで自己責任で</strong>お願いします。</p>
+<p>反映のコツは1つ。<br>
+<strong>予約サイト・公式サイトなど、価格が載っている場所を、同じ日に全部変えます。</strong><br>
+どこか1つでも古いままだと、お客さんが迷います。<br>
+AIに頼むときも、価格が載っている場所の一覧を先に渡しています。</p>
+<p>それから、日付を指定して価格を変えられるかは、予約サイトごとにちがいます。</p>
+<ul><li>スペースマーケット: 「特別営業」で、1日だけの価格を入れられる</li><li>カシカシ: 「特別料金設定」は、価格を上げる(割増)ことだけ</li><li>インスタベース: 「特別料金」が、スペース全体で1つの単価</li></ul>
+<p>次のステップ5で日ごとに価格を変えるなら、自分の予約サイトでできるかを、先にAIに調べてもらってください。</p>
+<hr>
+<h2>ステップ5: 毎週、先の予約を見て価格を上げ下げする</h2>
+<p>価格表は、作って終わりではありません。</p>
+<p>ぼくの撮影スタジオでは、毎週月曜に、AIが2週間先までの予約を集計して、日ごとの価格の案を出しています。<br>
+空いている日は下げる。<br>
+予約が早く入っている日は上げる。</p>
+<div class="article-image"><a href="../assets/2026_10_06_rental_pricing_ai_weekly.webp" aria-label="AIが毎週月曜に出している価格の案。予約の時間と、日ごとに上げ下げした価格を拡大表示"><img src="../assets/2026_10_06_rental_pricing_ai_weekly.webp" alt="AIが毎週月曜に出している価格の案。予約の時間と、日ごとに上げ下げした価格" width="1920" height="1042" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></a></div>
+<p class="image-caption"><em>出典: AIが毎週月曜に出している価格の案(2026年10月5日・ぼくの撮影スタジオの1店分)。店名・プラン名は消しています</em></p>
+<p>そのルールを、AIに貼れる形にしたのがこれです。</p>
+<blockquote class="prompt"><p>毎週月曜に使います。<br>
+下に、今日から14日先までの予約一覧(日付・始まり・終わり)と、いまの価格表を貼ります。<br>
+<br>
+1. 日ごとに、【あなたの店の値(うちは 10〜22時)】に入っている予約の時間を合計してください<br>
+2. 次のルールで、日ごとの価格の案を出してください。基本のプランは変えず、その日だけの特別料金として出してください<br>
+&nbsp;&nbsp;&nbsp;- 予約が0時間の日: 3日以内なら【あなたの店の値(うちは −20%)】、4〜7日先なら【あなたの店の値(うちは −15%)】、8〜14日先なら【あなたの店の値(うちは −10%)】<br>
+&nbsp;&nbsp;&nbsp;- 予約が【あなたの店の値(うちは 9時間)】以上の日: 【あなたの店の値(うちは +15%)】<br>
+&nbsp;&nbsp;&nbsp;- 7日以上先なのに、もう【あなたの店の値(うちは 6時間)】以上入っている日: 【あなたの店の値(うちは +10%)】<br>
+&nbsp;&nbsp;&nbsp;- それ以外の日: いまの価格のまま<br>
+3. 次のことは、しないでください: 1時間【あなたの店の値(うちは 500円)】より下げる/いまの価格の【あなたの店の値(うちは 1.5倍)】より上げる/差が【あなたの店の値(うちは 100円)】より小さいのに変える。価格は【あなたの店の値(うちは 50円)】単位に丸めてください<br>
+4. 祝日は土日あつかいにしてください<br>
+5. 出してほしいもの: 日付・曜日・予約の時間・案の価格・理由の表。最後に、先週価格を変えた日と、変えなかった同じ曜日の予約の時間を比べて1行で<br>
+<br>
+予約一覧:<br>
+(ここに貼る)<br>
+<br>
+いまの価格表:<br>
+(ここに貼る)</p></blockquote>
+<p>最初は、毎朝この案を出していました。<br>
+いまは週1回にして、必要な週だけ価格を変えています。</p>
+<p>効果を見るときに、気をつけていることが1つあります。<br>
+<strong>予約が増えても、手取りが増えるとは限りません。</strong><br>
+<strong>見るのは、手取りです。</strong></p>
+<p>1時間の価格を下げたぶんを、予約の時間で取りかえせているか。<br>
+予約が増えた月こそ、手取りを前の月と比べます。</p>
+<hr>
+<h2>10号店は、月10万円近くまで戻った</h2>
+<p>10号店は、この流れで価格表を作りなおしました。<br>
+価格を下げて、予約の入る時間をふやす。<br>
+学生街の10号店には、これが合っていました。</p>
+<p>月の利益は、10万円近くまで戻っています。</p>
+<p>直す前と後の数字、新しい価格表は、ダンス本の第8部に全部書いています。</p>
+<p>逆に、会議室の店では、空いていた平日の午前に、3時間のパックを作りました。<br>
+どの時間をどう直すかは、店ごとにちがいます。<br>
+だから、まず数えるんです。</p>
+<hr>
+<h2>価格は、予約のデータを見て決める</h2>
+<p>今日のステップは、この5つでした。</p>
+<ol><li>予約を集める(日付と時間だけ)</li><li>曜日・時間帯ごとの稼働率の表を作る</li><li>新しい価格表の案を出す(時間帯は3つまで)</li><li>予約サイトに反映する(価格が載っている場所を、同じ日に全部)</li><li>毎週、先の予約を見て価格を上げ下げする(見るのは手取り)</li></ol>
+<p><strong>数えるのも、AI。</strong><br>
+<strong>案を出すのも、AI。</strong><br>
+<strong>価格を変えるのも、AIに任せる。</strong></p>
+<p>AIにどこまで任せるかは、各サービスの規約を確認したうえで、自己責任でお願いします。</p>
+<p>まずは、先月1ヶ月分の予約を、プロンプト①に貼ってみてください。<br>
+いちばん空いている5つの時間帯が、あなたの店の伸びしろです。</p>
+<p>あなたの店で、いちばん空いている時間はどこですか?</p>
+<hr>
+<p>10号店の価格設定を直した全部は、本に書いています。</p>
+<p>📘 『【きくりん式】レンタルスペースは「ダンススタジオ」で稼ぐ！完全ロードマップ』<br>
+ぼくの11店舗の実録と、10号店の価格表の直し方まで入っています。<br>
+第0部はまるごと無料で読めます。</p>
+<div class="link-card-wrap"><a class="link-card" href="https://rental-space.net/kyokasho/dance/?utm_source=blog&amp;utm_medium=article&amp;utm_campaign=dance_rental-space-pricing-ai-prompt"><span class="lc-body"><span class="lc-title">【きくりん式】レンタルスペースは「ダンススタジオ」で稼ぐ！完全ロードマップ</span><span class="lc-desc">住宅地の駅で、教室の定期利用を集めるダンススタジオの開業・運営。累計11店舗の実録をまとめた教材の第0部を無料で全文公開。第1〜9部と付録10点は購入後に読めま…</span><span class="lc-site">rental-space.net</span></span><span class="lc-thumb"><img src="/kyokasho/dance/img/cover.png" alt="" loading="lazy"></span></a></div>
+<p>販売価格は3部売れるごとに3,000円ずつ値上がりします（上限あり）。内容・最新価格は販売ページをご確認ください。</p>
+<hr>
+<p>▼もう1つの副業、AI社員だけのeBay輸出店の実録🐹</p>
+<div class="link-card-wrap"><a class="link-card" href="https://note.com/cham_ebay"><span class="lc-body"><span class="lc-title">チャム🐹 AI社員とebay無在庫の店長｜note</span><span class="lc-desc">ebay無在庫店の店長チャム🐹 社員はほぼAI、人間は梱包発送さんだけ。1ヶ月目+104,286円、2ヶ月目+131,283円。過去MAX200万に再挑戦。 中…</span><span class="lc-site">note.com</span></span><span class="lc-thumb"><img src="https://assets.st-note.com/production/uploads/images/303887425/76bdc39897e447dcf6e495f5de2e5a1a.png?fit=bounds&amp;format=jpeg&amp;height=1024&amp;quality=85&amp;width=1024" alt="" loading="lazy"></span></a></div>
+<p>▼ブログ(レンスペ×eBay、全記事まとめ)</p>
+<div class="link-card-wrap"><a class="link-card" href="https://rental-space.net"><span class="lc-body"><span class="lc-title">きくりんのノウハウ垂れ流し</span><span class="lc-desc">副業＋副業＝本業。副業を本業へ。</span><span class="lc-site">rental-space.net</span></span><span class="lc-thumb"><img src="/assets/ogp.png" alt="" loading="lazy"></span></a></div>
+</div>
+<!-- mail-course start -->
+<aside class="mail-course-banner" aria-label="無料メール講座のご案内" style="margin:40px 0 28px;border:3px solid #1d7fe6;border-radius:16px;overflow:hidden;background:#f3f9ff">
+<a href="/mail/?utm_source=blog&amp;utm_medium=article_footer&amp;utm_campaign=mail_course" style="display:block"><picture><source media="(max-width:640px)" srcset="../assets/2026_10_04_mail_banner_v4_sp.webp" width="1080" height="1080"><img src="../assets/2026_10_04_mail_banner_v4_pc.webp" alt="無料メール講座：レンタルスペース マスター講座。これから1部屋目を出す人へ。無料の8日間メールで垂れ流し。3大特典つき(初期費用シミュレーター・出店企画書・開業チェックリスト)" width="1200" height="400" loading="lazy" style="display:block;width:100%;height:auto"></picture></a>
+<div style="padding:16px 18px 20px;text-align:center">
+<p style="margin:0 0 6px;font-weight:700;color:#16305a;font-size:17px;line-height:1.6">これから1部屋目を出す人へ</p>
+<p style="margin:0 0 14px;color:#314a6e;font-size:15px;line-height:1.8;text-align:left">物件探しから、月いくら残るかの計算、オープンまで。ぼくの手順を、8日間のメールで1つずつお届けします。登録すると、出店企画書など特典が3つ(無料)。</p>
+<a href="/mail/?utm_source=blog&amp;utm_medium=article_footer&amp;utm_campaign=mail_course" style="display:inline-block;padding:12px 28px;border-radius:12px;background:linear-gradient(180deg,#ffa01e,#f25c05);color:#fff;font-weight:900;font-size:17px;text-decoration:none;box-shadow:0 4px 0 #c24500">無料で8日間講座を受け取る →</a>
+</div>
+</aside>
+<!-- mail-course end -->
+<!-- game-promo start -->
+<aside class="renspe-game-promo" aria-label="無料のレンスペ経営ゲーム">
+<a href="/game/?utm_source=blog&amp;utm_medium=banner&amp;utm_campaign=game_launch&amp;utm_content=article" data-game-promo="article">
+<img src="/assets/renspe-game-banner-20260912.webp" srcset="/assets/renspe-game-banner-20260912-750.webp 750w, /assets/renspe-game-banner-20260912.webp 1500w" sizes="(max-width: 600px) calc(100vw - 30px), 1000px" width="1500" height="500" loading="lazy" decoding="async" alt="5年・累計23店舗の経験から。ゲームで学ぶレンスペ経営を無料で遊ぶ">
+<span class="renspe-game-promo-note">全国47都道府県で、物件選びから経営まで。<span>スマホ・PCで遊べます →</span></span>
+</a></aside>
+<!-- game-promo end -->
+<!-- hub-link start -->
+<aside class="hub-link"><p class="hub-link-title">▼ このジャンルのまとめ</p><a class="hub-link-main" href="../rental-space/">レンタルスペース経営の記事まとめ(全93本・実数つき)を見る →</a><p class="hub-link-sub">同じテーマの記事</p><ul><li><a href="2026-10-05-rental-space-property-search-log-1.html">【実録】AIでレンスペの物件さがし</a></li><li><a href="2026-10-04-rental-space-ai-property-search.html">レンスペの物件探し AIに任せる3ステップ</a></li><li><a href="2026-10-02-rental-space-dance-residential-station.html">レンスペをやるなら、ダンススタジオを住宅地の駅に</a></li></ul></aside>
+<!-- hub-link end -->
+<!-- dance-shindan start -->
+<aside class="dance-shindan-cta" aria-label="無料の黒字診断のご案内" style="margin:28px 0;border:2px solid #ffc966;border-radius:14px;background:#fff8ec;padding:16px 18px 18px"><p style="margin:0 0 6px;font-weight:700;color:#24345c;font-size:16px;line-height:1.6">▼ 気になる物件があるなら(無料・30秒)</p><p style="margin:0 0 12px;color:#333;font-size:15px;line-height:1.8">家賃と広さを入れると、ダンス向けのレンタルスペースとして黒字にするのに、1日何時間の予約が必要かがわかります。ぼくの店の実測ともくらべられます。</p><a href="../tools/dance-shindan/?utm_source=blog&amp;utm_medium=article&amp;utm_campaign=dance_shindan_2026-10-06-rental-space-pricing-ai-prompt" style="display:inline-block;padding:11px 22px;border-radius:999px;background:#f57c00;color:#fff;font-weight:700;font-size:15px;text-decoration:none">レンタルスペース黒字診断(ダンス向け)を試す →</a></aside>
+<!-- dance-shindan end -->
+<!-- kyokasho-banner-dance start -->
+<aside class="kyokasho-banner kb-rensupe kb-dance"><a href="/kyokasho/dance/?utm_source=blog&amp;utm_medium=banner&amp;utm_campaign=dance_rental-space-pricing-ai-prompt" class="kb-thumb"><img src="../assets/kyokasho_dance_banner_640.webp" alt="【きくりん式】レンタルスペースは「ダンススタジオ」で稼ぐ！完全ロードマップ" loading="lazy" width="640" height="335"></a><div class="kb-body"><p class="kb-title">【きくりん式】レンタルスペースは「ダンススタジオ」で稼ぐ！完全ロードマップ</p><p class="kb-sub">レンタルスペースの中でも、ダンス向けのレンタルスタジオを住宅地の駅に出して、教室の先生に毎週使ってもらうやり方。ダンスのレンタルスタジオ11店舗の実録を1冊にまとめました。第0部を無料で読めます。販売価格は3部売れるごとに3,000円ずつ値上がりします（上限あり）。内容・最新価格は販売ページをご確認ください。</p><div class="kb-actions"><a href="/kyokasho/dance/?utm_source=blog&amp;utm_medium=banner&amp;utm_campaign=dance_rental-space-pricing-ai-prompt" class="kb-btn kb-btn-rensupe">無料部分を読む・買う</a></div></div></aside>
+<!-- kyokasho-banner-dance end -->
+<a href="../index.html" class="btn-back">トップページへ戻る</a>
+</article></main>
+<footer class="main-footer"><p>&copy; 2026 きくりんのノウハウ垂れ流し. All rights reserved.</p><!-- site-home-link start -->
+<nav class="site-home-nav" aria-label="サイトトップ"><a href="/">きくりんのノウハウ垂れ流し TOP</a></nav>
+<!-- site-home-link end -->
+</footer>
+<script src="../script.js"></script><script src="../track.js"></script>
+<script src="/assets/renspe-game-promo-v1.js" defer></script>
+</body>
+</html>
