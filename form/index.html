@@ -31,6 +31,13 @@
         .msg.ng { display: block; background: #ffebee; color: #b71c1c; }
         .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
         .back { display: inline-block; margin-top: 18px; font-size: .9rem; }
+        .ask-ai { margin: 0 0 18px; padding: 14px 14px 10px; background: #fff8e1; border: 1.5px solid #ffe0b2; border-radius: 10px; font-size: .92rem; line-height: 1.75; }
+        .ask-ai[hidden] { display: none; }
+        .ask-ai p { margin: 0 0 8px; }
+        .ask-ai-title { font-weight: 700; color: #e65100; }
+        .ask-ai-prompt { margin: 0 0 8px; padding: 10px 12px; background: #fff; border: 1px solid #eee; border-radius: 8px; font-family: inherit; font-size: .88rem; white-space: pre-wrap; word-break: break-word; }
+        .ask-ai-copy { margin: 0 0 10px; padding: 8px 14px; font-size: .88rem; font-weight: 700; color: #e65100; background: #fff; border: 1.5px solid #ffb74d; border-radius: 999px; cursor: pointer; }
+        .ask-ai-note { font-size: .85rem; color: #666; }
     </style>
 <link rel="stylesheet" href="/assets/site-footer.css?v=20260919">
 </head>
@@ -60,6 +67,14 @@
                     <label><input type="radio" name="kind" value="other">その他</label>
                 </div>
             </div>
+            <div class="ask-ai" id="askai" hidden>
+                <p class="ask-ai-title">送る前に: 教材を読み込ませたAIに聞くと、その場で答えが出ることが多いです</p>
+                <p id="askai-lead">教材の本文をAIに読み込ませてから、こう聞いてみてください。</p>
+                <pre class="ask-ai-prompt" id="askai-prompt"></pre>
+                <button type="button" class="ask-ai-copy" id="askai-copy">この文をコピー</button>
+                <p class="ask-ai-note">「.md」で終わるファイルは、文字だけのファイルです。ダブルクリックで開けなくても、Claude Codeの作業フォルダに入れて「読んで」と頼めば、AIが読んでくれます。</p>
+                <p class="ask-ai-note">AIの答えで分からないところが残ったら、このまま下から送ってください。AIの答えも貼ってもらえると、早く正確にお返しできます。</p>
+            </div>
             <div class="field">
                 <label class="title" for="email">メールアドレス(返信先)<span class="req">必須</span></label>
                 <input type="email" id="email" name="email" autocomplete="email" required>
@@ -88,6 +103,26 @@
     var p = new URLSearchParams(location.search).get('p');
     if (p === 'ebay' || p === 'rental' || p === 'kit' || p === 'hp' || p === 'dance') { var r = document.querySelector('input[name=product][value=' + p + ']'); if (r) r.checked = true; }
     document.getElementById('t').value = String(Date.now());
+    var ASK = {
+        ebay: { lead: '特典②の「02_kyokasho-md」フォルダをClaude Codeの作業フォルダに入れてから、こう聞いてみてください。', prompt: '02_kyokasho-md の 02_教科書全文.md を読んで。\n教科書の該当章を根拠にして(章の番号つきで)、次の質問に答えて。\n規約や料金など変わりうるものは、最新を調べてから答えて。\n質問: (ここに質問を書く)' },
+        other: { lead: '教材の本文(またはダウンロードした資料)をAIに読み込ませてから、こう聞いてみてください。', prompt: 'いま読み込んだ教材を根拠にして(どこに書いてあるかも添えて)、次の質問に答えて。\n規約や料金など変わりうるものは、最新を調べてから答えて。\n質問: (ここに質問を書く)' }
+    };
+    var askBox = document.getElementById('askai');
+    function updateAsk() {
+        var k = (document.querySelector('input[name=kind]:checked') || {}).value;
+        var pr = (document.querySelector('input[name=product]:checked') || {}).value;
+        if (k !== 'question' && k !== 'other') { askBox.hidden = true; return; }
+        var a = ASK[pr === 'ebay' ? 'ebay' : 'other'];
+        document.getElementById('askai-lead').textContent = a.lead;
+        document.getElementById('askai-prompt').textContent = a.prompt;
+        askBox.hidden = false;
+    }
+    document.querySelectorAll('input[name=kind], input[name=product]').forEach(function (el) { el.addEventListener('change', updateAsk); });
+    document.getElementById('askai-copy').addEventListener('click', function () {
+        var b = this, txt = document.getElementById('askai-prompt').textContent;
+        function done() { b.textContent = 'コピーしました'; setTimeout(function () { b.textContent = 'この文をコピー'; }, 2000); }
+        if (navigator.clipboard) navigator.clipboard.writeText(txt).then(done, function () {});
+    });
     var form = document.getElementById('kf'), btn = document.getElementById('send'), msg = document.getElementById('msg');
     function show(cls, text) { msg.className = 'msg ' + cls; msg.textContent = text; }
     form.addEventListener('submit', async function (e) {
@@ -101,7 +136,7 @@
         try {
             var res = await fetch(ENDPOINT, { method: 'POST', body: d });
             var j = await res.json().catch(function () { return {}; });
-            if (res.ok && j.ok) { form.reset(); show('ok', '受け付けました。2営業日以内に、ご記入のメールアドレスへ返信します。'); }
+            if (res.ok && j.ok) { form.reset(); updateAsk(); show('ok', '受け付けました。2営業日以内に、ご記入のメールアドレスへ返信します。'); }
             else { show('ng', j.error || '送信に失敗しました。時間をおいてもう一度お試しください'); btn.disabled = false; }
         } catch (err) { show('ng', '通信エラーです。時間をおいてもう一度お試しください'); btn.disabled = false; }
         if (window.turnstile) try { window.turnstile.reset(); } catch (e2) {}
