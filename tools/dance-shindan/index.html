@@ -11,15 +11,15 @@
         gtag('config', 'G-CHWF6QKRJ6');
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="家賃と広さを入れるだけで、ダンス向けのレンタルスペースが黒字になるのに1日何時間の予約が必要かがわかる無料診断。レンタルスペース累計23店舗・うちダンススタジオ11店舗のきくりんの実測と比べられます。">
+    <meta name="description" content="ジャンル・家賃・広さ・ポータルの料金を入れるだけで、レンタルスペースが黒字になるのに1日何時間の予約が必要かがわかる無料診断。ダンスは、レンタルスペース累計23店舗・うちダンススタジオ11店舗のきくりんの実測と比べて判定します。">
     <link rel="canonical" href="https://rental-space.net/tools/dance-shindan/">
-    <meta property="og:title" content="その物件、ダンス向けのレンタルスペースで黒字になる?30秒診断｜きくりん">
-    <meta property="og:description" content="家賃と広さを入れるだけ。黒字に必要な予約時間を、11店舗の実測と比べて判定します。">
+    <meta property="og:title" content="その物件、レンタルスペースで黒字になる?30秒診断｜きくりん">
+    <meta property="og:description" content="ジャンル・家賃・広さ・料金を入れるだけ。黒字に必要な予約時間がわかります(ダンスは実測と比べて判定)。">
     <meta property="og:url" content="https://rental-space.net/tools/dance-shindan/">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://rental-space.net/assets/hub_rental_dance_eyecatch_20261002.png">
     <meta name="twitter:card" content="summary_large_image">
-    <title>レンタルスペース黒字診断(ダンス向け・30秒)｜きくりん</title>
+    <title>レンタルスペース黒字診断(30秒)｜きくりん</title>
     <link rel="icon" href="../../assets/favicon.png" type="image/png">
     <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -66,6 +66,16 @@
         .bar.you .fill { background:var(--primary); }
         .bar .v { text-align:right; font-weight:700; white-space:nowrap; }
         .bar .lb { line-height:1.35; }
+        .genres { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin:4px 0 8px; }
+        .genres button { font-family:inherit; font-size:14px; font-weight:800; padding:9px 0; border:2px solid #e2d6bd; border-radius:10px; background:#fff; color:var(--navy); cursor:pointer; }
+        .genres button.on { background:var(--accent); border-color:var(--accent); color:#fff; }
+        .rates { display:flex; gap:6px; align-items:center; }
+        .rates input[type=number] { width:86px; }
+        .rates span { font-size:12px; color:var(--muted); white-space:nowrap; }
+        .row.row-price { flex-wrap:wrap !important; }
+        .row.row-price label { flex:1 1 100% !important; }
+        .row.row-price .rates { flex:1 1 auto; justify-content:flex-end; }
+        .basis { font-size:12px; color:var(--muted); margin:2px 0 0; }
         .grow { margin-top:14px; padding:12px; border:2px dashed #b9d7f3; border-radius:12px; background:#f6fbff; font-size:14px; }
         .grow b.big { font-size:20px; color:var(--good); }
         table.sim { width:100%; border-collapse:collapse; font-size:13px; margin-top:6px; }
@@ -110,14 +120,17 @@
 <body>
 <nav class="tool-nav" aria-label="パンくずリスト"><a href="../../">きくりんのノウハウ垂れ流し</a> › <a href="../../rental-space/">レンタルスペース経営</a> › <a href="../../rental-space/dance/">ダンス向けレンタルスタジオ</a> › <span>黒字診断</span></nav>
     <header>
-        <h1>その物件、ダンス向けの<br>レンタルスペースで黒字になる?</h1>
-        <p>家賃と広さを入れるだけ・30秒で診断</p>
+        <h1>その物件、<br>レンタルスペースで黒字になる?</h1>
+        <p>ジャンルと家賃・広さ・料金を入れるだけ・30秒で診断</p>
     </header>
     <div class="wrap">
         <div class="card">
             <p class="hint">気になっている物件の数字を入れてください(入れるとすぐ結果が変わります)。</p>
+            <div class="genres" id="genres" role="group" aria-label="ジャンル"><button type="button" data-g="dance" class="on">ダンス</button><button type="button" data-g="party">パーティー</button><button type="button" data-g="meeting">会議室</button><button type="button" data-g="photo">撮影</button></div>
             <div class="row"><label for="rent">家賃<small>管理費・共益費こみの毎月の支払い</small></label><input type="number" id="rent" value="150000" step="5000" min="0" inputmode="numeric"><span class="unit">円</span></div>
-            <div class="row"><label for="area">広さ<small>踊れるスペースの広さ</small></label><input type="number" id="area" value="45" step="1" min="0" inputmode="numeric"><span class="unit">㎡</span></div>
+            <div class="row"><label for="area">広さ<small id="areaHint">踊れるスペースの広さ</small></label><input type="number" id="area" value="45" step="1" min="0" inputmode="numeric"><span class="unit">㎡</span></div>
+            <div class="row row-price"><label for="wd">1時間の料金<small>近くの同じジャンルのスペースを、インスタベースやスペースマーケットなどのポータルサイトで見て、その値段を入れてください</small></label><div class="rates"><span>平日</span><input type="number" id="wd" step="100" min="0" inputmode="numeric" aria-label="平日の1時間の料金"><span>休日</span><input type="number" id="we" step="100" min="0" inputmode="numeric" aria-label="休日の1時間の料金"></div><span class="unit">円</span></div>
+            <p class="basis" id="basis"></p>
             <div class="row"><label for="other">家賃のほかの毎月の費用<small>電気・ネット・清掃・予約システムなど</small></label><input type="number" id="other" value="20000" step="1000" min="0" inputmode="numeric"><span class="unit">円</span></div>
         </div>
 
@@ -132,14 +145,14 @@
             </div>
             <p class="comment" id="comment"></p>
 
-            <div class="bars">
+            <div class="bars" id="barsBox">
                 <h3>きくりんの店の実測とくらべると(1日あたりの予約時間)</h3>
                 <div id="bars"></div>
             </div>
 
             <div class="grow" id="grow"></div>
 
-            <h3 style="margin-top:16px;">予約が入ったときの毎月の利益(開業すぐの場合)</h3>
+            <h3 style="margin-top:16px;" id="simTitle">予約が入ったときの毎月の利益(開業すぐの場合)</h3>
             <table class="sim" id="sim"></table>
 
             <div class="share">
@@ -148,9 +161,9 @@
             </div>
 
             <p class="note">
-                ※単価は広さで自動で決めています(50㎡未満=平日1,000円・休日1,500円/50〜70㎡=1,500円・2,000円/70㎡以上=2,000円・2,500円。1時間あたり)。<br>
-                ※「開業すぐ」は予約の7割がポータルサイト経由(ポータルの価格は1.1倍・手数料35%)、「公式サイトが育ったあと」は売上の6割が公式サイト経由(手数料3.5%)で計算しています。6割は、きくりんのダンス向けレンタルスタジオ5店舗の実測(2026年6〜7月・金額ベース)です。<br>
-                ※判定の目安: 1日5.5時間まで=◎/6.5時間まで=○/7.2時間まで=△/それ以上=✕。実測は、きくりんのダンス向けレンタルスタジオ5店舗(2026年4〜8月)です。<br>
+                ※料金は、ポータルサイトの1時間の値段を入れてください。最初に入っている値段は、きくりんのダンスの店の目安です(広さで自動・50㎡未満=平日1,100円・休日1,650円/50〜70㎡=1,650円・2,200円/70㎡以上=2,200円・2,750円)。公式サイトの値段はポータルより1割安い前提です。<br>
+                ※ポータル経由の割合はジャンルで変えています(手数料35%・公式サイト経由は3.5%)。ダンス=開業すぐ7割・公式サイトが育ったあと4割(きくりんのダンス向けレンタルスタジオ5店舗の実測・2026年6〜7月・金額ベース)/撮影=8割4分(きくりんの撮影スタジオ4店舗の実測・自社サイト経由1割6分)/パーティー・会議室=10割(ポータル経由が中心のため)。<br>
+                ※◎○△✕の判定と実測のくらべは、ダンスだけです(きくりんのダンス向けレンタルスタジオ5店舗・2026年4〜8月の実測。1日5.5時間まで=◎/6.5時間まで=○/7.2時間まで=△/それ以上=✕)。<br>
                 ※ひと月30日(平日22日・休日8日)で計算した目安です。利益を約束するものではありません。駅・物件の条件で、予約の入り方は大きく変わります。
             </p>
         </div>
@@ -205,31 +218,52 @@
         (function () {
             var $ = function (id) { return document.getElementById(id); };
             var B = window.Breakeven;
-            var OPEN_SHARE = 0.7;   // 開業すぐ: 予約の7割がポータル経由(物件探しツールと同じ既定値)
-            var GROWN_SHARE = 0.4;  // 公式サイトが育ったあと: 公式6割=ダンス5店舗の実測(2026年6〜7月・金額ベース)
+            // ジャンルごとのポータル経由の割合(2026-10-07 大介さん指示: ジャンルで変える)
+            // ダンス=開業すぐ7割・育つと4割(DAYS5店の実測 2026年6〜7月・金額ベース)/撮影=8割4分(ティアリナ4店の実測・自社経由16%)/パーティー・会議室=10割(教科書の前提: ポータル経由が中心)
+            var GENRES = {
+                dance:   { label: 'ダンス',     open: 0.7,  grown: 0.4,  area: '踊れるスペースの広さ', compare: true },
+                party:   { label: 'パーティー', open: 1.0,  grown: null, area: '使えるスペースの広さ', compare: false },
+                meeting: { label: '会議室',     open: 1.0,  grown: null, area: '使えるスペースの広さ', compare: false },
+                photo:   { label: '撮影',       open: 0.84, grown: null, area: '撮影に使える広さ',     compare: false }
+            };
+            var PORTAL_MULT = 1.1;  // 公式サイトの値段はポータルより1割安い(breakeven.js と同じ前提)
+            var genre = 'dance', priceTouched = false;
             var GRADE_CLASS = { '◎': 'g-best', '○': 'g-good', '△': 'g-fair', '✕': 'g-bad' };
             var yen = function (n) { return (n < 0 ? '-' : '') + Math.abs(Math.round(n)).toLocaleString('ja-JP') + '円'; };
             var man = function (n) { var m = Math.round(n / 1000) / 10; return (n < 0 ? '-' : '+') + Math.abs(m).toLocaleString('ja-JP') + '万円'; };
 
             // URLの条件で始める(シェアされたリンク用)
             var q = new URLSearchParams(location.search);
-            ['rent', 'area', 'other'].forEach(function (k) { var v = q.get(k); if (v !== null && v !== '' && isFinite(+v)) $(k).value = +v; });
+            ['rent', 'area', 'other', 'wd', 'we'].forEach(function (k) { var v = q.get(k); if (v !== null && v !== '' && isFinite(+v)) $(k).value = +v; });
+            if (GENRES[q.get('genre')]) genre = q.get('genre');
+            if (q.get('wd') || q.get('we')) priceTouched = true;
+            function suggestPortal(area) { var r = B.suggestRates(area); return { wd: Math.round(r.weekdayRate * PORTAL_MULT / 10) * 10, we: Math.round(r.weekendRate * PORTAL_MULT / 10) * 10 }; }
+            function setGenre(g) {
+                genre = g;
+                [].forEach.call($('genres').querySelectorAll('button'), function (b) { b.classList.toggle('on', b.dataset.g === g); b.setAttribute('aria-pressed', b.dataset.g === g); });
+                $('areaHint').textContent = GENRES[g].area;
+            }
+            setGenre(genre);
 
             var last = null, tracked = false;
             function render() {
                 var rent = Math.max(0, +$('rent').value || 0);
                 var area = +$('area').value || null;
                 var other = Math.max(0, +$('other').value || 0);
-                var rates = B.suggestRates(area);
-                var base = { weekdayRate: rates.weekdayRate, weekendRate: rates.weekendRate, otherCosts: other, openHours: 24 };
-                var r = B.calc(rent, Object.assign({}, base, { portalShare: OPEN_SHARE }));
-                var g = B.calc(rent, Object.assign({}, base, { portalShare: GROWN_SHARE }));
+                var G = GENRES[genre];
+                if (!priceTouched) { var sp = suggestPortal(area); $('wd').value = sp.wd; $('we').value = sp.we; }
+                var wd = Math.max(0, +$('wd').value || 0), we = Math.max(0, +$('we').value || 0);
+                $('basis').textContent = priceTouched ? 'あなたが入れた料金で計算しています。' : 'いま入っている料金は、きくりんのダンスの店の目安です。ポータルサイトで近くの店の値段を見て、書きかえてください。';
+                var base = { weekdayRate: wd / PORTAL_MULT, weekendRate: we / PORTAL_MULT, otherCosts: other, openHours: 24 };
+                var r = B.calc(rent, Object.assign({}, base, { portalShare: G.open }));
+                var g = G.grown != null ? B.calc(rent, Object.assign({}, base, { portalShare: G.grown })) : null;
                 var h = r.breakevenHoursPerDay;
-                last = { rent: rent, area: area, other: other, h: h, grade: r.hoursGrade, hg: g.breakevenHoursPerDay };
+                var grade = G.compare ? r.hoursGrade : '—';
+                last = { genre: genre, rent: rent, area: area, other: other, wd: wd, we: we, h: h, grade: grade, hg: g ? g.breakevenHoursPerDay : null };
 
                 var gr = $('grade');
-                gr.textContent = r.hoursGrade;
-                gr.className = 'grade ' + (GRADE_CLASS[r.hoursGrade] || '');
+                gr.textContent = grade;
+                gr.className = 'grade ' + (GRADE_CLASS[grade] || '');
                 if (!isFinite(h)) {
                     $('need').innerHTML = '—';
                     $('needSub').textContent = '';
@@ -237,9 +271,12 @@
                 } else {
                     $('need').innerHTML = '1日 ' + h + '<small> 時間</small>';
                     $('needSub').textContent = '週' + r.breakevenHoursPerWeek + '時間の予約で、家賃と費用をまかなえます';
-                    $('comment').textContent = h > 24 ? '24時間ずっと埋まっても黒字になりません。家賃が重すぎます。' : r.hoursComment;
+                    $('comment').textContent = h > 24 ? '24時間ずっと埋まっても黒字になりません。家賃が重すぎるか、料金が低すぎます。'
+                        : G.compare ? r.hoursComment
+                        : 'ダンス以外は、ぼくの実測とくらべる目安がないので◎○△✕は出していません。近くの人気店の予約カレンダーを見て、1日にこの時間より多く埋まっているかでたしかめてください。';
                 }
 
+                $('barsBox').style.display = G.compare ? '' : 'none';
                 // くらべる棒(最大12時間で目盛り)
                 var MAX = 12;
                 var items = [{ lb: 'この物件(黒字ライン)', v: h, you: true }].concat(B.ACTUAL_HOURS.map(function (a) {
@@ -250,29 +287,35 @@
                     return '<div class="bar' + (it.you ? ' you' : '') + '"><span class="lb">' + it.lb + '</span><span class="track"><span class="fill" style="width:' + w + '%"></span></span><span class="v">' + (isFinite(it.v) ? it.v + '時間' : '—') + '</span></div>';
                 }).join('');
 
-                var hg = g.breakevenHoursPerDay;
-                $('grow').innerHTML = isFinite(hg)
+                var hg = g ? g.breakevenHoursPerDay : NaN;
+                $('grow').style.display = g ? '' : 'none';
+                $('grow').innerHTML = g && isFinite(hg)
                     ? '公式サイトからの予約が育つと(売上の6割)、黒字ラインは<br><b class="big">1日 ' + hg + '時間</b>(' + g.hoursGrade + ')まで下がります。<br><span style="font-size:12.5px;color:var(--muted);">ポータルの手数料35%が、公式サイトなら3.5%。先生の定期利用と公式サイトが、ぼくの店の利益の土台です。</span>'
                     : '';
 
                 $('sim').innerHTML = '<tr><th>1日の予約</th><th>手取り(手数料のあと)</th><th>毎月の利益</th></tr>' +
                     r.sim.filter(function (s) { return s.perDay >= 5; }).map(function (s) {
-                        return '<tr><td>' + s.perDay + '時間' + (s.label ? '<small>' + s.label.replace('きくりんの店の実測: ', '実測: ') + '</small>' : '') + '</td><td>' + yen(s.net) + '</td><td class="' + (s.profit >= 0 ? 'plus' : 'minus') + '">' + man(s.profit) + '</td></tr>';
+                        return '<tr><td>' + s.perDay + '時間' + (s.label && G.compare ? '<small>' + s.label.replace('きくりんの店の実測: ', '実測: ') + '</small>' : '') + '</td><td>' + yen(s.net) + '</td><td class="' + (s.profit >= 0 ? 'plus' : 'minus') + '">' + man(s.profit) + '</td></tr>';
                     }).join('');
 
-                var url = location.origin + location.pathname + '?rent=' + rent + '&area=' + (area || '') + '&other=' + other;
-                var text = '家賃' + (rent / 10000) + '万円・' + (area || '?') + '㎡の物件、ダンス向けのレンタルスペースで黒字に必要な予約は「1日' + (isFinite(h) ? h : '?') + '時間」(' + r.hoursGrade + ')でした。';
+                $('simTitle').textContent = G.grown != null ? '予約が入ったときの毎月の利益(開業すぐの場合)' : '予約が入ったときの毎月の利益';
+                var url = location.origin + location.pathname + '?genre=' + genre + '&rent=' + rent + '&area=' + (area || '') + '&wd=' + wd + '&we=' + we + '&other=' + other;
+                var text = '家賃' + (rent / 10000) + '万円・' + (area || '?') + '㎡の物件、' + G.label + 'のレンタルスペースで黒字に必要な予約は「1日' + (isFinite(h) ? h : '?') + '時間」' + (G.compare ? '(' + r.hoursGrade + ')' : '') + 'でした。';
                 $('shareX').href = 'https://x.com/intent/post?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(url + '&utm_source=x&utm_medium=share&utm_campaign=dance_shindan');
                 $('copyLink').dataset.url = url;
             }
 
             var timer = null;
-            ['rent', 'area', 'other'].forEach(function (id) {
+            ['wd', 'we'].forEach(function (id) { $(id).addEventListener('input', function () { priceTouched = true; }); });
+            [].forEach.call($('genres').querySelectorAll('button'), function (b) {
+                b.addEventListener('click', function () { setGenre(b.dataset.g); render(); if (typeof gtag === 'function') gtag('event', 'shindan_genre', { tool: 'dance-shindan', genre: b.dataset.g }); });
+            });
+            ['rent', 'area', 'wd', 'we', 'other'].forEach(function (id) {
                 $(id).addEventListener('input', function () {
                     render();
                     clearTimeout(timer);
                     timer = setTimeout(function () {
-                        if (typeof gtag === 'function' && last) gtag('event', 'shindan_calc', { tool: 'dance-shindan', grade: last.grade, hours: last.h, first: !tracked });
+                        if (typeof gtag === 'function' && last) gtag('event', 'shindan_calc', { tool: 'dance-shindan', genre: last.genre, grade: last.grade, hours: last.h, priced: priceTouched, first: !tracked });
                         tracked = true;
                     }, 1500);
                 });
