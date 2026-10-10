@@ -15,6 +15,7 @@ body{margin:0;background:#fff;color:#111;font-family:'Noto Sans JP',-apple-syste
 .steps{margin:0;padding:0;list-style:none;display:grid;gap:10px}.steps li{display:flex;gap:10px;align-items:flex-start;font-size:15px}.steps li span{flex:0 0 26px;height:26px;display:grid;place-items:center;border-radius:50%;background:#e53935;color:#fff;font-weight:800;font-size:13px}
 .note{font-size:13.5px;color:#333}.note a{color:#b71c1c;font-weight:700}
 .btn{display:inline-block;margin-top:10px;padding:12px 20px;border:2px solid #111;border-radius:12px;background:#fff;color:#111;font-weight:800;text-decoration:none}
+.next-book{display:none;border:2px solid #ffc966;border-radius:16px;background:#fff8ec;padding:18px 20px;margin:26px 0}.next-book p{margin:0 0 8px}.next-book .kicker{font-weight:800;color:#8a4b00}.next-book a{color:#b71c1c;font-weight:800}
 </style>
 <link rel="stylesheet" href="/assets/site-footer.css?v=20260919">
 </head>
@@ -31,12 +32,17 @@ body{margin:0;background:#fff;color:#111;font-family:'Noto Sans JP',-apple-syste
 </div>
 <p class="note">改訂や付録の追加は、同じリンク先で最新版に差し替わり、更新のお知らせもメールで届きます。質問・不具合は<a id="form-link" href="https://rental-space.net/form/">購入者フォーム</a>へ(回答はFAQで全員に還元します)。</p>
 <p class="note">領収書はStripeから届く決済完了メールをご利用ください。</p>
+<!-- next-book start: 2026-10-11 ダンス本の購入者がレンスペ教科書も買った実例(10/4→10/5)から。eBayは対象外 -->
+<aside class="next-book" id="next-rental" aria-label="次の1冊"><p class="kicker">📘 次の1冊: レンタルスペース全体の教科書</p><p>物件選び・収支の計算・開業・運営・拡大まで。累計23店舗の経験を、全9部と付録15点のWeb教材にまとめました。ジャンルの選び方から、2店舗目のGO判断・撤退のやり方まで入っています。</p><p><a href="/kyokasho/?utm_source=site&amp;utm_medium=thanks&amp;utm_campaign=next_book_dance">レンタルスペース経営の教科書(第0部を無料で読む)→</a></p></aside>
+<aside class="next-book" id="next-dance" aria-label="次の1冊"><p class="kicker">📘 次の1冊: ダンススタジオに絞った1冊</p><p>いちばん稼ぐジャンルのダンススタジオだけを、駅の選び方から物件の判定、教室の先生の定期利用の作り方まで書きました。11店舗の実録と、毎日使っている物件探しのツールつきです。</p><p><a href="/kyokasho/dance/?utm_source=site&amp;utm_medium=thanks&amp;utm_campaign=next_book_rental">【きくりん式】レンタルスペースは「ダンススタジオ」で稼ぐ！完全ロードマップ(第0部を無料で読む)→</a></p></aside>
+<!-- next-book end -->
 <a class="btn" href="/">← ブログへ戻る</a>
 </main>
 <script>
 (function(){
   var q=new URLSearchParams(location.search);var p=q.get('p')||'';var s=q.get('s')||'';
   var f=document.getElementById('form-link');if(f&&(p==='rental'||p==='ebay'||p==='hp'||p==='dance'))f.href='https://rental-space.net/form/?p='+p;
+  var nb=document.getElementById(p==='dance'||p==='dance_set'?'next-rental':(p==='rental'?'next-dance':''));if(nb)nb.style.display='block';
   // A redirect is not payment verification. Actual orders/amounts come from the shop ledger.
   // Never manufacture a purchase or value from URL parameters or a current price table.
   if (!/^(rental|ebay|hp|k1|kit|kit_set|dance)$/.test(p) || !/^cs_live_[A-Za-z0-9]+$/.test(s)) return;
