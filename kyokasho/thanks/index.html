@@ -9,34 +9,73 @@
 <title>ご購入ありがとうございます | きくりんの教科書</title>
 <link rel="icon" href="/assets/favicon.png" type="image/png">
 <style>
-body{margin:0;background:#fff;color:#111;font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,'Hiragino Sans',Meiryo,sans-serif;line-height:1.9;font-size:16px}
-.wrap{max-width:680px;margin:0 auto;padding:40px 18px 80px}h1{font-size:26px;margin:0 0 12px}
-.card{border:3px solid #111;border-radius:20px;padding:24px 22px;box-shadow:8px 8px 0 rgba(0,0,0,.08);margin:18px 0}
-.steps{margin:0;padding:0;list-style:none;display:grid;gap:10px}.steps li{display:flex;gap:10px;align-items:flex-start;font-size:15px}.steps li span{flex:0 0 26px;height:26px;display:grid;place-items:center;border-radius:50%;background:#e53935;color:#fff;font-weight:800;font-size:13px}
-.note{font-size:13.5px;color:#333}.note a{color:#b71c1c;font-weight:700}
-.btn{display:inline-block;margin-top:10px;padding:12px 20px;border:2px solid #111;border-radius:12px;background:#fff;color:#111;font-weight:800;text-decoration:none}
+:root{--ink:#111;--muted:#555;--line:#e6e2da;--yellow:#fedb22;--green:#1f9d55;--paper:#fbfaf7}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,'Hiragino Sans',Meiryo,sans-serif;line-height:1.85;font-size:16px;-webkit-text-size-adjust:100%}
+.wrap{max-width:640px;margin:0 auto;padding:36px 16px 80px}
+.done{text-align:center;margin-bottom:22px}
+.done .ok{width:64px;height:64px;margin:0 auto 10px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-size:34px;font-weight:900}
+.done h1{font-size:24px;line-height:1.5;margin:0 0 4px}.done p{margin:0;color:var(--muted);font-size:15px}
+.prod{display:inline-block;margin-top:8px;padding:4px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:13px;font-weight:700}
+.step{background:#fff;border:2px solid var(--ink);border-radius:18px;padding:18px 18px 16px;margin:14px 0;position:relative}
+.step .num{position:absolute;top:-14px;left:16px;padding:2px 12px;border-radius:999px;background:var(--yellow);border:2px solid var(--ink);font-weight:900;font-size:13px}
+.step h2{font-size:18px;margin:6px 0 6px;line-height:1.5}
+.step p{margin:0 0 6px;font-size:15px}
+.mail{margin:8px 0 0;padding:10px 12px;border-radius:12px;background:var(--paper);border:1px dashed #cfc8ba;font-size:14px}
+.mail dt{font-weight:700;color:var(--muted);font-size:12.5px}.mail dd{margin:0 0 6px;overflow-wrap:anywhere}
+.btn{display:block;text-align:center;margin-top:10px;padding:13px 16px;border:2px solid var(--ink);border-radius:14px;background:var(--yellow);color:var(--ink);font-weight:900;text-decoration:none}
+.btn.sub{background:#fff}
+.help{margin-top:26px;padding:16px 18px;border-radius:16px;background:#fff;border:1px solid var(--line);font-size:14px}
+.help h3{margin:0 0 6px;font-size:15px}.help p{margin:0 0 6px}
+.back{display:block;text-align:center;margin-top:24px;color:var(--muted);font-size:14px}
 </style>
 <link rel="stylesheet" href="/assets/site-footer.css?v=20260919">
 </head>
 <body>
 <main class="wrap">
-<h1>ご購入ありがとうございます🙏</h1>
-<p>受け取りリンクを、決済のときに入力したメールアドレスへ自動で送っています(通常は数分以内)。</p>
-<div class="card">
-<ol class="steps">
-<li><span>1</span>メールを開く: 件名「【お届け】…(受け取りリンク)」・送信元 kikurin@news.rental-space.net</li>
-<li><span>2</span>リンクを開くと、教科書のWeb版がすぐ読めます(付録のリンク集つき)</li>
-<li><span>3</span>届かないときは迷惑メールフォルダを確認。それでも無ければ<a href="https://kikurin-shop.kikurin.workers.dev/resend">受け取りリンクの再発行</a>へ</li>
-</ol>
+<div class="done">
+  <div class="ok">✓</div>
+  <h1>お支払いが完了しました</h1>
+  <p>ご購入、ありがとうございます。</p>
+  <span class="prod" id="prod" hidden></span>
 </div>
-<p class="note">改訂や付録の追加は、同じリンク先で最新版に差し替わり、更新のお知らせもメールで届きます。質問・不具合は<a id="form-link" href="https://rental-space.net/form/">購入者フォーム</a>へ(回答はFAQで全員に還元します)。</p>
-<p class="note">領収書はStripeから届く決済完了メールをご利用ください。</p>
-<a class="btn" href="/">← ブログへ戻る</a>
+
+<div class="step"><span class="num">1</span>
+  <h2>メールが届きます(数分以内)</h2>
+  <p>お支払いのときに入れたメールアドレスに、受け取りのメールを自動で送っています。</p>
+  <dl class="mail">
+    <dt>件名</dt><dd>【お届け】〜(受け取りリンク)</dd>
+    <dt>送り主</dt><dd>kikurin@news.rental-space.net</dd>
+  </dl>
+</div>
+
+<div class="step"><span class="num">2</span>
+  <h2>メールのリンクを開く</h2>
+  <p>本体(Web版)と、付録のファイルのリンクが入っています。開くとすぐ読めます。</p>
+  <p><strong>メールは消さずに、とっておいてください。</strong>改訂や付録の追加は、同じリンクで最新版に変わります。リンクの期限(30日)が切れたら、下の再発行から何度でも受け取れます。</p>
+</div>
+
+<div class="step"><span class="num">3</span>
+  <h2>メールが届かないとき</h2>
+  <p>迷惑メール・プロモーションのフォルダを見てください。それでも見つからないときは、お支払いのメールアドレスを入れると、受け取りリンクをもう一度送ります。</p>
+  <a class="btn" href="https://kikurin-shop.kikurin.workers.dev/resend">受け取りリンクを再発行する</a>
+</div>
+
+<div class="help">
+  <h3>困ったとき</h3>
+  <p>ファイルが開けない・質問がある、などは購入者フォームからどうぞ(いただいた質問の答えは、よくある質問として全員に共有します)。</p>
+  <a class="btn sub" id="form-link" href="https://rental-space.net/form/">購入者フォームを開く</a>
+  <p style="margin-top:12px">領収書は、Stripeから届く「お支払い完了」のメールをお使いください。</p>
+</div>
+
+<a class="back" href="/">← ブログ「きくりんのノウハウ垂れ流し」へ</a>
 </main>
 <script>
 (function(){
   var q=new URLSearchParams(location.search);var p=q.get('p')||'';var s=q.get('s')||'';
-  var f=document.getElementById('form-link');if(f&&(p==='rental'||p==='ebay'||p==='hp'||p==='dance'))f.href='https://rental-space.net/form/?p='+p;
+  var f=document.getElementById('form-link');if(f&&/^(rental|ebay|hp|dance|aicontents)$/.test(p))f.href='https://rental-space.net/form/?p='+p;
+  var NAMES={aicontents:'「AI×◯◯」コンテンツ販売の教科書',ebay:'AI × eBay輸出の教科書',rental:'レンタルスペース経営の教科書',dance:'ダンススタジオ完全ロードマップ',dance_set:'ダンススタジオ完全ロードマップ+レンタルスペース経営の教科書',hp:'レンタルスペースの公式HPメーカー',kit:'レンスペ運営AIキット',k1:'レンスペ経営ダッシュボードPro',kit_set:'レンタルスペース経営の教科書+運営AIキット'};
+  var pe=document.getElementById('prod');if(pe&&NAMES[p]){pe.textContent=NAMES[p];pe.hidden=false;}
   // A redirect is not payment verification. Actual orders/amounts come from the shop ledger.
   // Never manufacture a purchase or value from URL parameters or a current price table.
   if (!/^(rental|ebay|hp|k1|kit|kit_set|dance|aicontents)$/.test(p) || !/^cs_live_[A-Za-z0-9]+$/.test(s)) return;
