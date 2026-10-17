@@ -1249,3 +1249,5 @@ blockquote.tip-box strong {
 .content-area { overflow-wrap: anywhere; }
 /* Price notices must wrap rather than determine the whole column width. */
 .kb-title span { white-space: normal !important; }
+/* Prompt blocks (<pre>) must wrap so they never widen the page on phones. */
+.article-body pre { white-space: pre-wrap; overflow-wrap: anywhere; }
