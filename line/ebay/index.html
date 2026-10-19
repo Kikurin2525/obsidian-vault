@@ -121,7 +121,7 @@ input[type=email]{width:100%;font-size:16px;padding:12px;border:2px solid var(--
 <script>
 (() => {
   // LINE公式アカウントの準備ができたら true にする(Rondo の LINE_ROUTES と同じキーへ送る)
-  const LINE_READY = false;
+  const LINE_READY = true;
   const RONDO = 'https://rondo.kikurin.workers.dev';
   const q = new URLSearchParams(location.search);
   const clean = (v) => String(v || '').toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 20);
