@@ -89,6 +89,12 @@
         .share a, .share button { font-family:inherit; font-size:14px; font-weight:700; border-radius:999px; padding:10px 18px; cursor:pointer; text-decoration:none; }
         .share .x { background:#111; color:#fff; border:none; }
         .share .copy { background:#fff; color:var(--navy); border:2px solid #d6dbe6; }
+        .line-cta { margin-top:16px; border:2px solid #06c755; border-radius:14px; padding:14px 14px 12px; background:#f3fff7; text-align:center; }
+        .line-cta .ttl { font-size:15px; font-weight:800; color:var(--navy); margin:0 0 6px; line-height:1.5; }
+        .line-cta ul { text-align:left; margin:0 0 10px; padding-left:1.2em; font-size:13.5px; }
+        .line-cta li { margin:2px 0; }
+        .line-cta a.btn-line { display:block; background:#06c755; color:#fff; text-decoration:none; font-weight:800; font-size:16px; border-radius:999px; padding:12px 16px; max-width:380px; margin:0 auto; }
+        .line-cta .sub { font-size:12px; color:var(--muted); margin:8px 0 0; }
         .ai { border-color:#d6e4f5; background:#f7faff; }
         .ai ul { margin:6px 0 0; padding-left:1.2em; font-size:14px; }
         .ai li { margin:3px 0; }
@@ -158,6 +164,17 @@
             <div class="share">
                 <a class="x" id="shareX" href="#" target="_blank" rel="noopener">結果をXでシェア</a>
                 <button class="copy" id="copyLink" type="button">この条件のURLをコピー</button>
+            </div>
+
+            <div class="line-cta" id="lineCta">
+                <p class="ttl">この結果の続きと、<br>出店前の3点セットをLINEで受け取る</p>
+                <ul>
+                    <li>結果の続き: 黒字ラインを下げる3つのこと</li>
+                    <li>初期費用シミュレーター</li>
+                    <li>出店企画書の見本・開業チェックリスト</li>
+                </ul>
+                <a class="btn-line" id="lineBtn" href="https://rondo.kikurin.workers.dev/in/web-rensupe" target="_blank" rel="noopener">LINEで受け取る(無料)</a>
+                <p class="sub">友だち追加のあと「レンタルスペース出店前の3点セット」を押すと届きます。診断は、登録しなくても今までどおり使えます。</p>
             </div>
 
             <p class="note">
@@ -320,6 +337,10 @@
                     }, 1500);
                 });
             });
+            // LINEの入口: Xから来た人(utm_source=x)は x-rensupe、それ以外は web-rensupe(/line/ebay/ と同じ考え方)
+            var lineRoute = (q.get('utm_source') || '').toLowerCase() === 'x' ? 'x-rensupe' : 'web-rensupe';
+            $('lineBtn').href = 'https://rondo.kikurin.workers.dev/in/' + lineRoute;
+            $('lineBtn').addEventListener('click', function () { if (typeof gtag === 'function') gtag('event', 'line_click', { route: lineRoute, tool: 'dance-shindan', grade: last ? last.grade : '' }); });
             $('shareX').addEventListener('click', function () { if (typeof gtag === 'function' && last) gtag('event', 'shindan_share', { tool: 'dance-shindan', method: 'x', grade: last.grade }); });
             $('copyLink').addEventListener('click', function () {
                 var u = this.dataset.url, btn = this;

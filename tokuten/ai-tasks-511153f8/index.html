@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>AIに任せている作業の一覧+そのまま使える指示文7本</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CHWF6QKRJ6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CHWF6QKRJ6');</script>
+<style>
+:root{--ink:#111;--muted:#444;--line:#dfe6ea;--orange:#f57c00;--orange-dark:#b84a00;--soft:#fff7ee;--blue:#2563eb;--bg:#fff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,'Hiragino Sans',Meiryo,sans-serif;line-height:1.85;font-size:16px}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 80px}
+.hero{border:3px solid var(--ink);border-radius:20px;padding:24px 20px;box-shadow:6px 6px 0 rgba(0,0,0,.08);margin-bottom:24px}
+.hero .eyebrow{display:inline-block;background:var(--orange);color:#fff;font-weight:700;font-size:13px;border-radius:999px;padding:2px 12px;margin:0 0 8px}
+h1{font-size:clamp(22px,5vw,30px);line-height:1.4;margin:0 0 10px}
+.hero p{margin:0 0 .6em;color:var(--muted);font-size:15px}
+.toc{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 0}
+.toc a{border:2px solid var(--ink);border-radius:8px;padding:4px 12px;font:700 13px/1.5 inherit;color:var(--ink);text-decoration:none}
+.score{position:sticky;top:0;z-index:5;background:var(--ink);color:#fff;border-radius:12px;padding:10px 14px;margin:0 0 20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:14px}
+.score strong{font-size:22px;color:#ffd54f}
+.score a{margin-left:auto;color:#fff;font-weight:700}
+h2{font-size:22px;margin:34px 0 10px;line-height:1.5}
+h3{font-size:18px;margin:0;display:flex;align-items:center;gap:10px;line-height:1.5}
+.sn{display:inline-flex;align-items:center;justify-content:center;flex:none;width:30px;height:30px;border-radius:50%;background:var(--orange);color:#fff;font-size:15px}
+.sec{border:1px solid var(--line);border-radius:16px;padding:16px;margin:0 0 18px}
+h2,.sec{scroll-margin-top:72px}
+.sec-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.count{margin:0;font-weight:700;color:var(--orange-dark);font-size:14px;white-space:nowrap}
+.can{font-weight:700;margin:10px 0 6px}
+.rei,.yours,.level{font-size:14.5px;margin:4px 0;color:var(--muted)}
+.rei b,.yours b,.level b{display:inline-block;background:var(--soft);color:var(--orange-dark);border-radius:6px;padding:0 8px;margin-right:8px;font-size:12.5px}
+.items{list-style:none;padding:0;margin:10px 0 0}
+.item{border-top:1px dashed var(--line);padding:8px 0}
+.check{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.check input{width:22px;height:22px;margin:3px 0 0;accent-color:var(--orange);flex:none}
+.check .text{flex:1}
+.tag{display:inline-block;font-size:12px;font-weight:700;border-radius:6px;padding:0 8px;white-space:nowrap;margin-top:3px}
+.t-自動{background:#e8f0ff;color:#0f3fa8}.t-下書き{background:#eafbe7;color:#1d6b12}.t-依頼{background:var(--soft);color:var(--orange-dark)}.t-道具{background:#f3e8ff;color:#6b21a8}
+.legend{list-style:none;padding:0;margin:8px 0 0;font-size:14px}
+.legend li{margin:4px 0} .legend .tag{margin-right:8px}
+table{border-collapse:collapse;width:100%;font-size:14px;margin:10px 0}
+td,th{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:#f6f8fa;white-space:nowrap}
+.aim{font-size:14.5px;color:var(--muted);margin:8px 0 0}
+.src{font-size:12.5px;color:var(--muted);margin:6px 0 0}
+.prompt{margin:8px 0 0}
+pre{white-space:pre-wrap;word-break:break-word;background:#f6f8fa;border:1px solid var(--line);border-radius:10px;padding:12px;margin:0;font:14px/1.75 'Noto Sans JP',sans-serif}
+.copy{margin-top:6px;background:var(--ink);color:#fff;border:0;border-radius:8px;padding:5px 14px;font:700 13px/1.4 inherit;cursor:pointer}
+.note{font-size:13px;color:var(--muted)}
+.cta{border:3px solid var(--ink);border-radius:20px;padding:20px;margin:28px 0;text-align:center}
+.cta a{display:inline-block;background:var(--orange);color:#fff;font-weight:700;text-decoration:none;border-radius:999px;padding:12px 26px;margin-top:6px}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 0}
+.tools button{background:#fff;border:2px solid var(--ink);border-radius:8px;padding:6px 12px;font:700 13px/1.4 inherit;cursor:pointer}
+@media print{
+ .score,.tools,.toc,.copy,.cta a{display:none!important}
+ .sec{break-inside:avoid-page}
+ body{font-size:12px} pre{font-size:11px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+<p class="eyebrow">無料特典</p>
+<h1>AIに任せている作業の一覧<br>+そのまま使える指示文7本</h1>
+<p>毎日くり返している作業は、7つの型に分けると、どれをAIに任せられるかが見えてきます。</p>
+<p>例えば、ぼくのところでは、AIに任せている作業を書き出すと171件になり、そのうち約120件がいまも動いています(2026年10月7日に数えた)。このページでは、それを7つの型にまとめました。</p>
+<p>あなたもやっている作業に☑を付けてください。いちばん下の<a href="#prompts">指示文1</a>に、そのまま入ります。指示文は、Claude・ChatGPTなどにコピーして貼れます。【 】の中だけ、あなたの言葉に書きかえてください。</p>
+<nav class="toc" aria-label="目次"><a href="#types">作業の一覧(7つの型)</a><a href="#levels">任せ方の3段階</a><a href="#prompts">指示文7本</a></nav>
+<div class="tools"><button type="button" id="print">印刷する・PDFで保存</button><button type="button" id="reset">☑を全部外す</button></div>
+<p class="note">☑は、このブラウザの中にだけ残ります(どこにも送られません)。</p>
+</header>
+
+<div class="score" aria-live="polite"><span>あなたもやっている作業</span><strong id="total">0</strong><span>件</span><a href="#prompts">指示文1へ</a></div>
+
+<h2 id="types">作業の一覧(7つの型)</h2>
+<p>型ごとに「こんなことができます → 例えば → あなたなら → 任せ方」の順です。札の意味は、こうです。</p>
+<ul class="legend"><li><span class="tag t-自動">自動</span>毎日・毎週など、勝手に回る</li><li><span class="tag t-下書き">下書き</span>AIが作って、自分で見て送る</li><li><span class="tag t-依頼">依頼</span>チャットで頼んだときに動く</li><li><span class="tag t-道具">道具</span>AIに作ってもらったアプリ・拡張を使う</li></ul>
+<p class="note">ぼくの店(レンタルスペースとネットのお店)の例です。店の名前や商品は伏せて、どの商売でも通じる言い方にしています。</p>
+<section class="sec" data-sec="1"><div class="sec-head"><h3><span class="sn">1</span>お客さま対応と予約</h3><p class="count">0 / 6</p></div><p class="can">お客さまからの連絡を、AIが1か所に集めて、返信の下書きまで作ってくれます。</p><p class="rei"><b>例えば</b>ぼくの店では、予約サイトやメールに来るメッセージを、AIが1つの受信箱に集めます。返事が要るものには、返信案をつけて見せてくれます。</p><p class="yours"><b>あなたなら</b>教室の体験の申し込み、美容室の予約の変更、ネットショップの「いつ届きますか?」</p><p class="level"><b>任せ方</b>B(下書きまで)。判断の要らない返事は自動で送る</p><ul class="items"><li class="item"><label class="check"><input type="checkbox" data-id="1" data-text="いくつもの窓口に来るメッセージを、1つの受信箱に集める"><span class="text">いくつもの窓口に来るメッセージを、1つの受信箱に集める</span><span class="tag t-自動">自動</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="2" data-text="「返事が要る/要らない」に仕分ける"><span class="text">「返事が要る/要らない」に仕分ける</span><span class="tag t-自動">自動</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="3" data-text="返信の下書きを作る"><span class="text">返信の下書きを作る</span><span class="tag t-下書き">下書き</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="4" data-text="予約の変更が来たら、カレンダーを直して、返信文もいっしょに作る"><span class="text">予約の変更が来たら、カレンダーを直して、返信文もいっしょに作る</span><span class="tag t-依頼">依頼</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="5" data-text="利用の翌日に、お礼とレビューを送る"><span class="text">利用の翌日に、お礼とレビューを送る</span><span class="tag t-自動">自動</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="6" data-text="英語のメッセージを和訳して、英語の返信案を作る"><span class="text">英語のメッセージを和訳して、英語の返信案を作る</span><span class="tag t-下書き">下書き</span></label></li></ul></section><section class="sec" data-sec="2"><div class="sec-head"><h3><span class="sn">2</span>お金の請求と支払い</h3><p class="count">0 / 5</p></div><p class="can">「請求→入金の確認→催促」の決まった流れを、AIに任せられます。</p><p class="rei"><b>例えば</b>ぼくの店では、予約のキャンセルが入ると、AIがキャンセル料を計算して、支払いのリンクを送ります。期限が切れたら、送り直すところまで自動です。</p><p class="yours"><b>あなたなら</b>月謝の請求と未払いの確認、外注さんへの支払いの明細、帳簿づけ</p><p class="level"><b>任せ方</b>A(全自動)。返金と振込は、ぼくが確かめてから</p><ul class="items"><li class="item"><label class="check"><input type="checkbox" data-id="7" data-text="キャンセル料を計算して、支払いのリンクを送る・催促する"><span class="text">キャンセル料を計算して、支払いのリンクを送る・催促する</span><span class="tag t-自動">自動</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="8" data-text="毎月の請求書の下書きを、予約の記録から作る"><span class="text">毎月の請求書の下書きを、予約の記録から作る</span><span class="tag t-自動">自動</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="9" data-text="入金と請求を突き合わせて、未払いを見つける"><span class="text">入金と請求を突き合わせて、未払いを見つける</span><span class="tag t-依頼">依頼</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="10" data-text="外注さんの報酬の明細を作って、知らせる"><span class="text">外注さんの報酬の明細を作って、知らせる</span><span class="tag t-自動">自動</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="11" data-text="注文ごとに、台帳をつける"><span class="text">注文ごとに、台帳をつける</span><span class="tag t-自動">自動</span></label></li></ul></section><section class="sec" data-sec="3"><div class="sec-head"><h3><span class="sn">3</span>数字の集計と報告</h3><p class="count">0 / 6</p></div><p class="can">売上や予約の数字を自分で集めなくても、AIがまとめて届けてくれます。</p><p class="rei"><b>例えば</b>ぼくの店では、店ごとの見込みの売上と利益を、いつでもダッシュボードで見られます。ネットのお店の利益も、毎朝レポートで届きます。</p><p class="yours"><b>あなたなら</b>今月の売上が目標まであといくらか、どのメニューが売れているか、先週の予約は何件か</p><p class="level"><b>任せ方</b>A(全自動)</p><ul class="items"><li class="item"><label class="check"><input type="checkbox" data-id="12" data-text="売上と利益を、ダッシュボードにまとめる"><span class="text">売上と利益を、ダッシュボードにまとめる</span><span class="tag t-自動">自動</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="13" data-text="昨日の数字を、毎朝レポートで届ける"><span class="text">昨日の数字を、毎朝レポートで届ける</span><span class="tag t-自動">自動</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="14" data-text="週ごとの予約の様子と、次の手のメモを作る"><span class="text">週ごとの予約の様子と、次の手のメモを作る</span><span class="tag t-自動">自動</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="15" data-text="広告の数字と、実際の予約をくらべる"><span class="text">広告の数字と、実際の予約をくらべる</span><span class="tag t-自動">自動</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="16" data-text="月の締め(費用まで入れた本当の利益)をまとめる"><span class="text">月の締め(費用まで入れた本当の利益)をまとめる</span><span class="tag t-依頼">依頼</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="17" data-text="自動で動いている仕組みの結果を、1通の日報にまとめる"><span class="text">自動で動いている仕組みの結果を、1通の日報にまとめる</span><span class="tag t-自動">自動</span></label></li></ul></section><section class="sec" data-sec="4"><div class="sec-head"><h3><span class="sn">4</span>見張りと点検</h3><p class="count">0 / 5</p></div><p class="can">「気づいたときには手遅れ」になりがちなことを、AIが見張ってくれます。</p><p class="rei"><b>例えば</b>ぼくのネットのお店では、仕入れ先で商品が売り切れたら、AIが在庫を0にします。販売ページの価格の表示がずれていたら、朝に知らせが来ます。</p><p class="yours"><b>あなたなら</b>在庫切れ、口コミの低い評価、近くのお店の値下げ、利用しているサービスの規約の変更</p><p class="level"><b>任せ方</b>A(全自動)。おかしいときだけ知らせが来る</p><ul class="items"><li class="item"><label class="check"><input type="checkbox" data-id="18" data-text="仕入れ先の売り切れを見つけて、在庫を0にする"><span class="text">仕入れ先の売り切れを見つけて、在庫を0にする</span><span class="tag t-自動">自動</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="19" data-text="出品のタイトル・項目・説明文を点検して、直す案を出す"><span class="text">出品のタイトル・項目・説明文を点検して、直す案を出す</span><span class="tag t-自動">自動</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="20" data-text="販売ページの価格の表示が、ずれていないか見る"><span class="text">販売ページの価格の表示が、ずれていないか見る</span><span class="tag t-自動">自動</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="21" data-text="近くのお店(競合)の様子を、毎日記録する"><span class="text">近くのお店(競合)の様子を、毎日記録する</span><span class="tag t-自動">自動</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="22" data-text="規約が変わったとき、全部の出品をまとめて点検する"><span class="text">規約が変わったとき、全部の出品をまとめて点検する</span><span class="tag t-依頼">依頼</span></label></li></ul></section><section class="sec" data-sec="5"><div class="sec-head"><h3><span class="sn">5</span>価格と集客の調整</h3><p class="count">0 / 6</p></div><p class="can">「ここまでなら下げていい」を決めておけば、価格や広告の見直しを、AIが毎日やってくれます。</p><p class="rei"><b>例えば</b>ぼくのネットのお店では、競合に合わせて値段を直し、利益の下限まで来たら止めます。値下げ交渉を「受ける/断る」金額も、毎日合わせ直しています。</p><p class="yours"><b>あなたなら</b>すいている時間の割引、季節ごとの価格、広告の予算の配分</p><p class="level"><b>任せ方</b>A(全自動)。下限の決まりは、自分で決める</p><ul class="items"><li class="item"><label class="check"><input type="checkbox" data-id="23" data-text="競合に合わせて値段を直す(下限で止める)"><span class="text">競合に合わせて値段を直す(下限で止める)</span><span class="tag t-自動">自動</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="24" data-text="値下げ交渉を「受ける/断る」金額を、下限に合わせる"><span class="text">値下げ交渉を「受ける/断る」金額を、下限に合わせる</span><span class="tag t-自動">自動</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="25" data-text="広告の率を決めて、新しい出品を広告に入れる"><span class="text">広告の率を決めて、新しい出品を広告に入れる</span><span class="tag t-自動">自動</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="26" data-text="価格の案を出して、予約サイトの料金に反映する"><span class="text">価格の案を出して、予約サイトの料金に反映する</span><span class="tag t-依頼">依頼</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="27" data-text="広告の設定(予算・地域・広告文)を見直す"><span class="text">広告の設定(予算・地域・広告文)を見直す</span><span class="tag t-依頼">依頼</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="28" data-text="予約した投稿を、時刻どおりに出す"><span class="text">予約した投稿を、時刻どおりに出す</span><span class="tag t-自動">自動</span></label></li></ul></section><section class="sec" data-sec="6"><div class="sec-head"><h3><span class="sn">6</span>商品と発信をつくる</h3><p class="count">0 / 6</p></div><p class="can">話した言葉や、手もとの写真・データから、AIが記事や商品の形にしてくれます。</p><p class="rei"><b>例えば</b>ぼくは、散歩しながら録音した話を、AIに文字にしてもらって、ブログの下書きにしています。清書したら、図解をつけて、いくつかの媒体に出すところまで進めてくれます。</p><p class="yours"><b>あなたなら</b>お店のブログ、商品の説明、インスタの投稿文、お客さま向けの案内やマニュアル</p><p class="level"><b>任せ方</b>C→B(頼んで、下書きを見てOK)</p><ul class="items"><li class="item"><label class="check"><input type="checkbox" data-id="29" data-text="録音を文字にして、記事の下書きを作る"><span class="text">録音を文字にして、記事の下書きを作る</span><span class="tag t-依頼">依頼</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="30" data-text="記事から、図解や見出しの画像を作る"><span class="text">記事から、図解や見出しの画像を作る</span><span class="tag t-依頼">依頼</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="31" data-text="1本の記事を、いくつかの媒体に出す"><span class="text">1本の記事を、いくつかの媒体に出す</span><span class="tag t-依頼">依頼</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="32" data-text="翌日の短い投稿の下書きを、毎晩作る"><span class="text">翌日の短い投稿の下書きを、毎晩作る</span><span class="tag t-下書き">下書き</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="33" data-text="仕入れ先の情報から、出品(値段・タイトル・説明文)を作る"><span class="text">仕入れ先の情報から、出品(値段・タイトル・説明文)を作る</span><span class="tag t-自動">自動</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="34" data-text="教材やホームページを書いて、直す"><span class="text">教材やホームページを書いて、直す</span><span class="tag t-依頼">依頼</span></label></li></ul></section><section class="sec" data-sec="7"><div class="sec-head"><h3><span class="sn">7</span>段取りと調べもの</h3><p class="count">0 / 5</p></div><p class="can">頭の中のやることと調べものを、AIの秘書に預けられます。</p><p class="rei"><b>例えば</b>ぼくは、外出先からスマホで頼むと、家のパソコンでAIが作業して、返事をくれるようにしています。物件のURLを渡せば、◎○△✕で判定もしてくれます。</p><p class="yours"><b>あなたなら</b>新しいお店の候補地の下調べ、仕入れ先のくらべ方、外注さんへの連絡文</p><p class="level"><b>任せ方</b>C(頼んだときに動く)</p><ul class="items"><li class="item"><label class="check"><input type="checkbox" data-id="35" data-text="スマホから頼むと、家のパソコンのAIが作業して、返事をする"><span class="text">スマホから頼むと、家のパソコンのAIが作業して、返事をする</span><span class="tag t-道具">道具</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="36" data-text="物件のURLを渡すと、◎○△✕で判定する"><span class="text">物件のURLを渡すと、◎○△✕で判定する</span><span class="tag t-依頼">依頼</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="37" data-text="止まっている作業を、台帳で見張る"><span class="text">止まっている作業を、台帳で見張る</span><span class="tag t-自動">自動</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="38" data-text="録音から「やりたいこと」を整理して、計画とのずれを出す"><span class="text">録音から「やりたいこと」を整理して、計画とのずれを出す</span><span class="tag t-依頼">依頼</span></label></li><li class="item"><label class="check"><input type="checkbox" data-id="39" data-text="手続きの下調べをする"><span class="text">手続きの下調べをする</span><span class="tag t-依頼">依頼</span></label></li></ul></section>
+
+<h2 id="levels">任せ方の3段階</h2>
+<table><thead><tr><th>段階</th><th>自分がやること</th><th>例</th></tr></thead><tbody>
+<tr><td>C 頼んだときに動く</td><td>チャットで頼む</td><td>予約の変更・物件の判定・ホームページの更新</td></tr>
+<tr><td>B 下書きまで</td><td>見て「送る」「OK」を押す</td><td>返信案・請求のメール・投稿の下書き</td></tr>
+<tr><td>A 全自動</td><td>結果を見る(おかしいときに知らせが来る)</td><td>在庫の同期・キャンセル料の請求・売上の集計</td></tr>
+</tbody></table>
+<p>はじめはCから。同じ頼みごとが3回続いたらB、Bで直すところがなくなったらA、の順に上げていくと、無理なく任せる作業がふえていきます。</p>
+
+<h2 id="prompts">そのまま使える指示文7本</h2>
+<p>1本目で任せる作業を選び、2〜6本目で、任せたあとにつまずきやすい所を先に防ぎます。7本目は、任せて空いた時間で、あなたの経験を形にするときの1本です。</p>
+<section class="sec pr"><h3><span class="sn">1</span>毎日の作業から、任せられるものを3つ選ぶ</h3><p class="aim">何から任せるか迷ったら、ここから。上の一覧で☑を付けた作業は、この指示文に自動で入ります。</p><div class="prompt"><pre id="p1">このページの「AIに任せている作業の一覧」を読んで。
+https://rental-space.net/tokuten/ai-tasks-511153f8/
+
+わたしのふだんの作業は、こうです。
+【ここに、ふだんの作業を箇条書きで。例: 予約の連絡に返事をする/月末に売上を表にまとめる】
+
+この中から、AIに任せられそうなものを3つ選んで、7つの型のどれに当たるかと、任せ方(A 全自動/B 下書きまで/C 頼んだときに動く)を表にして。
+手間がいちばんへるものから順に。それぞれ、はじめの1回でAIに渡すものも書いて。</pre><button type="button" class="copy" data-target="p1">コピー</button></div><p class="src">一覧の7つの型と3段階から</p></section><section class="sec pr"><h3><span class="sn">2</span>名前や連絡先を、伏せてから読ませる</h3><p class="aim">お客さまの連絡をAIに読ませるときは、まずこの形で。返信の下書きは作れます。</p><div class="prompt"><pre id="p2">このメッセージを読んで、返信の下書きを作って。
+読む前に、名前・メールアドレス・電話番号・住所は【お名前】【メール】【電話】【住所】に書きかえて。
+下書きにも、書きかえたままの形で入れて。宛先と名前は、わたしが送るときに入れます。
+
+【ここにメッセージを貼る】</pre><button type="button" class="copy" data-target="p2">コピー</button></div><p class="src">つまずき集 No.107 から</p></section><section class="sec pr"><h3><span class="sn">3</span>数字の出どころを、1つのファイルにする</h3><p class="aim">文章や報告のたびに数字がずれるのを防ぎます。</p><div class="prompt"><pre id="p3">【売上の記録のファイル名】を読んで、【先月】の売上・件数・内訳を出して。
+出した数字を「数字の正本.md」という1つのファイルに表で書いて、出どころ(どのファイルの、どの期間か)も書いて。
+これから文章や報告を書くときは、数字はこの正本からとって、計算し直さないで。</pre><button type="button" class="copy" data-target="p3">コピー</button></div><p class="src">つまずき集 No.17 から</p></section><section class="sec pr"><h3><span class="sn">4</span>メモにない事実や数字を、足させない</h3><p class="aim">AIは、それっぽい一文を足すことがあります。足したところを見えるようにします。</p><div class="prompt"><pre id="p4">このメモを、【お知らせ/投稿/商品の説明】の文に書きなおして。
+メモにない事実や数字は足さないで。足したところがあれば、文のあとに一覧で見せて。
+
+【ここにメモを貼る】</pre><button type="button" class="copy" data-target="p4">コピー</button></div><p class="src">つまずき集 No.63 から</p></section><section class="sec pr"><h3><span class="sn">5</span>「できました」を、確かめてから受け取る</h3><p class="aim">「できました」は、確かめた結果ではありません。照合してから受け取ります。</p><div class="prompt"><pre id="p5">作業が終わったら、「できました」と言う前に、できあがったもの(ページ・ファイル・送った先)を開いて、頼んだ中身と1つずつくらべて。
+くらべた結果を ✅/❌ の表で見せて。❌ があるうちは、できたと言わないで直して。
+数字は最後に、わたしが目で見ます。</pre><button type="button" class="copy" data-target="p5">コピー</button></div><p class="src">つまずき集 No.45・34 から</p></section><section class="sec pr"><h3><span class="sn">6</span>任せた仕組みの結果を、毎朝1通にまとめる</h3><p class="aim">任せる作業がふえるほど、止まっても気づきにくくなります。結果がとどく形にします。</p><div class="prompt"><pre id="p6">わたしがAIに任せている、毎日・毎週動く作業を全部書き出して、1つの台帳(表)にして。
+列は、名前・動く時刻・結果が残る場所・最後にうまくいった日時。
+そのうえで、毎朝その結果を集めて、失敗と止まっているものを上にした1通の日報にするしくみの案を見せて。作るのは、わたしがOKしてから。</pre><button type="button" class="copy" data-target="p6">コピー</button></div><p class="src">つまずき集 No.119 から</p></section><section class="sec pr"><h3><span class="sn">7</span>あなたの経験から、作って売れるネタを選ぶ</h3><p class="aim">任せて空いた時間で、あなたの経験を教材にするときの、はじめの1本です。</p><div class="prompt"><pre id="p7">わたしが毎日やっていること・得意なことの候補は、【候補1】【候補2】【候補3】です。
+話したいかどうかではなく、知りたい人の数でくらべたい。
+それぞれ、知りたい人がどのくらいいそうか、調べた根拠といっしょに表にして。
+AIは手段として使う前提で、「AIの使い方そのもの」が中身になっている候補には印を付けて。</pre><button type="button" class="copy" data-target="p7">コピー</button></div><p class="src">つまずき集 No.1 から</p></section>
+
+<div class="cta">
+<p><strong>ネタが決まったあと、素材→下書き→画像→教材にして売るまでの手順と、ぼくがAIに渡している指示文の全部は、教科書にまとめました。</strong></p>
+<a href="https://rental-space.net/kyokasho/ai-contents/?utm_source=tokuten&utm_medium=ai_tasks&utm_campaign=cta">『「AI×◯◯」コンテンツ販売の教科書』を見る</a>
+<p class="note">第0部は無料で読めます。</p>
+</div>
+
+<section class="sec">
+<h3>正直に書いておくこと</h3>
+<ul>
+<li>ぼくの店の例です。同じ結果になることを約束するものではありません。</li>
+<li>AIをどこまで使ってよいかは、サービスごとに規約がちがいます。ぼくは多くの作業をAIに任せていますが、どこまで任せるかは、規約を確かめたうえで、ご自身の責任で決めてください。任せない作業は、指示文を「手順を書き出して」に変えれば、自分で進める手順書になります。</li>
+<li>eBay(海外向けのネットのお店)は、eBayに書面で確かめた範囲で使っています(2026年10月): 公式のAPIを通してAIに出品や価格の更新をさせるのはOK/AIにブラウザでeBayの画面を開かせるのはNG/買い手の個人情報は、本文の中にあるものも含めてAIに渡さない。</li>
+<li>お客さまの名前や連絡先は、伏せてからAIに渡してください(指示文2)。</li>
+<li>料金・規約・画面の名前は、2026年10月時点です。使う前に、公式のページで確かめてください。</li>
+</ul>
+<p class="note">発行: きくりん(株式会社オサラロック)</p>
+</section>
+</div>
+<script>
+(() => {
+  const KEY = 'ai-tasks-checks-v1';
+  const EMPTY = "【ここに、ふだんの作業を箇条書きで。例: 予約の連絡に返事をする/月末に売上を表にまとめる】";
+  const TEMPLATE = "このページの「AIに任せている作業の一覧」を読んで。\nhttps://rental-space.net/tokuten/ai-tasks-511153f8/\n\nわたしのふだんの作業は、こうです。\n{CHECKED}\n\nこの中から、AIに任せられそうなものを3つ選んで、7つの型のどれに当たるかと、任せ方(A 全自動/B 下書きまで/C 頼んだときに動く)を表にして。\n手間がいちばんへるものから順に。それぞれ、はじめの1回でAIに渡すものも書いて。";
+  const boxes = [...document.querySelectorAll('input[type=checkbox][data-id]')];
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { saved = {}; }
+  boxes.forEach(b => { b.checked = !!saved[b.dataset.id]; });
+  const render = () => {
+    const on = boxes.filter(b => b.checked);
+    document.getElementById('total').textContent = on.length;
+    document.querySelectorAll('.sec[data-sec]').forEach(sec => {
+      const bs = [...sec.querySelectorAll('input[type=checkbox]')];
+      sec.querySelector('.count').textContent = bs.filter(b => b.checked).length + ' / ' + bs.length;
+    });
+    const list = on.length ? on.map(b => '・' + b.dataset.text).join('\n') + '\n・【ほかにもあれば書き足す】' : EMPTY;
+    document.getElementById('p1').textContent = TEMPLATE.replace('{CHECKED}', list);
+  };
+  const save = () => {
+    const s = {}; boxes.forEach(b => { if (b.checked) s[b.dataset.id] = 1; });
+    try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) {}
+  };
+  boxes.forEach(b => b.addEventListener('change', () => { save(); render(); }));
+  document.getElementById('reset').addEventListener('click', () => {
+    if (!confirm('☑を全部外しますか?')) return;
+    boxes.forEach(b => { b.checked = false; }); save(); render();
+  });
+  document.getElementById('print').addEventListener('click', () => window.print());
+  document.querySelectorAll('.copy').forEach(btn => btn.addEventListener('click', async () => {
+    const t = document.getElementById(btn.dataset.target).textContent;
+    try { await navigator.clipboard.writeText(t); btn.textContent = 'コピーしました'; }
+    catch (e) { btn.textContent = '長押しでコピーしてください'; }
+    setTimeout(() => { btn.textContent = 'コピー'; }, 1600);
+    if (typeof gtag === 'function') gtag('event', 'tokuten_copy', { item: 'ai-' + btn.dataset.target });
+  }));
+  render();
+})();
+</script>
+<script src="/track.js?v=20260919"></script>
+</body>
+</html>
