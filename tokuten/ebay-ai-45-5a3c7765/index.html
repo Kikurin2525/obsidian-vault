@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>eBay輸出×AI 45項目チェックリスト 書きこみ版</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CHWF6QKRJ6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CHWF6QKRJ6');</script>
+<style>
+:root{--ink:#111;--muted:#444;--line:#dfe6ea;--orange:#f57c00;--orange-dark:#b84a00;--soft:#fff7ee;--blue:#2563eb;--bg:#fff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,'Hiragino Sans',Meiryo,sans-serif;line-height:1.85;font-size:16px}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 80px}
+.hero{border:3px solid var(--ink);border-radius:20px;padding:24px 20px;box-shadow:6px 6px 0 rgba(0,0,0,.08);margin-bottom:24px}
+.hero .eyebrow{display:inline-block;background:var(--orange);color:#fff;font-weight:700;font-size:13px;border-radius:999px;padding:2px 12px;margin:0 0 8px}
+h1{font-size:clamp(22px,5vw,30px);line-height:1.4;margin:0 0 8px}
+.hero p{margin:0 0 .6em;color:var(--muted);font-size:15px}
+.score{position:sticky;top:0;z-index:5;background:var(--ink);color:#fff;border-radius:12px;padding:10px 14px;margin:0 0 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.score strong{font-size:22px;color:#ffd54f}
+.score .bar{flex:1;min-width:120px;height:10px;background:#444;border-radius:999px;overflow:hidden}
+.score .bar i{display:block;height:100%;width:0;background:var(--orange);transition:width .2s}
+.score button{background:#fff;color:var(--ink);border:0;border-radius:8px;padding:6px 12px;font:700 13px/1.4 inherit;cursor:pointer}
+h2{font-size:20px;margin:0;display:flex;align-items:center;gap:10px}
+h2 .sn{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--orange);color:#fff;font-size:15px}
+h3{font-size:16px;margin:22px 0 6px}
+.sec{border:1px solid var(--line);border-radius:16px;padding:16px;margin:0 0 18px}
+.sec-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.count{margin:0;font-weight:700;color:var(--orange-dark);font-size:14px;white-space:nowrap}
+.items{list-style:none;padding:0;margin:12px 0 0}
+.item{border-top:1px dashed var(--line);padding:10px 0}
+.check{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.check input{width:22px;height:22px;margin:3px 0 0;accent-color:var(--orange);flex:none}
+.no{font-weight:700;color:var(--muted);min-width:1.6em;font-size:14px;padding-top:2px}
+.check input:checked ~ .text{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--orange)}
+.marks{margin:4px 0 0 58px}
+.b{display:inline-block;font-size:12px;font-weight:700;border-radius:6px;padding:0 8px;margin-right:6px}
+.b.api{background:#e8f0ff;color:#0f3fa8}.b.tip{background:var(--soft);color:var(--orange-dark)}
+details{margin:6px 0 0 58px}
+summary{cursor:pointer;font-size:14px;font-weight:700;color:var(--blue)}
+.prompt{position:relative;margin:8px 0 0}
+pre{white-space:pre-wrap;word-break:break-word;background:#f6f8fa;border:1px solid var(--line);border-radius:10px;padding:12px 12px 12px;margin:0;font:14px/1.75 'Noto Sans JP',sans-serif}
+.copy{margin-top:6px;background:var(--ink);color:#fff;border:0;border-radius:8px;padding:5px 14px;font:700 13px/1.4 inherit;cursor:pointer}
+.chapter{margin:10px 0 0;font-size:14px;background:var(--soft);border-radius:10px;padding:8px 12px}
+table{border-collapse:collapse;width:100%;font-size:14px;margin:10px 0}
+td,th{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:#f6f8fa}
+.note{font-size:13px;color:var(--muted)}
+.cta{border:3px solid var(--ink);border-radius:20px;padding:20px;margin:28px 0;text-align:center}
+.cta a{display:inline-block;background:var(--orange);color:#fff;font-weight:700;text-decoration:none;border-radius:999px;padding:12px 26px;margin-top:6px}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 0}
+.tools button{background:#fff;border:2px solid var(--ink);border-radius:8px;padding:6px 12px;font:700 13px/1.4 inherit;cursor:pointer}
+@media print{
+ .score,.tools,.copy,.cta a{display:none!important}
+ details{display:block} details>summary{display:none}
+ .sec{break-inside:avoid-page}
+ body{font-size:12px} pre{font-size:11px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+<p class="eyebrow">無料特典</p>
+<h1>eBay輸出×AI<br>45項目チェックリスト<br>書きこみ版+AIへの発注文</h1>
+<p>eBay輸出で、AIに任せられる仕事を、9つの仕事・45項目に分けました。□にチェックを入れると、残った所が一目で分かります。</p>
+<p>各項目の「AIへの発注文」は、そのままコピーしてClaude・ChatGPTなどに貼れます。【 】の中だけ、あなたの店の数字に書きかえてください。</p>
+<div class="tools"><button type="button" id="print">印刷する・PDFで保存</button><button type="button" id="reset">チェックを全部外す</button></div>
+<p class="note">チェックは、このブラウザの中にだけ残ります(どこにも送られません)。</p>
+</header>
+
+<div class="score" aria-live="polite"><span>できている</span><strong id="total">0</strong><span>/ 45</span><span class="bar"><i id="bar"></i></span></div>
+
+<section class="sec">
+<h2>まずはこれ: AIに「全部」見てもらう</h2>
+<p>チェックを入れる前に、このページのURLをAIに渡して聞くのが、いちばん手軽です。</p>
+<h3>① 「なにができていない?」と聞く(いちばんのおすすめ)</h3><div class="prompt"><pre id="f1">このチェックリストを読んで。
+ぼくのeBayの店は、いまこうしています。
+(ここに、ふだんの作業を箇条書きで。例: 出品は手で1件ずつ/値段は月1回見直す/返信は自分で英訳)
+45項目のうち、まだできていないものを書き出して。
+その中から、売上に近い順に3つ選んで、理由も書いて。</pre><button type="button" class="copy" data-target="f1">コピー</button></div><h3>② 「これをやりたい」と聞く</h3><div class="prompt"><pre id="f2">このチェックリストを読んで。
+ぼくは「(ここに、やりたいこと。例: 出品を1日100件にしたい/返信の時間を減らしたい)」をやりたい。
+45項目のうち、どれとどれを組み合わせればいい?
+eBayの公式APIのどの窓口を使うかも書いて。</pre><button type="button" class="copy" data-target="f2">コピー</button></div><h3>③ 選んだ1つを、計画にしてもらう</h3><div class="prompt"><pre id="f3">(選んだ項目)を、ぼくの店でやりたい。
+①eBayの公式APIのどの窓口を使うか ②APIでできない部分はどうするか ③買い手の個人情報をAIに渡さない形になっているか、を書き出して。
+eBayの画面をブラウザで開く方法は使わないで。
+まだ作らないで。計画だけ見せて。</pre><button type="button" class="copy" data-target="f3">コピー</button></div>
+<p class="note">店の様子をAIに説明するときも、お客さんの名前・住所・メッセージの本文は貼らないでください。</p>
+</section>
+
+<section class="sec" data-sec="1"><div class="sec-head"><h2><span class="sn">1</span>店の準備・設定</h2><p class="count" data-count="1">0 / 5</p></div><ol class="items"><li class="item"><label class="check"><input type="checkbox" data-id="1"><span class="no">1</span><span class="text">ビジネスポリシー(支払い・返品・発送)を、希望を話してAIに作らせる</span></label><div class="marks"><span class="b api">API</span></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p1">eBayのビジネスポリシー(支払い・返品・発送)を作りたい。
+希望は【返品30日・送料は買い手負担・発送まで3日】。
+Account APIのどの窓口で作るかと、設定の中身の案を表にして。
+まだ作らないで、案だけ見せて。</pre><button type="button" class="copy" data-target="p1">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="2"><span class="no">2</span><span class="text">ストアの月額プランを、出品数と手数料から損益分岐で試算させる</span></label><div class="marks"></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p2">eBayストアの月額プランを選びたい。
+いまの出品数は【◯件】、月の売上は【◯円】、主なカテゴリーは【◯◯】。
+プランごとの月額・無料の出品枠・手数料の差から、損益分岐を表にして。
+料金は必ずeBayの公式ページの最新で確かめて、確かめた日とURLも書いて。</pre><button type="button" class="copy" data-target="p2">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="3"><span class="no">3</span><span class="text">発送しない国(配送除外国)を、受賞セラーの設定の傾向と比べて見直す</span></label><div class="marks"><span class="b tip">💡 知らない人が多い</span></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p3">発送しない国(配送除外国)を見直したい。いまの設定は【ここに貼る】。
+返品・紛失・関税のトラブルが起きやすい国の考え方と、外す/残すの案を理由つきで出して。
+ほかのセラーの設定は、私が画面で見て書き写したもの【ここに貼る】だけで比べて。</pre><button type="button" class="copy" data-target="p3">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="4"><span class="no">4</span><span class="text">商品説明のテンプレート(HTML)を、カテゴリーごとに作らせる</span></label><div class="marks"></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p4">eBayの商品説明のHTMLテンプレートを、カテゴリー【◯◯】用に作って。
+スマホで読みやすく、外部リンクとJavaScriptは使わない(eBayで使えない書き方は避ける)。
+入れる欄: 状態・付属品・発送・返品。</pre><button type="button" class="copy" data-target="p4">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="5"><span class="no">5</span><span class="text">ストアのカテゴリー分けを作る・名前を変える・まとめる</span></label><div class="marks"><span class="b api">API</span></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p5">ストアのカテゴリー分けを見直したい。
+いまの出品をカテゴリーごとに数えて、作る・名前を変える・まとめる案を出して。
+APIのどの窓口を使うかも書いて。まだ変更しないで。</pre><button type="button" class="copy" data-target="p5">コピー</button></div></details></li></ol><p class="chapter">□が残った所の手順と指示文は、教科書の <strong>第2章 セットアップ</strong></p></section><section class="sec" data-sec="2"><div class="sec-head"><h2><span class="sn">2</span>リサーチ・仕入れ</h2><p class="count" data-count="2">0 / 5</p></div><ol class="items"><li class="item"><label class="check"><input type="checkbox" data-id="6"><span class="no">6</span><span class="text">出品中の相場を、型番やキーワードで調べる</span></label><div class="marks"><span class="b api">API</span></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p6">型番【◯◯】の出品中の相場を、eBayの公式API(Browse API)で調べるプログラムを作りたい。
+価格の分布・送料込みの中央値・出品数を出す形で。
+1日の呼び出し回数の上限も確かめて。まず計画だけ見せて。</pre><button type="button" class="copy" data-target="p6">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="7"><span class="no">7</span><span class="text">売れた実績(Sold)は人が画面で見て、その数字をAIに集計させる</span></label><div class="marks"><span class="b tip">💡 知らない人が多い</span></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p7">売れた実績(Sold)は、私が画面で見て書き写しました。
+【ここに貼る: 日付・価格・状態】
+これを集計して、相場の中央値と売れる速さをまとめて。
+AIがeBayの画面を開くことはしないで。</pre><button type="button" class="copy" data-target="p7">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="8"><span class="no">8</span><span class="text">自分の店の売れるカテゴリーを、表示回数・ウォッチ・販売数から割り出す</span></label><div class="marks"><span class="b api">API</span></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p8">自分の店の出品ごとの表示回数・ウォッチ・販売数から、売れるカテゴリーと売れないカテゴリーを割り出したい。
+どのAPIで取れるかと、結果の表の形を提案して。</pre><button type="button" class="copy" data-target="p8">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="9"><span class="no">9</span><span class="text">仕入先の候補を、AIに洗い出させる</span></label><div class="marks"></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p9">【◯◯】を仕入れる仕入先の候補を洗い出して。
+それぞれ、規約で転売・輸出がOKか、在庫の確かめ方、送料の考え方を表にして。
+規約は公式ページで確かめて、URLも書いて。</pre><button type="button" class="copy" data-target="p9">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="10"><span class="no">10</span><span class="text">仕入れる前に、利益が出るか(手数料・送料・関税込み)を計算させる</span></label><div class="marks"></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p10">仕入れ値【◯円】、売値【◯ドル】、重さ【◯g】、箱【縦×横×高さcm】、送り先【米国】のとき、
+eBayの手数料・送料・関税込みで手元にいくら残るか計算して。
+為替は【1ドル◯円】で。式も見せて。</pre><button type="button" class="copy" data-target="p10">コピー</button></div></details></li></ol><p class="chapter">□が残った所の手順と指示文は、教科書の <strong>第3章 リサーチ担当/第18章 APIの外側</strong></p></section><section class="sec" data-sec="3"><div class="sec-head"><h2><span class="sn">3</span>出品</h2><p class="count" data-count="3">0 / 5</p></div><ol class="items"><li class="item"><label class="check"><input type="checkbox" data-id="11"><span class="no">11</span><span class="text">まとめて出品する。1日100件でも200件でも同じように回る</span></label><div class="marks"><span class="b api">API</span></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p11">1日【100】件をまとめて出品するプログラムを作りたい。
+Inventory APIを使う前提で、①使う窓口 ②1件で止まったときの扱い ③1日の上限 を計画にして。
+まだ作らないで、計画だけ見せて。</pre><button type="button" class="copy" data-target="p11">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="12"><span class="no">12</span><span class="text">カテゴリーと、そのカテゴリーで必要な項目を調べる</span></label><div class="marks"><span class="b api">API</span></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p12">商品【◯◯】のeBayのカテゴリーと、そのカテゴリーで必須・おすすめの項目(Item specifics)を、
+Taxonomy APIで調べて表にして。</pre><button type="button" class="copy" data-target="p12">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="13"><span class="no">13</span><span class="text">Item specificsを、出典のある値だけで全件埋める</span></label><div class="marks"><span class="b tip">💡 知らない人が多い</span></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p13">出品中の商品のItem specificsを埋めたい。
+使ってよい出典は、仕入元の商品情報とメーカー公式の仕様だけ。
+推測で埋めないで、出典のない項目は空のまま残して。まず10件だけ案を見せて。</pre><button type="button" class="copy" data-target="p13">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="14"><span class="no">14</span><span class="text">タイトルを、型番と用途の言葉で作り直す(字数合わせの言葉を外す)</span></label><div class="marks"></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p14">この出品のタイトルを作り直して。【いまのタイトル・型番・用途】
+型番と、買う人が検索する用途の言葉を前に。
+字数を埋めるための言葉は外して、80字以内で3案。</pre><button type="button" class="copy" data-target="p14">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="15"><span class="no">15</span><span class="text">写真の明るさを補正する(実物と違う状態に見せない範囲で)</span></label><div class="marks"><span class="b tip">💡 知らない人が多い</span></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p15">商品写真の明るさと白さをそろえるプログラムを作りたい。
+条件は、実物と違う状態に見せないこと(傷や色を消さない)。
+どこまで補正するかの決まりを、先に案にして。</pre><button type="button" class="copy" data-target="p15">コピー</button></div></details></li></ol><p class="chapter">□が残った所の手順と指示文は、教科書の <strong>第4章 出品担当/第14章 受賞セラーの「ふつう」</strong></p></section><section class="sec" data-sec="4"><div class="sec-head"><h2><span class="sn">4</span>値付け・広告</h2><p class="count" data-count="4">0 / 5</p></div><ol class="items"><li class="item"><label class="check"><input type="checkbox" data-id="16"><span class="no">16</span><span class="text">手数料・送料・関税から逆算して、値段を決める</span></label><div class="marks"></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p16">手元に【◯円】残したい。仕入れ値【◯円】・重さ【◯g】・送り先【米国】のとき、
+手数料・送料・関税から逆算した売値を出して。式を表で見せて。</pre><button type="button" class="copy" data-target="p16">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="17"><span class="no">17</span><span class="text">容積重量(箱の大きさから決まる重さ)で、送料を見込む</span></label><div class="marks"><span class="b tip">💡 知らない人が多い</span></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p17">箱【縦×横×高さcm】、実際の重さ【◯g】のとき、容積重量はいくら?
+使う配送サービス【◯◯】の計算式で、送料はどちらの重さで決まるかも出して。
+式は公式ページで確かめて。</pre><button type="button" class="copy" data-target="p17">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="18"><span class="no">18</span><span class="text">競合に合わせて値段を直す。ただし下限は割らない</span></label><div class="marks"><span class="b api">API</span></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p18">競合に合わせて値段を直すプログラムの計画を作って。
+決まり: 下限【仕入れ値+送料+手数料+利益◯円】は割らない/直すのは1日1回まで。
+使うAPIの窓口と、止める条件も書いて。まだ作らないで。</pre><button type="button" class="copy" data-target="p18">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="19"><span class="no">19</span><span class="text">値下げ交渉の自動OK額が、赤字ラインを下回っていないか毎日見張る</span></label><div class="marks"><span class="b tip">💡 知らない人が多い</span><span class="b api">API</span></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p19">値下げ交渉(Best Offer)の自動OK額が、赤字ラインを下回っていないか毎日見張るプログラムを作りたい。
+赤字ラインの式と、下回った出品を直す前に一覧で知らせる流れを計画にして。</pre><button type="button" class="copy" data-target="p19">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="20"><span class="no">20</span><span class="text">広告率を、出品を2組に分けたA/Bテストで決める</span></label><div class="marks"><span class="b tip">💡 知らない人が多い</span><span class="b api">API</span></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p20">広告率(Promoted Listings)を決めるために、出品を2組に分けてA/Bテストしたい。
+組の分け方・期間・判定の物差し(広告費を引いた利益)を計画にして。</pre><button type="button" class="copy" data-target="p20">コピー</button></div></details></li></ol><p class="chapter">□が残った所の手順と指示文は、教科書の <strong>第5章 値付け担当/第13章 2ヶ月目からの伸ばし方</strong></p></section><section class="sec" data-sec="5"><div class="sec-head"><h2><span class="sn">5</span>在庫・注文</h2><p class="count" data-count="5">0 / 5</p></div><ol class="items"><li class="item"><label class="check"><input type="checkbox" data-id="21"><span class="no">21</span><span class="text">仕入元で売り切れたら、eBayの在庫を0にする(プログラムが自動で見回る)</span></label><div class="marks"><span class="b api">API</span></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p21">仕入元で売り切れたら、eBayの在庫を0にするプログラムを作りたい。
+仕入元のページは回数をしぼって見回る/eBay側はInventory APIで在庫を更新。
+見回る間隔と、仕入元の規約の確かめ方も計画に入れて。</pre><button type="button" class="copy" data-target="p21">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="22"><span class="no">22</span><span class="text">売れたら、仕入元のリンクつきでスマホに通知が届く</span></label><div class="marks"><span class="b api">API</span></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p22">eBayで売れたら、仕入元のリンクつきでスマホに通知が届くようにしたい。
+Fulfillment APIで注文を取る/通知先は【Discord・LINEなど】。
+通知に買い手の名前や住所は入れないで。</pre><button type="button" class="copy" data-target="p22">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="23"><span class="no">23</span><span class="text">仕入れ忘れを、AIが知らせる</span></label><div class="marks"></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p23">売れたのに仕入れていない注文を、毎朝知らせるしくみを作りたい。
+注文の記録と仕入れの記録をどう突き合わせるか、計画にして。</pre><button type="button" class="copy" data-target="p23">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="24"><span class="no">24</span><span class="text">追跡番号を登録して「発送済み」にする</span></label><div class="marks"><span class="b api">API</span></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p24">追跡番号を登録して「発送済み」にするのを自動にしたい。
+Fulfillment APIのどの窓口を使うかと、追跡番号をどこから持ってくるかを計画にして。</pre><button type="button" class="copy" data-target="p24">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="25"><span class="no">25</span><span class="text">古物台帳を、注文ごとに自動で記帳する</span></label><div class="marks"><span class="b tip">💡 知らない人が多い</span></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p25">古物台帳を、注文ごとに自動で記帳したい。
+記帳する項目(古物営業法で要るもの)を、警察などの公式の資料で確かめて表にして。
+プログラムが直接書いて、記帳の中身はAIに渡さない形で。</pre><button type="button" class="copy" data-target="p25">コピー</button></div></details></li></ol><p class="chapter">□が残った所の手順と指示文は、教科書の <strong>第6章 在庫監視担当/第7章 仕入担当</strong></p></section><section class="sec" data-sec="6"><div class="sec-head"><h2><span class="sn">6</span>お客さん対応</h2><p class="count" data-count="6">0 / 5</p></div><ol class="items"><li class="item"><label class="check"><input type="checkbox" data-id="26"><span class="no">26</span><span class="text">英語の質問に、AIが調べて返信する(判断の要らないものは自動で送る)</span></label><div class="marks"><span class="b api">API</span></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p26">英語の質問に返信するしくみを作りたい。
+判断の要らない質問(在庫・発送日・サイズ)は自動で送る/それ以外は止める。
+分け方の決まりを先に案にして。メッセージの中の名前・住所は伏せてからAIに渡す形で。</pre><button type="button" class="copy" data-target="p26">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="27"><span class="no">27</span><span class="text">お金や約束が絡むものは、AIが止めて返信案を作る</span></label><div class="marks"></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p27">返金・値引き・発送日の約束など、お金や約束が絡むメッセージを見分けて、
+送らずに返信案だけ作る決まりを作って。見分ける言葉の例と、人に知らせる方法も。</pre><button type="button" class="copy" data-target="p27">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="28"><span class="no">28</span><span class="text">ウォッチしている人に、値下げのオファーを送る</span></label><div class="marks"><span class="b tip">💡 知らない人が多い</span><span class="b api">API</span></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p28">ウォッチしている人に値下げのオファーを送るしくみを作りたい。
+Negotiation APIの使い方と、送る条件(ウォッチの日数・下限の値段)を計画にして。</pre><button type="button" class="copy" data-target="p28">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="29"><span class="no">29</span><span class="text">キャンセル・返品・ケースの状況を取る</span></label><div class="marks"><span class="b api">API</span></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p29">キャンセル・返品・ケースの状況を毎朝一覧にしたい。
+どのAPIで取れるかと、期限が近いものを上に出す形を計画にして。</pre><button type="button" class="copy" data-target="p29">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="30"><span class="no">30</span><span class="text">買い手の個人情報を、AIに渡さないしくみにする</span></label><div class="marks"><span class="b tip">💡 知らない人が多い</span></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p30">買い手の名前・住所・メールなどを、AIに渡す前に伏せるしくみを作りたい。
+メッセージの本文の中に書かれた名前や住所も伏せる。
+伏せる項目の一覧と、伏せられたか確かめる方法を計画にして。</pre><button type="button" class="copy" data-target="p30">コピー</button></div></details></li></ol><p class="chapter">□が残った所の手順と指示文は、教科書の <strong>第8章 顧客対応担当</strong></p></section><section class="sec" data-sec="7"><div class="sec-head"><h2><span class="sn">7</span>梱包発送</h2><p class="count" data-count="7">0 / 5</p></div><ol class="items"><li class="item"><label class="check"><input type="checkbox" data-id="31"><span class="no">31</span><span class="text">梱包の枠(縦・横・高さ・重さ・見込みの送料)を、アプリで指示する</span></label><div class="marks"></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p31">梱包さんに、商品ごとの箱の大きさ・重さ・見込みの送料を伝えるアプリを作りたい。
+画面に出す項目と、データの持ち方を計画にして。</pre><button type="button" class="copy" data-target="p31">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="32"><span class="no">32</span><span class="text">見込みと実際の送料の差を、商品ごと・月ごとに出す</span></label><div class="marks"><span class="b tip">💡 知らない人が多い</span></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p32">利益計算で見込んだ送料と、実際にかかった送料の差を、商品ごと・月ごとに出したい。
+データの突き合わせ方を計画にして。</pre><button type="button" class="copy" data-target="p32">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="33"><span class="no">33</span><span class="text">梱包の写真を残して、返品トラブルの証拠にする</span></label><div class="marks"></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p33">梱包の写真を注文ごとに残して、返品トラブルのときにすぐ出せるようにしたい。
+撮る枚数・名前の付け方・保存先の決まりを作って。</pre><button type="button" class="copy" data-target="p33">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="34"><span class="no">34</span><span class="text">発送期限が近づいたら、アラームを出す</span></label><div class="marks"></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p34">発送期限(ハンドリングタイム)が近い注文に、前日と当日にアラームを出したい。
+注文の取り方と、知らせ方を計画にして。</pre><button type="button" class="copy" data-target="p34">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="35"><span class="no">35</span><span class="text">外注さんの報酬明細を、自動で集計する</span></label><div class="marks"><span class="b tip">💡 知らない人が多い</span></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p35">外注さんの報酬明細を、月ごとに自動で集計したい。単価の決まりは【1件◯円】。
+作業の記録から明細を作る流れを計画にして。</pre><button type="button" class="copy" data-target="p35">コピー</button></div></details></li></ol><p class="chapter">□が残った所の手順と指示文は、教科書の <strong>第9章 梱包発送</strong></p></section><section class="sec" data-sec="8"><div class="sec-head"><h2><span class="sn">8</span>お金・分析</h2><p class="count" data-count="8">0 / 5</p></div><ol class="items"><li class="item"><label class="check"><input type="checkbox" data-id="36"><span class="no">36</span><span class="text">注文ごとの手取り・手数料・返金を取る</span></label><div class="marks"><span class="b api">API</span></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p36">注文ごとの手取り・手数料・返金を取って表にしたい。
+Finances APIのどの窓口を使うかと、表の列を提案して。</pre><button type="button" class="copy" data-target="p36">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="37"><span class="no">37</span><span class="text">月の締め(共通費まで入れた本当の利益)を、AIにまとめさせる</span></label><div class="marks"></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p37">今月の締めをまとめて。【数字を貼る】
+売上・手数料・送料・仕入れ・返金・広告費・共通費(AI代・ツール代)まで入れた本当の利益を出して。
+足りない数字があれば、先に聞いて。</pre><button type="button" class="copy" data-target="p37">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="38"><span class="no">38</span><span class="text">店の数字とプログラムの動きを、毎朝1枚で受け取る</span></label><div class="marks"></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p38">店の数字(昨日の売上・注文・在庫切れ)と、プログラムが動いた記録(成功・失敗)を、
+毎朝1枚にまとめて届けるしくみを作りたい。1枚に入れる項目を提案して。</pre><button type="button" class="copy" data-target="p38">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="39"><span class="no">39</span><span class="text">出品ごとの表示回数・閲覧数から、見られていない出品を見つける</span></label><div class="marks"><span class="b api">API</span></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p39">出品ごとの表示回数・閲覧数から、30日間見られていない出品を見つけたい。
+どのAPIで取れるかと、見つけたあとの手(直す・止める)の決まりを提案して。</pre><button type="button" class="copy" data-target="p39">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="40"><span class="no">40</span><span class="text">数字が悪い月に、AIに店を診断させる。次の一手まで出させる</span></label><div class="marks"><span class="b tip">💡 知らない人が多い</span></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p40">今月は数字が悪い。【数字を貼る: 売上・注文数・出品数・表示回数・利益】
+先月と比べて、原因の候補を3つと、次の一手を売上に近い順に出して。</pre><button type="button" class="copy" data-target="p40">コピー</button></div></details></li></ol><p class="chapter">□が残った所の手順と指示文は、教科書の <strong>第10章 経理/第12章 AIコンサルタント</strong></p></section><section class="sec" data-sec="9"><div class="sec-head"><h2><span class="sn">9</span>規約・トラブルの予防</h2><p class="count" data-count="9">0 / 5</p></div><ol class="items"><li class="item"><label class="check"><input type="checkbox" data-id="41"><span class="no">41</span><span class="text">規約の変更に合わせて、全出品を一括で点検・修正する</span></label><div class="marks"><span class="b tip">💡 知らない人が多い</span><span class="b api">API</span></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p41">eBayのルールが【◯月から◯◯】に変わる。
+全出品を点検して、直す必要がある出品の数と、直し方の案を出して。
+ルールの中身は公式の案内で確かめて、URLも書いて。まず数えるだけで、直さないで。</pre><button type="button" class="copy" data-target="p41">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="42"><span class="no">42</span><span class="text">翻訳されると、ルール違反に読まれる文がないか点検する</span></label><div class="marks"><span class="b tip">💡 知らない人が多い</span></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p42">この商品説明に、翻訳されるとルール違反(eBayの外でお金を払わせる文など)に読まれそうなところがないか点検して。
+【説明文を貼る】あやしい文と、言いかえの案を出して。</pre><button type="button" class="copy" data-target="p42">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="43"><span class="no">43</span><span class="text">Googleに弾かれた出品(出品品質レポート)を見つけて直す</span></label><div class="marks"><span class="b tip">💡 知らない人が多い</span></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p43">セラーハブの出品品質レポート(Googleに弾かれた出品のタブ)を、私がダウンロードしました。
+【ここに貼る】理由ごとに数えて、直し方の案を出して。</pre><button type="button" class="copy" data-target="p43">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="44"><span class="no">44</span><span class="text">年末年始や祝日のハンドリングタイム(発送までの日数)を、AIに計算させる</span></label><div class="marks"></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p44">仕入元の休み【◯日〜◯日】と、配送会社の休み【◯日〜◯日】から、
+年末年始のハンドリングタイムを何日にすればよいか計算して。いつ元に戻すかの日付も。</pre><button type="button" class="copy" data-target="p44">コピー</button></div></details></li><li class="item"><label class="check"><input type="checkbox" data-id="45"><span class="no">45</span><span class="text">規約でわからないところは、窓口に聞いて、文書で答えをもらう</span></label><div class="marks"></div><details><summary>AIへの発注文</summary><div class="prompt"><pre id="p45">eBayの窓口に【聞きたいこと】を問い合わせる文を作って。
+はい/いいえで答えられる聞き方で、文書で答えをもらう形に。日本語と英語の両方で。</pre><button type="button" class="copy" data-target="p45">コピー</button></div></details></li></ol><p class="chapter">□が残った所の手順と指示文は、教科書の <strong>第11章 リスク管理/第14章 受賞セラーの「ふつう」</strong></p></section>
+
+<section class="sec">
+<h2>□が残った所 → 教科書の章</h2>
+<p>チェックが付かなかった項目が多い仕事から読むと、早く効きます。</p>
+<table><thead><tr><th>仕事</th><th>『AI × eBay輸出の教科書』第2版</th></tr></thead><tbody>
+<tr><td>1. 店の準備・設定</td><td>第2章 セットアップ</td></tr><tr><td>2. リサーチ・仕入れ</td><td>第3章 リサーチ担当/第18章 APIの外側</td></tr><tr><td>3. 出品</td><td>第4章 出品担当/第14章 受賞セラーの「ふつう」</td></tr><tr><td>4. 値付け・広告</td><td>第5章 値付け担当/第13章 2ヶ月目からの伸ばし方</td></tr><tr><td>5. 在庫・注文</td><td>第6章 在庫監視担当/第7章 仕入担当</td></tr><tr><td>6. お客さん対応</td><td>第8章 顧客対応担当</td></tr><tr><td>7. 梱包発送</td><td>第9章 梱包発送</td></tr><tr><td>8. お金・分析</td><td>第10章 経理/第12章 AIコンサルタント</td></tr><tr><td>9. 規約・トラブルの予防</td><td>第11章 リスク管理/第14章 受賞セラーの「ふつう」</td></tr>
+<tr><td>【API】の項目をまとめて</td><td>第15〜18章 APIの全体像・つなぎ方・使い分け・APIの外側</td></tr>
+<tr><td>毎日自動で回すしくみ</td><td>第19〜24章 自動化プログラム・時刻表・5本の仕事・30日の導入ロードマップ</td></tr>
+</tbody></table>
+</section>
+
+<div class="cta">
+<p><strong>手順と、ぼくがAIに渡している指示文の全文は、教科書にまとめました。</strong></p>
+<a href="https://rental-space.net/kyokasho/ebay/?utm_source=tokuten&utm_medium=ebay45&utm_campaign=chapter">『AI × eBay輸出の教科書』を見る</a>
+</div>
+
+<section class="sec">
+<h2>正直に書いておくこと</h2>
+<ul>
+<li>ぼくの店の例です。同じ結果になることを約束するものではありません。</li>
+<li>ぼくの店では、梱包と発送以外のほぼ全部をAIに任せています。AIをどこまで使ってよいかはサービスごとに規約がちがうので、規約を確かめたうえで、ご自身の責任で決めてください。任せない所は、発注文を「手順を書き出して」に変えれば、自分で進める手順書になります。</li>
+<li>eBayに書面で確かめたこと(2026年10月): 公式APIを使ってAIに出品・価格を更新させるのはOK/AIにブラウザでeBayの画面を開かせるのはNG/買い手の個人情報は、本文の中にあるものも含めてAIに渡さない。</li>
+<li>APIの窓口は、ときどき増えたり、なくなったりします。使う前に、AIに公式の最新情報を確かめさせてください。</li>
+</ul>
+<p class="note">元の記事: <a href="https://rental-space.net/articles/2026-10-12-ebay-ai-checklist-45.html?utm_source=tokuten&amp;utm_medium=ebay45">【保存版】eBay輸出×AI 全45項目チェックリスト</a>/発行: きくりん(株式会社オサラロック)</p>
+</section>
+</div>
+<script>
+(() => {
+  const KEY = 'ebay45-checks-v1';
+  const boxes = [...document.querySelectorAll('input[type=checkbox][data-id]')];
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { saved = {}; }
+  boxes.forEach(b => { b.checked = !!saved[b.dataset.id]; });
+  const render = () => {
+    const done = boxes.filter(b => b.checked).length;
+    document.getElementById('total').textContent = done;
+    document.getElementById('bar').style.width = (done / boxes.length * 100) + '%';
+    document.querySelectorAll('.sec[data-sec]').forEach(sec => {
+      const bs = [...sec.querySelectorAll('input[type=checkbox]')];
+      sec.querySelector('.count').textContent = bs.filter(b => b.checked).length + ' / ' + bs.length;
+    });
+  };
+  const save = () => {
+    const s = {}; boxes.forEach(b => { if (b.checked) s[b.dataset.id] = 1; });
+    try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) {}
+  };
+  boxes.forEach(b => b.addEventListener('change', () => { save(); render(); }));
+  document.getElementById('reset').addEventListener('click', () => {
+    if (!confirm('チェックを全部外しますか?')) return;
+    boxes.forEach(b => { b.checked = false; }); save(); render();
+  });
+  document.getElementById('print').addEventListener('click', () => window.print());
+  document.querySelectorAll('.copy').forEach(btn => btn.addEventListener('click', async () => {
+    const t = document.getElementById(btn.dataset.target).textContent;
+    try { await navigator.clipboard.writeText(t); btn.textContent = 'コピーしました'; }
+    catch (e) { btn.textContent = '長押しでコピーしてください'; }
+    setTimeout(() => { btn.textContent = 'コピー'; }, 1600);
+    if (typeof gtag === 'function') gtag('event', 'tokuten_copy', { item: btn.dataset.target });
+  }));
+  render();
+})();
+</script>
+<script src="/track.js?v=20260919"></script>
+</body>
+</html>
