@@ -61,6 +61,12 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:'Noto Sans JP
   <a class="btn" href="https://kikurin-shop.kikurin.workers.dev/resend">受け取りリンクを再発行する</a>
 </div>
 
+<div class="step" id="rental-offer" hidden>
+  <h2>購入者だけのご案内: レンタルスペース経営の教科書を ¥14,800 で</h2>
+  <p>eBay教科書を買った方は、もう1冊「レンタルスペース経営の教科書」(公式サイト ¥19,800〜)を購入者価格 <strong>¥14,800(固定・税込)</strong>で読めます。副業+副業=本業、の2冊目です。このご案内は販売ページには出していません。</p>
+  <a class="btn" href="https://buy.stripe.com/bJe7sK7rg0HFaKndER67T0w" target="_blank" rel="noopener">レンタルスペース経営の教科書を ¥14,800 で買う(Stripe)</a>
+</div>
+
 <div class="help">
   <h3>困ったとき</h3>
   <p>ファイルが開けない・質問がある、などは購入者フォームからどうぞ(いただいた質問の答えは、よくある質問として全員に共有します)。</p>
@@ -73,12 +79,13 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:'Noto Sans JP
 <script>
 (function(){
   var q=new URLSearchParams(location.search);var p=q.get('p')||'';var s=q.get('s')||'';
-  var f=document.getElementById('form-link');if(f&&/^(rental|ebay|hp|dance|aicontents)$/.test(p))f.href='https://rental-space.net/form/?p='+p;
-  var NAMES={aicontents:'「AI×◯◯」コンテンツ販売の教科書',ebay:'AI × eBay輸出の教科書',rental:'レンタルスペース経営の教科書',dance:'ダンススタジオ完全ロードマップ',dance_set:'ダンススタジオ完全ロードマップ+レンタルスペース経営の教科書',hp:'レンタルスペースの公式HPメーカー',kit:'レンスペ運営AIキット',k1:'レンスペ経営ダッシュボードPro',kit_set:'レンタルスペース経営の教科書+運営AIキット'};
+  var f=document.getElementById('form-link');if(f&&/^(rental|ebay|ebay_rental_set|hp|dance|aicontents)$/.test(p))f.href='https://rental-space.net/form/?p='+p;
+  var NAMES={aicontents:'「AI×◯◯」コンテンツ販売の教科書',ebay:'AI × eBay輸出の教科書(第3版)',ebay_rental_set:'AI×eBay輸出の教科書(第3版)+レンタルスペース経営の教科書 セット',rental:'レンタルスペース経営の教科書',dance:'ダンススタジオ完全ロードマップ',dance_set:'ダンススタジオ完全ロードマップ+レンタルスペース経営の教科書',hp:'レンタルスペースの公式HPメーカー',kit:'レンスペ運営AIキット',k1:'レンスペ経営ダッシュボードPro',kit_set:'レンタルスペース経営の教科書+運営AIキット'};
   var pe=document.getElementById('prod');if(pe&&NAMES[p]){pe.textContent=NAMES[p];pe.hidden=false;}
+  var ro=document.getElementById('rental-offer');if(ro&&p==='ebay')ro.hidden=false;
   // A redirect is not payment verification. Actual orders/amounts come from the shop ledger.
   // Never manufacture a purchase or value from URL parameters or a current price table.
-  if (!/^(rental|ebay|hp|k1|kit|kit_set|dance|aicontents)$/.test(p) || !/^cs_live_[A-Za-z0-9]+$/.test(s)) return;
+  if (!/^(rental|ebay|ebay_rental_set|hp|k1|kit|kit_set|dance|aicontents)$/.test(p) || !/^cs_live_[A-Za-z0-9]+$/.test(s)) return;
   try { if (sessionStorage.getItem('checkout_return_'+s)) return; } catch(e) {}
   if (typeof gtag === 'function') {
     gtag('event','checkout_return',{product:p,lp:'kyokasho',transport_type:'beacon',page_location:location.origin+location.pathname});
