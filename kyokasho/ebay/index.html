@@ -24,6 +24,7 @@
 .hero{background:#fff;border:3px solid var(--ink);border-radius:24px;padding:28px 26px;box-shadow:8px 8px 0 rgba(35,49,59,.12);margin-bottom:30px}
 .hero img{width:100%;height:auto;display:block;border:2px solid var(--ink);border-radius:14px;margin:0 0 16px}
 .hero h1{margin:0 0 10px;font: 700 clamp(24px,4.5vw,34px)/1.4 'Noto Sans JP',sans-serif}.hero p{margin:0;color:var(--muted);font-size:14.5px}
+.stock-line{margin:16px 0 0 !important;padding:10px 14px;border:2px solid var(--ink);border-radius:12px;background:#fff3e6;color:var(--ink) !important;font:700 15px/1.6 'Noto Sans JP',sans-serif !important}.stock-line strong{color:var(--orange-dark)}
 .hero .facts{display:flex;flex-wrap:wrap;gap:6px 14px;margin:14px 0 0;font-size:13px;font-weight:700}
 h2{font: 700 clamp(22px,3.6vw,28px)/1.4 'Noto Sans JP',sans-serif;margin:52px 0 14px;padding-left:12px;border-left:6px solid var(--blue)}h3{font-size:18px;margin:30px 0 8px}
 p{margin:0 0 1.05em}img{max-width:100%;height:auto}figure{margin:18px 0}figure img{display:block;border:1px solid var(--line);border-radius:10px}figcaption{font-size:12.5px;color:var(--muted);text-align:center;margin-top:6px}
@@ -60,9 +61,10 @@ a{color:var(--blue-dark);overflow-wrap:anywhere}hr{border:0;border-top:2px dashe
 <section class="hero">
   <img src="/assets/kyokasho_ebay_banner_v6.png" alt="AI × eBay輸出の教科書 — 梱包以外、ぜんぶAI" width="640" height="360">
   <h1>梱包発送以外、ぜんぶAI。<br>初月利益10万円の店の作り方を、全部書きました。</h1>
-  <p>リサーチ・出品・値付け・在庫監視・英語の顧客対応・経理まで、AI社員に任せた実店舗の記録です。公式サイト最安 ¥28,800(Brain・noteは¥29,800。累計43部・3部売れるごとに値上げ)。</p>
+  <p>リサーチ・出品・値付け・在庫監視・英語の顧客対応・経理まで、AI社員に任せた実店舗の記録です。公式サイト最安 ¥28,800(Brain・noteは¥29,800。累計<span data-stock="sold">43</span>部・3部売れるごとに値上げ)。</p>
   <p class="facts"><span>✓ 初月の最終利益 10万4,286円</span><span>✓ 売れた個数29個</span><span>✓ 人間の仕事は梱包発送だけ</span><span>✓ 特典12点+第3版の付録6つ</span><span class="v3">✓ 2026年10月 第3版(全24章)</span></p>
-  <p style="margin-top:14px"><a class="btn btn-stripe" href="#buy" style="min-height:52px;font-size:15px" data-cta="jump_buy"><span class="btn-main">価格と買い方を見る ↓</span></a></p>
+  <p class="stock-line" id="stock-line">いま <strong>¥28,800</strong> → 次は ¥30,800。<strong>次の値上げまで残り<span data-stock="remain">3</span>部</strong>(累計<span data-stock="sold">43</span>部・全販売ページの合計)</p>
+  <p style="margin-top:10px"><a class="btn btn-stripe" href="#buy" style="min-height:52px;font-size:15px;margin-top:0" data-cta="jump_buy"><span class="btn-main">価格と買い方を見る ↓</span></a></p>
 </section>
 <article>
 <!-- 冒頭1行(Brain/note本文のいちばん上) -->
@@ -508,7 +510,7 @@ A. eBayもAIも変化が速いので、確認日つきで書き、改訂を続�
 <section id="buy" class="buy">
   <div class="buy-card">
     <p class="badge-v3">2026年10月 第3版</p>
-    <p class="price-now">いま11段目(第3版1段目)・累計43部・次の値上げまで残り3部</p>
+    <p class="price-now">いま11段目(第3版1段目)・累計<span data-stock="sold">43</span>部・次の値上げまで残り<span data-stock="remain">3</span>部</p>
     <p class="price-big">¥28,800<small>(税込)</small></p>
     <p class="lowest">公式サイトが最安です(Brain・noteの¥29,800より1,000円お得)</p>
     <p class="price-rule">2026年10月22日に第3版になりました。価格はいまの¥28,800から、<strong>3部売れるごとに2,000円ずつ上がり、公式サイト39,800円(Brain・note 40,800円)まで</strong>上がります。先に買った人に追加料金はありません。第3版の本文と付録6つは、これまでに買った人も無料で受け取れます。</p>
