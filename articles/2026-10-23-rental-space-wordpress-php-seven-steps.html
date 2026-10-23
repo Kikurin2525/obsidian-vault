@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CHWF6QKRJ6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-CHWF6QKRJ6');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="note-hashtags" content="#レンタルスペース #WordPress #PHP #ホームページ #セキュリティ #副業">
+<meta name="description" content="10月21日、ホームページを動かすPHPに緊急の穴が2つ見つかり、首相のアカウントまで「大至急のお願い」を出しました。WordPressで作ったレンタルスペースのHPも対象です。すぐにやること7つのチェックリストと、ぼくの店のHPで見つかった3つ、WordPressをやめてHTMLだけのHPに作り変えた話。">
+<meta property="og:title" content="【PHP問題】レンタルスペースのWordPress、すぐにやること7つ">
+<meta property="og:description" content="10月21日、ホームページを動かすPHPに緊急の穴が2つ見つかり、首相のアカウントまで「大至急のお願い」を出しました。WordPressで作ったレンタルスペースのHPも対象です。すぐにやること7つのチェックリストと、ぼくの店のHPで見つかった3つ、WordPressをやめてHTMLだけのHPに作り変えた話。">
+<meta property="og:image" content="https://rental-space.net/assets/2026_10_23_rental_php_hero.png">
+<meta property="og:url" content="https://rental-space.net/articles/2026-10-23-rental-space-wordpress-php-seven-steps.html">
+<meta property="og:type" content="article"><meta name="twitter:card" content="summary_large_image">
+<title>【PHP問題】レンタルスペースのWordPress、すぐにやること7つ - きくりんのノウハウ垂れ流し</title>
+<link rel="icon" href="../assets/favicon.png" type="image/png"><link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../style.css?v=1.2.1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>.article-header .category-badge{position:static;display:inline-block;margin-bottom:12px}.article-body a{color:#075bc8;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;font-weight:700;overflow-wrap:anywhere}.article-table{overflow-x:auto;margin:1.5em 0}.article-table table{border-collapse:collapse;width:100%;font-size:.95em;display:table}.article-table th,.article-table td{padding:12px;border:1px solid #ddd;text-align:left;white-space:normal}.article-table th{background:#eef5ff}.article-table td:last-child{white-space:nowrap}.article-body blockquote{margin:1.5em 0;padding:16px 20px;background:#f7f7f7;border-left:4px solid #bbb;border-radius:0 8px 8px 0}.single-article .article-body blockquote p{margin-bottom:0}.article-body code{background:#f2f2f2;padding:2px 6px;border-radius:4px;font-size:.92em}.article-body .image-caption{margin:-20px 0 28px}@media(max-width:600px){.kyokasho-banner .kb-title span{white-space:normal!important;overflow-wrap:anywhere}}.article-table th,.article-table td{min-width:5em}.article-table:focus-visible{outline:2px solid #075bc8}.article-image img{background:#fff}.article-body blockquote.prompt p{font-family:inherit;line-height:1.9;white-space:normal}</style>
+<link rel="stylesheet" href="/assets/renspe-game-promo-v1.css">
+<link rel="stylesheet" href="/assets/site-footer.css?v=20260919">
+<!-- seo-head start -->
+<link rel="canonical" href="https://rental-space.net/articles/2026-10-23-rental-space-wordpress-php-seven-steps.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "ホーム",
+      "item": "https://rental-space.net/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "レンタルスペース経営",
+      "item": "https://rental-space.net/rental-space/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "【PHP問題】レンタルスペースのWordPress、すぐにやること7つ",
+      "item": "https://rental-space.net/articles/2026-10-23-rental-space-wordpress-php-seven-steps.html"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "【PHP問題】レンタルスペースのWordPress、すぐにやること7つ",
+  "datePublished": "2026-10-23",
+  "dateModified": "2026-10-23",
+  "mainEntityOfPage": "https://rental-space.net/articles/2026-10-23-rental-space-wordpress-php-seven-steps.html",
+  "author": {
+    "@type": "Person",
+    "name": "きくりん",
+    "url": "https://rental-space.net/articles/2026-01-20-self-introduction.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "きくりんのノウハウ垂れ流し",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://rental-space.net/assets/duo_tarenagashi.png"
+    }
+  },
+  "description": "10月21日、ホームページを動かすPHPに緊急の穴が2つ見つかり、首相のアカウントまで「大至急のお願い」を出しました。WordPressで作ったレンタルスペースのHPも対象です。すぐにやること7つのチェックリストと、ぼくの店のHPで見つかった3つ、WordPressをやめてHTMLだけのHPに作り変えた話。",
+  "image": "https://rental-space.net/assets/2026_10_23_rental_php_hero.png"
+}
+</script>
+<!-- seo-head end -->
+<link rel="stylesheet" href="/assets/site-menu.css?v=20260930a">
+<link rel="stylesheet" href="/assets/link-card.css?v=20261005">
+</head>
+<body class="article-page">
+<!-- site-menu start -->
+<nav class="site-menu" aria-label="ブログのメニュー"><div class="site-menu-inner"><a class="site-menu-brand" href="/">きくりんのノウハウ垂れ流し</a><input type="checkbox" id="site-menu-toggle" class="site-menu-toggle" aria-label="メニューを開く"><label for="site-menu-toggle" class="site-menu-button" aria-hidden="true"><span></span><span></span><span></span></label><ul class="site-menu-list"><li><a href="/">ホーム</a></li><li><a href="/rental-space/" class="is-current">レンタルスペース</a></li><li><a href="/rental-space/dance/">ダンス向けレンタルスタジオ</a></li><li><a href="/ebay/">eBay輸出</a></li><li><a href="/#ailab">AI活用実験室</a></li><li><a href="/kyokasho/">レンスペ教科書</a></li><li><a href="/kyokasho/ebay/">eBay教科書</a></li><li><a href="/mail/">無料講座</a></li><li><a href="/articles/2026-01-20-self-introduction.html">プロフィール</a></li></ul></div></nav>
+<!-- site-menu end -->
+<header class="main-header"><div class="header-content"><div class="logo-area minimal"><a href="../index.html" class="header-logo-link horiz"><img src="../assets/duo_tarenagashi.png" alt="きくりん" class="header-logo-img-character small"><div class="logo-text"><h1>きくりんの<br>ノウハウ垂れ流し</h1></div></a></div></div></header>
+<main class="container"><article class="single-article">
+<!-- breadcrumb start -->
+<nav class="breadcrumb" aria-label="パンくずリスト"><ol><li><a href="../index.html">ホーム</a></li><li><a href="../rental-space/">レンタルスペース経営</a></li><li aria-current="page">【PHP問題】レンタルスペースのWordPress、すぐにやること7つ</li></ol></nav>
+<!-- breadcrumb end -->
+<header class="article-header"><span class="category-badge">副業① レンタルスペース</span><h1>【PHP問題】レンタルスペースのWordPress、すぐにやること7つ</h1><time datetime="2026-10-23">2026.10.23</time></header>
+<div class="article-body">
+<div class="article-image"><img alt="【PHP問題】レンタルスペースのWordPress、すぐにやること7つ" class="eyecatch-img" decoding="async" fetchpriority="high" height="1024" src="../assets/2026_10_23_rental_php_hero.png" style="display:block;width:100%;height:auto" width="1536"/></div>
+<p><strong>10月21日の夜、高市首相のXのアカウントが、今夜のうちに対応してほしいと「大至急のお願い」を出しました。</strong></p>
+<p>相手は、ホームページを動かしている「PHP」というしくみの、緊急の穴です。</p>
+<div class="article-image"><a href="../assets/2026_10_23_rental_php_x_post.webp"><img alt="高市早苗さんのXのポスト(2026年10月21日 午後9時55分)" decoding="async" height="592" loading="lazy" src="../assets/2026_10_23_rental_php_x_post.webp" style="display:block;width:100%;height:auto" width="634"/></a></div>
+<p class="image-caption"><em>高市早苗さんのXのポストより(2026年10月23日に撮影)</em></p>
+<div class="link-card-wrap"><a class="link-card" href="https://x.com/takaichi_sanae/status/2112890642590564386"><span class="lc-body"><span class="lc-title">高市早苗 (@takaichi_sanae) on X</span><span class="lc-desc">皆様に、今夜に対応して頂きたい大至急のお願いです。 多くのウェブサイトで使用されているPHPに関し、PHPのセキュリティチームが、重大な２件の脆弱性に関する注意…</span><span class="lc-site">x.com</span></span><span class="lc-thumb"><img src="https://pbs.twimg.com/profile_images/1985639760669655041/3yz_lJbK_400x400.jpg" alt="" loading="lazy"></span></a></div>
+<p>レンタルスペースのホームページ(HP)を、WordPressで作っている方。</p>
+<p>WordPressは、このPHPで動いています。</p>
+<p>だから、<strong>あなたのHPも対象</strong>です。</p>
+<p>結論から言うと、今週やることは7つです。</p>
+<p>その中で、いちばん効くのは7つ目の「PHPのいらないHPにする」でした。</p>
+<p>例えば、ぼくの店のHPも、点検したら穴が見つかりました。</p>
+<p>いま、WordPressをやめて、作り変えました。</p>
+<p>この記事で分かることは3つです。</p>
+<ul><li>何が起きたのか(むずかしい言葉なしで)</li><li>レンタルスペースのHPが、なぜ関係あるのか</li><li>今週やること7つ(チェックリスト)</li></ul>
+<hr/>
+<h2>何が起きたのか</h2>
+<p>PHPは、たくさんのHPの裏で動いているしくみです。</p>
+<p>WordPressも、PHPで動いています。</p>
+<p>10月21日、PHPを作っているチームが、緊急の穴を2つ直した新しい版を出しました。</p>
+<p>穴の中身は、<strong>ログインしなくても、外からHPのサーバーを好きに動かされてしまう</strong>、というものです。</p>
+<p>危なさの点数は、10点満点で9.2でした。</p>
+<p>PHPの公式は、すべての利用者に「直ちに更新を」と呼びかけています。</p>
+<div class="link-card-wrap"><a class="link-card" href="https://www.php.net/"><span class="lc-body"><span class="lc-title">PHP</span><span class="lc-desc">PHP is a popular general-purpose scripting language that powers everything from …</span><span class="lc-site">php.net</span></span><span class="lc-thumb"><img src="https://www.php.net/images/meta-image.png" alt="" loading="lazy"></span></a></div>
+<p>直った版は、8.5.12・8.4.27・8.3.36・8.2.35の4つです。</p>
+<p><strong>8.1より古い版は、ふつうの更新の対象から外れています。</strong></p>
+<p>穴をねらう動きも、すぐに始まりました。</p>
+<p>Cloudflare(HPを守るサービスの大手)の最高経営責任者は、ねらう動きが公表から2時間で数十万件、そのあと数百万件に増えたと報告しています。</p>
+<div class="link-card-wrap"><a class="link-card" href="https://www.itmedia.co.jp/news/article/2610/22/2000002516/"><span class="lc-body"><span class="lc-title">PHP「緊急」脆弱性悪用の試み、数百万件に　CloudflareのCEOが報告</span><span class="lc-desc">公表後45分で数万件、2時間以内に数十万件に跳ね上がり、その後、数百万件に達したという。</span><span class="lc-site">itmedia.co.jp</span></span><span class="lc-thumb"><img src="https://www.itmedia.co.jp/news/article/ogp/2610/22/2000002516/10010189/2048" alt="" loading="lazy"></span></a></div>
+<p>レンタルサーバーの会社も、緊急のメンテナンスをしました。</p>
+<hr/>
+<h2>レンタルスペースのHPが、なぜ関係あるのか</h2>
+<p>レンタルスペースのHPには、こんなものが入っていることが多いです。</p>
+<ul><li>予約や会員のプラグイン(お客さまの名前・メールアドレス)</li><li>お問い合わせフォーム(お客さまからのメッセージ)</li><li>何年も前に入れて、止めたままのプラグイン</li></ul>
+<p>HPを乗っ取られると、ページを書きかえられるだけではすみません。</p>
+<p>お客さまの情報が外に出たり、あなたのHPがほかへの攻撃の「踏み台」に使われたりします。</p>
+<p>セキュリティの専門家も、WordPressでHPを動かしている人は、全員が対応するべきだと呼びかけていました。</p>
+<p>プラグインではなく、PHPそのものの穴なので、プラグインの更新では直りません。</p>
+<div class="link-card-wrap"><a class="link-card" href="https://x.com/ds_nakajima/status/2112779177489563922"><span class="lc-body"><span class="lc-title">なかじ / 中島大介@AIセキュリティ顧問 (@ds_nakajima) on X</span><span class="lc-desc">ヤバさをあんまり理解できてない人もいそうだけど、マジでやばいやつ。CVSS9.2(10.0上限)なので、最悪レベルの脆弱性(緊急)です。 WordPressでサ…</span><span class="lc-site">x.com</span></span><span class="lc-thumb"><img src="https://pbs.twimg.com/profile_images/1968245887173603328/IkLsug8N_400x400.jpg" alt="" loading="lazy"></span></a></div>
+<p>そして、WordPressで作ったHPを直すのは、HPの持ち主です。</p>
+<p>誰かが代わりに直してくれる、ということはありません。</p>
+<hr/>
+<h2>例えば、ぼくの店で見つかった3つ</h2>
+<p>ぼくの店のHPも、WordPressで作っていました。</p>
+<p>点検したら、3つ見つかりました。</p>
+<ol>
+<li><strong>PHPの版が古かった</strong>: 2つのHPが7.4のまま。サーバー会社が「直しました」と出したのは8.2〜8.5だけで、7.4はその外でした</li>
+<li><strong>使っていないお客さまの情報が残っていた</strong>: 予約は別のサービスに移したのに、WordPressの中に1,000人をこえる会員の情報が残っていました</li>
+<li><strong>プラグインが古かった</strong>: 夏にサーバー会社から「このプラグインに穴があります」と警告が来ていたものも、更新されていませんでした</li>
+</ol>
+<p>管理者に、見覚えのない人はいませんでした。</p>
+<p>それでも、このままにはできません。</p>
+<p>まず、PHPを直った版(8.3.36)に切り替えました。</p>
+<p>お客さまの情報は、控えを取ってから消す準備をしています。</p>
+<p>そして、<strong>WordPressをやめて、HTMLだけのHPに作り変えました。</strong></p>
+<hr/>
+<h2>レンタルスペースのHPがやる仕事は、3つだけ</h2>
+<div class="article-image"><a href="../assets/2026_10_23_rental_php_wp_vs_html.webp"><img alt="WordPressのHPとHTMLだけのHPのちがい" decoding="async" height="864" loading="lazy" src="../assets/2026_10_23_rental_php_wp_vs_html.webp" style="display:block;width:100%;height:auto" width="1536"/></a></div>
+<p class="image-caption"><em>守るものが「ページだけ」になる</em></p>
+<p>作り変えると決めたのは、HPの仕事を書き出してみたからです。</p>
+<ol>
+<li>お店を見せる(写真・料金・アクセス)</li>
+<li>予約サイトへつなぐ(予約ボタン)</li>
+<li>お問い合わせを受ける</li>
+</ol>
+<p>予約は、予約サイトのしくみで受けています。</p>
+<p>お問い合わせは、Googleフォームなどで受けられます。</p>
+<p>つまり、<strong>レンタルスペースのHPには、PHPもWordPressも、もういりませんでした。</strong></p>
+<p>PHPを使わないHPなら、今回のようなPHPの穴は関係なくなります。</p>
+<hr/>
+<h2>すぐにやること7つ(チェックリスト)</h2>
+<p>コピーして、上から順に確かめてください。</p>
+<ol>
+<li><strong>あなたのHPがWordPressか確かめる</strong>(HPのアドレスの後ろに /wp-admin を付けて、ログイン画面が出ればWordPressです)</li>
+<li><strong>サーバーの管理画面で、PHPの版を見る</strong>(8.5.12・8.4.27・8.3.36・8.2.35より古ければ、切り替える)</li>
+<li><strong>使っていないプラグイン・テーマを消す</strong>(止めているだけでは、ファイルは外から呼べます)</li>
+<li><strong>残すプラグインとWordPressを、最新にする</strong>(自動更新もオンに)</li>
+<li><strong>中にあるお客さまの情報を確かめる</strong>(使っていない予約・会員の機能なら、控えを取って消す)</li>
+<li><strong>管理者の一覧を見る</strong>(見覚えのない人がいないか)</li>
+<li><strong>次に作り直すときは、PHPのいらないHPにする</strong></li>
+</ol>
+<p>1〜6は、今週のうちに。</p>
+<p>7は、時間ができたときで大丈夫です。</p>
+<p>でも、毎回このニュースにあわてなくてよくなるのは、7だけです。</p>
+<p>自分でやるのが不安な方は、サーバー会社の案内を確かめるか、HPを作った会社に相談してください。</p>
+<hr/>
+<h2>これから作るなら、最初からPHPのいらないHPで</h2>
+<p>これからHPを作る方、作り直す方には、ぼくが作った「レンタルスペースの公式HPメーカー」もあります。</p>
+<p>AIの質問に答えるだけで、<strong>予約ボタンつきの公式HPを、HTMLだけで作るツール</strong>です。</p>
+<p>WordPressもPHPも使いません。</p>
+<ul><li>最初の質問は、予約サイトの掲載ページのURLだけ。店名・住所・設備・写真はAIが先に読み取ります</li><li>予約ボタンは、いま使っている予約サイトにつながります</li><li>お問い合わせは、メール・電話・Googleフォーム・公式LINEなどから選べます</li></ul>
+<p>動かすのは、パソコンの中の作業まで任せられるAI(Claude CodeかCodex)です。</p>
+<div class="link-card-wrap"><a class="link-card" href="https://rental-space.net/kyokasho/hp/?utm_source=blog&amp;utm_medium=article&amp;utm_campaign=hp_php-wordpress"><span class="lc-body"><span class="lc-title">【レンスペ専用】【AI革命】10万円のHPを450円で作る</span><span class="lc-desc">レンタルスペース専用。AIの質問に答えるだけで、予約ボタンつきの公式HP。6用途・買い切り¥450。</span><span class="lc-site">rental-space.net</span></span><span class="lc-thumb"><img src="/kyokasho/hp/img/og_hp_v3.jpg" alt="" loading="lazy"></span></a></div>
+<p>HTMLだけのHPにしても、ドメインやサーバーの管理はなくなりません。</p>
+<p>それでも、守るものが「ページだけ」になるので、今回のような穴に追われることはぐっと減ります。</p>
+<p>AIをどこまで使うかは、各サービスの規約を確かめたうえで、ご自身の責任で決めてください。</p>
+<hr/>
+<h2>まとめ</h2>
+<p>PHPの緊急の穴。</p>
+<p>レンタルスペースのHPを持っている方に伝えたいのは、この3つです。</p>
+<ol>
+<li><strong>WordPressのHPは、PHPの穴の対象</strong>(プラグインの更新では直らない)</li>
+<li><strong>今週、PHPの版とお客さまの情報を確かめる</strong>(7つのチェックリスト)</li>
+<li><strong>レンタルスペースのHPの仕事は3つだけ</strong>。PHPのいらないHPにすれば、次からあわてなくていい</li>
+</ol>
+<p>今日の一歩は、これだけです。</p>
+<p><strong>サーバーの管理画面を開いて、PHPの版を1つ確かめてください。</strong></p>
+<p>あなたのHPは、何の版でしたか?</p>
+<p>もしこれからレンタルスペースを始めるなら、1部屋目で黒字にするには1日何時間の予約が必要か、先に出してみてください。</p>
+<p>無料の診断で、30秒で出せます。</p>
+<p>診断のあとに、ぼくが物件を決めるときの順番を1日1通ずつ届けるメール講座(全8通)も受け取れます。</p>
+<div class="link-card-wrap"><a class="link-card" href="https://rental-space.net/tools/dance-shindan/?utm_source=blog&amp;utm_medium=article&amp;utm_campaign=dance_shindan_php-wordpress"><span class="lc-body"><span class="lc-title">その物件、レンタルスペースで黒字になる?30秒診断｜きくりん</span><span class="lc-desc">ジャンル・家賃・広さ・料金を入れるだけ。黒字に必要な予約時間がわかります(ダンスは実測と比べて判定)。</span><span class="lc-site">rental-space.net</span></span><span class="lc-thumb"><img src="/assets/hub_rental_dance_eyecatch_20261002.png" alt="" loading="lazy"></span></a></div>
+<hr/>
+<p>物件探しから、月いくら手元に入るかの計算、出店、撤退まで。23店舗の数字といっしょに、教科書にぜんぶ書いています。</p>
+<p>レンタルスペース経営の教科書</p>
+<div class="link-card-wrap"><a class="link-card" href="https://rental-space.net/kyokasho/?utm_source=blog&amp;utm_medium=article&amp;utm_campaign=rental_php-wordpress"><span class="lc-body"><span class="lc-title">レンタルスペース経営の教科書【完全バイブル】</span><span class="lc-desc">物件選び・収支の計算・開業・運営・拡大まで。累計23店舗の経験をまとめた全9部と付録15点のWeb教材。第0部を登録なしで全文読めます。</span><span class="lc-site">rental-space.net</span></span><span class="lc-thumb"><img src="/kyokasho/img/free-20260929/cover_v3.png" alt="" loading="lazy"></span></a></div>
+<p>販売価格は3部売れるごとに2,000円ずつ値上がりします（上限あり）。内容・最新価格は販売ページをご確認ください。</p>
+<hr/>
+<p>▼もう1つの副業、AI社員だけのeBay輸出店の実録🐹</p>
+<div class="link-card-wrap"><a class="link-card" href="https://note.com/cham_ebay"><span class="lc-body"><span class="lc-title">チャム🐹 AI社員とebay無在庫の店長｜note</span><span class="lc-desc">ebay無在庫店の店長チャム🐹 社員はほぼAI、人間は梱包発送さんだけ。1ヶ月目+104,286円、2ヶ月目+131,283円。過去MAX200万に再挑戦。 中…</span><span class="lc-site">note.com</span></span><span class="lc-thumb"><img src="https://assets.st-note.com/production/uploads/images/303887425/76bdc39897e447dcf6e495f5de2e5a1a.png?fit=bounds&amp;format=jpeg&amp;height=1024&amp;quality=85&amp;width=1024" alt="" loading="lazy"></span></a></div>
+<p>▼ブログ(レンスペ×eBay、全記事まとめ)</p>
+<div class="link-card-wrap"><a class="link-card" href="https://rental-space.net"><span class="lc-body"><span class="lc-title">きくりんのノウハウ垂れ流し</span><span class="lc-desc">副業＋副業＝本業。副業を本業へ。</span><span class="lc-site">rental-space.net</span></span><span class="lc-thumb"><img src="/assets/ogp.png" alt="" loading="lazy"></span></a></div>
+</div>
+<!-- mail-course start -->
+<aside class="mail-course-banner" aria-label="無料メール講座のご案内" style="margin:40px 0 28px;border:3px solid #1d7fe6;border-radius:16px;overflow:hidden;background:#f3f9ff">
+<a href="/mail/?utm_source=blog&amp;utm_medium=article_footer&amp;utm_campaign=mail_course" style="display:block"><picture><source media="(max-width:640px)" srcset="../assets/2026_10_04_mail_banner_v4_sp.webp" width="1080" height="1080"><img src="../assets/2026_10_04_mail_banner_v4_pc.webp" alt="無料メール講座：レンタルスペース マスター講座。これから1部屋目を出す人へ。無料の8日間メールで垂れ流し。3大特典つき(初期費用シミュレーター・出店企画書・開業チェックリスト)" width="1200" height="400" loading="lazy" style="display:block;width:100%;height:auto"></picture></a>
+<div style="padding:16px 18px 20px;text-align:center">
+<p style="margin:0 0 6px;font-weight:700;color:#16305a;font-size:17px;line-height:1.6">これから1部屋目を出す人へ</p>
+<p style="margin:0 0 14px;color:#314a6e;font-size:15px;line-height:1.8;text-align:left">物件探しから、月いくら残るかの計算、オープンまで。ぼくの手順を、8日間のメールで1つずつお届けします。登録すると、出店企画書など特典が3つ(無料)。</p>
+<a href="/mail/?utm_source=blog&amp;utm_medium=article_footer&amp;utm_campaign=mail_course" style="display:inline-block;padding:12px 28px;border-radius:12px;background:linear-gradient(180deg,#ffa01e,#f25c05);color:#fff;font-weight:900;font-size:17px;text-decoration:none;box-shadow:0 4px 0 #c24500">無料で8日間講座を受け取る →</a>
+</div>
+</aside>
+<!-- mail-course end -->
+<!-- game-promo start -->
+<aside class="renspe-game-promo" aria-label="無料のレンスペ経営ゲーム">
+<a href="/game/?utm_source=blog&amp;utm_medium=banner&amp;utm_campaign=game_launch&amp;utm_content=article" data-game-promo="article">
+<img src="/assets/renspe-game-banner-20260912.webp" srcset="/assets/renspe-game-banner-20260912-750.webp 750w, /assets/renspe-game-banner-20260912.webp 1500w" sizes="(max-width: 600px) calc(100vw - 30px), 1000px" width="1500" height="500" loading="lazy" decoding="async" alt="5年・累計23店舗の経験から。ゲームで学ぶレンスペ経営を無料で遊ぶ">
+<span class="renspe-game-promo-note">全国47都道府県で、物件選びから経営まで。<span>スマホ・PCで遊べます →</span></span>
+</a></aside>
+<!-- game-promo end -->
+<!-- hub-link start -->
+<aside class="hub-link"><p class="hub-link-title">▼ このジャンルのまとめ</p><a class="hub-link-main" href="../rental-space/">レンタルスペース経営の記事まとめ(全108本・実数つき)を見る →</a><p class="hub-link-sub">同じテーマの記事</p><ul><li><a href="2026-01-27-rental-space-hp-creation.html">【手数料30%を削減】レンタルスペースの公式HP作成方法</a></li><li><a href="2026-10-18-regular-customer-mypage.html">【レンスペ運営】AIで定期利用のマイページを作成</a></li><li><a href="2026-10-16-rental-space-management-guide.html">個人でレンタルスペース経営｜5ステップで解説</a></li></ul></aside>
+<!-- hub-link end -->
+<!-- dance-shindan start -->
+<aside class="dance-shindan-cta" aria-label="無料の黒字診断のご案内" style="margin:28px 0;border:2px solid #ffc966;border-radius:14px;background:#fff8ec;padding:16px 18px 18px"><p style="margin:0 0 6px;font-weight:700;color:#24345c;font-size:16px;line-height:1.6">▼ 気になる物件があるなら(無料・30秒)</p><p style="margin:0 0 12px;color:#333;font-size:15px;line-height:1.8">家賃と広さを入れると、ダンス向けのレンタルスペースとして黒字にするのに、1日何時間の予約が必要かがわかります。ぼくの店の実測ともくらべられます。</p><a href="../tools/dance-shindan/?utm_source=blog&amp;utm_medium=article&amp;utm_campaign=dance_shindan_2026-10-23-rental-space-wordpress-php-seven-steps" style="display:inline-block;padding:11px 22px;border-radius:999px;background:#f57c00;color:#fff;font-weight:700;font-size:15px;text-decoration:none">レンタルスペース黒字診断(ダンス向け)を試す →</a></aside>
+<!-- dance-shindan end -->
+<!-- kyokasho-banner-rensupe start -->
+<aside class="kyokasho-banner kb-rensupe">
+    <a href="/kyokasho/" class="kb-thumb">
+        <img src="../assets/kyokasho_rensupe_banner_v4.png" alt="AIにできない副業を、AIで回す — レンタルスペース経営の教科書" loading="lazy" width="640" height="335">
+    </a>
+    <div class="kb-body">
+        <p class="kb-title">レンタルスペース経営の教科書📘</p>
+        <p class="kb-sub">AIにできない副業を、AIで回す。レンタルスペース23店舗・売上1.5億超の数字を1円も隠さず、物件探しから撤退まで全部書きました。付録15点つき。販売価格は3部売れるごとに2,000円ずつ値上がりします（上限あり）。内容・最新価格は販売ページをご確認ください。</p>
+        <div class="kb-actions">
+            <a href="/kyokasho/" class="kb-btn kb-btn-rensupe">くわしく見る・買う</a>
+        </div>
+    </div>
+</aside>
+<!-- kyokasho-banner-rensupe end -->
+<a href="../index.html" class="btn-back">トップページへ戻る</a>
+</article></main>
+<footer class="main-footer"><p>&copy; 2026 きくりんのノウハウ垂れ流し. All rights reserved.</p><!-- site-home-link start -->
+<nav class="site-home-nav" aria-label="サイトトップ"><a href="/">きくりんのノウハウ垂れ流し TOP</a></nav>
+<!-- site-home-link end -->
+</footer>
+<script src="../script.js"></script><script src="../track.js"></script>
+<script src="/assets/renspe-game-promo-v1.js" defer></script>
+</body>
+</html>
