@@ -55,6 +55,7 @@
                     <label><input type="radio" name="product" value="kit">レンスペ運営AIキット(K1単体も)</label>
                     <label><input type="radio" name="product" value="hp">レンタルスペースの公式HPメーカー</label>
                     <label><input type="radio" name="product" value="dance">レンタルスペースは「ダンススタジオ」で稼ぐ！完全ロードマップ</label>
+                    <label><input type="radio" name="product" value="aicontents">「AI×◯◯」コンテンツ販売の教科書</label>
                 </div>
             </div>
             <div class="field">
@@ -101,7 +102,7 @@
 (function () {
     var ENDPOINT = 'https://kikurin-form.kikurin.workers.dev/submit';
     var p = new URLSearchParams(location.search).get('p');
-    if (p === 'ebay' || p === 'rental' || p === 'kit' || p === 'hp' || p === 'dance') { var r = document.querySelector('input[name=product][value=' + p + ']'); if (r) r.checked = true; }
+    if (p === 'ebay' || p === 'rental' || p === 'kit' || p === 'hp' || p === 'dance' || p === 'aicontents') { var r = document.querySelector('input[name=product][value=' + p + ']'); if (r) r.checked = true; }
     document.getElementById('t').value = String(Date.now());
     var ASK = {
         ebay: { lead: '特典②の「02_kyokasho-md」フォルダをClaude Codeの作業フォルダに入れてから、こう聞いてみてください。', prompt: '02_kyokasho-md の 02_教科書全文.md を読んで。\n教科書の該当章を根拠にして(章の番号つきで)、次の質問に答えて。\n規約や料金など変わりうるものは、最新を調べてから答えて。\n質問: (ここに質問を書く)' },
