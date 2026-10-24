@@ -44,7 +44,7 @@ a{color:var(--blue-dark);overflow-wrap:anywhere}hr{border:0;border-top:2px dashe
 .lowest{margin:6px 0 0;display:inline-block;padding:4px 12px;border-radius:999px;background:#fff1f0;color:var(--blue-dark);font-weight:800;font-size:13px}
 .cta-note{margin:14px 0 0;color:var(--muted);font-size:12.5px;text-align:left}
 .badge-v3{display:inline-block;margin:0 0 8px;padding:4px 14px;border-radius:999px;background:var(--ink);color:#fff176;font:800 13px/1.5 'Noto Sans JP',sans-serif;letter-spacing:.02em}.hero .facts .v3{color:var(--orange-dark)}
-.v3-furoku{margin:44px 0 0;padding:22px 20px;border:3px solid var(--ink);border-radius:20px;background:#fffbea;box-shadow:8px 8px 0 rgba(35,49,59,.12)}.v3-furoku h2{margin:0 0 10px;border-left-color:var(--orange)}.furoku-list{padding-left:22px}.furoku-list li{margin:8px 0}.furoku-note{margin:10px 0 0;font-size:13px;color:var(--muted)}
+.v3-furoku{margin:44px 0 0;padding:22px 20px;border:3px solid var(--ink);border-radius:20px;background:#fffbea;box-shadow:8px 8px 0 rgba(35,49,59,.12)}.v3-furoku h2{margin:0 0 10px;border-left-color:var(--orange)}.furoku-list{padding-left:22px}.furoku-list li{margin:8px 0}.furoku-note{margin:10px 0 0;font-size:13px;color:var(--muted)}.demo{margin:16px 0 18px}.demo video{display:block;width:100%;height:auto;border:2px solid var(--ink);border-radius:14px;background:#1d2433}.demo figcaption{text-align:left}
 .set-offer{margin:22px 0 0;padding:16px 14px;border:2px dashed var(--ink);border-radius:14px;background:#f6f8fa}.set-title{margin:0;font:800 15px/1.5 'Noto Sans JP',sans-serif}.set-price{margin:4px 0 0;font:800 clamp(28px,5vw,36px)/1.2 'Noto Sans JP',sans-serif}.set-price small{font-size:13px;color:var(--muted)}.set-rule{margin:6px auto 0;max-width:460px;color:var(--muted);font-size:13px}.btn-set{background:linear-gradient(180deg,#ff9c3f,var(--orange));box-shadow:0 6px 0 var(--orange-dark)}.btn-set .btn-sub{font-size:12px;opacity:.92}
 .fine{margin:40px 0 0;padding:18px 20px;border-radius:16px;background:rgba(255,255,255,.7);color:var(--muted);font-size:12.5px}.fine ul{padding-left:18px}
 .back{margin:30px 0 0;text-align:center;font-size:14px}.back a{margin:0 8px;font-weight:700;text-decoration:none}
@@ -496,8 +496,12 @@ A. eBayもAIも変化が速いので、確認日つきで書き、改訂を続�
 <section class="v3-furoku" id="v3">
   <h2>2026年10月 第3版で増えた付録6つ(購入者全員に無料)</h2>
   <p>第3版からは、作り方キットに加えて「動くもの」を付けます。いままでに買った人も、これから買う人も、追加料金なしで受け取れます(Web版は開き直すだけ・ツールはZIP 1つを受け取りページから)。</p>
+  <figure class="demo" id="demo">
+    <video controls playsinline preload="metadata" poster="video/cs-tool-demo-poster.jpg" src="video/cs-tool-demo.mp4"></video>
+    <figcaption>実演(1分26秒)・付録の顧客対応ツールが、英語の問い合わせ→和訳→仕分け→返信案→送る前の点検まで動くところ。画面は架空の店の手本で、eBayには送っていません。音声はAIで生成しています</figcaption>
+  </figure>
   <ol class="furoku-list">
-    <li><strong>顧客対応 完全自動化ツール</strong> — 買い手への返信を、人が1件も見ずにAIが全部返す(個人情報を外すガード・送る直前の関所・架空の店の英語メッセージ20通で0円の試運転つき)</li>
+    <li><strong>顧客対応 完全自動化ツール</strong> — 買い手への返信を、人が1件も見ずにAIが全部返す(個人情報を外すガード・送る直前の関所・架空の店の英語メッセージ23通で0円の試運転つき)</li>
     <li><strong>AI自動化コーチ</strong> — eBayの作業を9工程で書き出して、次にAIに任せる3つを効き目×手間で決める(AI化スコアつき)</li>
     <li><strong>API健康診断</strong> — 疎通・トークンの期限・1日の上限の残り・アカウント削除通知の窓口を、1コマンドで毎朝点検</li>
     <li><strong>仕入先キット</strong> — メルカリ・ラクマ・Yahoo!フリマ・ヤフオク・Amazon・楽天の新着→判定→出品と、毎朝の在庫確認を自動に(作り方キット+動くベースのコード)</li>
@@ -540,6 +544,7 @@ A. eBayもAIも変化が速いので、確認日つきで書き、改訂を続�
 </main>
 <a class="mobile-sticky" href="#buy">いま ¥28,800・3部ごとに値上げ ↓</a>
 <script>
+(function(){var v=document.querySelector('#demo video'),s=false;if(v)v.addEventListener('play',function(){if(!s&&typeof gtag==='function'){gtag('event','ebay_cs_demo_play');s=true;}});})();
 (function(){document.addEventListener('click',function(e){var a=e.target&&e.target.closest?e.target.closest('a[data-cta]'):null;if(!a||typeof gtag!=='function')return;if(a.getAttribute('data-cta')==='stripe_ebay')gtag('event','ebay_checkout_click',{product:'ebay',transport_type:'beacon'});gtag('event','kyokasho_click',{dest:a.getAttribute('data-cta'),placement:'lp_kyokasho_ebay',link_url:a.href,page_location:location.href,transport_type:'beacon'});},true);})();
 </script>
 <footer class="site-home-footer">
