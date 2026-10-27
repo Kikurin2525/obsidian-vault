@@ -129,7 +129,7 @@ input[type=email]{width:100%;font-size:16px;padding:12px;border:2px solid var(--
   const parts = [src, clean(q.get('utm_medium')), clean(q.get('utm_campaign'))].filter(Boolean);
   const source = (parts.length ? 'ebay45-' + parts.join('-') : 'ebay45-web').slice(0, 60);
   if (LINE_READY) {
-    const route = src === 'x' ? 'x-cham' : 'web-ebay';
+    const route = src === 'youtube' ? 'yt-cham' : src === 'x' ? 'x-cham' : 'web-ebay';
     const btn = document.getElementById('line-btn');
     btn.href = RONDO + '/in/' + route;
     btn.addEventListener('click', () => { if (typeof gtag === 'function') gtag('event', 'line_click', { route, source }); });
