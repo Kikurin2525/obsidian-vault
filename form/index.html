@@ -29,6 +29,7 @@
         .msg { margin-top: 14px; padding: 12px; border-radius: 10px; display: none; line-height: 1.7; }
         .msg.ok { display: block; background: #e8f5e9; color: #1b5e20; }
         .msg.ng { display: block; background: #ffebee; color: #b71c1c; }
+        .msg.wait { display: block; background: #fff8e1; color: #6d4c00; }
         .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
         .back { display: inline-block; margin-top: 18px; font-size: .9rem; }
         .ask-ai { margin: 0 0 18px; padding: 14px 14px 10px; background: #fff8e1; border: 1.5px solid #ffe0b2; border-radius: 10px; font-size: .92rem; line-height: 1.75; }
@@ -38,6 +39,23 @@
         .ask-ai-prompt { margin: 0 0 8px; padding: 10px 12px; background: #fff; border: 1px solid #eee; border-radius: 8px; font-family: inherit; font-size: .88rem; white-space: pre-wrap; word-break: break-word; }
         .ask-ai-copy { margin: 0 0 10px; padding: 8px 14px; font-size: .88rem; font-weight: 700; color: #e65100; background: #fff; border: 1.5px solid #ffb74d; border-radius: 999px; cursor: pointer; }
         .ask-ai-note { font-size: .85rem; color: #666; }
+        .shots-drop { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 20px 14px; border: 2px dashed #ffcc80; border-radius: 12px; background: #fffaf3; text-align: center; cursor: pointer; transition: background .15s, border-color .15s; }
+        .shots-drop:hover, .shots-drop.over { background: #fff3e0; border-color: var(--primary-color, #f57c00); }
+        .shots-drop[aria-disabled=true] { opacity: .55; cursor: default; }
+        .shots-drop svg { width: 34px; height: 34px; color: var(--primary-color, #f57c00); }
+        .shots-drop strong { font-size: 1rem; color: #e65100; }
+        .shots-drop span { font-size: .85rem; color: #777; line-height: 1.6; }
+        .shots-input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+        .shots-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 12px; }
+        .shots-list:empty { display: none; }
+        @media (min-width: 560px) { .shots-list { grid-template-columns: repeat(5, 1fr); } }
+        .shot { position: relative; aspect-ratio: 1 / 1; border-radius: 10px; overflow: hidden; background: #f5f5f5; border: 1.5px solid #eee; }
+        .shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .shot .shot-no { position: absolute; left: 6px; bottom: 6px; padding: 1px 7px; font-size: .75rem; font-weight: 700; color: #fff; background: rgba(0,0,0,.55); border-radius: 999px; }
+        .shot button { position: absolute; top: 5px; right: 5px; width: 28px; height: 28px; padding: 0; border: 0; border-radius: 50%; background: rgba(0,0,0,.6); color: #fff; font-size: 1rem; line-height: 28px; cursor: pointer; }
+        .shot button:hover { background: #e53935; }
+        .shot.busy::after { content: '準備中…'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: .8rem; color: #555; background: rgba(255,255,255,.75); }
+        .shots-count { font-size: .85rem; color: #777; margin-top: 8px; }
     </style>
 <link rel="stylesheet" href="/assets/site-footer.css?v=20260919">
 </head>
@@ -74,7 +92,7 @@
                 <pre class="ask-ai-prompt" id="askai-prompt"></pre>
                 <button type="button" class="ask-ai-copy" id="askai-copy">この文をコピー</button>
                 <p class="ask-ai-note">「.md」で終わるファイルは、文字だけのファイルです。ダブルクリックで開けなくても、Claude Codeの作業フォルダに入れて「読んで」と頼めば、AIが読んでくれます。</p>
-                <p class="ask-ai-note">AIの答えで分からないところが残ったら、このまま下から送ってください。AIの答えも貼ってもらえると、早く正確にお返しできます。</p>
+                <p class="ask-ai-note">AIの答えで分からないところが残ったら、このまま下から送ってください。AIの答えやエラーの画面は、スクショを添付してもらえると早く正確にお返しできます。</p>
             </div>
             <div class="field">
                 <label class="title" for="email">メールアドレス(返信先)<span class="req">必須</span></label>
@@ -88,6 +106,17 @@
                 <label class="title" for="body">内容<span class="req">必須</span></label>
                 <textarea id="body" name="body" required placeholder="できるだけ詳しくお書きください"></textarea>
                 <div class="hint">特典の不具合は、お使いのPC(Windows/Mac)と、どこで止まったかも書いてもらえると早く直せます。</div>
+            </div>
+            <div class="field">
+                <label class="title" for="shots">画像(スクショ)の添付<span class="hint" style="margin-left:6px">任意・5枚まで</span></label>
+                <label class="shots-drop" id="shotsDrop" for="shots">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-8 9"/></svg>
+                    <strong>画像を選ぶ</strong>
+                    <span>エラーの画面・AIの返事・eBayのお知らせなど。<br>PCはここへドラッグ、またはコピーして貼り付け(Ctrl+V / ⌘V)でも追加できます。</span>
+                </label>
+                <input type="file" id="shots" class="shots-input" accept="image/*" multiple>
+                <div class="shots-list" id="shotsList"></div>
+                <div class="shots-count" id="shotsCount" hidden></div>
             </div>
             <div class="hp" aria-hidden="true"><label>website<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
             <input type="hidden" name="t" id="t">
@@ -126,6 +155,66 @@
     });
     var form = document.getElementById('kf'), btn = document.getElementById('send'), msg = document.getElementById('msg');
     function show(cls, text) { msg.className = 'msg ' + cls; msg.textContent = text; }
+
+    // 画像の添付: 5枚まで。大きい画像(1.5MB超・長辺2400px超)は送る前にJPEGへ縮める
+    var MAX_SHOTS = 5, shots = [], seq = 0;
+    var shotsInput = document.getElementById('shots'), shotsDrop = document.getElementById('shotsDrop');
+    var shotsList = document.getElementById('shotsList'), shotsCount = document.getElementById('shotsCount');
+    function shrink(file) {
+        if (file.type === 'image/gif' || (file.size <= 1.5 * 1024 * 1024)) return Promise.resolve(file);
+        return new Promise(function (resolve) {
+            var url = URL.createObjectURL(file), img = new Image();
+            img.onload = function () {
+                var w = img.naturalWidth, h = img.naturalHeight, k = Math.min(1, 2400 / Math.max(w, h));
+                var c = document.createElement('canvas'); c.width = Math.round(w * k); c.height = Math.round(h * k);
+                var g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height); g.drawImage(img, 0, 0, c.width, c.height);
+                URL.revokeObjectURL(url);
+                c.toBlob(function (b) { resolve(b && b.size < file.size ? new File([b], (file.name || 'image').replace(/\.[^.]+$/, '') + '.jpg', { type: 'image/jpeg' }) : file); }, 'image/jpeg', 0.88);
+            };
+            img.onerror = function () { URL.revokeObjectURL(url); resolve(file); };
+            img.src = url;
+        });
+    }
+    function renderShots() {
+        shotsList.innerHTML = '';
+        shots.forEach(function (s, i) {
+            var box = document.createElement('div'); box.className = 'shot' + (s.file ? '' : ' busy');
+            var im = document.createElement('img'); im.src = s.preview; im.alt = '添付画像' + (i + 1); box.appendChild(im);
+            var no = document.createElement('span'); no.className = 'shot-no'; no.textContent = i + 1; box.appendChild(no);
+            var x = document.createElement('button'); x.type = 'button'; x.setAttribute('aria-label', '画像' + (i + 1) + 'を外す'); x.textContent = '×';
+            x.addEventListener('click', function () { URL.revokeObjectURL(s.preview); shots = shots.filter(function (t) { return t.id !== s.id; }); renderShots(); });
+            box.appendChild(x); shotsList.appendChild(box);
+        });
+        shotsCount.hidden = shots.length === 0;
+        shotsCount.textContent = shots.length + ' / ' + MAX_SHOTS + '枚';
+        shotsDrop.setAttribute('aria-disabled', shots.length >= MAX_SHOTS ? 'true' : 'false');
+    }
+    function addShots(list) {
+        var files = Array.prototype.filter.call(list || [], function (f) { return f && /^image\//.test(f.type); });
+        if (!files.length) return;
+        var room = MAX_SHOTS - shots.length;
+        if (room <= 0) { show('ng', '画像は' + MAX_SHOTS + '枚までです'); return; }
+        if (files.length > room) show('ng', '画像は' + MAX_SHOTS + '枚までです。先頭の' + room + '枚だけ追加しました');
+        files.slice(0, room).forEach(function (f) {
+            var s = { id: ++seq, preview: URL.createObjectURL(f), file: null };
+            shots.push(s);
+            shrink(f).then(function (out) {
+                if (out.size > 10 * 1024 * 1024) { show('ng', '10MBをこえる画像は添付できません'); shots = shots.filter(function (t) { return t.id !== s.id; }); }
+                else s.file = out;
+                renderShots();
+            });
+        });
+        renderShots();
+    }
+    shotsInput.addEventListener('change', function () { addShots(shotsInput.files); shotsInput.value = ''; });
+    shotsDrop.addEventListener('click', function (e) { if (shots.length >= MAX_SHOTS) e.preventDefault(); });
+    ['dragenter', 'dragover'].forEach(function (ev) { shotsDrop.addEventListener(ev, function (e) { e.preventDefault(); shotsDrop.classList.add('over'); }); });
+    ['dragleave', 'drop'].forEach(function (ev) { shotsDrop.addEventListener(ev, function (e) { e.preventDefault(); shotsDrop.classList.remove('over'); }); });
+    shotsDrop.addEventListener('drop', function (e) { addShots(e.dataTransfer && e.dataTransfer.files); });
+    document.addEventListener('paste', function (e) {
+        var items = (e.clipboardData && e.clipboardData.files) || [];
+        if (items.length && Array.prototype.some.call(items, function (f) { return /^image\//.test(f.type); })) { e.preventDefault(); addShots(items); }
+    });
     form.addEventListener('submit', async function (e) {
         e.preventDefault();
         var d = new FormData(form);
@@ -133,11 +222,13 @@
         if (!d.get('kind')) return show('ng', '種類を選んでください');
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.get('email') || '')) return show('ng', 'メールアドレスの形式を確認してください');
         if ((d.get('body') || '').trim().length < 5) return show('ng', '内容を入力してください');
-        btn.disabled = true; show('', '');
+        if (shots.some(function (s) { return !s.file; })) return show('ng', '画像を準備しています。数秒待ってからもう一度押してください');
+        shots.forEach(function (s, i) { d.append('files', s.file, s.file.name || ('image' + (i + 1) + '.jpg')); });
+        btn.disabled = true; show('wait', shots.length ? '送信しています…(画像があるので少し時間がかかります)' : '送信しています…');
         try {
             var res = await fetch(ENDPOINT, { method: 'POST', body: d });
             var j = await res.json().catch(function () { return {}; });
-            if (res.ok && j.ok) { form.reset(); updateAsk(); show('ok', '受け付けました。2営業日以内に、ご記入のメールアドレスへ返信します。'); }
+            if (res.ok && j.ok) { form.reset(); shots.forEach(function (s) { URL.revokeObjectURL(s.preview); }); shots = []; renderShots(); updateAsk(); show('ok', '受け付けました。2営業日以内に、ご記入のメールアドレスへ返信します。'); }
             else { show('ng', j.error || '送信に失敗しました。時間をおいてもう一度お試しください'); btn.disabled = false; }
         } catch (err) { show('ng', '通信エラーです。時間をおいてもう一度お試しください'); btn.disabled = false; }
         if (window.turnstile) try { window.turnstile.reset(); } catch (e2) {}
