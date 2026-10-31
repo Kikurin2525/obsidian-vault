@@ -729,13 +729,25 @@ a {
     text-align: center;
 }
 
-.single-article .article-body ul {
-    margin: 20px 0;
-    padding-left: 20px;
+/* 2026-10-31: 箇条書き・番号つきの字下げをそろえる(番号や点が本文の左はしより外に出ないように・リストのあとの段落と間をあける) */
+.single-article .article-body ul,
+.single-article .article-body ol {
+    margin: 16px 0 24px;
+    padding-left: 1.8em;
 }
+
+.single-article .article-body ul { list-style: disc; }
+.single-article .article-body ol { list-style: decimal; }
 
 .single-article .article-body li {
     margin-bottom: 10px;
+    line-height: 1.8;
+    padding-left: 0.2em;
+}
+
+.single-article .article-body li::marker {
+    font-weight: 700;
+    color: #e65100;
 }
 
 .single-article .article-body p {
