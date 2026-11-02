@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>無料｜ダンスのレンタルスタジオ 初期費用・回収シミュレーター｜きくりん</title>
+<meta name="description" content="レンタルスペースのジャンルの1つ、ダンスのレンタルスタジオ。家賃と広さを入れると、最初にかかるお金・黒字に必要な時間・回収の目安が出る無料のシミュレーターを、メールでお届けします。">
+<link rel="canonical" href="https://rental-space.net/tools/dance-sim/">
+<meta property="og:title" content="無料｜ダンスのレンタルスタジオ 初期費用・回収シミュレーター">
+<meta property="og:description" content="最初にいくら?何時間で黒字?何か月で回収?家賃と広さを入れると出せる、無料のシミュレーター。">
+<meta property="og:url" content="https://rental-space.net/tools/dance-sim/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://rental-space.net/assets/dance_sim_og_20261101.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="無料｜ダンスのレンタルスタジオ 初期費用・回収シミュレーター">
+<meta name="twitter:image" content="https://rental-space.net/assets/dance_sim_og_20261101.png">
+<link rel="icon" href="/assets/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;800&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CHWF6QKRJ6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CHWF6QKRJ6');</script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<style>
+/* 案2「鏡と木の床のスタジオ」(ツール本体 /tools/dance-sim-7q2v5n/ と同じ値だけを使う) */
+:root {
+  --ink: #221C17; --muted: #6B5E52; --wood: #8A5A35; --paper: #FBF6EF; --line: #E7DCCD;
+  --r-s: 8px; --r-m: 14px; --r-full: 999px;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: #fff; color: var(--ink); font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Hiragino Sans', sans-serif; font-size: 16px; line-height: 1.8; -webkit-text-size-adjust: 100%; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: #1F5FA8; }
+
+.hero-photo { height: clamp(150px, 28vw, 300px); background: var(--line) url("/assets/dance_sim_header_20261101.webp") center 55% / cover no-repeat; }
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 16px 72px; }
+.top { display: grid; gap: 28px; padding-top: 22px; }
+.badge { display: inline-block; background: var(--wood); color: #fff; font-weight: 700; font-size: 14px; border-radius: var(--r-full); padding: 2px 14px; margin: 0 8px 10px 0; }
+.genre { display: inline-block; font-size: 14px; color: var(--muted); margin: 0 0 10px; }
+h1, .q, .lead, .author p, .about { word-break: auto-phrase; }
+h1 { font-size: clamp(28px, 4.2vw, 44px); line-height: 1.3; margin: 0 0 10px; font-weight: 800; }
+.q { font-size: clamp(18px, 2.4vw, 28px); font-weight: 800; line-height: 1.45; margin: 0 0 8px; }
+.lead { font-size: 18px; margin: 0 0 14px; }
+.about { background: var(--paper); border-radius: var(--r-m); padding: 12px 16px; font-size: 14px; color: var(--ink); margin: 0 0 20px; }
+.about b { color: var(--wood); }
+.btn.jump { display: none; }
+
+h2 { font-size: 18px; font-weight: 800; margin: 0 0 10px; padding-left: 12px; border-left: 4px solid var(--wood); line-height: 1.4; }
+.learn { display: grid; gap: 20px; align-items: start; margin-bottom: 24px; }
+.points { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.points li { display: flex; align-items: center; gap: 12px; background: var(--paper); border-radius: var(--r-m); padding: 10px 14px; font-weight: 700; }
+.points .n { flex: 0 0 auto; width: 30px; height: 30px; border-radius: var(--r-full); background: var(--wood); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; }
+.points small { display: block; font-weight: 400; font-size: 14px; color: var(--muted); }
+.shot { border: 1px solid var(--line); border-radius: var(--r-m); overflow: hidden; background: var(--paper); }
+.shot figcaption { font-size: 14px; color: var(--muted); padding: 8px 12px; }
+
+.video { position: relative; border-radius: var(--r-m); overflow: hidden; margin-bottom: 24px; background: var(--line); }
+.video img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.video .play { position: absolute; left: 50%; top: 42%; transform: translate(-50%, -50%); width: 72px; height: 72px; border-radius: var(--r-full); background: var(--wood); display: flex; align-items: center; justify-content: center; }
+.video .play::after { content: ""; border-left: 22px solid #fff; border-top: 13px solid transparent; border-bottom: 13px solid transparent; margin-left: 6px; }
+.video p { position: absolute; left: 0; right: 0; bottom: 0; margin: 0; background: var(--wood); color: #fff; text-align: center; font-weight: 700; padding: 8px; }
+
+.author { display: flex; gap: 14px; align-items: center; border-top: 1px solid var(--line); padding-top: 18px; }
+.author img { width: 64px; height: 64px; border-radius: var(--r-full); flex: 0 0 auto; }
+.author p { margin: 0; font-size: 14px; }
+.author b { display: block; font-size: 16px; }
+
+.form-card { background: #fff; border: 1px solid var(--line); border-radius: var(--r-m); padding: 22px 20px; scroll-margin-top: 16px; }
+.form-card h2 { border: 0; padding: 0; text-align: center; }
+.form-card .sub { text-align: center; font-size: 14px; color: var(--muted); margin: 0 0 14px; }
+label.f { display: block; font-weight: 700; margin-bottom: 6px; }
+input[type=email] { width: 100%; font: inherit; font-size: 16px; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--r-s); margin-bottom: 12px; color: var(--ink); }
+input[type=email]:focus { outline: none; border-color: var(--wood); box-shadow: 0 0 0 3px rgba(138,90,53,.18); }
+.btn { display: block; width: 100%; text-align: center; background: var(--wood); color: #fff; border: 0; border-radius: var(--r-s); font: inherit; font-weight: 700; font-size: 18px; padding: 14px 16px; cursor: pointer; text-decoration: none; }
+.btn:hover { filter: brightness(.92); }
+.btn:disabled { filter: grayscale(.4); cursor: default; }
+.cf-turnstile { margin: 0 0 12px; min-height: 65px; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+#status { font-size: 14px; margin: 10px 0 0; min-height: 1em; }
+.note { font-size: 14px; color: var(--muted); margin: 10px 0 0; }
+
+.after { background: var(--paper); border-radius: var(--r-m); padding: 18px 20px; margin-top: 28px; }
+.after ul { margin: 0 0 8px; padding-left: 1.2em; }
+.after li { margin: 4px 0; }
+.book { margin-top: 20px; font-size: 14px; text-align: center; }
+footer { text-align: center; font-size: 14px; color: var(--muted); padding: 8px 16px 0; }
+
+@media (min-width: 1000px) {
+  .top { grid-template-columns: minmax(0, 1fr) 380px; align-items: start; }
+  .form-card { position: sticky; top: 16px; }
+  .learn { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}
+@media (max-width: 999px) {
+  .btn.jump { display: block; margin: 0 0 28px; }
+}
+</style>
+<link rel="stylesheet" href="/assets/site-footer.css?v=20260919">
+</head>
+<body>
+<div class="hero-photo" role="img" aria-label="壁一面の鏡と木の床のダンスのレンタルスタジオ"></div>
+<main class="wrap">
+  <div class="top">
+    <div>
+      <span class="badge">無料</span><span class="genre">レンタルスペースのジャンルの1つ「ダンス」</span>
+      <h1>ダンスのレンタルスタジオを出す前に</h1>
+      <p class="q">最初にいくら?何時間で黒字?何か月で回収?</p>
+      <p class="lead">家賃と広さを入れると出せる、無料のシミュレーターです。</p>
+      <p class="about"><b>ダンスのレンタルスタジオとは</b><br>レンタルスペース(時間貸しの部屋)のジャンルの1つです。<br>ダンスの先生やダンサーが、練習やレッスンのために1時間単位で借ります。</p>
+      <a class="btn jump" href="#mail">メールで無料で受け取る ↓</a>
+
+      <h2>わかること</h2>
+      <div class="learn">
+        <ol class="points">
+          <li><span class="n">1</span><span>最初にかかるお金<small>契約・鏡と工事・備品の合計</small></span></li>
+          <li><span class="n">2</span><span>黒字に必要な時間<small>1日何時間埋まれば赤字にならないか</small></span></li>
+          <li><span class="n">3</span><span>回収の目安<small>ぼくの店の実測3通りで、何か月で取りもどせるか</small></span></li>
+        </ol>
+        <figure class="shot"><img src="/assets/dance_sim_lp_result_20261101.webp" width="560" height="582" alt="シミュレーターの結果の画面。最初にかかるお金は約97.7万円、黒字に必要な時間は1日4.5時間" loading="lazy"><figcaption>結果の画面(家賃10万円・40㎡の例)</figcaption></figure>
+      </div>
+
+      <h2>使い方の動画(1分)</h2>
+      <div class="video"><img src="/assets/dance_sim_lp_poster_20261101.webp" width="960" height="540" alt="" loading="lazy"><span class="play" aria-hidden="true"></span><p>使い方の動画(準備中)</p></div>
+
+      <div class="author">
+        <img src="/assets/dance_sim_lp_avatar_20261101.webp" width="120" height="120" alt="きくりんのアイコン">
+        <p><b>作った人 きくりん</b>レンタルスペース累計23店舗・<wbr>うちダンススタジオ11店舗</p>
+      </div>
+    </div>
+
+    <section class="form-card" id="mail">
+      <h2>無料で受け取る</h2>
+      <p class="sub">登録すると、ツールのURLがメールで届きます。</p>
+      <form id="rondo-subscribe" data-scenario="dancesim">
+        <label class="f" for="rondo-email">メールアドレス</label>
+        <input id="rondo-email" name="email" type="email" inputmode="email" autocomplete="email" spellcheck="false" placeholder="you@example.com" required>
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAAEV9IwiuZXn-MyO5" data-language="ja"></div>
+        <div class="hp" aria-hidden="true"><label for="rondo-website">Website</label><input id="rondo-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+        <button class="btn" type="submit">メールで無料で受け取る</button>
+        <p id="status" role="status" aria-live="polite"></p>
+      </form>
+      <p class="note">確認メールのリンクを押すと、ツールのURLが届きます。送信元: kikurin@news.rental-space.net</p>
+    </section>
+  </div>
+
+  <section class="after">
+    <h2>登録したあとに届くもの</h2>
+    <ul>
+      <li>すぐ: シミュレーターのURLと使い方、本のご案内(第0部は無料で読めます)</li>
+      <li>そのあと: 新しい店の数字や、ぼくの店で直したことを、ときどき</li>
+    </ul>
+    <p class="note">いつでも1クリックで止められます。ぼくの店の例なので、同じ結果を約束するものではありません。</p>
+    <p class="note">発行: きくりん(株式会社オサラロック)/<a href="/mail/publisher.html">発行者情報</a></p>
+  </section>
+
+  <p class="book">駅えらびから開業までの実録を先に読みたい方は <a href="/kyokasho/dance/?utm_source=tool_lp&amp;utm_medium=dance_sim">『【きくりん式】レンタルスペースは「ダンススタジオ」で稼ぐ！完全ロードマップ』</a></p>
+</main>
+<script>
+(() => {
+  const RONDO = 'https://rondo.kikurin.workers.dev';
+  const q = new URLSearchParams(location.search);
+  const clean = (v) => String(v || '').toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 20);
+  const parts = [clean(q.get('utm_source')), clean(q.get('utm_medium')), clean(q.get('utm_campaign'))].filter(Boolean);
+  const source = (parts.length ? 'dancesim-' + parts.join('-') : 'dancesim-web').slice(0, 60);
+  const form = document.getElementById('rondo-subscribe');
+  const status = document.getElementById('status');
+  const button = form.querySelector('button[type="submit"]');
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const cfToken = data.get('cf-turnstile-response');
+    if (!cfToken) { status.textContent = 'bot確認を完了してから、もう一度お試しください。'; return; }
+    button.disabled = true; button.textContent = '送信中…'; status.textContent = '';
+    try {
+      const response = await fetch(RONDO + '/api/subscribe', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ email: data.get('email'), website: data.get('website'), cfToken, scenario: form.dataset.scenario, source }),
+      });
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      if (typeof gtag === 'function') gtag('event', 'mail_signup', { method: 'rondo', scenario: 'dancesim', source });
+      form.reset();
+      if (window.turnstile) window.turnstile.reset();
+      status.textContent = '確認メールを送りました。受信箱のリンクを押すと、ツールのURLが届きます。見当たらないときは、迷惑メールのフォルダもご確認ください。';
+    } catch (e) {
+      status.textContent = '送信できませんでした。通信状態を確かめて、bot確認をやり直してください。';
+      if (window.turnstile) window.turnstile.reset();
+    } finally {
+      button.disabled = false; button.textContent = 'メールで無料で受け取る';
+    }
+  });
+})();
+</script>
+<script src="/track.js?v=20260919"></script>
+<footer class="site-home-footer">
+<!-- site-home-link start -->
+<nav class="site-home-nav" aria-label="サイトトップ"><a href="/">きくりんのノウハウ垂れ流し TOP</a></nav>
+<!-- site-home-link end -->
+</footer>
+</body>
+</html>
