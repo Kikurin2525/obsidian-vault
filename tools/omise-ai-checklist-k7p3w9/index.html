@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>お店の情報をAIに教えるチェックリスト｜事前登録の先行特典</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="お客さま対応をAIに任せる前に、お店の情報を集めてAIに教えるためのチェックリスト。集めるもの・伝え方・AIへの頼み方・教える前に決めること。">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CHWF6QKRJ6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CHWF6QKRJ6');</script>
+<style>
+:root{--ink:#1b2a4a;--text:#222;--muted:#555;--red:#e53935;--blue:#1565c0;--blue-soft:#e8f1fc;--yellow:#ffd54a;--cream:#fffaf0;--line:#e3e8ef;--ok:#2e7d32;--bg:#fff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,'Hiragino Sans',Meiryo,sans-serif;line-height:1.85;font-size:16px}
+.top{background:radial-gradient(circle at 70% 40%,#fff 0,#fff6cf 45%,#ffe58a 100%);border-bottom:4px solid var(--ink)}
+.top .in{max-width:720px;margin:0 auto;padding:22px 16px 18px}
+.badge{display:inline-block;background:var(--blue);color:#fff;font-weight:700;font-size:13px;border-radius:999px;padding:3px 12px;margin:0 0 8px}
+h1{font-weight:900;color:var(--ink);font-size:clamp(24px,6vw,36px);line-height:1.35;margin:0 0 8px}
+h1 .em{color:var(--red)}
+.top p{margin:0;color:#333}
+.hero{display:block;width:100%;height:auto;border-radius:14px;border:3px solid var(--ink);margin:14px 0 0;background:#fff}
+.wrap{max-width:720px;margin:0 auto;padding:18px 16px 72px}
+h2{font-weight:900;color:var(--ink);font-size:21px;line-height:1.4;margin:34px 0 10px;padding:6px 0 6px 12px;border-left:7px solid var(--red)}
+h3{font-size:17px;margin:20px 0 6px;color:var(--ink)}
+.steps{counter-reset:s;list-style:none;margin:0;padding:0}
+.steps li{counter-increment:s;position:relative;padding:10px 12px 10px 52px;margin:8px 0;background:var(--cream);border:2px solid #f3e2b8;border-radius:12px}
+.steps li::before{content:counter(s);position:absolute;left:12px;top:10px;width:28px;height:28px;border-radius:50%;background:var(--ink);color:#fff;font-weight:900;text-align:center;line-height:28px}
+.card{border:3px solid var(--ink);border-radius:16px;padding:14px 16px;margin:12px 0;box-shadow:5px 5px 0 rgba(27,42,74,.08)}
+.card h3{margin:0 0 6px}
+.check{list-style:none;margin:0;padding:0}
+.check li{border-top:1px dashed var(--line)}
+.check li:first-child{border-top:0}
+.check label{display:flex;gap:10px;align-items:flex-start;padding:9px 2px;cursor:pointer}
+.check input{width:22px;height:22px;flex:0 0 22px;margin-top:3px;accent-color:var(--ok)}
+.check small{display:block;color:var(--muted);font-size:13.5px;line-height:1.6}
+.progress{position:sticky;top:0;z-index:5;background:#fff;border-bottom:2px solid var(--line);padding:8px 0;margin:0 0 4px}
+.bar{height:10px;border-radius:99px;background:#eef2f6;overflow:hidden}
+.bar span{display:block;height:100%;width:0;background:var(--ok);transition:width .2s}
+.progress p{margin:4px 0 0;font-size:13.5px;color:var(--muted)}
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:14.5px}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--blue-soft);color:var(--ink)}
+.prompt{position:relative;background:#f7f9fc;border:2px solid #cfdcec;border-radius:12px;padding:14px 14px 14px;margin:10px 0;white-space:pre-wrap;font-size:14.5px;line-height:1.75}
+.copy{display:inline-block;margin:6px 0 0;background:var(--ink);color:#fff;border:0;border-radius:999px;padding:7px 16px;font:700 14px/1.4 'Noto Sans JP',sans-serif;cursor:pointer}
+.rule li{margin:6px 0}
+.rule strong{color:var(--red)}
+.next{margin:36px 0 0;border:3px solid var(--ink);border-radius:18px;padding:18px 16px;background:linear-gradient(180deg,#fff,#fff8e1)}
+.next h2{margin-top:0;border:0;padding:0}
+.next p{margin:6px 0}
+.note{font-size:13px;color:var(--muted)}
+a{color:var(--blue)}
+</style>
+</head>
+<body>
+<header class="top"><div class="in">
+<span class="badge">事前登録の先行特典</span>
+<h1>お店の情報を<span class="em">AIに教える</span><br>チェックリスト</h1>
+<p>お客さま対応をAIに任せる前に、いちばん大事なのは「お店の情報をぜんぶAIに教えること」です。このページの順にチェックしていけば、AIがあなたのお店のスペシャリストになります。</p>
+<img class="hero" src="/kyokasho/ai-tenpo/img/hero.webp" alt="AIが電話・メール・LINEのお客さま対応をして、きくりんがのんびりしている絵" width="1536" height="864">
+</div></header>
+
+<main class="wrap">
+
+<h2>使い方は3ステップ</h2>
+<ol class="steps">
+<li><strong>集める</strong>: 下のチェックリストで、お店の情報がどこにあるかを確かめる(チェックはこの端末に残ります)</li>
+<li><strong>伝える</strong>: 情報の場所に合わせて、3つの伝え方でAIに教える</li>
+<li><strong>作らせる</strong>: コピーして使える指示文で、AIに「よくある質問と答え」と「情報の食いちがい」を出してもらう</li>
+</ol>
+
+<h2>① 集めるもの(チェックリスト)</h2>
+<div class="progress" aria-live="polite"><div class="bar"><span id="bar"></span></div><p id="count">0 / 0 そろいました</p></div>
+
+<div class="card"><h3>お店の案内</h3>
+<ul class="check">
+<li><label><input type="checkbox" data-k="a1">公式ホームページ<small>URLだけでOK。料金・設備・アクセス・よくある質問のページ</small></label></li>
+<li><label><input type="checkbox" data-k="a2">予約サイト(ポータルサイト)の掲載ページ<small>サイトごとに書いてあることがちがうことが多いので、ぜんぶ</small></label></li>
+<li><label><input type="checkbox" data-k="a3">入り方・使い方の案内<small>鍵・入口・ゴミの捨て方・備品・Wi-Fi。Googleドキュメントやスプレッドシートにあるものも</small></label></li>
+<li><label><input type="checkbox" data-k="a4">料金とキャンセルのルール<small>予約サイトごとのキャンセルポリシー・延長・割引</small></label></li>
+</ul></div>
+
+<div class="card"><h3>自動で送っている文</h3>
+<ul class="check">
+<li><label><input type="checkbox" data-k="b1">予約が入ったときの自動メッセージ<small>予約サイトの管理画面の中にしかないことが多い</small></label></li>
+<li><label><input type="checkbox" data-k="b2">前日・当日・利用後の自動メッセージ<small>リマインダー・お礼・レビューのお願い</small></label></li>
+<li><label><input type="checkbox" data-k="b3">留守電・電話の自動音声の案内<small>あれば。いまの電話の受け方が分かる</small></label></li>
+</ul></div>
+
+<div class="card"><h3>これまでのやりとり</h3>
+<ul class="check">
+<li><label><input type="checkbox" data-k="c1">過去のメール<small>お客さまとのやりとり(問い合わせ・変更・トラブル)</small></label></li>
+<li><label><input type="checkbox" data-k="c2">予約サイトのメッセージの履歴<small>いちばん「よくある質問」がたまっている場所</small></label></li>
+<li><label><input type="checkbox" data-k="c3">公式LINEのやりとり<small>AIと接続したあとの分は、自動でたまっていく</small></label></li>
+<li><label><input type="checkbox" data-k="c4">ショートメッセージ・iMessage<small>常連さん・定期の方とのやりとりが多い</small></label></li>
+<li><label><input type="checkbox" data-k="c5">レビュー(★とコメント)<small>お客さまがつまずいた所が、そのまま書いてある</small></label></li>
+</ul></div>
+
+<h2>② AIへの伝え方は3つ</h2>
+<div class="table-wrap"><table>
+<tr><th>伝え方</th><th>向いているもの</th><th>やること</th></tr>
+<tr><td><strong>1. URLを伝える</strong></td><td>ホームページ・予約サイトの掲載ページ</td><td>URLを貼って「読んで」と頼む</td></tr>
+<tr><td><strong>2. ブラウザ操作で読む</strong></td><td>管理画面の中にしかない文(自動メッセージなど)</td><td>AIにブラウザを操作して読んでもらう。コピーして貼ってもOK</td></tr>
+<tr><td><strong>3. AIと接続する</strong></td><td>メール・LINE・メッセージの履歴・Google Drive</td><td>AIとサービスを接続して、直接読んでもらう。返信のために接続した道が、そのまま情報を伝える道になる</td></tr>
+</table></div>
+<p class="note">どこまでAIに任せるかは、各サービスの規約を確かめたうえで、ご自身の責任で決めてください。</p>
+
+<h2>③ AIへの頼み方(コピーして使える)</h2>
+<h3>1本目: よくある質問と答えを作る</h3>
+<div class="prompt" id="p1">わたしのお店のお客さま対応をAIに任せたいです。
+いまから渡す資料(ホームページ・予約サイトの掲載・自動メッセージ・入り方の案内・過去のやりとり)をぜんぶ読んで、
+お客さまが聞きそうな質問と、その答えの一覧を作ってください。
+
+・答えは、資料に書いてあることだけで作る。資料にないことは「要確認」と書く
+・お店ごと・予約サイトごとに答えがちがうものは、分けて書く
+・一覧の列は「質問/答え/根拠にした資料/要確認か」の4つにする</div>
+<button class="copy" data-t="p1">コピーする</button>
+
+<h3>2本目: 情報の食いちがいを洗い出す</h3>
+<div class="prompt" id="p2">渡した資料どうしで、書いてあることが食いちがっている所を、ぜんぶ一覧にしてください。
+(例: ホームページと予約サイトで、料金・定員・キャンセルのルール・入り方がちがう)
+
+・列は「項目/資料Aの書き方/資料Bの書き方/どちらが正しいか(わたしが決める欄)」の4つ
+・決めるのはわたしです。正解を推測して埋めないでください</div>
+<button class="copy" data-t="p2">コピーする</button>
+<p>食いちがいは、たいてい出てきます。正解を決めたら、予約サイトの掲載もその場で直しておくと、お客さまの「書いてあることがちがう」がなくなります。</p>
+
+<h2>④ 教える前に決めておくこと</h2>
+<ul class="rule">
+<li><strong>暗証番号・鍵の番号</strong>をどう伝えるか(AIの声で読み上げるか、ショートメッセージか、案内ページか)</li>
+<li><strong>返金・割引・特別あつかい</strong>は、AIに約束させない(「担当者が確認します」で人に回す)</li>
+<li><strong>資料にないこと</strong>は答えさせない(「内容を確認のうえ、担当者より追ってご連絡いたします」)</li>
+<li><strong>急ぎのこと</strong>(火事・水漏れ・けが・閉じこめ・苦情)だけは、すぐ自分に知らせが来るようにする</li>
+<li><strong>お客さまの個人情報</strong>は、必要以上にAIに渡さない</li>
+</ul>
+
+<section class="next">
+<h2>この先の手順は、教材で</h2>
+<p>情報を教えたら、次は「ルートごとにAIと接続する」と「任せる範囲を3つに分ける」です。</p>
+<p>『【AI×店舗】電話・メール・LINE、お客さま対応をAIに任せる』は、<strong>11月11日発売</strong>。事前登録の方には、発売日に10%オフのリンクをメールでお送りします。</p>
+<p><a href="/kyokasho/ai-tenpo/?utm_source=tokuten&amp;utm_medium=checklist">教材の案内を見る</a></p>
+<p class="note">ぼくの店の例なので、同じ結果を約束するものではありません。発行: きくりん(株式会社オサラロック)/<a href="/mail/publisher.html">発行者情報</a></p>
+</section>
+</main>
+<script>
+(function(){
+  var KEY='omise-ai-checklist-v1', st={};
+  try{ st=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ st={}; }
+  var boxes=[].slice.call(document.querySelectorAll('.check input'));
+  function upd(){ var n=boxes.filter(function(b){return b.checked}).length;
+    document.getElementById('bar').style.width=(boxes.length?Math.round(n/boxes.length*100):0)+'%';
+    document.getElementById('count').textContent=n+' / '+boxes.length+' そろいました'; }
+  boxes.forEach(function(b){ b.checked=!!st[b.dataset.k];
+    b.addEventListener('change',function(){ st[b.dataset.k]=b.checked; try{localStorage.setItem(KEY,JSON.stringify(st));}catch(e){} upd(); }); });
+  upd();
+  [].slice.call(document.querySelectorAll('.copy')).forEach(function(btn){
+    btn.addEventListener('click',function(){ var t=document.getElementById(btn.dataset.t).innerText;
+      var done=function(){ btn.textContent='コピーしました'; setTimeout(function(){btn.textContent='コピーする'},1600); };
+      if(navigator.clipboard){ navigator.clipboard.writeText(t).then(done,function(){}); } else { var a=document.createElement('textarea'); a.value=t; document.body.appendChild(a); a.select(); try{document.execCommand('copy');done();}catch(e){} a.remove(); }
+    }); });
+})();
+</script>
+<script src="/track.js?v=20260919"></script>
+</body>
+</html>
