@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>先行特典｜AIで、お店のホームページを作る手順書</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="参考にしたいホームページのURLかスクショを、写真とお店の情報と一緒にAIに渡すだけ。実際に作ったダンススタジオの例つき。">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CHWF6QKRJ6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CHWF6QKRJ6');</script>
+<style>
+:root{--bg:#fff;--ink:#111;--muted:#49576a;--accent:#0054ac;--soft:#e7eef6;--line:#d6e0eb;--warm:#fff7e6;--warm-line:#f1d9a6}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:20px}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.95 'Noto Sans JP',sans-serif;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:var(--accent)}
+.wrap{width:min(920px,calc(100% - 40px));margin:0 auto}
+/* top */
+.top{background:linear-gradient(180deg,var(--soft),#fff 78%);border-bottom:8px solid var(--accent)}
+.top .in{width:min(1080px,calc(100% - 40px));margin:0 auto;padding:56px 0 64px;display:grid;grid-template-columns:1.05fr .95fr;gap:24px 44px;align-items:center}
+.badge{display:inline-block;background:var(--accent);color:#fff;font-weight:900;font-size:14px;letter-spacing:.06em;padding:6px 14px;border-radius:999px}
+h1{font-size:42px;line-height:1.45;font-weight:900;margin:14px 0 14px;letter-spacing:.01em}
+h1 .em{color:var(--accent)}
+.lead{font-size:17px;color:var(--muted);margin:0 0 22px}
+.hero-art{border-radius:24px;box-shadow:0 28px 70px -36px #0054ac66;background:#fff}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.toc a{display:inline-block;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--line);padding:6px 14px;border-radius:999px;font-size:14px;font-weight:700}
+.toc a:hover{border-color:var(--accent);color:var(--accent)}
+/* blocks */
+.block{padding:64px 0 8px}
+.eyebrow{display:block;color:var(--accent);font-weight:900;font-size:13px;letter-spacing:.18em;margin-bottom:6px}
+h2{font-size:30px;line-height:1.5;font-weight:900;margin:0 0 20px}
+h3{font-size:19px;line-height:1.6;margin:0 0 6px;font-weight:900}
+p{margin:0 0 14px}
+.muted{color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{background:var(--soft);border-radius:18px;padding:20px 20px 16px}
+.card .ic{width:40px;height:40px;border-radius:12px;background:#fff;color:var(--accent);display:grid;place-items:center;font-weight:900;font-size:18px;margin-bottom:10px}
+.card p{font-size:15px;margin:0}
+.need{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.need .card{background:#fff;border:1px solid var(--line)}
+/* steps */
+.steps{counter-reset:s;list-style:none;margin:0;padding:0;display:grid;gap:16px}
+.steps>li{position:relative;border:1px solid var(--line);border-radius:20px;padding:22px 22px 18px 76px;background:#fff}
+.steps>li::before{counter-increment:s;content:counter(s);position:absolute;left:20px;top:20px;width:40px;height:40px;border-radius:50%;background:var(--accent);color:#fff;font-weight:900;display:grid;place-items:center;font-size:18px}
+.steps ul{margin:6px 0 10px;padding-left:1.2em}
+.steps li li{margin:2px 0}
+.tip{background:var(--warm);border:1px solid var(--warm-line);border-radius:14px;padding:12px 16px;font-size:15px;margin:10px 0 4px}
+.tip b{color:#8a5a00}
+/* copy boxes */
+.copy{position:relative;margin:12px 0 6px}
+.copy pre{margin:0;white-space:pre-wrap;word-break:break-word;background:#0f1b2d;color:#e9f0fa;border-radius:16px;padding:18px 18px 18px;font:400 14.5px/1.85 'Noto Sans JP',monospace;max-height:420px;overflow:auto}
+.copy button{position:absolute;top:10px;right:10px;border:0;border-radius:999px;background:#fff;color:var(--accent);font-weight:900;font-size:14px;padding:8px 14px;cursor:pointer;box-shadow:0 4px 14px -6px #0006}
+.copy button.done{background:var(--accent);color:#fff}
+/* example */
+.ex{background:linear-gradient(180deg,#f6f9fc,#fff);border-top:1px solid var(--line);margin-top:56px;padding-bottom:40px}
+.flow{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:center;margin:8px 0 22px}
+.flow .arrow{font-size:30px;color:var(--accent);font-weight:900;text-align:center}
+.flow .label{display:inline-block;font-size:13px;font-weight:900;color:#fff;background:var(--ink);padding:3px 12px;border-radius:999px;margin-bottom:8px}
+.flow .label.out{background:var(--accent)}
+.shot{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 18px 40px -28px #0b2a4a55}
+.given{display:grid;gap:18px}
+.given section{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px}
+.given h3 .n{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--ink);color:#fff;font-size:14px;margin-right:8px;vertical-align:2px}
+.photos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.photos img{border-radius:10px;aspect-ratio:3/2;object-fit:cover;width:100%}
+.ref-crop{max-height:520px;overflow:hidden;position:relative}
+.ref-crop::after{content:'';position:absolute;left:0;right:0;bottom:0;height:80px;background:linear-gradient(transparent,#fff)}
+.result{display:grid;grid-template-columns:2.1fr 1fr;gap:16px;align-items:start;margin-top:10px}
+.result .sp{max-width:300px;justify-self:center}
+.result .shot{max-height:760px;overflow-y:auto;overscroll-behavior:contain}
+.scroll-hint{font-size:13px;color:var(--muted);margin:6px 0 0}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin:18px 0 6px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 24px;border-radius:999px;background:var(--accent);color:#fff;text-decoration:none;font-weight:900}
+.btn.ghost{background:#fff;color:var(--accent);border:2px solid var(--accent)}
+details{border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin:10px 0;background:#fff}
+summary{cursor:pointer;font-weight:900}
+.fix{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:0;padding:0;list-style:none}
+.fix li{background:var(--soft);border-radius:14px;padding:12px 14px;font-size:15px}
+.warn{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.warn li{border-left:5px solid var(--accent);background:#f6f9fc;border-radius:0 12px 12px 0;padding:10px 14px;font-size:15px}
+/* next */
+.next{margin:64px 0 0;background:var(--accent);color:#fff;border-radius:26px;padding:34px 30px}
+.next h2{color:#fff;font-size:26px}
+.next p{color:#e8f0fb}
+.next .btn{background:#fff;color:var(--accent)}
+.foot{color:var(--muted);font-size:13px;text-align:center;padding:36px 0 48px}
+@media(max-width:820px){
+ .top .in{grid-template-columns:1fr;padding:30px 0 36px}
+ h1{font-size:31px}
+ .hero-art{order:-1}
+ h2{font-size:25px}
+ .cards{grid-template-columns:1fr}
+ .need{grid-template-columns:1fr}
+ .flow{grid-template-columns:1fr}
+ .flow .arrow{transform:rotate(90deg)}
+ .result{grid-template-columns:1fr}
+ .fix{grid-template-columns:1fr}
+ .steps>li{padding:68px 18px 16px 18px}
+ .steps>li::before{left:18px;top:18px}
+ .block{padding-top:48px}
+ .next{padding:28px 20px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="top"><div class="in">
+<div>
+<span class="badge">先行特典</span>
+<h1>AIで、<span class="em">お店のホームページ</span>を作る手順書</h1>
+<p class="lead">参考にしたいホームページのURLかスクショを、お店の写真と情報と一緒にAIに渡すだけ。デザインの知識もプログラミングもいりません。実際に作ったダンススタジオの例を、渡したものから全部見せます。</p>
+<ul class="toc">
+<li><a href="#need">準備するもの</a></li>
+<li><a href="#steps">5つの手順</a></li>
+<li><a href="#example">実際に作った例</a></li>
+<li><a href="#fix">直し方</a></li>
+<li><a href="#care">気をつけること</a></li>
+</ul>
+</div>
+<img class="hero-art" src="img/hero.webp" width="1536" height="864" alt="きくりんとチャムが、参考ページと写真をAIに渡して、お店のホームページを作っている絵">
+</div></header>
+
+<main class="wrap">
+
+<section class="block">
+<span class="eyebrow">WHAT</span>
+<h2>この手順書で、できること</h2>
+<div class="cards">
+<div class="card"><div class="ic">1</div><h3>1日で、お店のHPができる</h3><p>好きなホームページを「この雰囲気で」と渡すだけ。色・文字・余白・並びを、AIがまねして組み立てます。</p></div>
+<div class="card"><div class="ic">2</div><h3>どんなお店でも使える</h3><p>サロン・教室・整体・飲食・レンタルスペース。業種に合う参考ページを選べば、そのお店らしくなります。</p></div>
+<div class="card"><div class="ic">3</div><h3>HPが、AIの教科書になる</h3><p>HPに書いたお店の情報は、そのまま「お客さま対応をAIに任せる」ときのデータになります。</p></div>
+</div>
+</section>
+
+<section class="block" id="need">
+<span class="eyebrow">PREPARE</span>
+<h2>準備するもの(4つ)</h2>
+<div class="need">
+<div class="card"><h3>① AI(ChatGPT か Claude)</h3><p>無料プランでも試せます(画像の添付の回数などに上限があります)。Claude Code や Codex を使っている人は、フォルダを渡すだけでファイルまで作ってくれます。</p></div>
+<div class="card"><h3>② 参考にしたいHPのURLかスクショ</h3><p>「こんな雰囲気にしたい」と思うページを1つ。同じ業種でなくてもかまいません。URLを読めないAIもあるので、スクショ(ページ全体)があると確実です。</p></div>
+<div class="card"><h3>③ お店の写真</h3><p>スマホで撮ったものでOK。いちばん見せたい1枚(お店の全体や看板商品)と、ほかに3〜6枚。明るい時間に、横向きで。</p></div>
+<div class="card"><h3>④ お店の情報のメモ</h3><p>名前・場所・営業時間・料金・選ばれる理由・よくある質問。下のひな形をコピーして、うめるだけです。</p></div>
+</div>
+</section>
+
+<section class="block" id="steps">
+<span class="eyebrow">STEPS</span>
+<h2>5つの手順</h2>
+<ol class="steps">
+<li>
+<h3>参考にしたいホームページを1つ選ぶ</h3>
+<p>「こうなりたい」と思うお店のページを探して、スクショを撮ります。パソコンなら、ページ全体のスクショがおすすめです。</p>
+<div class="tip"><b>選び方のコツ:</b> 同じ業種のいちばん人気のお店か、自分の好きなブランドのページ。色が2〜3色で、写真が大きいページほど、AIがまねしやすいです。</div>
+</li>
+<li>
+<h3>お店の情報のメモを書く</h3>
+<p>ひな形をコピーして、わかるところだけうめます。<b>書いていないことは、AIに作らせない</b>のが大事なので、空欄は空欄のままで大丈夫です。</p>
+<div class="copy"><button type="button" data-copy="memo">コピー</button><pre id="memo">お店の名前:
+どんなお店:
+いちばん伝えたいこと(1行):
+
+場所(駅から徒歩◯分):
+営業時間・定休日:
+
+料金:
+支払い方法:
+キャンセルのルール:
+予約ページのURL:
+電話・LINE・SNS:
+
+選ばれる理由(3〜5つ):
+1.
+2.
+3.
+
+メニュー・設備・できること:
+こんな人・こんな使い方におすすめ:
+
+よくある質問(質問 → 答え):
+-
+-
+
+写真(ファイル名 … 何が写っているか):
+- </pre></div>
+</li>
+<li>
+<h3>写真をそろえる</h3>
+<p>写真のファイル名を、英字の短い名前にしておくと、AIが迷いません(例: hero.jpg・menu1.jpg)。いちばん大きく出したい1枚を hero にします。</p>
+</li>
+<li>
+<h3>指示文をコピーして、AIに渡す</h3>
+<p>参考ページのスクショと写真を添付して、下の指示文と、②のメモを貼りつけて送ります。</p>
+<div class="copy"><button type="button" data-copy="prompt">コピー</button><pre id="prompt">あなたは、お店のホームページを作るプロのWebデザイナーです。
+添付の「参考ページ」のスクショのような雰囲気で、わたしのお店のホームページを1ページで作ってください。
+
+【参考にしてほしいところ】
+- 色の使い方(参考ページの色を中心に。差し色は1色だけ)
+- 文字の大きさ・太さと、余白のとり方
+- ページの並び(大きな写真とひとこと → 予約ボタン → 選ばれる理由 → 料金 → メニュー・設備 → アクセス → よくある質問 → 予約ボタン)
+
+【まねしないところ】
+- 参考ページの文章・ロゴ・写真は使わない。文章は、下の「お店の情報」から書く
+
+【お店の情報】
+(ここに、お店の情報のメモを貼る)
+
+【写真】
+添付のとおり。hero をいちばん上に大きく。ほかは、選ばれる理由・メニュー・アクセスのところに
+
+【作り方】
+- HTMLとCSSで、index.html の1ファイルに。写真は images/ フォルダのファイル名で読みこむ
+- できた index.html は、ダウンロードできる形で出して
+- スマホで見る人が多いので、スマホで見やすく。パソコンでも間のびしないように
+- 予約ボタンは、ページの上と下に。スマホでは画面の下に固定
+- お店の情報に書いていないこと(数字・実績・口コミなど)は作らない。足りないところは、最後に一覧で教えて</pre></div>
+<div class="tip"><b>ChatGPT・Claude の画面で作るとき:</b> 返ってきた index.html をダウンロードして、写真を入れた images フォルダと同じ場所に置きます。index.html をダブルクリックすると、ブラウザでそのまま見られます。</div>
+</li>
+<li>
+<h3>見て、直して、公開する</h3>
+<p>スマホとパソコンの両方で見て、気になるところを「ここをこう直して」と伝えます(<a href="#fix">直し方の例</a>)。できたら、無料で使えるサイト公開のサービス(例: Netlify、Cloudflare Pages)に、フォルダごと載せて公開します。</p>
+<div class="tip"><b>公開の費用:</b> 料金や手順は変わることがあるので、各サービスの公式ページで確かめてください。お店の名前の独自ドメインを付けるときは、別に年間の費用がかかります。</div>
+</li>
+</ol>
+</section>
+
+</main>
+
+<section class="ex" id="example"><div class="wrap">
+<div class="block">
+<span class="eyebrow">EXAMPLE</span>
+<h2>実際に作った例:ダンスのレンタルスタジオ</h2>
+<p>架空のお店「レンタルスタジオ ミラリエ 桜台」で、この手順書のとおりに作りました。<b>参考ページ・写真・情報のメモ・指示文を、そのままAIに渡しただけ</b>です(AIは Codex を使いました)。</p>
+
+<div class="flow">
+<div><span class="label">渡したもの</span><div class="shot ref-crop"><img src="img/ref.webp" width="1440" height="2400" alt="参考ページ: レンタルスタジオDAYSの公式ホームページ(白と黒のすっきりしたページ)" loading="lazy"></div></div>
+<div class="arrow" aria-hidden="true">→</div>
+<div><span class="label out">できたページ</span><div class="shot"><img src="img/result-pc-first.webp" width="1440" height="900" alt="AIが作ったミラリエ桜台のホームページ(パソコンの最初の画面)" loading="lazy"></div></div>
+</div>
+
+<div class="given">
+<section>
+<h3><span class="n">1</span>参考ページ</h3>
+<p>レンタルスタジオDAYS の公式ホームページ(<a href="https://days-studio.com/" target="_blank" rel="noopener">days-studio.com</a>)。著者が運営しているダンススタジオのページです。白と黒ですっきりした雰囲気を参考にしました。</p>
+</section>
+<section>
+<h3><span class="n">2</span>写真(6枚)</h3>
+<div class="photos">
+<img src="example/images/hero.jpg" width="1536" height="1024" alt="スタジオの全体" loading="lazy">
+<img src="example/images/side1.jpg" width="1536" height="1024" alt="壁一面の鏡とバレエバー" loading="lazy">
+<img src="example/images/side2.jpg" width="1536" height="1024" alt="スピーカー・三脚などの備品" loading="lazy">
+<img src="example/images/entrance.jpg" width="1536" height="1024" alt="建物の入口" loading="lazy">
+<img src="example/images/gallery1.jpg" width="1536" height="1024" alt="夜の照明のスタジオ" loading="lazy">
+<img src="example/images/gallery2.jpg" width="1536" height="1024" alt="入口側から見たスタジオ" loading="lazy">
+</div>
+<p class="muted" style="font-size:14px;margin-top:8px">架空のお店なので、写真はAIで作った見本です。</p>
+</section>
+<section>
+<h3><span class="n">3</span>お店の情報のメモ</h3>
+<details><summary>渡したメモを見る(全文)</summary><div class="copy"><button type="button" data-copy="exmemo">コピー</button><pre id="exmemo">お店の名前: レンタルスタジオ ミラリエ 桜台
+どんなお店: ダンス・ヨガのレンタルスタジオ(1時間から貸し切り)
+いちばん伝えたいこと: 幅6mの鏡と音響つき。ひとり練からレッスンまで使えるスタジオ
+
+場所: 東京都練馬区桜台1丁目 ミラリエビル 2F(西武池袋線 桜台駅から徒歩3分)
+※正確な住所は、予約が確定したあとにお送りしています
+営業時間: 6:00〜24:00(年中無休)
+
+料金(1時間):
+- 平日 9:00〜24:00 … 1,650円
+- 土日祝 9:00〜24:00 … 2,200円
+- 早朝 6:00〜9:00(毎日)… 880円
+- 3時間以上で10%引き。登録料・年会費なし
+支払い: クレジットカード・PayPay(予約ページでお支払い)
+キャンセル: 7日前まで無料。6日前〜前日は50%、当日は100%
+予約ページ: https://example.jp/reserve/mirarie
+公式LINE: https://example.jp/line/mirarie
+Instagram: https://example.jp/sns/mirarie-ig / TikTok: https://example.jp/sns/mirarie-tt
+
+広さ: 45㎡(7.5m×6m)・天井2.6m・床は木目調のクッションフロア
+人数: ダンスなら12名・ヨガなら8名まで
+鏡: 幅6.3m×高さ2m
+設備(無料): Bluetoothスピーカー、AUXケーブル、55インチモニター(HDMI)、スマホ用三脚2台、ヨガマット8枚、バレエバー(長さ6m)、ストレッチポール、扇風機、ホワイトボード、Wi-Fi、更衣スペース(カーテンつき)、ハンガーラック、くつ箱、エアコン
+※スピーカーの音量は22時以降ひかえめに
+
+選ばれる理由:
+1. 幅6.3m×高さ2mの大きな鏡(12名のグループでも全員が映る)
+2. 音響・モニター・三脚が無料(振りつけの撮影もその場で確認)
+3. 朝6時から、1時間880円(出勤前・登校前の自主練に)
+4. 桜台駅から徒歩3分・夜は24時まで
+5. 教室の定期利用を歓迎(同じ曜日・時間を固定で確保・荷物もお預かり)
+
+使い道: ダンスの練習、K-POPのカバーダンス、ヒップホップ、ジャズダンス、バレエ、ヨガ、ピラティス、ストレッチ、演劇の稽古、ミュージカルの練習、チアダンス、発表会・オーディションの準備、ダンス教室のレッスン、オンラインレッスンの配信、振りつけ動画の撮影、SNS用の動画撮影
+使えないこと: 打楽器・大音量の楽器、飲酒をともなうパーティー、土足
+
+定期利用(教室・サークル向け): 毎週おなじ曜日・時間を固定で確保(月4回から・変更は7日前まで)
+特典: レッスンの荷物を無料でお預かり/月のご利用額に応じた割引/月末締め・翌月払い
+
+よくある質問:
+- どうやって入りますか? → 予約のあとに届く案内のとおりに、入口のキーボックスから鍵を取り出して入ります
+- 靴は? → 室内ばきをご用意ください(床にあとがつかない、底のきれいな靴)
+- 更衣室は? → 入口側に、カーテンで仕切れる更衣スペースがあります
+- 音はどれくらい出せる? → ふつうのレッスンの音量でOK。22時以降はひかえめに
+- 1人でも使える? → はい。1時間から1人でも使えます
+
+ルール: 土足・ヒール・床に黒い線がつく靴はNG/準備とかたづけは予約の時間内に/ゴミは持ち帰り/建物の前で集まったり大声で話したりしない/22時以降は音量ひかえめ
+運営: ミラリエ運営事務局
+
+写真(6枚):
+- hero.jpg … スタジオの全体。壁一面の鏡と木目の床
+- side1.jpg … 壁一面の鏡とバレエバー
+- side2.jpg … スピーカー・三脚・ヨガマットなどの備品
+- entrance.jpg … 建物の入口と階段
+- gallery1.jpg … 夜の照明に切りかえたスタジオ
+- gallery2.jpg … 入口側から見たスタジオと更衣スペース</pre></div></details>
+</section>
+<section>
+<h3><span class="n">4</span>指示文</h3>
+<details><summary>渡した指示文を見る(全文)</summary><div class="copy"><button type="button" data-copy="exprompt">コピー</button><pre id="exprompt">あなたは、お店のホームページを作るプロのWebデザイナーです。
+添付の「参考ページ」のスクショのような雰囲気で、わたしのお店のホームページを1ページで作ってください。
+
+【参考にしてほしいところ】
+- 色の使い方(白と黒が中心で、すっきり。差し色は1色だけ)
+- 文字の大きさ・太さと、ゆったりした余白
+- ページの並び(大きな写真とひとこと → 予約ボタン → 選ばれる理由 → 料金 → 設備 → 使い道 → アクセス → よくある質問 → 予約ボタン)
+
+【まねしないところ】
+- 参考ページの文章・ロゴ・写真は使わない。文章は、下の「お店の情報」から書く
+
+【お店の情報】
+店の情報.txt のとおり
+
+【写真】
+添付の6枚。hero.jpg をいちばん上に大きく。ほかは、選ばれる理由・設備・アクセスのところに
+
+【作り方】
+- HTMLとCSSで、index.html の1ファイルに。写真は images/ フォルダのファイル名で読みこむ
+- スマホで見る人が多いので、スマホで見やすく。パソコンでも間のびしないように
+- 予約ボタンは、ページの上と下に。スマホでは画面の下に固定
+- 住所は丁目まで。「正確な住所は、予約の確定後にお送りします」と書く
+- お店の情報に書いていないこと(数字・実績・口コミなど)は作らない。足りないところは、最後に一覧で教えて
+
+(添付: 1枚目=参考ページのスクショ、2〜7枚目=写真。写真と店の情報.txt は、このフォルダにあります)</pre></div></details>
+</section>
+</div>
+
+<h3 style="margin-top:34px">できたページ(パソコンとスマホ)</h3>
+<div class="result">
+<div class="shot"><img src="img/result-pc.webp" width="900" height="4782" alt="できたページの全体(パソコン)" loading="lazy"></div>
+<div class="shot sp"><img src="img/result-sp.webp" width="390" height="9029" alt="できたページの全体(スマホ)" loading="lazy"></div>
+</div>
+<p class="scroll-hint">↑ 画像の中をスクロールすると、ページの下まで見られます</p>
+<div class="cta-row">
+<a class="btn" href="example/" target="_blank" rel="noopener">できたページを開いてみる</a>
+</div>
+<p class="muted" style="font-size:14px">このページは、AIが1回目に出したものを、そのまま載せています(人の手直しはしていません)。AIは最後に「足りない情報」として、予約・LINE・SNSのURLが仮のままなこと、料金が税込か税別か、定期利用の割引の中身を挙げました。公開する前に、こうしたところを自分でうめます。</p>
+</div>
+</div></section>
+
+<main class="wrap">
+<section class="block" id="fix">
+<span class="eyebrow">FIX</span>
+<h2>直すときの伝え方(例)</h2>
+<p>1回でぴったりにはなりません。気になるところを、1つずつ短く伝えるのがコツです。</p>
+<ul class="fix">
+<li>「いちばん上の写真を、もっと明るく見えるように。文字は写真の左下に」</li>
+<li>「料金を、大きな数字のカードで3つ並べて」</li>
+<li>「スマホで見たとき、文字が小さいので少し大きく」</li>
+<li>「予約ボタンの色を、参考ページのボタンと同じにして」</li>
+<li>「よくある質問を、押すと開く形にして」</li>
+<li>「全体の文章を、もう少しやさしい言葉に」</li>
+</ul>
+</section>
+
+<section class="block" id="care">
+<span class="eyebrow">CARE</span>
+<h2>気をつけること</h2>
+<ul class="warn">
+<li><b>参考にするのは雰囲気だけ。</b>ほかのお店の文章・写真・ロゴは使いません。指示文にも「まねしないところ」を入れています。</li>
+<li><b>AIが書いた中身は、必ず自分で読む。</b>料金・時間・住所など、書いていない数字をAIが足すことがあります。</li>
+<li><b>住所の出し方を決める。</b>人がいないお店は、丁目までにして「正確な住所は予約の確定後に」とする方法もあります。</li>
+<li><b>お客さまの個人情報は渡さない。</b>HPづくりに、お客さまの名前や連絡先はいりません。</li>
+</ul>
+</section>
+
+<section class="next">
+<h2>HPができたら、次はお客さま対応</h2>
+<p>HPに書いたお店の情報は、そのまま「お客さま対応をAIに任せる」ときのデータになります。電話・メール・予約サイト・LINEのお客さま対応を、AIに任せる全手順とツールを1冊にまとめました。</p>
+<p><b>11月11日(水)発売。</b>事前登録した方には、発売日に10%オフのリンクをメールでお送りします。</p>
+<a class="btn" href="/kyokasho/ai-tenpo/?utm_source=tokuten&utm_medium=hp_guide&utm_campaign=pre-tenpo">教材の内容を見る</a>
+</section>
+</main>
+
+<p class="foot">発行: きくりん(株式会社オサラロック)<br>この手順書は、事前登録の方への先行特典です。</p>
+
+<script>
+document.querySelectorAll('[data-copy]').forEach((b) => b.addEventListener('click', async () => {
+  const t = document.getElementById(b.dataset.copy).innerText;
+  try { await navigator.clipboard.writeText(t); } catch (e) {
+    const r = document.createRange(); r.selectNodeContents(document.getElementById(b.dataset.copy));
+    const s = getSelection(); s.removeAllRanges(); s.addRange(r); document.execCommand('copy'); s.removeAllRanges();
+  }
+  b.textContent = 'コピーしました'; b.classList.add('done');
+  if (typeof gtag === 'function') gtag('event', 'tokuten_copy', { item: b.dataset.copy });
+  setTimeout(() => { b.textContent = 'コピー'; b.classList.remove('done'); }, 1800);
+}));
+</script>
+<script src="/track.js?v=20260919"></script>
+</body>
+</html>
