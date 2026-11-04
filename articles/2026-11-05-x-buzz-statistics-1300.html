@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CHWF6QKRJ6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-CHWF6QKRJ6');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="note-hashtags" content="#AI #X運用 #統計分析 #バズ #note #コンテンツ販売">
+<meta name="description" content="Xのポスト1,302本をAIに集めさせ、統計で比べました。バズったポストの61%は画像・動画・引用のどれかを付けていて、いいね0側は18%。フォロワー数をそろえたロジスティック回帰でも、バズりやすさは引用23倍・動画10倍・画像4倍。長さや「↓」は決め手ではありませんでした。">
+<meta property="og:title" content="【統計分析】Xのバズらせ方｜AIリサーチャーに1300本調べさせた結果">
+<meta property="og:description" content="Xのポスト1,302本をAIに集めさせ、統計で比べました。バズったポストの61%は画像・動画・引用のどれかを付けていて、いいね0側は18%。フォロワー数をそろえたロジスティック回帰でも、バズりやすさは引用23倍・動画10倍・画像4倍。長さや「↓」は決め手ではありませんでした。">
+<meta property="og:image" content="https://rental-space.net/assets/2026_11_05_xbuzz_hero.png">
+<meta property="og:url" content="https://rental-space.net/articles/2026-11-05-x-buzz-statistics-1300.html">
+<meta property="og:type" content="article"><meta name="twitter:card" content="summary_large_image">
+<title>【統計分析】Xのバズらせ方｜AIリサーチャーに1300本調べさせた結果 - きくりんのノウハウ垂れ流し</title>
+<link rel="icon" href="../assets/favicon.png" type="image/png"><link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../style.css?v=1.2.1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>.article-header .category-badge{position:static;display:inline-block;margin-bottom:12px}.article-body a{color:#075bc8;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;font-weight:700;overflow-wrap:anywhere}.article-table{overflow-x:auto;margin:1.5em 0}.article-table table{border-collapse:collapse;width:100%;font-size:.95em;display:table}.article-table th,.article-table td{padding:12px;border:1px solid #ddd;text-align:left;white-space:normal}.article-table th{background:#eef5ff}.article-table td:last-child{white-space:nowrap}.article-body blockquote{margin:1.5em 0;padding:16px 20px;background:#f7f7f7;border-left:4px solid #bbb;border-radius:0 8px 8px 0}.single-article .article-body blockquote p{margin-bottom:0}.article-body code{background:#f2f2f2;padding:2px 6px;border-radius:4px;font-size:.92em}.article-body .image-caption{margin:-20px 0 28px}@media(max-width:600px){.kyokasho-banner .kb-title span{white-space:normal!important;overflow-wrap:anywhere}}.article-table th,.article-table td{min-width:5em}.article-table:focus-visible{outline:2px solid #075bc8}.article-image img{background:#fff}.article-body blockquote.prompt p{font-family:inherit;line-height:1.9;white-space:normal}</style>
+<link rel="stylesheet" href="/assets/site-footer.css?v=20260919">
+<!-- seo-head start -->
+<link rel="canonical" href="https://rental-space.net/articles/2026-11-05-x-buzz-statistics-1300.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "ホーム",
+      "item": "https://rental-space.net/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "副業③ AI活用実験室"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "【統計分析】Xのバズらせ方｜AIリサーチャーに1300本調べさせた結果",
+      "item": "https://rental-space.net/articles/2026-11-05-x-buzz-statistics-1300.html"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "【統計分析】Xのバズらせ方｜AIリサーチャーに1300本調べさせた結果",
+  "datePublished": "2026-11-05",
+  "dateModified": "2026-11-05",
+  "mainEntityOfPage": "https://rental-space.net/articles/2026-11-05-x-buzz-statistics-1300.html",
+  "author": {
+    "@type": "Person",
+    "name": "きくりん",
+    "url": "https://rental-space.net/articles/2026-01-20-self-introduction.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "きくりんのノウハウ垂れ流し",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://rental-space.net/assets/duo_tarenagashi.png"
+    }
+  },
+  "description": "Xのポスト1,302本をAIに集めさせ、統計で比べました。バズったポストの61%は画像・動画・引用のどれかを付けていて、いいね0側は18%。フォロワー数をそろえたロジスティック回帰でも、バズりやすさは引用23倍・動画10倍・画像4倍。長さや「↓」は決め手ではありませんでした。",
+  "image": "https://rental-space.net/assets/2026_11_05_xbuzz_hero.png"
+}
+</script>
+<!-- seo-head end -->
+<link rel="stylesheet" href="/assets/site-menu.css?v=20260930a">
+<link rel="stylesheet" href="/assets/link-card.css?v=20261005">
+<style>.article-body .twitter-tweet{max-width:100%;overflow-wrap:anywhere}</style>
+</head>
+<body class="article-page">
+<!-- site-menu start -->
+<nav class="site-menu" aria-label="ブログのメニュー"><div class="site-menu-inner"><a class="site-menu-brand" href="/">きくりんのノウハウ垂れ流し</a><input type="checkbox" id="site-menu-toggle" class="site-menu-toggle" aria-label="メニューを開く"><label for="site-menu-toggle" class="site-menu-button" aria-hidden="true"><span></span><span></span><span></span></label><ul class="site-menu-list"><li><a href="/">ホーム</a></li><li><a href="/rental-space/">レンタルスペース</a></li><li><a href="/rental-space/dance/">ダンス向けレンタルスタジオ</a></li><li><a href="/ebay/">eBay輸出</a></li><li><a href="/#ailab" class="is-current">AI活用実験室</a></li><li><a href="/kyokasho/">レンスペ教科書</a></li><li><a href="/kyokasho/ebay/">eBay教科書</a></li><li><a href="/mail/">無料講座</a></li><li><a href="/articles/2026-01-20-self-introduction.html">プロフィール</a></li></ul></div></nav>
+<!-- site-menu end -->
+<header class="main-header"><div class="header-content"><div class="logo-area minimal"><a href="../index.html" class="header-logo-link horiz"><img src="../assets/duo_tarenagashi.png" alt="きくりん" class="header-logo-img-character small"><div class="logo-text"><h1>きくりんの<br>ノウハウ垂れ流し</h1></div></a></div></div></header>
+<main class="container"><article class="single-article">
+<!-- breadcrumb start -->
+<nav class="breadcrumb" aria-label="パンくずリスト"><ol><li><a href="../index.html">ホーム</a></li><li>副業③ AI活用実験室</li><li aria-current="page">【統計分析】Xのバズらせ方｜AIリサーチャーに1300本調べさせた結果</li></ol></nav>
+<!-- breadcrumb end -->
+<header class="article-header"><span class="category-badge">副業③ AI活用実験室</span><h1>【統計分析】Xのバズらせ方｜AIリサーチャーに1300本調べさせた結果</h1><time datetime="2026-11-05">2026.11.05</time></header>
+<div class="article-body">
+<div class="article-image"><img alt="【統計分析】Xのバズらせ方｜AIリサーチャーに1300本調べさせた結果" class="eyecatch-img" decoding="async" fetchpriority="high" height="1024" src="../assets/2026_11_05_xbuzz_hero.png" style="display:block;width:100%;height:auto" width="1536"/></div>
+<p><strong>いいね0のポストの8割には、画像も動画もありませんでした。</strong></p>
+<p>AIに、Xのポストを1,302本集めてもらい、統計で比べました。</p>
+<p>結果は3行です。</p>
+<ol>
+<li>バズったポストの<strong>61%</strong>は、画像・動画・引用のどれかを付けていた(いいね0側は<strong>18%</strong>)</li>
+<li>フォロワー数をそろえても、差は残った(バズりやすさは、引用<strong>23倍</strong>・動画<strong>10倍</strong>・画像<strong>4倍</strong>)</li>
+<li>文章の長さ・「↓」・リンクは、決め手ではなかった</li>
+</ol>
+<p>いちばん大きな差は、フォロワーの数でした。</p>
+<p>それでも、フォロワー1,000人未満のアカウントどうしで比べても、画像・動画・引用の差は消えませんでした(47%と17%)。</p>
+<hr/>
+<h2>この記事を書いた人</h2>
+<div class="article-image"><a href="../assets/author_card_ai.webp"><img alt="この記事を書いた人 きくりん: 2ヶ月で利益101.5万円(フォロワーゼロから・手取り)/録音からAIで記事と教材(毎日の発信もAIに任せています)/AIで事業を2つ運営(ぼくがやるのは確認と判断だけ)" decoding="async" height="1024" loading="lazy" src="../assets/author_card_ai.webp" style="display:block;width:100%;height:auto" width="1536"/></a></div>
+<p>この記事は、フォロワーゼロからXとnoteで発信して、教材を88部売ってきたきくりんが書いています。</p>
+<hr/>
+<h2>1. 調べ方</h2>
+<div class="article-table" tabindex="0" data-copy-image="../assets/2026_11_05_xbuzz_table01.png" data-copy-alt="表: 項目 / 中身"><table><thead><tr><th>項目</th><th>中身</th></tr></thead><tbody><tr><td>対象</td><td>Xの日本語のポスト(リポストとリプは除く)</td></tr><tr><td>バズったポスト</td><td>いいね300以上・707本(2026年9月1日〜11月4日)</td></tr><tr><td>いいね0〜9のポスト</td><td>511本(「note×AI×副業・稼ぐ・売上」の話・10月1日〜11月3日)</td></tr><tr><td>除いたもの</td><td>いいね10〜299の84本(どちらでもない中くらい)</td></tr><tr><td>合計</td><td>1,302本(比べたのは1,218本)</td></tr><tr><td>集め方</td><td>Xの検索とX API(Xが公式に出しているデータの取り出し口)</td></tr><tr><td>記録した特徴</td><td>画像・動画・引用・リンク・「↓」・「」の会話・文字数・フォロワー数</td></tr><tr><td>作業</td><td>集める・記録する・計算する・グラフにする、まで全部AI</td></tr></tbody></table></div>
+<p>使った計算は3つです。</p>
+<ul><li><strong>95%信頼区間</strong>: 本当の割合が、だいたいこの範囲に入るという幅</li><li><strong>p値(フィッシャーの正確検定)</strong>: 「たまたまこの差が出る」確率。0.05より小さければ、たまたまとは考えにくい</li><li><strong>ロジスティック回帰</strong>: いくつもの特徴を同時に入れて、1つずつの効き方を取り出す方法。ここではフォロワー数の影響を差し引くために使った</li></ul>
+<p>AIにXのポストを集めさせるときは、Xの利用規約(自動で集めることの決まり)を確かめたうえで、ご自身の責任で行ってください。</p>
+<hr/>
+<h2>2. 結果①: バズったポストは「見せるもの」を付けていた</h2>
+<div class="article-image"><a href="../assets/2026_11_05_xbuzz_fig1.webp"><img alt="図1 画像・動画・引用がついていた割合" decoding="async" height="1000" loading="lazy" src="../assets/2026_11_05_xbuzz_fig1.webp" style="display:block;width:100%;height:auto" width="1600"/></a></div>
+<div class="article-table" tabindex="0" data-copy-image="../assets/2026_11_05_xbuzz_table02.png" data-copy-alt="表: 特徴 / バズ(707本) / いいね0〜9(511本) / 何倍か / p値"><table><thead><tr><th>特徴</th><th>バズ(707本)</th><th>いいね0〜9(511本)</th><th>何倍か</th><th>p値</th></tr></thead><tbody><tr><td>画像</td><td>34.1%(30.7〜37.7)</td><td>13.5%(10.8〜16.7)</td><td>2.5倍</td><td>10の−16乗</td></tr><tr><td>動画</td><td>11.7%(9.6〜14.3)</td><td>1.8%(0.9〜3.3)</td><td>6.7倍</td><td>10の−12乗</td></tr><tr><td>引用</td><td>27.3%(24.1〜30.7)</td><td>3.7%(2.4〜5.7)</td><td>7.3倍</td><td>10の−31乗</td></tr><tr><td><strong>どれか1つ以上</strong></td><td><strong>61.2%</strong>(57.6〜64.8)</td><td><strong>17.6%</strong>(14.6〜21.2)</td><td><strong>3.5倍</strong></td><td>10の−54乗</td></tr></tbody></table></div>
+<p>かっこの中は、95%信頼区間です。</p>
+<p>バズ側の幅と、いいね0側の幅は、4つとも重なっていません。</p>
+<p>p値は、どれも0.05よりはるかに小さい数でした。</p>
+<p>「たまたま、この差が出た」とは考えられません。</p>
+<p>いいね0〜9の側で、画像つきは13.5%、動画つきは1.8%。</p>
+<p><strong>残りの約85%は、画像も動画もないポスト</strong>でした。</p>
+<hr/>
+<h2>3. 結果②: フォロワー数をそろえても、差は残った</h2>
+<div class="article-image"><a href="../assets/2026_11_05_xbuzz_fig2.webp"><img alt="図2 フォロワー数をそろえたバズりやすさ" decoding="async" height="1120" loading="lazy" src="../assets/2026_11_05_xbuzz_fig2.webp" style="display:block;width:100%;height:auto" width="1600"/></a></div>
+<p>バズった側は、フォロワーの多いアカウントがほとんどです。</p>
+<p>だから「フォロワーが多い人ほど画像を付けているだけでは?」という疑いが残ります。</p>
+<p>そこで、フォロワー数の影響を差し引いて計算しました(ロジスティック回帰・1,218本)。</p>
+<div class="article-table" tabindex="0" data-copy-image="../assets/2026_11_05_xbuzz_table03.png" data-copy-alt="表: 特徴 / バズりやすさ(オッズ比) / 95%信頼区間 / p値"><table><thead><tr><th>特徴</th><th>バズりやすさ(オッズ比)</th><th>95%信頼区間</th><th>p値</th></tr></thead><tbody><tr><td>引用</td><td><strong>23.2倍</strong></td><td>10.9〜49.4</td><td>10の−16乗</td></tr><tr><td>動画</td><td><strong>9.7倍</strong></td><td>3.4〜27.6</td><td>0.00002</td></tr><tr><td>画像</td><td><strong>4.2倍</strong></td><td>2.6〜6.8</td><td>10の−8乗</td></tr><tr><td>「」の会話</td><td>2.8倍</td><td>1.5〜5.2</td><td>0.002</td></tr><tr><td>リンク</td><td>0.4倍</td><td>0.3〜0.7</td><td>0.0004</td></tr><tr><td>「↓」</td><td>0.4倍</td><td>0.3〜0.8</td><td>0.003</td></tr><tr><td>140字をこえる長文</td><td>0.2倍</td><td>0.1〜0.3</td><td>10の−14乗</td></tr></tbody></table></div>
+<p>オッズ比は「その特徴があると、バズ側に入りやすい度合い」です。</p>
+<p>1より大きければバズ側に多く、1より小さければいいね0側に多い、という意味です。</p>
+<p><strong>画像・動画・引用の3つは、フォロワー数をそろえても、はっきり1より大きいまま</strong>でした。</p>
+<p>フォロワー数の帯ごとにも分けて比べました。</p>
+<div class="article-image"><a href="../assets/2026_11_05_xbuzz_fig3.webp"><img alt="図3 フォロワー帯ごとの比較" decoding="async" height="1000" loading="lazy" src="../assets/2026_11_05_xbuzz_fig3.webp" style="display:block;width:100%;height:auto" width="1600"/></a></div>
+<div class="article-table" tabindex="0" data-copy-image="../assets/2026_11_05_xbuzz_table04.png" data-copy-alt="表: フォロワー数 / バズ(本数) / いいね0〜9(本数)"><table><thead><tr><th>フォロワー数</th><th>バズ(本数)</th><th>いいね0〜9(本数)</th></tr></thead><tbody><tr><td>1,000人未満</td><td><strong>47%</strong>(91)</td><td>17%(412)</td></tr><tr><td>1,000〜5,000人</td><td><strong>74%</strong>(125)</td><td>20%(79)</td></tr><tr><td>5,000〜2万人</td><td>67%(160)</td><td>10%(10)</td></tr><tr><td>2万人以上</td><td>58%(331)</td><td>20%(10)</td></tr></tbody></table></div>
+<p>表の数字は、画像・動画・引用のどれかがある割合です。</p>
+<p>フォロワーが同じくらいのアカウントどうしでも、差は消えませんでした。</p>
+<p>5,000人以上の帯は、いいね0側が10本しかないので、参考の値です。</p>
+<hr/>
+<h2>4. 結果③: いちばん大きな差は、フォロワーの数</h2>
+<div class="article-image"><a href="../assets/2026_11_05_xbuzz_fig4.webp"><img alt="図4 フォロワー数の分布" decoding="async" height="1000" loading="lazy" src="../assets/2026_11_05_xbuzz_fig4.webp" style="display:block;width:100%;height:auto" width="1600"/></a></div>
+<div class="article-table" tabindex="0" data-copy-image="../assets/2026_11_05_xbuzz_table05.png" data-copy-alt="表:  / バズ / いいね0〜9"><table><thead><tr><th></th><th>バズ</th><th>いいね0〜9</th></tr></thead><tbody><tr><td>フォロワー(真ん中の値)</td><td>15,905人</td><td>144人</td></tr><tr><td>インプ(真ん中の値)</td><td>72,610</td><td>46</td></tr></tbody></table></div>
+<p>回帰の計算では、<strong>フォロワーが10倍になると、バズのオッズは6.9倍</strong>(95%信頼区間 5.4〜8.8)でした。</p>
+<p>ほかのどの特徴よりも、安定して大きな差です。</p>
+<p>正直に書くと、フォロワーの数は、すぐには変えられません。</p>
+<p>だから、すぐに変えられる「見せ方」の差に意味があります。</p>
+<hr/>
+<h2>5. 3つの切り方で確かめた</h2>
+<p>バズ側と、いいね0側では、集めた検索の言葉が少しちがいます。</p>
+<p>そこで、比べる対象を3通りに切って、同じ結果が出るかを確かめました。</p>
+<div class="article-table" tabindex="0" data-copy-image="../assets/2026_11_05_xbuzz_table06.png" data-copy-alt="表: 比べた対象 / 本数(バズ/いいね0〜9) / 画像・動画・引用のどれか / 何倍か"><table><thead><tr><th>比べた対象</th><th>本数(バズ/いいね0〜9)</th><th>画像・動画・引用のどれか</th><th>何倍か</th></tr></thead><tbody><tr><td>全部</td><td>707/511</td><td>61%と18%</td><td>3.5倍</td></tr><tr><td>「note」という言葉が入ったものだけ</td><td>280/506</td><td>55%と18%</td><td>3.1倍</td></tr><tr><td>AI×noteで売る話だけ</td><td>33/377</td><td>52%と20%</td><td>2.6倍</td></tr></tbody></table></div>
+<p><strong>3つのどれでも、画像・動画・引用の差は残りました。</strong></p>
+<p>反対に、切り方で向きが変わったものもあります。</p>
+<div class="article-table" tabindex="0" data-copy-image="../assets/2026_11_05_xbuzz_table07.png" data-copy-alt="表: 特徴 / 全部 / 「note」を含むものだけ / AI×noteで売る話だけ"><table><thead><tr><th>特徴</th><th>全部</th><th>「note」を含むものだけ</th><th>AI×noteで売る話だけ</th></tr></thead><tbody><tr><td>140字をこえる長文</td><td>差なし(52%と53%)</td><td>いいね0側に多い(38%と54%)</td><td>バズ側に多い(76%と49%)</td></tr><tr><td>「↓」</td><td>差なし(13%と15%)</td><td>差なし(12%と15%)</td><td>バズ側に多い(36%と18%)</td></tr><tr><td>リンク</td><td>差なし(46%と44%)</td><td>バズ側に多い(55%と44%)</td><td>差なし(27%と38%)</td></tr></tbody></table></div>
+<p>長さ・「↓」・リンクは、切り方によって結論が変わりました。</p>
+<p><strong>決め手とは言えない</strong>、というのがこの調査の答えです。</p>
+<hr/>
+<h2>6. 計算のしかた(例: 画像)</h2>
+<div class="article-table" tabindex="0" data-copy-image="../assets/2026_11_05_xbuzz_table08.png" data-copy-alt="表: 手順 / 計算 / 答え"><table><thead><tr><th>手順</th><th>計算</th><th>答え</th></tr></thead><tbody><tr><td>① バズ側の割合</td><td>画像つき241本 ÷ 707本</td><td>34.1%</td></tr><tr><td>② いいね0側の割合</td><td>画像つき69本 ÷ 511本</td><td>13.5%</td></tr><tr><td>③ 何倍か(割合の比)</td><td>34.1% ÷ 13.5%</td><td>2.5倍</td></tr><tr><td>④ オッズ比</td><td>(241÷466) ÷ (69÷442)</td><td>3.3倍</td></tr><tr><td>⑤ フォロワーをそろえたオッズ比</td><td>回帰の係数 1.43 を e の1.43乗に</td><td>4.2倍</td></tr></tbody></table></div>
+<p>割合の比(③)と、オッズ比(④)は、ちがう基準です。</p>
+<p>割合が小さいときは、ほぼ同じ数になります。</p>
+<p>⑤は、ほかの6つの特徴とフォロワー数を同時に入れて計算した値です。</p>
+<p>フォロワー数の影響を引いたあとでも、画像があるとバズ側に4倍入りやすい、という意味です。</p>
+<hr/>
+<h2>7. 実際のポスト</h2>
+<p>数字だけでは分かりにくいので、実際にバズったポストを見てみます。</p>
+<p><strong>画像</strong>: 「note記事を書きました」の告知でも、画像つきで、いいね1,163。</p>
+<blockquote class="twitter-tweet" data-conversation="none" data-dnt="true" data-lang="ja"><a href="https://x.com/hidane_nico/status/2112510801475244427">https://x.com/hidane_nico/status/2112510801475244427</a></blockquote>
+<p><strong>動画</strong>: AIにソフトを操作させて、部屋を1つ作るまでの画面。説明を読むより、10秒見たほうが早い。</p>
+<blockquote class="twitter-tweet" data-conversation="none" data-dnt="true" data-lang="ja"><a href="https://x.com/shion_takk/status/2110896887096369573">https://x.com/shion_takk/status/2110896887096369573</a></blockquote>
+<p><strong>動画+引用</strong>: 295万インプ。</p>
+<blockquote class="twitter-tweet" data-conversation="none" data-dnt="true" data-lang="ja"><a href="https://x.com/owl_pukuro_/status/2104032811170894301">https://x.com/owl_pukuro_/status/2104032811170894301</a></blockquote>
+<p><strong>引用</strong>: 本文はたった2行。いいね6,777、保存6,991。</p>
+<blockquote class="twitter-tweet" data-conversation="none" data-dnt="true" data-lang="ja"><a href="https://x.com/ai_ai_ailover/status/2116457944158253401">https://x.com/ai_ai_ailover/status/2116457944158253401</a></blockquote>
+<p><strong>フォロワー約2,000人の引用</strong>: 「」の会話で返して、88万インプ。</p>
+<blockquote class="twitter-tweet" data-conversation="none" data-dnt="true" data-lang="ja"><a href="https://x.com/k2wanko/status/2108376906064187402">https://x.com/k2wanko/status/2108376906064187402</a></blockquote>
+<hr/>
+<h2>8. この調査の限界</h2>
+<div class="article-table" tabindex="0" data-copy-image="../assets/2026_11_05_xbuzz_table09.png" data-copy-alt="表: 限界 / 中身 / 読み方"><table><thead><tr><th>限界</th><th>中身</th><th>読み方</th></tr></thead><tbody><tr><td>集め方がちがう</td><td>バズ側とふつうのポストで、検索の言葉と期間が少しちがう</td><td>3つの切り方で、同じ結果が出たものだけを結論にした</td></tr><tr><td>相関であって、原因とは言い切れない</td><td>「画像を付けたからバズった」とは証明できない</td><td>伸びたポストに多かった形として使う</td></tr><tr><td>ある時点の数字</td><td>いいね・インプは、11月5日の朝に読んだ値</td><td>古いポストほど数字がたまっている</td></tr><tr><td>特徴は機械で判定</td><td>「↓」「」などは、文字で自動に数えた</td><td>細かい表現のちがいは拾えていない</td></tr><tr><td>中身の良し悪しは見ていない</td><td>画像の質・話題の旬は数えていない</td><td>画像を付けるだけで伸びる、とは限らない</td></tr></tbody></table></div>
+<p>引用の23倍は、とくに大きな数字です。</p>
+<p>ただ、引用には「すでに話題のポストに乗る」効果もまざっています。</p>
+<p>かみ合わない引用は、かえって嫌われます。</p>
+<p>自分の経験から言えることがあるときだけにします。</p>
+<p>前に、投稿の本数を増やしたらインプが減った話も書きました。</p>
+<p>本数より、1本の見せ方です。</p>
+<div class="link-card-wrap"><a class="link-card" href="https://rental-space.net/articles/2026-11-02-x-more-posts-94-percent-down.html"><span class="lc-body"><span class="lc-title">https://rental-space.net/articles/2026-11-02-x-more-posts-94-percent-down.html</span><span class="lc-site">rental-space.net</span></span></a></div>
+<hr/>
+<h2>まとめ</h2>
+<div class="article-image"><a href="../assets/2026_11_05_xbuzz_summary.webp"><img alt="まとめ: 画像を付ける/動画を付ける/引用してひと言足す" decoding="async" height="1024" loading="lazy" src="../assets/2026_11_05_xbuzz_summary.webp" style="display:block;width:100%;height:auto" width="1536"/></a></div>
+<p>1,302本を統計で比べて分かった、Xのバズらせ方は3つです。</p>
+<ol>
+<li><strong>画像を付ける</strong>(34.1%と13.5%・フォロワーをそろえて4.2倍)</li>
+<li><strong>動画を付ける</strong>(11.7%と1.8%・同じく9.7倍)</li>
+<li><strong>人のポストを引用して、ひと言足す</strong>(27.3%と3.7%・同じく23.2倍)</li>
+</ol>
+<p>いいね0のポストの8割は、画像も動画もありませんでした。</p>
+<p>文章の長さや「↓」を整える前に、1つ「見せるもの」を足します。</p>
+<p>noteやコンテンツ販売の告知も、同じです。</p>
+<p>あなたの最後のポスト、文字だけになっていませんか?</p>
+<hr/>
+<!-- kyokasho-promo start -->
+<p>▼ネタの作り方から、AIで教材にまとめて売るまで、やったことを1冊にまとめてあります</p>
+<p>フォロワーゼロから利益95.8万円まで、54日間の数字と失敗と手順を、全部書いた教科書です。</p>
+<p>録音から記事、教材、販売ページ、売れたあとの台帳まで。うちで毎日使っているツールも付録に入れました。</p>
+<p>『noteから始める「AI×◯◯」コンテンツ販売の教科書｜フォロワーゼロから利益95.8万円』</p>
+<div class="link-card-wrap"><a class="link-card" href="https://rental-space.net/kyokasho/ai-contents/?utm_source=blog&amp;utm_medium=article&amp;utm_campaign=x-buzz-1300"><span class="lc-body"><span class="lc-title">noteから始める「AI×◯◯」コンテンツ販売の教科書｜フォロワーゼロから利益95.8万円</span><span class="lc-desc">AIでやったことを、AIで教材にして売る。フォロワーゼロから発売54日で利益95.8万円。最初の章(第0部)は全部無料で読めます。</span><span class="lc-site">rental-space.net</span></span><span class="lc-thumb"><img src="/kyokasho/ai-contents/img/ogp.jpg" alt="" loading="lazy"></span></a></div>
+<p>販売価格は3部売れるごとに2,000円ずつ値上がりします（上限あり）。内容・最新価格は販売ページをご確認ください。</p>
+<!-- kyokasho-promo end -->
+</div>
+<!-- kyokasho-banner-ai start -->
+<aside class="kyokasho-banner kb-ai">
+    <a href="/kyokasho/ai-contents/" class="kb-thumb">
+        <img src="/kyokasho/ai-contents/img/ogp.jpg" alt="noteから始める「AI×◯◯」コンテンツ販売の教科書｜フォロワーゼロから利益95.8万円" loading="lazy" width="640" height="335">
+    </a>
+    <div class="kb-body">
+        <p class="kb-title">noteから始める「AI×◯◯」コンテンツ販売の教科書</p>
+        <p class="kb-sub">フォロワーゼロから利益95.8万円まで、54日間の数字と失敗と手順を全部書きました。録音から記事・教材・販売ページ・売れたあとの台帳まで。付録24点つき。販売価格は3部売れるごとに2,000円ずつ値上がりします（上限あり）。内容・最新価格は販売ページをご確認ください。</p>
+        <div class="kb-actions">
+            <a href="/kyokasho/ai-contents/" class="kb-btn kb-btn-ebay">くわしく見る・買う</a>
+        </div>
+    </div>
+</aside>
+<!-- kyokasho-banner-ai end -->
+<a href="../index.html" class="btn-back">トップページへ戻る</a>
+</article></main>
+<footer class="main-footer"><p>&copy; 2026 きくりんのノウハウ垂れ流し. All rights reserved.</p><!-- site-home-link start -->
+<nav class="site-home-nav" aria-label="サイトトップ"><a href="/">きくりんのノウハウ垂れ流し TOP</a></nav>
+<!-- site-home-link end -->
+</footer>
+<script src="../script.js"></script><script src="../track.js"></script>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</body>
+</html>
