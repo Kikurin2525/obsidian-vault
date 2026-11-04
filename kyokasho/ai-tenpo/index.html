@@ -28,6 +28,24 @@
 
 :root{--bg:#fff;--ink:#111;--muted:#49576a;--accent:#0054ac;--on-accent:#fff;--soft:#e7eef6;--panel:#fff;--line:#d6e0eb}.top .in{padding-top:72px;padding-bottom:92px}.hero-art{border-radius:28px;box-shadow:0 28px 70px -36px #0054ac55;position:relative}.top::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:8px;background:#0054ac}.cta-btn{border-radius:999px;box-shadow:0 8px 24px #0054ac20}.block-perks h2{text-align:center}.perk{border-radius:24px 24px 24px 4px}.perk:nth-child(2){border-radius:24px 24px 4px 24px}.no{background:#fff;border:none}.block-proof h2{color:#0054ac}.block-proof .proof{box-shadow:0 12px 36px #0b3f7010}.block-steps .proof{border:none;padding:0}.signup{border:0;background:#e7eef6}.btn-mail{border-radius:999px}.block-faq{max-width:860px;margin:auto}.block-delivery .box{border:none;padding:0}.block-audience .box{background:#f6f9fc;border:none}
 @media(max-width:700px){.top .in{padding-top:28px;padding-bottom:36px}.hero-art{max-width:310px;justify-self:center}.block-perks h2{text-align:left}}
+.tk-show{margin:40px 0 0;background:#f6f9fc;border-radius:28px;padding:40px}
+.tk-title{text-align:center;font-size:24px;margin:0 0 8px}
+.tk-lead{text-align:center;color:var(--muted);max-width:720px;margin:0 auto 30px!important;font-size:16px}
+.tk-flow{display:grid;grid-template-columns:1fr 64px 1.35fr;gap:18px;align-items:center}
+.tk-flow figure{margin:0}
+.tk-tag{display:inline-block;font-size:13px;font-weight:700;color:#fff;background:#111;padding:3px 14px;border-radius:999px;margin-bottom:10px}
+.tk-tag.out{background:var(--accent)}
+.tk-in img,.tk-devices .pc{width:100%;border-radius:10px;border:1px solid var(--line);background:#fff;box-shadow:0 14px 34px -24px #0b2a4a66}
+.tk-in img+figcaption{margin:8px 0 16px}
+.tk-flow figcaption{font-size:13px;line-height:1.7;color:var(--muted);margin-top:8px}
+.tk-arrow{display:grid;place-items:center;width:64px;height:64px;border-radius:50%;background:var(--accent);color:#fff;font-weight:900;font-size:17px;position:relative;box-shadow:0 10px 26px -10px #0054ac99}
+.tk-arrow::after{content:'';position:absolute;right:-12px;top:50%;margin-top:-8px;border:8px solid transparent;border-left:10px solid var(--accent)}
+.tk-devices{position:relative;padding:0 0 46px}
+.tk-devices .sp{position:absolute;right:-6px;bottom:0;width:27%;border-radius:16px;border:5px solid #111;box-shadow:0 18px 40px -18px #0009;background:#fff}
+.tk-points{list-style:none;padding:0;margin:28px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.tk-points li{background:#fff;border-radius:14px;padding:14px 16px 14px 44px;position:relative;font-size:15px;line-height:1.7}
+.tk-points li::before{content:'✓';position:absolute;left:16px;top:13px;color:var(--accent);font-weight:900}
+@media(max-width:700px){.tk-show{padding:26px 16px;border-radius:20px;margin-top:28px}.tk-title{font-size:20px}.tk-lead{font-size:15px;text-align:left}.tk-flow{grid-template-columns:minmax(0,1fr);gap:14px}.tk-arrow{justify-self:center;width:54px;height:54px;font-size:15px}.tk-arrow::after{right:auto;left:50%;top:auto;bottom:-14px;margin:0 0 0 -8px;border:8px solid transparent;border-top:10px solid var(--accent)}.tk-devices .sp{width:30%;right:0;border-width:4px;border-radius:12px}.tk-points{grid-template-columns:minmax(0,1fr)}}
 </style>
 </head>
 <body>
@@ -43,6 +61,24 @@
 <div class="perks">
 <section class="perk"><span class="no">特典 1</span><h3>発売日に<span class="em">10%オフ</span>のリンク</h3><p>11月11日に、10%オフで買えるリンクをメールでお送りします(直販のページで使えます・発売から72時間)。</p></section>
 <section class="perk"><span class="no">特典 2</span><h3>すぐ届く<span class="em">先行特典</span></h3><p>「AIで、お店のホームページを作る手順書」。参考にしたいHPのスクショ・写真・お店の情報をAIに渡すだけ。実際に作ったダンススタジオの例と、コピーして使える指示文つき。</p></section>
+</div>
+<div class="tk-show">
+<h3 class="tk-title">先行特典の中身を、少しだけ</h3>
+<p class="tk-lead">参考にしたいホームページと、お店の写真・情報をAIに渡すだけ。架空のダンススタジオで、実際に作りました(AIが1回目に出したものを、手直しなしで載せています)。</p>
+<div class="tk-flow">
+<figure class="tk-in"><span class="tk-tag">渡したもの</span>
+<img src="img/tk-ref.webp" width="960" height="600" loading="lazy" alt="参考ページ: 著者が運営するレンタルスタジオDAYSの公式ホームページ(白と黒のすっきりしたページ)">
+<figcaption>参考ページ(著者のスタジオ DAYS の公式HP)</figcaption>
+<img src="img/tk-photos.webp" width="916" height="408" loading="lazy" alt="渡したお店の写真6枚(スタジオの全体・鏡・備品・入口など)">
+<figcaption>お店の写真6枚+情報のメモ+指示文</figcaption>
+</figure>
+<div class="tk-arrow" aria-hidden="true">AI</div>
+<figure class="tk-out"><span class="tk-tag out">できたHP</span>
+<div class="tk-devices"><img class="pc" src="img/tk-result-pc.webp" width="1200" height="750" loading="lazy" alt="AIが作ったダンススタジオのホームページ(パソコン)。大きな写真に「踊る時間を、もっと自由に。」"><img class="sp" src="img/tk-result-sp.webp" width="390" height="844" loading="lazy" alt="同じホームページのスマホ表示。画面の下に予約ボタン"></div>
+<figcaption>パソコンとスマホ。予約ボタンは、スマホでは画面の下に固定</figcaption>
+</figure>
+</div>
+<ul class="tk-points"><li>渡したもの4つ(参考ページ・写真・メモ・指示文)を全部見せます</li><li>コピーして使える「お店の情報のメモ」と指示文</li><li>直すときの伝え方と、公開のしかた</li></ul>
 </div>
 </section><section class="block block-proof"><h2>電話対応は、5.9時間から0時間に</h2>
 <p class="big">直近30日の電話71件を、<span class="em">すべてAIが受けました</span>。</p>
