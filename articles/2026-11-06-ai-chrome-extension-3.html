@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CHWF6QKRJ6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-CHWF6QKRJ6');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="note-hashtags" content="#AI #Chrome拡張 #拡張機能 #ClaudeCode #note #コンテンツ販売">
+<meta name="description" content="ブラウザの「ちょっと不便」は、AIに頼めば自分専用のChrome拡張機能で直せます。プログラムを書けなくても大丈夫。拡張機能のしくみ、頼む前に決める3つ、作る5つの手順、気をつける3つを、ぼくがAIに作ってもらった3つの実例とあわせて書きました。スクショの拡張は無料で配っています。">
+<meta property="og:title" content="AIに「自分専用のChrome拡張機能」を頼んだら、すぐに3つできた">
+<meta property="og:description" content="ブラウザの「ちょっと不便」は、AIに頼めば自分専用のChrome拡張機能で直せます。プログラムを書けなくても大丈夫。拡張機能のしくみ、頼む前に決める3つ、作る5つの手順、気をつける3つを、ぼくがAIに作ってもらった3つの実例とあわせて書きました。スクショの拡張は無料で配っています。">
+<meta property="og:image" content="https://rental-space.net/assets/2026_11_06_chromeext_hero.png">
+<meta property="og:url" content="https://rental-space.net/articles/2026-11-06-ai-chrome-extension-3.html">
+<meta property="og:type" content="article"><meta name="twitter:card" content="summary_large_image">
+<title>AIに「自分専用のChrome拡張機能」を頼んだら、すぐに3つできた - きくりんのノウハウ垂れ流し</title>
+<link rel="icon" href="../assets/favicon.png" type="image/png"><link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../style.css?v=1.2.1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>.article-header .category-badge{position:static;display:inline-block;margin-bottom:12px}.article-body a{color:#075bc8;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;font-weight:700;overflow-wrap:anywhere}.article-table{overflow-x:auto;margin:1.5em 0}.article-table table{border-collapse:collapse;width:100%;font-size:.95em;display:table}.article-table th,.article-table td{padding:12px;border:1px solid #ddd;text-align:left;white-space:normal}.article-table th{background:#eef5ff}.article-table td:last-child{white-space:nowrap}.article-body blockquote{margin:1.5em 0;padding:16px 20px;background:#f7f7f7;border-left:4px solid #bbb;border-radius:0 8px 8px 0}.single-article .article-body blockquote p{margin-bottom:0}.article-body code{background:#f2f2f2;padding:2px 6px;border-radius:4px;font-size:.92em}.article-body .image-caption{margin:-20px 0 28px}@media(max-width:600px){.kyokasho-banner .kb-title span{white-space:normal!important;overflow-wrap:anywhere}}.article-table th,.article-table td{min-width:5em}.article-table:focus-visible{outline:2px solid #075bc8}.article-image img{background:#fff}.article-body blockquote.prompt p{font-family:inherit;line-height:1.9;white-space:normal}</style>
+<link rel="stylesheet" href="/assets/site-footer.css?v=20260919">
+<!-- seo-head start -->
+<link rel="canonical" href="https://rental-space.net/articles/2026-11-06-ai-chrome-extension-3.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "ホーム",
+      "item": "https://rental-space.net/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "副業③ AI活用実験室"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "AIに「自分専用のChrome拡張機能」を頼んだら、すぐに3つできた",
+      "item": "https://rental-space.net/articles/2026-11-06-ai-chrome-extension-3.html"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "AIに「自分専用のChrome拡張機能」を頼んだら、すぐに3つできた",
+  "datePublished": "2026-11-06",
+  "dateModified": "2026-11-06",
+  "mainEntityOfPage": "https://rental-space.net/articles/2026-11-06-ai-chrome-extension-3.html",
+  "author": {
+    "@type": "Person",
+    "name": "きくりん",
+    "url": "https://rental-space.net/articles/2026-01-20-self-introduction.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "きくりんのノウハウ垂れ流し",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://rental-space.net/assets/duo_tarenagashi.png"
+    }
+  },
+  "description": "ブラウザの「ちょっと不便」は、AIに頼めば自分専用のChrome拡張機能で直せます。プログラムを書けなくても大丈夫。拡張機能のしくみ、頼む前に決める3つ、作る5つの手順、気をつける3つを、ぼくがAIに作ってもらった3つの実例とあわせて書きました。スクショの拡張は無料で配っています。",
+  "image": "https://rental-space.net/assets/2026_11_06_chromeext_hero.png"
+}
+</script>
+<!-- seo-head end -->
+<link rel="stylesheet" href="/assets/site-menu.css?v=20260930a">
+<link rel="stylesheet" href="/assets/link-card.css?v=20261005">
+<style>.article-body .twitter-tweet{max-width:100%;overflow-wrap:anywhere}</style>
+</head>
+<body class="article-page">
+<!-- site-menu start -->
+<nav class="site-menu" aria-label="ブログのメニュー"><div class="site-menu-inner"><a class="site-menu-brand" href="/">きくりんのノウハウ垂れ流し</a><input type="checkbox" id="site-menu-toggle" class="site-menu-toggle" aria-label="メニューを開く"><label for="site-menu-toggle" class="site-menu-button" aria-hidden="true"><span></span><span></span><span></span></label><ul class="site-menu-list"><li><a href="/">ホーム</a></li><li><a href="/rental-space/">レンタルスペース</a></li><li><a href="/rental-space/dance/">ダンス向けレンタルスタジオ</a></li><li><a href="/ebay/">eBay輸出</a></li><li><a href="/#ailab" class="is-current">AI活用実験室</a></li><li><a href="/kyokasho/">レンスペ教科書</a></li><li><a href="/kyokasho/ebay/">eBay教科書</a></li><li><a href="/kyokasho/ai-contents/">AI教科書</a></li><li><a href="/articles/2026-01-20-self-introduction.html">プロフィール</a></li></ul></div></nav>
+<!-- site-menu end -->
+<header class="main-header"><div class="header-content"><div class="logo-area minimal"><a href="../index.html" class="header-logo-link horiz"><img src="../assets/duo_tarenagashi.png" alt="きくりん" class="header-logo-img-character small"><div class="logo-text"><h1>きくりんの<br>ノウハウ垂れ流し</h1></div></a></div></div></header>
+<main class="container"><article class="single-article">
+<!-- breadcrumb start -->
+<nav class="breadcrumb" aria-label="パンくずリスト"><ol><li><a href="../index.html">ホーム</a></li><li>副業③ AI活用実験室</li><li aria-current="page">AIに「自分専用のChrome拡張機能」を頼んだら、すぐに3つできた</li></ol></nav>
+<!-- breadcrumb end -->
+<header class="article-header"><span class="category-badge">副業③ AI活用実験室</span><h1>AIに「自分専用のChrome拡張機能」を頼んだら、すぐに3つできた</h1><time datetime="2026-11-06">2026.11.06</time></header>
+<div class="article-body">
+<div class="article-image"><img alt="AIに「自分専用のChrome拡張機能」を頼んだら、すぐに3つできた" class="eyecatch-img" decoding="async" fetchpriority="high" height="1024" src="../assets/2026_11_06_chromeext_hero.png" style="display:block;width:100%;height:auto" width="1536"/></div>
+<p>ブラウザの「ちょっと不便」は、AIに頼めば、あなた専用のツールで直せます。</p>
+<p>プログラムを書けなくても、です。</p>
+<p>この記事では、よく使われているブラウザの「Google Chrome(グーグル クローム)」に足す機能、「拡張機能」の話をします。</p>
+<p>「拡張機能は、ストアで探して入れるもの」</p>
+<p>「自分で作るには、プログラムの勉強が要る」</p>
+<p>「作っても、公開の手続きが大変そう」</p>
+<p>どれも、自分ひとりで使うなら当てはまりません。</p>
+<p>Chromeの拡張機能は、公式の決まりでは、必須の設定が3つだけです。</p>
+<p>自分用なら、ストアに出さずに、自分のChromeに読み込んで使えます。</p>
+<p>この記事では、次の5つを順に見せます。</p>
+<ol>
+<li>拡張機能が動くしくみ</li>
+<li>頼む前に決める3つ</li>
+<li>作る5つの手順</li>
+<li>例えば、ぼくが作った3つ</li>
+<li>気をつける3つ</li>
+</ol>
+<p>結論は1つ。毎日いちばん多いクリックを1文に書いて、AIに「Chrome拡張機能で」と頼むことです。</p>
+<p>最後まで読めば、今夜1つ目を頼めます。</p>
+<p>「ブラウザって?」「Chromeって?」「拡張機能って?」という人のために、最初にそもそもの話から書きました。</p>
+<p>4では、ぼくが毎日使っているスクショの拡張を、無料で配っています。</p>
+<p>もう1つ、作った拡張は売ることもできます。ぼくは100円で出して、18部売れました。</p>
+<hr/>
+<h2>この記事を書いた人</h2>
+<div class="article-image"><a href="../assets/author_card_ai.webp"><img alt="この記事を書いた人 きくりん: 2ヶ月で利益101.5万円(フォロワーゼロから・手取り)/録音からAIで記事と教材(毎日の発信もAIに任せています)/AIで事業を2つ運営(ぼくがやるのは確認と判断だけ)" decoding="async" height="1024" loading="lazy" src="../assets/author_card_ai.webp" style="display:block;width:100%;height:auto" width="1536"/></a></div>
+<p>この記事は、自分用のChrome拡張をAIに3つ作ってもらって毎日使い、そのうち1つを100円で18部売ったきくりんが書いています。</p>
+<hr/>
+<h2>はじめに: そもそもブラウザ・Chrome・拡張機能とは</h2>
+<h3>ブラウザとは?</h3>
+<p><strong>ブラウザは、インターネットのホームページを見るためのアプリです。</strong></p>
+<p>ホームページ・YouTube・Gmail・ネットの買い物。</p>
+<p>パソコンでこれを見るときに開いているアプリが、ブラウザです。</p>
+<p>よく使われているブラウザは、この3つです。</p>
+<div class="article-table" tabindex="0" data-copy-image="../assets/2026_11_06_chromeext_table01.png" data-copy-alt="表: ブラウザ / 作っている会社 / よく入っているパソコン"><table><thead><tr><th>ブラウザ</th><th>作っている会社</th><th>よく入っているパソコン</th></tr></thead><tbody><tr><td>Google Chrome(グーグル クローム)</td><td>Google</td><td>自分で入れる(無料)</td></tr><tr><td>Safari(サファリ)</td><td>Apple</td><td>Mac・iPhoneに最初から入っている</td></tr><tr><td>Microsoft Edge(エッジ)</td><td>Microsoft</td><td>Windowsに最初から入っている</td></tr></tbody></table></div>
+<h3>Chromeとは?</h3>
+<p>この記事は、Chromeの話です。</p>
+<p>Chromeは、Googleが作っている無料のブラウザです。</p>
+<p>Chromeのアイコンは、赤・黄・緑の輪のまん中に青い丸があるマークです。</p>
+<p>まだ入れていない人は、Googleの公式ページから無料で入れられます。</p>
+<div class="link-card-wrap"><a class="link-card" href="https://www.google.com/chrome/"><span class="lc-body"><span class="lc-title">Google Chrome - The Fast &amp; Secure Web Browser Built to be Yours</span><span class="lc-desc">Chrome is the official web browser from Google, built to be fast, secure, and cu…</span><span class="lc-site">google.com</span></span><span class="lc-thumb"><img src="https://www.google.com/chrome/static/images/homepage/homepage-v2.png" alt="" loading="lazy"></span></a></div>
+<h3>拡張機能とは?</h3>
+<p><strong>Chrome拡張(拡張機能)は、Chromeに足して使う「小さなアプリ」です。</strong></p>
+<p>スマホにアプリを入れて、できることを増やすのと同じです。</p>
+<p>Chromeに拡張機能を入れると、Chromeでできることが増えます。</p>
+<p>例えば、こんなものがあります。</p>
+<ul><li>広告を消す</li><li>英語のページを、その場で日本語にする</li><li>パスワードを覚えておいて、自動で入れる</li><li>見ている画面をスクショして、矢印や文字を書きこむ</li></ul>
+<p>入れ方は2つあります。</p>
+<div class="article-table" tabindex="0" data-copy-image="../assets/2026_11_06_chromeext_table02.png" data-copy-alt="表: 入れ方 / どんなもの / 向いている人"><table><thead><tr><th>入れ方</th><th>どんなもの</th><th>向いている人</th></tr></thead><tbody><tr><td>Chromeウェブストアから入れる</td><td>世界中の人が作って公開しているもの</td><td>探せば見つかるものでいい人</td></tr><tr><td>自分で作ったフォルダを読み込む</td><td>自分専用・人からもらったもの</td><td>ちょうどいいものが見つからない人</td></tr></tbody></table></div>
+<p>この記事は、2つ目の「自分で作ったものを読み込む」話です。</p>
+<p>作るのは、AIに任せます。</p>
+<p><strong>会社のパソコンでは、入れる前に会社のルールを確かめてください。</strong></p>
+<p>会社が管理しているChromeは、拡張機能を入れられない設定になっていることがあります。</p>
+<p>設定の画面に「組織によって管理されています」と出ていたら、会社が管理しているChromeです。</p>
+<p>入れられたとしても、会社のルールで決まっていることがあるので、まずは自分のパソコンで試すのがおすすめです。</p>
+<p>もう1つ、自分で読み込んだ拡張機能は、Chromeの「デベロッパーモード」をオンにしている間だけ動きます。</p>
+<p>オフにすると止まるので、オンのまま使ってください。</p>
+<hr/>
+<h2>1. 拡張機能は、3行の設定から動く</h2>
+<div class="article-image"><a href="../assets/2026_11_06_chromeext_extensions.webp"><img alt="Chromeの拡張機能の画面(chrome://extensions)。右上のデベロッパーモードと、左上の「パッケージ化されていない拡張機能を読み込む」" decoding="async" height="553" loading="lazy" src="../assets/2026_11_06_chromeext_extensions.webp" style="display:block;width:100%;height:auto" width="1600"/></a></div>
+<p class="image-caption"><em>Chromeの拡張機能の画面(実際の画面)。赤い枠=右上の「デベロッパーモード」と、左上の「パッケージ化されていない拡張機能を読み込む」</em></p>
+<p>拡張機能は、Chromeに足す小さなツールです。</p>
+<p>中身は、1つのフォルダに入ったファイルのかたまりです。</p>
+<p>そのフォルダのいちばん上に「manifest.json(マニフェスト)」という設定ファイルがあります。</p>
+<p>公式の決まりで、必須の項目は3つだけです。</p>
+<ul><li>manifest_version: 3(いまはこの数字だけ)</li><li>name: 拡張の名前</li><li>version: 版の番号</li></ul>
+<p>あとは「どのサイトで・何をするか」を書いたファイルを足すだけです。</p>
+<p>このファイルを書くのを、まるごとAIに任せます。</p>
+<div class="link-card-wrap"><a class="link-card" href="https://developer.chrome.com/docs/extensions/reference/manifest"><span class="lc-body"><span class="lc-title">Manifest file format  |  Chrome for Developers</span><span class="lc-desc">An overview of the manifest.json properties of a Chrome Extension.</span><span class="lc-site">developer.chrome.com</span></span></a></div>
+<p>しくみが分かったら、次は頼む前の準備です。</p>
+<hr/>
+<h2>2. 頼む前に決める3つ</h2>
+<p>AIに頼む前に、3つだけ決めてください。</p>
+<p>ここがあいまいだと、思っていたのと違うツールができます。</p>
+<div class="article-table" tabindex="0" data-copy-image="../assets/2026_11_06_chromeext_table03.png" data-copy-alt="表: 決めること / 書き方の例 / 決めないと"><table><thead><tr><th>決めること</th><th>書き方の例</th><th>決めないと</th></tr></thead><tbody><tr><td>どのサイトで</td><td>「noteの編集画面で」</td><td>全部のサイトで動いてしまう</td></tr><tr><td>何を、何回</td><td>「見出しを1つずつコピーするのを、毎日20回」</td><td>便利さが分からない</td></tr><tr><td>押したら何が起きるか</td><td>「ボタン1つで、全部の見出しがコピーされる」</td><td>動き方をAIが勝手に決める</td></tr></tbody></table></div>
+<p>いちばん大事なのは3つ目です。</p>
+<p>「押したら、こうなってほしい」を1文で書けたら、もう半分できています。</p>
+<p>決まったら、いよいよ頼みます。</p>
+<hr/>
+<h2>3. 作る5つの手順</h2>
+<div class="article-image"><a href="../assets/2026_11_06_chromeext_steps.webp"><img alt="作る5つの手順: 不便を1文に/名前で頼む/権限は少なく/読み込む/2か所を再読み込み" decoding="async" height="720" loading="lazy" src="../assets/2026_11_06_chromeext_steps.webp" style="display:block;width:100%;height:auto" width="1280"/></a></div>
+<p>手順は5つです。</p>
+<ol>
+<li>不便を1文で書く(2の表の3つ)</li>
+<li>AIに「Chrome拡張機能(Manifest V3)で作って」と、名前で頼む</li>
+<li>「権限(拡張がさわれる範囲)は、要るものだけに」と添える</li>
+<li>Chromeの拡張機能の画面で、できたフォルダを読み込む</li>
+<li>直したら、拡張と開いているページの両方を再読み込みする</li>
+</ol>
+<p>2の「名前で頼む」が早道です。</p>
+<p>「Chromeを便利にするツール」と頼むより、AIが迷わず決まった形で作ってくれます。</p>
+<p>4の読み込みは、公式の手順どおりです。</p>
+<ul><li>アドレス欄に chrome://extensions と入れる</li><li>右上の「デベロッパーモード」をオンにする</li><li>「パッケージ化されていない拡張機能を読み込む」で、フォルダを選ぶ</li></ul>
+<div class="link-card-wrap"><a class="link-card" href="https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world"><span class="lc-body"><span class="lc-title">Hello World extension  |  Get started  |  Chrome for Developers</span><span class="lc-desc">Create your first Hello World Chrome extension.</span><span class="lc-site">developer.chrome.com</span></span></a></div>
+<p>5は、つまずきやすい所です。</p>
+<p>ページの中で動く部分を直したときは、拡張の更新ボタンだけでは足りません。</p>
+<p>開いているページも再読み込みしないと、古いまま動きます。</p>
+<p>「直したのに、直っていない」と感じたら、まずページを開き直してください。</p>
+<p>例えば、ぼくも更新のあとにタブを開きっぱなしにして、古いままのコピーを使っていたことがあります。</p>
+<hr/>
+<h2>4. 例えば、ぼくが作った3つ</h2>
+<p>どれもAIに頼んで作り、毎日使っています。</p>
+<div class="article-table" tabindex="0" data-copy-image="../assets/2026_11_06_chromeext_table04.png" data-copy-alt="表: 拡張 / 何が楽になったか / 作り方"><table><thead><tr><th>拡張</th><th>何が楽になったか</th><th>作り方</th></tr></thead><tbody><tr><td>スクショ+書き込み</td><td>撮った瞬間にコピー。矢印・番号・ぼかしもその場で</td><td>一から頼んだ</td></tr><tr><td>noteのアカウント切替</td><td>パスワードなしで、ワンクリックで切りかえ</td><td>一から頼んだ</td></tr><tr><td>ブログ→note・X記事・Substack</td><td>1回のコピーで、3か所に貼れる</td><td>人が作った拡張を、AIに直してもらった</td></tr></tbody></table></div>
+<p>3つ目のように、人が作った拡張を「ここだけ変えて」と頼む道もあります。</p>
+<p>一から作るより、早く形になることが多いです。</p>
+<h3>例えば、これ: スクショ+書き込みの拡張</h3>
+<div class="article-image"><a href="../assets/2026_11_06_chromeext_editor.webp"><img alt="スクショ+書き込みの拡張の編集画面。番号・四角・矢印・ぼかしを入れた例" decoding="async" height="906" loading="lazy" src="../assets/2026_11_06_chromeext_editor.webp" style="display:block;width:100%;height:auto" width="1600"/></a></div>
+<p class="image-caption"><em>スクショ+書き込みの拡張の編集画面(実際の画面)。見本のページを撮って、番号・四角・矢印・ぼかしを入れた例</em></p>
+<p>いちばん使っているのが、1つ目のスクショの拡張です。</p>
+<p>Macのスクショは、撮ったあとに保存して、開いて、書きこんで、コピーして、と手間がかかっていました。</p>
+<p>そこで、「撮った瞬間にコピーされて、そのまま貼れる」ものをAIに頼みました。</p>
+<p>できることは、この3つです。</p>
+<ol>
+<li>撮る: 範囲・見えている画面・ページ全体・クリックした部分の4つを、キー1つで</li>
+<li>書きこむ: 矢印・四角・番号①②③・蛍光ペン・ぼかし・切り抜き</li>
+<li>渡す: 撮った瞬間と、書き足すたびに自動でコピー。PNG・PDFでの保存も</li>
+</ol>
+<p>記事やマニュアルに貼る画像は、ほとんどこれで作っています。</p>
+<h3>このスクショの拡張、配っています</h3>
+<p>このスクショの拡張を、無料で配っています。</p>
+<p>下のzipをダウンロードして、中の説明書(README)のとおりに入れてください。</p>
+<div class="article-download" style="margin:1em 0;padding:14px 18px;border:2px dashed #8E1B1B;border-radius:10px;background:#FEFDF4;overflow-wrap:anywhere"><a href="https://rental-space.net/tools/screenshot-annotate/screenshot-annotate-tool-v1.1.0.zip" download>https://rental-space.net/tools/screenshot-annotate/screenshot-annotate-tool-v1.1.0.zip</a></div>
+<ul><li>入れ方は、3の手順の4と同じです(フォルダを読み込む)</li><li>撮った画像を外に送る処理は入っていません。画像は、あなたのChromeの中だけに残ります</li><li>会社のパソコンでは、入れる前に会社のルールを確かめてください</li><li>無料なので、使い方の質問や、機能の追加のご希望にはお答えできません</li></ul>
+<p>使ってみて「ここが惜しい」と思ったら、中のファイルをあなたのAIに読ませて、「ここを変えて」と頼んでください。</p>
+<p>それが、あなた専用の拡張の1つ目になります。</p>
+<h3>作った拡張は、売ることもできる</h3>
+<div class="article-image"><a href="../assets/2026_11_06_chromeext_brain.webp"><img alt="Brainの販売ページ。noteのアカウント切替の拡張・100円" decoding="async" height="1333" loading="lazy" src="../assets/2026_11_06_chromeext_brain.webp" style="display:block;width:100%;height:auto" width="1600"/></a></div>
+<p class="image-caption"><em>Brainの販売ページ(実際の画面)。noteのアカウント切替の拡張を100円で出している</em></p>
+<p>自分の不便を直したツールは、同じことで困っている人の役にも立ちます。</p>
+<p>だから、作った拡張は、そのまま商品になります。</p>
+<p>例えば、ぼくはnoteのアカウント切替の拡張を、使い方の説明をつけて、100円でBrainとnoteで出しました。</p>
+<p>いままでに18部(Brain 17部・note 1部)売れています。</p>
+<div class="article-table" tabindex="0" data-copy-image="../assets/2026_11_06_chromeext_table05.png" data-copy-alt="表:  / やったこと"><table><thead><tr><th></th><th>やったこと</th></tr></thead><tbody><tr><td>何を売ったか</td><td>noteのアカウントを、パスワードなしでワンクリックで切りかえる拡張</td></tr><tr><td>どこで</td><td>Brain・note(どちらも、記事や教材を売れるサイト)</td></tr><tr><td>いくらで</td><td>100円</td></tr><tr><td>何をつけたか</td><td>拡張のファイルと、入れ方・使い方の説明</td></tr><tr><td>結果</td><td>18部</td></tr></tbody></table></div>
+<p>売れるネタを探すときは、この3つを確かめてみてください。</p>
+<ol>
+<li>自分が毎日使っているか(自分が要らないものは、人も要らない)</li>
+<li>同じことで困っていそうな人がいるか(同じ不便を口にしている人がいるか)</li>
+<li>説明を読めば、だれでも入れられるか(入れ方の説明がいちばん大事)</li>
+</ol>
+<p>最初は100円のように小さく出して、売れるかを見るのがおすすめです。</p>
+<p>売るときは、販売サイトの規約を確かめたうえで、ご自身の責任で決めてください。</p>
+<p>この拡張を売った話は、こちらに書いています。</p>
+<div class="link-card-wrap"><a class="link-card" href="https://rental-space.net/articles/2026-10-17-100yen-extension-12-sold.html"><span class="lc-body"><span class="lc-title">100円の拡張が12部。コンテンツ販売のネタは小さくていい</span><span class="lc-desc">AIで作った100円のChrome拡張(noteのアカウント切り替え)が、発売から7日間で12部売れました。自分が毎日めんどくさいと思っていたことを、AIに頼ん…</span><span class="lc-site">rental-space.net</span></span><span class="lc-thumb"><img src="/assets/2026_10_17_extension_12_hero.png" alt="" loading="lazy"></span></a></div>
+<p>小さな不便ほど、自分専用のツールにする価値があります。</p>
+<p>毎日のクリックが、1回で終わるようになるからです。</p>
+<hr/>
+<h2>5. 気をつける3つ</h2>
+<p>便利な分、気をつけることもあります。</p>
+<div class="article-table" tabindex="0" data-copy-image="../assets/2026_11_06_chromeext_table06.png" data-copy-alt="表: 気をつけること / なぜ / どうするか"><table><thead><tr><th>気をつけること</th><th>なぜ</th><th>どうするか</th></tr></thead><tbody><tr><td>権限は少なく</td><td>乗っ取られたとき、被害が小さくすむ</td><td>「要るサイトだけ」とAIに頼む</td></tr><tr><td>自動で操作する拡張</td><td>サイトの決まりで禁止されていることがある</td><td>使う前にそのサイトの規約を読む</td></tr><tr><td>ログイン情報を扱う拡張</td><td>拡張を入れたPCでは、ログインしているのと同じ</td><td>自分のPCだけで使い、人に配る前に中身を確かめる</td></tr></tbody></table></div>
+<p>1つ目は、Chromeの公式も「必要になったときに許可をもらう形を考えて」と書いています。</p>
+<div class="link-card-wrap"><a class="link-card" href="https://developer.chrome.com/docs/extensions/develop/concepts/declare-permissions"><span class="lc-body"><span class="lc-title">Declare permissions  |  Chrome Extensions  |  Chrome for Developers</span><span class="lc-desc">An overview of the valid values for the permissions property in manifest.json.</span><span class="lc-site">developer.chrome.com</span></span></a></div>
+<p>人からもらった拡張を入れるときも、同じです。</p>
+<p>中身のファイルをAIに読ませて「何をしているか教えて」と聞いてから入れると安心です。</p>
+<p>AIにどこまで任せるかは、各サービスの規約を確かめたうえで、自己責任で決めてください。</p>
+<p>自分で作らずに、公式のストアで評判のよい拡張を探す道も、もちろん十分ありです。</p>
+<hr/>
+<h2>まとめ</h2>
+<div class="article-image"><a href="../assets/2026_11_06_chromeext_summary.webp"><img alt="まとめ: 設定は3つ/3つ決める/名前で頼む/作る・直す・売る/権限は少なく" decoding="async" height="720" loading="lazy" src="../assets/2026_11_06_chromeext_summary.webp" style="display:block;width:100%;height:auto" width="1280"/></a></div>
+<p>自分専用のChrome拡張をAIに作ってもらう、5つの話でした。</p>
+<ol>
+<li>しくみ: 必須の設定は3つだけ</li>
+<li>準備: どのサイトで・何を何回・押したらどうなる、を決める</li>
+<li>手順: 「Chrome拡張機能(Manifest V3)で」と名前で頼む</li>
+<li>実例: 一から頼む道と、人の拡張を直す道がある。作った拡張は、売ることもできる</li>
+<li>注意: 権限は少なく・規約を読む・ログイン情報は自分のPCだけ</li>
+</ol>
+<p>まずは、配っているスクショの拡張を入れて、自分で読み込む感覚をつかんでみてください。</p>
+<p>そのあとに、毎日いちばん多いクリックを1つ、1文に書いてみてください。</p>
+<p>あなたのChromeで、毎日何回もしている作業はどれですか?</p>
+<hr/>
+<!-- kyokasho-promo start -->
+<p>▼ネタの作り方から、AIで教材にまとめて売るまで、やったことを1冊にまとめてあります</p>
+<p>フォロワーゼロから利益95.8万円まで、54日間の数字と失敗と手順を、全部書いた教科書です。</p>
+<p>録音から記事、教材、販売ページ、売れたあとの台帳まで。うちで毎日使っているツールも付録に入れました。</p>
+<p>『noteから始める「AI×◯◯」コンテンツ販売の教科書｜フォロワーゼロから利益95.8万円』</p>
+<div class="link-card-wrap"><a class="link-card" href="https://rental-space.net/kyokasho/ai-contents/?utm_source=blog&amp;utm_medium=article&amp;utm_campaign=chrome-extension-diy"><span class="lc-body"><span class="lc-title">noteから始める「AI×◯◯」コンテンツ販売の教科書｜フォロワーゼロから利益95.8万円</span><span class="lc-desc">AIでやったことを、AIで教材にして売る。フォロワーゼロから発売54日で利益95.8万円。最初の章(第0部)は全部無料で読めます。</span><span class="lc-site">rental-space.net</span></span><span class="lc-thumb"><img src="/kyokasho/ai-contents/img/ogp.jpg" alt="" loading="lazy"></span></a></div>
+<p>販売価格は3部売れるごとに2,000円ずつ値上がりします（上限あり）。内容・最新価格は販売ページをご確認ください。</p>
+<!-- kyokasho-promo end -->
+</div>
+<!-- kyokasho-banner-ai start -->
+<aside class="kyokasho-banner kb-ai">
+    <a href="/kyokasho/ai-contents/" class="kb-thumb">
+        <img src="/kyokasho/ai-contents/img/ogp.jpg" alt="noteから始める「AI×◯◯」コンテンツ販売の教科書｜フォロワーゼロから利益95.8万円" loading="lazy" width="640" height="335">
+    </a>
+    <div class="kb-body">
+        <p class="kb-title">noteから始める「AI×◯◯」コンテンツ販売の教科書</p>
+        <p class="kb-sub">フォロワーゼロから利益95.8万円まで、54日間の数字と失敗と手順を全部書きました。録音から記事・教材・販売ページ・売れたあとの台帳まで。付録24点つき。販売価格は3部売れるごとに2,000円ずつ値上がりします（上限あり）。内容・最新価格は販売ページをご確認ください。</p>
+        <div class="kb-actions">
+            <a href="/kyokasho/ai-contents/" class="kb-btn kb-btn-ebay">くわしく見る・買う</a>
+        </div>
+    </div>
+</aside>
+<!-- kyokasho-banner-ai end -->
+<a href="../index.html" class="btn-back">トップページへ戻る</a>
+</article></main>
+<footer class="main-footer"><p>&copy; 2026 きくりんのノウハウ垂れ流し. All rights reserved.</p><!-- site-home-link start -->
+<nav class="site-home-nav" aria-label="サイトトップ"><a href="/">きくりんのノウハウ垂れ流し TOP</a></nav>
+<!-- site-home-link end -->
+</footer>
+<script src="../script.js"></script><script src="../track.js"></script>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</body>
+</html>
