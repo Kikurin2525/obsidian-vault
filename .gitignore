@@ -46,6 +46,9 @@
 !rental-space/**
 !ebay/
 !ebay/**
+# AIアカの柱記事(2026-11-06 note有料記事の書き方)
+!ai/
+!ai/**
 
 # Public rental-space learning game
 !game/
