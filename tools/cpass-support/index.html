@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CPaSSサポート（非公式）｜使い方ガイド</title>
+<meta name="theme-color" content="#ffffff">
+<meta name="description" content="eBayのCPaSSで「告知のための商品名(英語)」と「HSコード」を、届け先の国の公式の関税表で確かめてから入れるChromeの拡張機能(非公式・無料)。拡張機能のzipと、外注さん向けのマニュアル(Googleドキュメント)を配布しています。">
+<link rel="canonical" href="https://rental-space.net/tools/cpass-support/">
+<meta property="og:title" content="CPaSSサポート（非公式）｜使い方ガイドとダウンロード">
+<meta property="og:description" content="eBayのCPaSSで「告知のための商品名(英語)」と「HSコード」を、届け先の国の公式の関税表で確かめてから入れるChromeの拡張機能(非公式・無料)。拡張機能のzipと、外注さん向けのマニュアル(Googleドキュメント)を配布しています。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://rental-space.net/tools/cpass-support/">
+<meta property="og:image" content="https://rental-space.net/tools/cpass-support/assets/shipping-hero.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="icon128.png">
+
+<style>
+:root{--blue:#0064D2;--red:#E53238;--yellow:#F5AF02;--green:#86B817;--ink:#111;--muted:#606875;--line:#e6eaf0;--shadow:0 8px 28px #20395809;--radius:22px}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:28px}body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:15px;line-height:1.65}a{color:inherit;text-decoration:none}button{font:inherit}a,button,summary{touch-action:manipulation}a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--blue);outline-offset:5px}img{max-width:100%;height:auto;display:block}p,h1,h2,h3,figure{margin:0}svg.i{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none;vertical-align:middle}.sprite{position:absolute;width:0;height:0;overflow:hidden}.wrap{width:min(1080px,calc(100% - 64px));margin:auto}.colorline{height:5px;background:linear-gradient(to right,var(--red) 0 25%,var(--blue) 25% 50%,var(--yellow) 50% 75%,var(--green) 75%)}header{border-bottom:1px solid var(--line)}.topbar{height:86px;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{display:flex;align-items:center;gap:12px;font-size:18px;font-weight:750}.brand img{width:42px;height:42px}.brand small{font-size:11px;font-weight:500;color:var(--muted);display:block;letter-spacing:.02em}.version{font-size:12px;background:#f5f7fa;border-radius:30px;padding:5px 12px;white-space:nowrap}.hero{display:grid;grid-template-columns:1.12fr 1fr;align-items:center;gap:24px;padding:56px 0 36px}.eyebrow{font-size:12px;font-weight:750;letter-spacing:.12em;color:var(--blue);display:flex;align-items:center;gap:9px;margin-bottom:18px}.dot{width:8px;height:8px;background:var(--blue);border-radius:50%}h1{font-size:clamp(32px,3.4vw,46px);line-height:1.45;letter-spacing:-.045em;font-weight:800}h1 span{color:var(--blue);text-decoration:underline;text-decoration-color:#F5AF02;text-decoration-thickness:6px;text-underline-offset:10px}.hero p{margin-top:24px;font-size:14px;color:var(--muted)}.hero-art{width:100%;mix-blend-mode:multiply}.actions{display:flex;gap:12px;margin-top:26px}.button{display:inline-flex;justify-content:center;align-items:center;gap:12px;border-radius:12px;padding:13px 23px;font-weight:700;border:1px solid var(--line);font-size:14px;background:white;cursor:pointer;transition:transform .18s,box-shadow .18s}.button.primary{background:var(--blue);color:white;border-color:var(--blue);box-shadow:0 6px 15px #0064d225}.button:hover{transform:translateY(-2px);box-shadow:0 6px 16px #20395812}.quicknav{display:flex;gap:6px;flex-wrap:wrap;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;margin-bottom:34px;justify-content:center}.quicknav a{font-size:12px;padding:4px 16px;border-radius:6px;color:var(--muted)}.quicknav a:hover{background:#eef5ff;color:var(--blue)}.quicknav b{color:var(--blue);margin-right:8px}.features{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{min-width:0;background:white;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}.feature{padding:24px}.iconbox{display:flex;align-items:center;justify-content:center;width:58px;height:58px;border-radius:17px;margin-bottom:18px}.blue{color:var(--blue);background:#edf5ff}.green{color:#557f05;background:#f2f8e7}.yellow{color:#946500;background:#fff8e5}.red{color:var(--red);background:#fff0f0}.feature h2{font-size:18px;margin-bottom:8px}.feature p{font-size:12px;color:var(--muted)}.feature strong{color:var(--ink)}section{padding-top:64px;scroll-margin-top:22px}.sectionhead{display:flex;align-items:center;gap:14px;margin-bottom:24px}.sectionhead .number{font-size:13px;font-weight:800;background:var(--blue);color:white;border-radius:12px;width:42px;height:42px;display:grid;place-items:center}.sectionhead h2{font-size:25px;letter-spacing:-.035em}.sectionhead .aside{margin-left:auto;font-size:12px;color:var(--muted)}.destination{padding:25px 30px}.routes{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;position:relative;margin-bottom:24px}.routes:before{content:"";position:absolute;left:12%;right:12%;top:29px;border-top:2px dashed #d9e0e9}.route{text-align:center;position:relative}.flag{font-size:27px;width:60px;height:60px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;background:white;margin:0 auto 10px;box-shadow:0 3px 10px #20395806}.route strong{font-size:12px}.digits{font-size:28px;line-height:1.3;font-weight:800;color:var(--blue);letter-spacing:-.04em}.digits small{font-size:12px;margin-left:3px;color:var(--muted)}.route:last-child .digits{color:#557f05}table{width:100%;border-collapse:collapse;text-align:left;font-size:12px}th,td{padding:13px 14px;border-bottom:1px solid var(--line);vertical-align:top}thead th{background:#f7f9fc;color:var(--muted);font-weight:600}tbody th{font-weight:650}tbody tr:last-child>*{border-bottom:0}.destination table th:first-child{width:25%}.destination table td:nth-child(2){width:25%;font-weight:700}.install{display:grid;grid-template-columns:1fr 245px;gap:42px;padding:30px}.steps{list-style:none;margin:0;padding:0;counter-reset:setup}.steps li{counter-increment:setup;display:flex;gap:15px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);font-size:13px;min-height:58px}.steps li:before{content:counter(setup);width:27px;height:27px;display:grid;place-items:center;flex:none;border-radius:50%;background:#edf5ff;color:var(--blue);font-weight:750}.steps li:last-child{border-bottom:0}code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:#f1f4f8;border-radius:5px;padding:3px 7px;font-size:12px;overflow-wrap:anywhere}.address{display:flex;flex-wrap:wrap;align-items:center;gap:10px}.copy{border:0;background:transparent;color:var(--blue);cursor:pointer;padding:6px;border-radius:7px;line-height:1}.copy:hover{background:#edf5ff}.setup-picture{display:flex;align-items:center;justify-content:center;background:#f7f9fc;border-radius:16px;padding:16px}.setup-picture img{width:160px;border-radius:8px;box-shadow:0 6px 18px #20395814}.update{display:flex;gap:10px;align-items:center;font-size:11px;color:var(--muted);border-top:1px solid var(--line);padding-top:17px;margin-top:14px}.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:22px;margin:0 0 24px;padding:0;list-style:none}.flow li{position:relative;border:1px solid var(--line);border-radius:14px;background:#fff;padding:17px 8px;text-align:center;font-size:12px;font-weight:650;box-shadow:var(--shadow)}.flow li:after{content:'→';position:absolute;right:-20px;top:15px;color:#8a96a5;font-size:18px}.flow li:last-child:after{display:none}.flow li:nth-child(3),.flow li:nth-child(4){border-color:#bcd8fa;background:#f2f7ff;color:var(--blue)}.flow li:last-child{border-color:#ead49f;background:#fffaed}.flow small{display:block;font-size:10px;color:#796321}.usage{padding:26px;margin-bottom:18px}.stephead{display:flex;align-items:center;gap:12px;margin-bottom:18px}.stepno{display:grid;place-items:center;width:33px;height:33px;flex:none;border-radius:50%;font-size:13px;font-weight:800;background:var(--blue);color:white}.stephead h3{font-size:18px}.stephead .pill{margin-left:auto}.pill{font-size:11px;line-height:1.4;border-radius:20px;padding:6px 12px;background:#edf5ff;color:var(--blue);white-space:nowrap}.capture{max-width:100%;overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:#fafbfc;scrollbar-color:#b8c8db #f0f4f8;scrollbar-width:thin}.capture img{width:100%;max-width:none}.capture.wide img{min-width:780px}.capture.panel img{min-width:620px}.picture-note{font-size:10px;color:var(--muted);margin-top:8px;text-align:right}.panelkeys{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:17px}.panelkeys div{font-size:11px;padding:0 14px;border-left:1px solid var(--line);color:var(--muted)}.panelkeys div:first-child{border:0;padding-left:0}.panelkeys b{display:block;font-size:12px;color:var(--ink);margin-bottom:4px}.save-note{display:flex;gap:12px;align-items:center;background:#fff8e5;border-radius:11px;margin-top:16px;padding:13px 17px;font-size:13px;font-weight:750}.exceptions{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}.exception{padding:22px}.exception h3{font-size:15px;display:flex;align-items:center;gap:12px;margin-bottom:10px}.exception p{font-size:12px;color:var(--muted)}details{margin-top:14px}summary{cursor:pointer;font-size:12px;font-weight:700;color:var(--blue);padding:8px 0;list-style:none;display:flex;justify-content:space-between;gap:12px}summary::-webkit-details-marker{display:none}summary:after{content:'＋';font-size:17px;line-height:1}details[open] summary:after{content:'−'}details .capture{margin-top:12px}.help{overflow:hidden}.help th:first-child{width:43%}.status{display:inline-flex;align-items:center;gap:8px}.status:before{content:'×';background:#fff0f0;color:var(--red);border-radius:50%;width:20px;height:20px;display:grid;place-items:center;flex:none;font-size:16px}.status.wait:before{content:'!';background:#fff8e5;color:#946500}.help a{color:var(--blue);text-decoration:underline;text-underline-offset:3px}.error-shot{padding:0 18px 18px}.important{margin-bottom:50px}.warning{border:1px solid #f1c9cb;border-left:5px solid var(--red);border-radius:14px;padding:19px 22px;display:flex;gap:15px;align-items:flex-start;margin-bottom:18px}.warning .i{color:var(--red)}.warning strong{display:block;font-size:14px;margin-bottom:6px}.warning p{font-size:12px}.privacy{padding:8px 14px}.privacy th{width:130px;color:var(--muted)}footer{border-top:1px solid var(--line);padding:25px 0 35px;color:var(--muted);font-size:11px}.footer-inner{display:flex;justify-content:space-between;gap:15px}footer a{text-decoration:underline;text-underline-offset:3px}.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:10px 20px;border-radius:12px;font-size:12px;box-shadow:var(--shadow);z-index:10}.toast:empty{display:none}.skip{position:absolute;left:12px;top:-100px;background:white;padding:10px;z-index:20}.skip:focus{top:10px}
+@media(max-width:700px){.wrap{width:calc(100% - 36px)}.topbar{height:75px}.brand{font-size:15px;gap:8px}.brand img{width:35px;height:35px}.brand small{font-size:10px}.version{font-size:10px;padding:5px 8px}.hero{grid-template-columns:1fr;padding:30px 0 20px;gap:8px}.eyebrow{font-size:10px;margin-bottom:14px}h1{font-size:34px}.hero p{font-size:12px;margin-top:21px}.hero-art{width:265px;margin:8px auto 0}.actions{margin-top:21px;gap:8px}.button{padding:12px 14px;font-size:12px;flex:1;gap:8px}.quicknav{justify-content:space-between;margin-bottom:24px;gap:0;padding:10px 0}.quicknav a{font-size:10px;padding:5px}.quicknav b{margin-right:4px}.features{grid-template-columns:1fr;gap:10px}.feature{padding:16px 18px;display:grid;grid-template-columns:52px 1fr;column-gap:16px;align-items:center}.feature .iconbox{width:52px;height:52px;margin:0;grid-row:span 2;border-radius:15px}.feature h2{font-size:15px;margin-bottom:3px}.feature p{font-size:11px}section{padding-top:42px}.sectionhead{gap:10px;margin-bottom:18px;flex-wrap:wrap}.sectionhead h2{font-size:22px}.sectionhead .number{width:34px;height:34px;border-radius:10px;font-size:11px}.sectionhead .aside{font-size:10px}.destination{padding:20px 12px}.routes{gap:5px;margin-bottom:18px}.routes:before{top:22px}.flag{width:46px;height:46px;font-size:22px;margin-bottom:9px}.route strong{font-size:10px}.digits{font-size:24px}.digits small{font-size:10px}th,td{padding:11px 8px;font-size:11px}.destination table td:nth-child(2){width:auto}.install{padding:16px;grid-template-columns:1fr;gap:14px}.steps li{font-size:11px;gap:10px;padding:12px 0}.steps li:before{width:23px;height:23px}.steps code{font-size:11px}.setup-picture{padding:14px}.setup-picture img{width:130px}.update{font-size:10px;gap:8px}.flow{grid-template-columns:1fr;gap:18px;margin-bottom:20px}.flow li{padding:10px;min-height:45px;font-size:12px}.flow li:after{content:'↓';right:50%;transform:translateX(50%);top:auto;bottom:-23px;font-size:18px}.flow small{display:inline;margin-left:8px}.usage{padding:16px;margin-bottom:12px;border-radius:18px}.stephead{gap:9px;flex-wrap:wrap;margin-bottom:14px}.stephead h3{font-size:15px}.stepno{width:28px;height:28px;font-size:12px}.stephead .pill{font-size:9px;padding:4px 8px}.panelkeys{grid-template-columns:1fr 1fr;row-gap:14px}.panelkeys div{padding:0 10px;font-size:10px}.panelkeys b{font-size:11px}.panelkeys div:nth-child(3){border:0;padding-left:0}.picture-note{font-size:9px}.save-note{font-size:11px;padding:12px;gap:8px}.exceptions{grid-template-columns:1fr;gap:12px;margin-top:20px}.exception{padding:18px}.exception p{font-size:11px}.help th:first-child{width:44%}.help th,.help td{padding:12px 10px;font-size:11px}.status{align-items:flex-start;gap:5px}.status:before{width:16px;height:16px;font-size:12px;margin-top:2px}.warning{padding:16px 13px;gap:10px}.warning strong{font-size:12px}.warning p{font-size:11px}.privacy{padding:5px}.privacy th{width:65px}.privacy th,.privacy td{padding:11px 8px;font-size:10px}.footer-inner{flex-direction:column;gap:8px;font-size:10px}.important{margin-bottom:36px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.button{transition:none}}
+
+.hero-lead{margin-top:20px!important;font-size:15px!important;color:#3b4350!important;line-height:1.8;max-width:520px}
+.lead{color:#3b4350;font-size:15px;line-height:1.8;margin:-6px 0 18px;max-width:780px}
+.explain{color:#2b313b;font-size:14.5px;line-height:1.85;margin:0 0 16px}
+.stepsub{display:block;color:var(--muted);font-size:13px;font-weight:400;margin-top:3px;line-height:1.6}
+.steps li b{font-weight:700}
+table.keys{margin-top:16px}
+table.keys th{white-space:nowrap}
+.pill.ok{display:inline-block;font-size:11px;font-weight:700;color:#1f7a4d;background:#e6f3ec;border:1.5px solid #1f7a4d;border-radius:999px;padding:1px 8px;margin-left:4px;vertical-align:middle}
+.tip{display:flex;gap:14px;align-items:flex-start;background:#f2f7ff;border:1px solid #d6e6fb;border-radius:18px;padding:18px 20px;margin:18px 0}
+.tip-icon{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:#fff6db;color:#b88200;flex:none}
+.tip b{display:block;font-size:15px;margin-bottom:4px}.tip p{color:#3b4350;font-size:14px;line-height:1.75}
+.mini{counter-reset:m;list-style:none;padding:0;margin:12px 0 14px}
+.mini li{counter-increment:m;position:relative;padding:8px 0 8px 36px;font-size:14px;line-height:1.7;border-bottom:1px dashed var(--line)}
+.mini li:last-child{border-bottom:0}
+.mini li:before{content:counter(m);position:absolute;left:0;top:8px;width:24px;height:24px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700}
+.exception p{font-size:14px;line-height:1.75;color:#3b4350}
+.exception .capture{margin-top:12px}
+.help .capture{margin-top:14px}
+.footer-links{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--muted)}
+.footer-links a{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:700px){
+ body{font-size:15px}
+ .hero-lead{font-size:14px!important}
+ .lead,.explain{font-size:14px}
+ .feature p{font-size:13px!important;line-height:1.65}
+ .feature h2{font-size:16px!important}
+ .steps li{font-size:14px!important}
+ .stepsub{font-size:12.5px}
+ th,td{font-size:13px!important;padding:10px 8px!important}
+ table.keys th{white-space:normal}
+ .route strong{font-size:12px!important}
+ .update,.save-note{font-size:13px!important}
+ .picture-note{font-size:12px!important}
+ .quicknav a{font-size:12.5px!important}
+ .eyebrow{font-size:11px!important}
+ .tip{padding:14px}
+ .mini li{font-size:13.5px}
+ .exception p{font-size:13.5px}
+ .warning p,.warning strong{font-size:13.5px!important;line-height:1.75}
+ .sectionhead .aside{font-size:12px!important}
+ .steps code,.mini code,td code{font-size:12.5px!important}
+ .flow small{font-size:12px!important}
+}
+</style>
+<style>.dl-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.dl-card{padding:24px}.dl-card h3{display:flex;align-items:center;gap:10px;margin:0 0 8px;font-size:18px}.dl-card h3 .i{color:var(--blue)}.dl-card p{margin:0 0 16px;color:var(--muted)}.dl-card .button{width:100%}.dl-meta{font-size:12px;color:var(--muted);margin-top:10px}.dl-back{margin-top:16px;font-size:13px}.dl-back a{color:var(--blue);text-decoration:underline;text-underline-offset:3px}@media(max-width:700px){.dl-grid{grid-template-columns:1fr}.dl-card{padding:18px}.dl-card h3{font-size:16px}}</style>
+</head>
+<body>
+<!-- Lucide inline SVG; https://lucide.dev/license. ISC License.
+Copyright (c) 2026 Lucide Icons and Contributors.
+Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+Feather-derived icons: MIT License, Copyright (c) 2013-present Cole Bemis.
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+<svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+<symbol id="search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34" />
+  <circle cx="11" cy="11" r="8" /></symbol>
+<symbol id="shield-check" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+  <path d="m9 12 2 2 4-4" /></symbol>
+<symbol id="pencil" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
+  <path d="m15 5 4 4" /></symbol>
+<symbol id="arrow-right" viewBox="0 0 24 24"><path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" /></symbol>
+<symbol id="copy" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+  <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></symbol>
+<symbol id="refresh-cw" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
+  <path d="M21 3v5h-5" />
+  <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
+  <path d="M8 16H3v5" /></symbol>
+
+<symbol id="compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" />
+  <path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z" /></symbol>
+
+<symbol id="download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></symbol><symbol id="file-text" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol><symbol id="save" viewBox="0 0 24 24"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" />
+  <path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7" />
+  <path d="M7 3v4a1 1 0 0 0 1 1h7" /></symbol><symbol id="lightbulb" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" />
+  <path d="M9 18h6" />
+  <path d="M10 22h4" /></symbol><symbol id="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" />
+  <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+  <path d="M2 12h20" /></symbol><symbol id="package-search" viewBox="0 0 24 24"><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14" />
+  <path d="m7.5 4.27 9 5.15" />
+  <polyline points="3.29 7 12 12 20.71 7" />
+  <line x1="12" x2="12" y1="22" y2="12" />
+  <circle cx="18.5" cy="15.5" r="2.5" />
+  <path d="M20.27 17.27 22 19" /></symbol><symbol id="triangle-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" />
+  <path d="M12 9v4" />
+  <path d="M12 17h.01" /></symbol></defs></svg>
+<a class="skip" href="#use">使い方へ</a>
+<div class="colorline"></div>
+<header><div class="wrap topbar"><a class="brand" href="./"><img src="icon128.png" width="42" height="42" alt=""><span>CPaSSサポート<small>非公式</small></span></a><span class="version">v0.7.1</span></div></header>
+<main class="wrap">
+<div class="hero"><div><div class="eyebrow"><span class="dot"></span>eBay CPaSS用 Chrome拡張(非公式)</div><h1>英語の商品名と<br>HSコードを、<br><span>確かめてから入力。</span></h1><p class="hero-lead">CPaSSの「編集」画面に出るボタンを押すだけ。届け先の国の<b>公式の関税表</b>で番号を確かめてから、「告知のための商品名(英語)」と「HSコード」を入れます。</p><div class="actions"><a class="button primary" href="#download">ダウンロード <svg class="i" aria-hidden="true"><use href="#arrow-right"/></svg></a><a class="button" href="#use">使い方を見る</a></div></div><img class="hero-art" src="assets/shipping-hero.png" width="1536" height="1024" alt="小包、飛行機、チェックマークのイラスト"></div>
+<nav class="quicknav" aria-label="目次"><a href="#download">ダウンロード</a><a href="#dest">届け先</a><a href="#setup">入れ方</a><a href="#use">使い方</a><a href="#help">困ったとき</a><a href="#important">注意</a></nav>
+<div class="features">
+<article class="card feature"><div class="iconbox blue"><svg class="i" aria-hidden="true"><use href="#search"/></svg></div><h2>品物を見分ける</h2><p>eBayのカテゴリとタイトルから自動で判断。カメラ・時計・ゲーム・楽器・オーディオ・車の部品など<strong>97種類</strong>。英・伊・仏・独・西・日のタイトルに対応。</p></article>
+<article class="card feature"><div class="iconbox green"><svg class="i" aria-hidden="true"><use href="#shield-check"/></svg></div><h2>公式の表で確かめる</h2><p>入れる前に、米国・EU・英国の<strong>公式の関税表</strong>で「申告できる番号か」をその場で確認します。</p></article>
+<article class="card feature"><div class="iconbox yellow"><svg class="i" aria-hidden="true"><use href="#pencil"/></svg></div><h2>英語の商品名を作る</h2><p>「何か+素材や機能+型番」の形で作成。<strong>parts・gift・型番だけ</strong>など、税関で通らない書き方は止めます。</p></article>
+</div>
+
+<section id="download"><div class="sectionhead"><span class="number">DL</span><h2>ダウンロード</h2><span class="aside">無料・登録なし</span></div>
+<div class="dl-grid">
+<article class="card dl-card"><h3><svg class="i" aria-hidden="true"><use href="#download"/></svg>拡張機能(zip)</h3><p>中の <code>extension</code> フォルダをChromeに読み込みます。この使い方ガイドも入っています。</p><a class="button primary" href="cpass-support-v0.7.1.zip" download><svg class="i" aria-hidden="true"><use href="#download"/></svg>zipをダウンロード</a><div class="dl-meta">v0.7.1・Chrome 111以降・入れ方は下の「02 入れ方」</div></article>
+<article class="card dl-card"><h3><svg class="i" aria-hidden="true"><use href="#file-text"/></svg>外注さん向けのマニュアル</h3><p>Googleドキュメントです。「コピーを作成」で、あなたのドライブに写してから使ってください。AIに読ませて「うちの店の名前と担当者と連絡先に直して」と頼めば、あなたの店用になります。</p><a class="button" href="https://docs.google.com/document/d/192RBNQvTpQ7wQd2Zz5SA-45ehC-IIBFp_bZ8aVgsImI/copy" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#file-text"/></svg>コピーを作成して開く</a><div class="dl-meta">梱包発送の外注さんに渡してもかまいません</div></article>
+</div>
+<p class="dl-back">この拡張機能を作った話: <a href="https://rental-space.net/articles/2026-11-07-ebay-ai-chrome-extension-free.html">eBayの面倒、AIで1日で作った拡張機能を配ります</a></p>
+</section>
+<section id="dest"><div class="sectionhead"><span class="number">01</span><h2>届け先と番号</h2></div>
+<p class="lead">注文の国旗から届け先の国を自動で読み取り、その国の表の番号を入れます。国によって桁数が変わります。</p>
+<div class="card destination">
+<div class="routes" aria-hidden="true"><div class="route"><span class="flag">🇺🇸</span><strong>米国</strong><div class="digits">10<small>桁</small></div></div><div class="route"><span class="flag">🇪🇺</span><strong>EU 27か国</strong><div class="digits">10<small>桁</small></div></div><div class="route"><span class="flag">🇬🇧</span><strong>英国</strong><div class="digits">10<small>桁</small></div></div><div class="route"><span class="flag">🌐</span><strong>そのほか</strong><div class="digits">6<small>桁</small></div></div></div>
+<table aria-label="届け先ごとの番号と公式の表"><thead><tr><th scope="col">届け先</th><th scope="col">番号</th><th scope="col">確かめる公式の表</th></tr></thead><tbody><tr><th scope="row">米国</th><td>10桁</td><td>USITC HTSUS(米国国際貿易委員会)</td></tr><tr><th scope="row">EU 27か国</th><td>10桁</td><td>EU TARIC</td></tr><tr><th scope="row">英国</th><td>10桁</td><td>UK Trade Tariff(英国政府)</td></tr><tr><th scope="row">そのほか</th><td>6桁</td><td>国際共通のHS番号(上の表の先頭6桁)</td></tr></tbody></table></div></section>
+
+<section id="setup"><div class="sectionhead"><span class="number">02</span><h2>入れ方</h2><span class="aside">はじめの1回・2分</span></div>
+<p class="lead">Chromeに「パッケージ化されていない拡張機能」として読み込みます。ストアからは入れません。</p>
+<div class="card install"><div><ol class="steps">
+<li><span><b>zipを開いて <code>extension</code> フォルダを保存</b><small class="stepsub">デスクトップなど、あとで消さない場所に。このフォルダがそのまま拡張になります。</small></span></li>
+<li><span class="address"><b>Chromeのアドレス欄に <code>chrome://extensions</code></b><button class="copy" type="button" aria-label="chrome://extensions をコピー"><svg class="i" aria-hidden="true"><use href="#copy"/></svg></button><small class="stepsub">拡張機能の管理画面が開きます。</small></span></li>
+<li><span><b>右上の「デベロッパーモード」をオン</b><small class="stepsub">オンにすると、左上にボタンが3つ出ます。</small></span></li>
+<li><span><b>「パッケージ化されていない拡張機能を読み込む」→ <code>extension</code> を選ぶ</b><small class="stepsub">一覧に「CPaSSサポート(非公式)」が出たら完了です。</small></span></li>
+<li><span><b>ツールバーのパズルマーク → 📌でピン留め</b><small class="stepsub">アイコンを押すと、使い方と「覚えた品物を忘れる」ボタンが出ます(右の画面)。</small></span></li>
+</ol><div class="update"><svg class="i" aria-hidden="true"><use href="#refresh-cw"/></svg><span><b>新しい版にするとき</b>:<code>extension</code> フォルダを入れかえ → 拡張機能の画面で 🔄 → CPaSSのページも読み込み直す</span></div></div><figure class="setup-picture"><img src="img/08_ポップアップ.png" width="720" height="1216" alt="拡張機能のアイコンを押した画面" loading="lazy"></figure></div></section>
+
+<section id="use"><div class="sectionhead"><span class="number">03</span><h2>使い方</h2><span class="aside">ふだんはこれだけ</span></div>
+<p class="lead">ボタンを2回押して、最後にCPaSSの「保存する」を押すだけです。</p>
+<ol class="flow" aria-label="操作の流れ"><li>発送手続き</li><li>編集</li><li>CPaSSサポート</li><li>この内容で入れる</li><li>保存する<small>ご自身で</small></li></ol>
+
+<article class="card usage"><div class="stephead"><span class="stepno">1</span><h3>「編集」を開いて、ボタンを押す</h3></div>
+<p class="explain">CPaSSの注文で「発送手続き」→「編集」を開きます。詳細画面の品物ごとに、「告知のための商品名(英語)」の見出しの右へ青い<b>「CPaSSサポート」</b>ボタンが出ます。品物が2つ以上ある荷物は、品物ごとに押してください。</p>
+<figure><div class="capture wide" tabindex="0" role="region" aria-label="ボタンの位置。横スクロールできます"><img src="img/01_ボタン.png" width="1568" height="312" alt="編集画面の商品名の上にあるCPaSSサポートのボタン" loading="lazy"></div><figcaption class="picture-note">スマホでは横にスクロールできます ↔</figcaption></figure></article>
+
+<article class="card usage"><div class="stephead"><span class="stepno">2</span><h3>中身を確かめて「この内容で入れる」</h3></div>
+<p class="explain">ボタンの下に、eBayの4色の線が付いたパネルが開きます。品物の種類・英語の商品名・HSコードが自動で用意され、番号は公式の表で確かめた結果が出ます。よければ青い「この内容で入れる」を押すだけです。</p>
+<div class="capture panel" tabindex="0" role="region" aria-label="入力パネル。横スクロールできます"><img src="img/02_パネル.png" width="1568" height="650" alt="品物、英語の商品名、HSコードと公式で確認ずみの表示" loading="lazy"></div>
+<table class="keys" aria-label="パネルの見方"><thead><tr><th scope="col">パネルの見方</th><th scope="col">意味</th></tr></thead><tbody>
+<tr><th scope="row">届け先</th><td>国旗から読んだ国と、確かめに使う表</td></tr>
+<tr><th scope="row">品物</th><td>自動で見分けた種類。ちがうときは一覧から選び直せます</td></tr>
+<tr><th scope="row">商品名(英語)</th><td>税関に出す名前。そのまま書きかえられます</td></tr>
+<tr><th scope="row">HSコード <span class="pill ok">公式で確認ずみ</span></th><td>届け先の国の公式の表で確かめた番号</td></tr>
+<tr><th scope="row">見分け</th><td>番号が細かく分かれる品物で、どの形として入れたか(タイトルの言葉/いちばんよくある形)</td></tr>
+</tbody></table></article>
+
+<article class="card usage"><div class="stephead"><span class="stepno">3</span><h3>欄に入ったのを見て「保存する」</h3></div>
+<p class="explain">商品名とHSコードがCPaSSの欄に入り、パネルは閉じます。CPaSSの「保存する」は<b>自動では押しません</b>。目で確かめてから押してください。</p>
+<div class="capture wide" tabindex="0" role="region" aria-label="入力後の欄。横スクロールできます"><img src="img/03_入ったあと.png" width="1568" height="111" alt="英語の商品名とHSコードが入力された欄" loading="lazy"></div>
+<div class="save-note"><svg class="i" aria-hidden="true"><use href="#save"/></svg>「保存する」はご自身で</div></article>
+
+<div class="tip"><span class="tip-icon"><svg class="i" aria-hidden="true"><use href="#lightbulb"/></svg></span><div><b>品物の種類がちがうとき</b><p>パネルの「品物」の一覧から正しい種類を選ぶと、番号と商品名がその種類に変わります。選び直した種類は、同じ品物(アイテム番号・SKU)で次から自動で使われます。</p></div></div>
+
+<div class="exceptions">
+<article class="card exception"><h3><svg class="i" aria-hidden="true"><use href="#globe"/></svg>米国・EU・英国以外の国</h3><p>国際共通の<b>6桁</b>を入れます。CPaSSから国の10桁を求められたときは、HSコード欄の横の🧭(CPaSSの番号さがし)で選び直してください。</p><div class="capture panel" tabindex="0" role="region" aria-label="その他の国の表示"><img src="img/04_その他の国6桁.png" width="1568" height="634" alt="その他の国に6桁が表示されるパネル" loading="lazy"></div></article>
+<article class="card exception"><h3><svg class="i" aria-hidden="true"><use href="#package-search"/></svg>答え表にない品物</h3><p>黄色の表示が出たら、公式の表を英語で探して選びます。</p>
+<ol class="mini"><li>品物を英語で入れて「公式の表で探す」(例: <code>whetstone</code>)</li><li>候補からいちばん合う行を押す(公式の表で確かめてから使います)</li><li>商品名も「何か」が分かる英語に直して「この内容で入れる」</li></ol>
+<div class="capture panel" tabindex="0" role="region" aria-label="公式の表から選択"><img src="img/06_公式の表から選択.png" width="1568" height="663" alt="公式の表から番号を選んだ画面" loading="lazy"></div>
+<details><summary>探している途中の画面を見る</summary><div class="capture panel" tabindex="0" role="region" aria-label="公式の表を検索"><img src="img/05_公式の表を探す.png" width="1568" height="574" alt="英語で公式の表を探す画面" loading="lazy"></div></details></article>
+</div></section>
+
+<section id="help"><div class="sectionhead"><span class="number">04</span><h2>困ったとき</h2></div>
+<p class="lead">⛔ が出たときは、まちがった番号を入れないために止まっています。下の表のとおりにしてください。</p>
+<div class="card help"><table aria-label="困ったときの対処"><thead><tr><th scope="col">表示</th><th scope="col">やること</th></tr></thead><tbody>
+<tr><th scope="row"><span class="status">HSコードの欄に入りませんでした</span></th><td>番号を押すとコピーされます。CPaSSのHSコード欄に貼ってください</td></tr>
+<tr><th scope="row"><span class="status">この品物の欄を1つに決められませんでした</span></th><td>別の品物に入れないための安全装置です。詳細画面を閉じて開き直してください</td></tr>
+<tr><th scope="row"><span class="status">届け先の国が読めません</span></th><td>入れずに、CPaSSの🧭で番号を選んでください</td></tr>
+<tr><th scope="row"><span class="status">商品名が受け付けられない書き方</span></th><td>「何か・素材や機能」まで英語で。例: <code>Used digital camera, Canon EOS 5D</code></td></tr>
+<tr><th scope="row"><span class="status wait">公式の表に今つながりません</span></th><td>少し待って開き直す。急ぐときは「番号を確かめずに入れる」(答え表の番号は作成時に公式で確認ずみ)</td></tr>
+<tr><th scope="row"><span class="status wait">ボタンが出ない</span></th><td>拡張機能の画面でオンになっているか確認 → CPaSSのページを読み込み直す</td></tr>
+</tbody></table><div class="capture wide" tabindex="0" role="region" aria-label="入力できなかった場合の表示"><img src="img/07_入らなかったとき.png" width="1568" height="128" alt="HSコードが入らなかったときの、番号をコピーする表示" loading="lazy"></div></div></section>
+
+<section id="important" class="important"><div class="sectionhead"><span class="number">05</span><h2>大事なこと</h2></div><div class="warning"><svg class="i" aria-hidden="true"><use href="#triangle-alert"/></svg><div><strong>申告の内容と責任は、出品者ご本人にあります。</strong><p>この拡張は入力の手伝いです。番号が細かく分かれる品物は「いちばんよくある形」で入ることがあります。高額品や迷う品は、入れる前に税関・通関業者にご確認ください。</p></div></div><div class="card privacy"><table aria-label="ツールの扱う情報と範囲"><tbody>
+<tr><th scope="row">非公式</th><td>eBay・CPaSSとは関係のない、個人が作ったツールです</td></tr>
+<tr><th scope="row">読むもの</th><td>品物のタイトル・アイテム番号・eBayカテゴリの番号・届け先の国旗だけ。<b>買い手の名前や住所は読みません</b></td></tr>
+<tr><th scope="row">送るもの</th><td>番号を確かめるため、HSコードと品物の言葉だけを公式の表(USITC・英国政府)へ</td></tr>
+<tr><th scope="row">保存</th><td>覚えた品物の種類は、お使いのChromeの中だけ(拡張のアイコンから消せます)</td></tr>
+<tr><th scope="row">押さないもの</th><td>「保存する」・ラベル作成・発送のボタン</td></tr>
+</tbody></table></div></section>
+</main>
+
+<footer><div class="wrap footer-inner footer-links"><span>CPaSSサポート(非公式) v0.7.1</span><a href="https://hts.usitc.gov/" target="_blank" rel="noopener">USITC HTS</a><a href="https://ec.europa.eu/taxation_customs/dds2/taric/taric_consultation.jsp" target="_blank" rel="noopener">EU TARIC</a><a href="https://www.trade-tariff.service.gov.uk/" target="_blank" rel="noopener">UK Trade Tariff</a><a href="https://lucide.dev/license" target="_blank" rel="noopener noreferrer">アイコン: Lucide (ISC License)</a></div></footer><div class="toast" role="status" aria-live="polite"></div>
+<script>
+document.querySelector('.copy').addEventListener('click',async()=>{const address='chrome://extensions';const toast=document.querySelector('.toast');try{await navigator.clipboard.writeText(address);toast.textContent='コピーしました';setTimeout(()=>toast.textContent='',2500)}catch{const selection=window.getSelection();const range=document.createRange();range.selectNodeContents(document.querySelector('.address code'));selection.removeAllRanges();selection.addRange(range);toast.textContent='選択したアドレスをコピーしてください';setTimeout(()=>toast.textContent='',4000)}});
+</script>
+</body>
+</html>
