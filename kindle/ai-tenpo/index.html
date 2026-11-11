@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>読者のみなさまへ｜【AI×店舗】電話が苦手なぼくが、お客さま対応をAIに任せた話</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CHWF6QKRJ6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CHWF6QKRJ6');</script>
+<style>
+:root{--ink:#111;--muted:#444;--accent:#2F7D32;--soft:#f1f7ec;--line-green:#06c755}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--ink);font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,'Hiragino Sans',Meiryo,sans-serif;line-height:1.85;font-size:16px}
+.wrap{max-width:640px;margin:0 auto;padding:24px 16px 72px}
+.eyebrow{display:inline-block;background:var(--accent);color:#fff;font-weight:700;font-size:13px;border-radius:999px;padding:2px 12px;margin:0 0 10px}
+h1{font-size:clamp(22px,5.2vw,30px);line-height:1.45;margin:0 0 8px}
+.sub{color:var(--muted);margin:0 0 20px;font-size:14.5px}
+.box{border:3px solid var(--ink);border-radius:20px;padding:20px 18px;margin:0 0 22px;box-shadow:6px 6px 0 rgba(0,0,0,.08)}
+.box h2{font-size:18px;margin:0 0 8px}
+.gift{font-weight:700;color:var(--accent)}
+.btn-line{display:block;text-align:center;background:var(--line-green);color:#fff;text-decoration:none;font-weight:700;font-size:18px;border-radius:999px;padding:14px 18px;margin:14px auto 8px;max-width:420px}
+.note{font-size:13px;color:var(--muted)}
+.check{background:var(--soft);border-radius:14px;padding:16px;margin:0 0 22px}
+.check h2{font-size:17px;margin:0 0 4px}
+.check ul{list-style:none;margin:8px 0 0;padding:0}
+.check li{padding:8px 0;border-top:1px dashed #e3d3b8;font-size:15px}
+.check li:first-child{border-top:0}
+.check .ch{display:block;font-size:12.5px;color:var(--muted)}
+.check label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.check input{margin-top:7px;transform:scale(1.2)}
+.foot{font-size:13px;color:var(--muted);border-top:2px dashed #ddd;padding-top:14px;margin-top:10px}
+.foot a{color:#0f3fa8}
+@media print{.box,.foot{display:none}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<p class="eyebrow">Kindle本の読者のみなさまへ</p>
+<h1>『【AI×店舗】電話が苦手なぼくが、お客さま対応をAIに任せた話』</h1>
+<p class="sub">30日の電話71件、ぼくが出たのは0回。スタッフのいないお店の記録<br>読んでくださって、ありがとうございます。この本の補足のページです。</p>
+
+<section class="box">
+<h2>読者特典</h2>
+<p><span class="gift">10の章の「明日やる1つ」を1枚で見返せる確認シート(このページの下にあります)</span></p>
+<p class="note">確認シートはこのページでそのまま使えて、印刷もできます。LINEでは、ぼくがAIに任せている作業の一覧も受け取れます。友だち追加のあと、あいさつのメッセージから受け取ってください。</p>
+<a class="btn-line" id="line-btn" href="https://rondo.kikurin.workers.dev/in/web-ai">LINEで受け取る</a>
+<p class="note">メールアドレスなどの入力はいりません。LINEはいつでもブロックで止められます。</p>
+</section>
+
+<section class="check">
+<h2>確認シート: 10の章の「明日やる1つ」</h2>
+<p class="note">本の各章の終わりにある「明日やる1つ」をまとめました。印刷してもチェックできます(チェックはこの端末に残ります)。</p>
+<ul>
+<li><label><input type="checkbox" id="c1"><span><span class="ch">第1章 お客さま対応は、売上の一部だった</span>あなたのお店のお客さま対応を、「予約の前」「予約の中」「予約のあと」の3つに分けて、それぞれ最近あった連絡を1つずつ思い出してみてください。売上につながっていた場面が、きっと見つかります。</span></label></li>
+<li><label><input type="checkbox" id="c2"><span><span class="ch">第2章 任せる前に、来ている連絡を数えた</span>この1週間に届いたお客さまの連絡を、ルートごとに数えてみてください。完璧でなくてかまいません。いちばん多いルートと、いちばんつらいルートがわかれば、どこから任せるかが決まります。</span></label></li>
+<li><label><input type="checkbox" id="c3"><span><span class="ch">第3章 電話は、AI電話に任せた</span>あなたのお店にかかってくる電話を、思い出せるだけ書き出してみてください。そのうち、「人がすぐに動かないといけない電話」はいくつありますか。それ以外は、あとから文字で返しても困らないかもしれません。</span></label></li>
+<li><label><input type="checkbox" id="c4"><span><span class="ch">第4章 AIに、お店のことをぜんぶ教えた</span>あなたのお店について書かれている場所(ホームページ・ポータルサイト・案内の文・メモ)を、思いつくだけ書き出してみてください。その中で、同じことを書いているのに、中身がちがっているところが1つでもあれば、それがお客さまの問い合わせの原因かもしれません。</span></label></li>
+<li><label><input type="checkbox" id="c5"><span><span class="ch">第5章 ルートごとに、AIと接続した</span>あなたのお店に連絡が来るルートを書き出して、それぞれに「公式の窓口があるか」「通知のメールが届くか」を調べてみてください。公式の窓口があるルートが1つでもあれば、そこからAIに任せ始めるのがいちばん安心です。</span></label></li>
+<li><label><input type="checkbox" id="c6"><span><span class="ch">第6章 任せる範囲を、3つに分けた</span>最近あったお客さまの連絡を5つ思い出して、「AIが送ってよい」「下書きで待つ」「人がやる」のどれにあたるかを分けてみてください。迷ったものがあれば、それは「決まり」がまだないものです。決まりを1つ作るたびに、任せられる範囲がふえていきます。</span></label></li>
+<li><label><input type="checkbox" id="c7"><span><span class="ch">第7章 延長と変更を、売上に変える</span>あなたのお店で、「お客さまに聞かれる前に案内できたら、売上がふえる場面」を1つ探してみてください。延長、次回の予約、追加のメニュー。聞かれてから答えるより、先に案内したほうが、お客さまにとっても親切です。</span></label></li>
+<li><label><input type="checkbox" id="c8"><span><span class="ch">第8章 つまずいたこと</span>あなたのお店で、お客さまの連絡が「来ていないように見えて、実は止まっていた」ことがないか、思い出してみてください。もしあれば、そのルートが止まったときに、どうやって気づけるかを1つ決めておきましょう。</span></label></li>
+<li><label><input type="checkbox" id="c9"><span><span class="ch">第9章 毎日まわして、人に残ったこと</span>お客さま対応の中で、あなたがいちばん苦手なことを1つだけ選んでください。それが、最初にAIに任せる候補です。苦手なことから手放すと、続けやすくなります。</span></label></li>
+<li><label><input type="checkbox" id="c10"><span><span class="ch">第10章 あなたのお店に当てはめるなら</span>あなたのお店のことが書いてあるものを、3つだけ集めて、AIに読ませてみてください。そして「お客さまが聞きそうな質問と答えを10個作って」と頼んでみてください。できた10個の中に、あなたのお店の本当の答えとちがうものがあれば、そこが最初に直すところです。</span></label></li>
+</ul>
+</section>
+
+<p class="foot">ブログ「きくりんのノウハウ垂れ流し」: <a href="https://rental-space.net/">rental-space.net</a><br>発行: きくりん(株式会社オサラロック)</p>
+</main>
+<script>
+(() => {
+  const btn = document.getElementById('line-btn');
+  btn.addEventListener('click', () => { if (typeof gtag === 'function') gtag('event', 'line_click', { route: 'web-ai', source: 'kindle-ai-tenpo' }); });
+  const key = 'kindle-ai-tenpo-check';
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(key) || '{}'); } catch (e) {}
+  document.querySelectorAll('.check input').forEach((cb) => {
+    cb.checked = !!saved[cb.id];
+    cb.addEventListener('change', () => { saved[cb.id] = cb.checked; try { localStorage.setItem(key, JSON.stringify(saved)); } catch (e) {} });
+  });
+})();
+</script>
+<script src="/track.js?v=20260919"></script>
+</body>
+</html>
