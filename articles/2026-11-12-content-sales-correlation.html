@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CHWF6QKRJ6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-CHWF6QKRJ6');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="note-hashtags" content="#AI #note #コンテンツ販売 #X運用 #統計分析 #固定ポスト">
+<meta name="description" content="コンテンツ販売の45日分の売上と、Xのインプ・いいね・保存・プロフの閲覧、note・ブログ・Substack・ショート動画の数字を、AIに日ごとにそろえさせて調べました。時期のずれを除くと、インプ・いいね・保存は売上とほぼ関係なく、残ったのはプロフの閲覧(多い日は4.5倍売れた)。プロフを見た人は固定ポストから買っていたので、その日のうちにプロフと固定ポストを直しました。">
+<meta property="og:title" content="【AI × note】コンテンツ販売の売上は、何と相関しているのか調べてみた結果">
+<meta property="og:description" content="コンテンツ販売の45日分の売上と、Xのインプ・いいね・保存・プロフの閲覧、note・ブログ・Substack・ショート動画の数字を、AIに日ごとにそろえさせて調べました。時期のずれを除くと、インプ・いいね・保存は売上とほぼ関係なく、残ったのはプロフの閲覧(多い日は4.5倍売れた)。プロフを見た人は固定ポストから買っていたので、その日のうちにプロフと固定ポストを直しました。">
+<meta property="og:image" content="https://rental-space.net/assets/2026_11_12_corr_hero.png">
+<meta property="og:url" content="https://rental-space.net/articles/2026-11-12-content-sales-correlation.html">
+<meta property="og:type" content="article"><meta name="twitter:card" content="summary_large_image">
+<title>【AI × note】コンテンツ販売の売上は、何と相関しているのか調べてみた結果 - きくりんのノウハウ垂れ流し</title>
+<link rel="icon" href="../assets/favicon.png" type="image/png"><link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../style.css?v=1.2.1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>.article-header .category-badge{position:static;display:inline-block;margin-bottom:12px}.article-body a{color:#075bc8;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;font-weight:700;overflow-wrap:anywhere}.article-table{overflow-x:auto;margin:1.5em 0}.article-table table{border-collapse:collapse;width:100%;font-size:.95em;display:table}.article-table th,.article-table td{padding:12px;border:1px solid #ddd;text-align:left;white-space:normal}.article-table th{background:#eef5ff}.article-table td:last-child{white-space:nowrap}.article-body blockquote{margin:1.5em 0;padding:16px 20px;background:#f7f7f7;border-left:4px solid #bbb;border-radius:0 8px 8px 0}.single-article .article-body blockquote p{margin-bottom:0}.article-body code{background:#f2f2f2;padding:2px 6px;border-radius:4px;font-size:.92em}.article-body .image-caption{margin:-20px 0 28px}@media(max-width:600px){.kyokasho-banner .kb-title span{white-space:normal!important;overflow-wrap:anywhere}}.article-table th,.article-table td{min-width:5em}.article-table:focus-visible{outline:2px solid #075bc8}.article-image img{background:#fff}.article-body blockquote.prompt p{font-family:inherit;line-height:1.9;white-space:normal}</style>
+<link rel="stylesheet" href="/assets/site-footer.css?v=20260919">
+<!-- seo-head start -->
+<link rel="canonical" href="https://rental-space.net/articles/2026-11-12-content-sales-correlation.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "ホーム",
+      "item": "https://rental-space.net/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "副業③ AI活用実験室"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "【AI × note】コンテンツ販売の売上は、何と相関しているのか調べてみた結果",
+      "item": "https://rental-space.net/articles/2026-11-12-content-sales-correlation.html"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "【AI × note】コンテンツ販売の売上は、何と相関しているのか調べてみた結果",
+  "datePublished": "2026-11-12",
+  "dateModified": "2026-11-12",
+  "mainEntityOfPage": "https://rental-space.net/articles/2026-11-12-content-sales-correlation.html",
+  "author": {
+    "@type": "Person",
+    "name": "きくりん",
+    "url": "https://rental-space.net/articles/2026-01-20-self-introduction.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "きくりんのノウハウ垂れ流し",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://rental-space.net/assets/duo_tarenagashi.png"
+    }
+  },
+  "description": "コンテンツ販売の45日分の売上と、Xのインプ・いいね・保存・プロフの閲覧、note・ブログ・Substack・ショート動画の数字を、AIに日ごとにそろえさせて調べました。時期のずれを除くと、インプ・いいね・保存は売上とほぼ関係なく、残ったのはプロフの閲覧(多い日は4.5倍売れた)。プロフを見た人は固定ポストから買っていたので、その日のうちにプロフと固定ポストを直しました。",
+  "image": "https://rental-space.net/assets/2026_11_12_corr_hero.png"
+}
+</script>
+<!-- seo-head end -->
+<link rel="stylesheet" href="/assets/site-menu.css?v=20260930a">
+<link rel="stylesheet" href="/assets/link-card.css?v=20261005">
+<style>.article-body .twitter-tweet{max-width:100%;overflow-wrap:anywhere}</style>
+</head>
+<body class="article-page">
+<!-- site-menu start -->
+<nav class="site-menu" aria-label="ブログのメニュー"><div class="site-menu-inner"><a class="site-menu-brand" href="/">きくりんのノウハウ垂れ流し</a><input type="checkbox" id="site-menu-toggle" class="site-menu-toggle" aria-label="メニューを開く"><label for="site-menu-toggle" class="site-menu-button" aria-hidden="true"><span></span><span></span><span></span></label><ul class="site-menu-list"><li><a href="/">ホーム</a></li><li><a href="/rental-space/">レンタルスペース</a></li><li><a href="/rental-space/dance/">ダンス向けレンタルスタジオ</a></li><li><a href="/ebay/">eBay輸出</a></li><li><a href="/#ailab" class="is-current">AI活用実験室</a></li><li><a href="/kyokasho/">レンスペ教科書</a></li><li><a href="/kyokasho/ebay/">eBay教科書</a></li><li><a href="/kyokasho/ai-contents/">AI教科書</a></li><li><a href="/articles/2026-01-20-self-introduction.html">プロフィール</a></li></ul></div></nav>
+<!-- site-menu end -->
+<header class="main-header"><div class="header-content"><div class="logo-area minimal"><a href="../index.html" class="header-logo-link horiz"><img src="../assets/duo_tarenagashi.png" alt="きくりん" class="header-logo-img-character small"><div class="logo-text"><h1>きくりんの<br>ノウハウ垂れ流し</h1></div></a></div></div></header>
+<main class="container"><article class="single-article">
+<!-- breadcrumb start -->
+<nav class="breadcrumb" aria-label="パンくずリスト"><ol><li><a href="../index.html">ホーム</a></li><li>副業③ AI活用実験室</li><li aria-current="page">【AI × note】コンテンツ販売の売上は、何と相関しているのか調べてみた結果</li></ol></nav>
+<!-- breadcrumb end -->
+<header class="article-header"><span class="category-badge">副業③ AI活用実験室</span><h1>【AI × note】コンテンツ販売の売上は、何と相関しているのか調べてみた結果</h1><time datetime="2026-11-12">2026.11.12</time></header>
+<div class="article-body">
+<div class="article-image"><img alt="【AI × note】コンテンツ販売の売上は、何と相関しているのか調べてみた結果" class="eyecatch-img" decoding="async" fetchpriority="high" height="1024" src="../assets/2026_11_12_corr_hero.png" style="display:block;width:100%;height:auto" width="1536"/></div>
+<p><strong>コンテンツ販売の売上と相関していたのは、インプでも、いいねでもなく「プロフの閲覧」でした。</strong></p>
+<p>コンテンツ販売(note・Brain・自分のサイトで教材を売ること)の売上は、何と相関しているのか(一緒に増えたり減ったりしているのか)。</p>
+<p>45日分の売上と、X・note・ブログ・Substack・ショート動画の数字を、AIに日ごとにそろえさせて調べました。</p>
+<p>結果は3行です。</p>
+<ol>
+<li>インプ・いいね・保存は、時期のずれを除くと、売上とほぼ関係なかった</li>
+<li>残ったのは「プロフの閲覧」。多い日は、少ない日の<strong>4.5倍</strong>売れていた</li>
+<li>プロフを見た人が買っていたのは、リンク欄ではなく<strong>固定ポスト</strong>から</li>
+</ol>
+<p>なので、この結果のとおりに、うちのXのプロフと固定ポストをその日のうちに直しました。</p>
+<p>調べたことと、直したことを、両方書きます。</p>
+<hr/>
+<h2>この記事を書いた人</h2>
+<div class="article-image"><a href="../assets/author_card_ai.webp"><img alt="この記事を書いた人 きくりん" decoding="async" height="1024" loading="lazy" src="../assets/author_card_ai.webp" style="display:block;width:100%;height:auto" width="1536"/></a></div>
+<p>この記事は、フォロワーゼロからコンテンツ販売を始めて、2ヶ月で教材の利益101.5万円(手取り)を出したきくりんが書いています。</p>
+<p>今回は、その売上とSNSの数字を、AIに45日分そろえさせて比べました。</p>
+<hr/>
+<h2>1. 調べたこと</h2>
+<div class="article-table" tabindex="0" data-copy-image="../assets/2026_11_12_corr_table01.png" data-copy-alt="表: 比べた数字 / 出どころ"><table><thead><tr><th>比べた数字</th><th>出どころ</th></tr></thead><tbody><tr><td>売れた部数・売上</td><td>販売の台帳(70部・103.2万円)</td></tr><tr><td>Xのインプ・いいね・保存・プロフの閲覧・フォロー</td><td>X API(3つのアカウント)</td></tr><tr><td>ブログに来た人・どこから来たか</td><td>Googleアナリティクス</td></tr><tr><td>noteのいいね</td><td>noteの公開データ</td></tr><tr><td>ショート動画の再生</td><td>YouTube</td></tr></tbody></table></div>
+<p>ぼくがAIに頼んだのは、ひと言だけです。</p>
+<p>「売上と何が一緒に動いているか、いろんな切り口で調べて」</p>
+<p>データ集めから計算まで、AI(Claude Code)がやりました。</p>
+<p>API(サービスどうしをつなぐ窓口)やアナリティクスの使い方は、各サービスの規約を確かめたうえで、ご自身の責任でお使いください。</p>
+<hr/>
+<h2>2. インプ・いいね・保存は、時期のずれを除くと消えた</h2>
+<div class="article-image"><a href="../assets/2026_11_12_corr_fig1.webp"><img alt="図1 週ごとに見ると、インプも売上も下がっていた" decoding="async" height="1040" loading="lazy" src="../assets/2026_11_12_corr_fig1.webp" style="display:block;width:100%;height:auto" width="1600"/></a></div>
+<p>素のままで比べると、インプが多い日は、少ない日の<strong>5.3倍</strong>売れていました。</p>
+<p>いいねは6.5倍。</p>
+<p>これだけ見ると「インプを増やせば売れる」と思えます。</p>
+<p>でも、これは時期のずれでした。</p>
+<p>発信が伸びていた時期は、売上も多かった。</p>
+<p>落ちた時期は、どちらも少なかった。</p>
+<p>それだけで、一緒に動いて見えていたんです。</p>
+<p>同じ時期どうしで比べ直すと、こうなりました。</p>
+<div class="article-image"><a href="../assets/2026_11_12_corr_fig2.webp"><img alt="図2 同じ時期どうしで比べると、残ったのはプロフの閲覧" decoding="async" height="1080" loading="lazy" src="../assets/2026_11_12_corr_fig2.webp" style="display:block;width:100%;height:auto" width="1600"/></a></div>
+<div class="article-table" tabindex="0" data-copy-image="../assets/2026_11_12_corr_table02.png" data-copy-alt="表: 数字 / 多い日 ÷ 少ない日(素のまま) / 同じ時期どうしで"><table><thead><tr><th>数字</th><th>多い日 ÷ 少ない日(素のまま)</th><th>同じ時期どうしで</th></tr></thead><tbody><tr><td>インプ</td><td>5.3倍</td><td><strong>0.9倍</strong></td></tr><tr><td>いいね</td><td>6.5倍</td><td>1.7倍</td></tr><tr><td>保存</td><td>1.9倍</td><td><strong>0.9倍</strong></td></tr></tbody></table></div>
+<p>インプと保存は、1倍を下回りました。</p>
+<p>同じ時期の中では、インプが多い日に売れているわけではありません。</p>
+<p>保存されるのは「あとで使える情報」です。</p>
+<p>保存して、そこで終わります。</p>
+<hr/>
+<h2>3. 残ったのは「プロフの閲覧」だけ</h2>
+<div class="article-image"><a href="../assets/2026_11_12_corr_fig3.webp"><img alt="図3 プロフの閲覧が多い日は、4.5倍売れていた" decoding="async" height="1000" loading="lazy" src="../assets/2026_11_12_corr_fig3.webp" style="display:block;width:100%;height:auto" width="1600"/></a></div>
+<div class="article-table" tabindex="0" data-copy-image="../assets/2026_11_12_corr_table03.png" data-copy-alt="表: 数字 / 多い日 ÷ 少ない日(素のまま) / 同じ時期どうしで"><table><thead><tr><th>数字</th><th>多い日 ÷ 少ない日(素のまま)</th><th>同じ時期どうしで</th></tr></thead><tbody><tr><td><strong>プロフの閲覧</strong></td><td>21倍</td><td><strong>4.5倍</strong></td></tr><tr><td>販売ページへの訪問</td><td>2.8倍</td><td>4.3倍</td></tr></tbody></table></div>
+<p>時期のずれを除いても、はっきり残ったのはプロフの閲覧でした。</p>
+<p>(販売ページへの訪問は、買う人が必ず通るので、残って当たり前です)</p>
+<p>プロフを開くのは、ポストを読んで「この人、何者？」と思った人です。</p>
+<p>その人の数が、買う人の数に近かった。</p>
+<p>インプは「届いた数」。</p>
+<p>プロフの閲覧は「気になった数」です。</p>
+<p>売上と一緒に動くのは、後ろのほうでした。</p>
+<hr/>
+<h2>4. 買う人はどこから来るか</h2>
+<div class="article-image"><a href="../assets/2026_11_12_corr_fig4.webp"><img alt="図4 来た人の本気度がいちばん高いのは、note" decoding="async" height="1040" loading="lazy" src="../assets/2026_11_12_corr_fig4.webp" style="display:block;width:100%;height:auto" width="1600"/></a></div>
+<div class="article-table" tabindex="0" data-copy-image="../assets/2026_11_12_corr_table04.png" data-copy-alt="表: 来たところ / 販売ページへ進んだ割合"><table><thead><tr><th>来たところ</th><th>販売ページへ進んだ割合</th></tr></thead><tbody><tr><td><strong>note</strong></td><td><strong>47%</strong></td></tr><tr><td>X</td><td>27%</td></tr><tr><td>Google検索</td><td>4%</td></tr></tbody></table></div>
+<p>ブログに来た人のうち、そのまま販売ページへ進んだ割合です。</p>
+<p>数がいちばん多いのはXでした。</p>
+<p>でも、来た人の本気度がいちばん高いのはnoteです。</p>
+<p>noteから来た人の、およそ2人に1人が販売ページを開いています。</p>
+<p>いっぽうで、まだ売上につながっていないものもありました。</p>
+<ul><li>Substack: 72日でブログへの訪問19回・販売0</li><li>ショート動画: YouTubeで58本・約1.4万回再生。でもブログへの訪問は増えず、販売0</li></ul>
+<p>ショート動画は始めて2週間なので、「効き目がない」とはまだ言えません。</p>
+<p>見られてはいます。</p>
+<p>動画から教材への道が、まだないだけかもしれません。</p>
+<p>前に、売れた教材88部の流入経路を1部ずつ調べた記事も書きました。</p>
+<p>そのときも、着地はブログでした。</p>
+<div class="link-card-wrap"><a class="link-card" href="https://rental-space.net/articles/2026-11-01-sold-88-blog-matters.html"><span class="lc-body"><span class="lc-title">【AI × note】売れた88部を調べたら、ブログが大事だと分かった</span><span class="lc-desc">教材が88部売れたので、流入経路をぜんぶ調べました。6割はnoteとBrainで売れ、自分のサイトで流入経路が分かった購入の半分以上は、毎日の無料記事を読んでか…</span><span class="lc-site">rental-space.net</span></span><span class="lc-thumb"><img src="/assets/2026_11_01_sold88_blog_hero.png" alt="" loading="lazy"></span></a></div>
+<hr/>
+<h2>5. プロフを見た人は、固定ポストで買っていた</h2>
+<div class="article-image"><a href="../assets/2026_11_12_corr_flow.webp"><img alt="売れるまでの流れ: ポストを読む→プロフを開く→固定ポスト→販売ページ" decoding="async" height="1024" loading="lazy" src="../assets/2026_11_12_corr_flow.webp" style="display:block;width:100%;height:auto" width="1536"/></a></div>
+<p>では、プロフを見た人は、そこから何をしていたのか。</p>
+<p>プロフの画面には、3つの入口があります。</p>
+<div class="article-table" tabindex="0" data-copy-image="../assets/2026_11_12_corr_table05.png" data-copy-alt="表: プロフの入口 / 販売ページへの訪問 / 売れた部数"><table><thead><tr><th>プロフの入口</th><th>販売ページへの訪問</th><th>売れた部数</th></tr></thead><tbody><tr><td><strong>固定ポスト</strong>(販売ページへ直接)</td><td>116回</td><td><strong>3部</strong></td></tr><tr><td>無料特典・LINE・メール講座</td><td>90回</td><td>0部</td></tr><tr><td>自己紹介の文</td><td>—</td><td>—</td></tr></tbody></table></div>
+<div class="article-image"><a href="../assets/2026_11_12_corr_fig5.webp"><img alt="図5 プロフを見た人は、固定ポストから買っていた" decoding="async" height="1000" loading="lazy" src="../assets/2026_11_12_corr_fig5.webp" style="display:block;width:100%;height:auto" width="1600"/></a></div>
+<p>売れたのは、固定ポストからでした。</p>
+<p>自分のサイトで売れて流入経路が分かった27部のうち、Xから来たのは12部。</p>
+<p>その4分の1が、固定ポストです。</p>
+<p>無料特典やメール講座の入口は、約40日で30人の登録でした。</p>
+<p>「あとで買う」入口なので、その日の売上には出にくい。</p>
+<p>いまの規模では、固定ポストで中身を見せて、直接売るほうが結果が出ていました。</p>
+<p>流れにすると、こうです。</p>
+<ol>
+<li>ポストで、インプを取る</li>
+<li>「何者？」と思った人が、プロフを開く</li>
+<li>固定ポストで中身を見て、販売ページへ進む</li>
+</ol>
+<p>プロフを見に来る人を増やすのは、ポストの仕事。</p>
+<p>来た人を販売につなぐのは、固定ポストの仕事です。</p>
+<hr/>
+<h2>6. うちのプロフと固定ポストを、こう直した</h2>
+<p>売れた固定ポストに共通していたのは、5つでした。</p>
+<ol>
+<li>1行目で、読む人の得を言い切る</li>
+<li>中身を箇条書きで見せる</li>
+<li>無料で読める部分を書く</li>
+<li>価格と日付を書く</li>
+<li>販売ページへ直接リンクする</li>
+</ol>
+<p>この5つで、自分の3つのアカウントを見直しました。</p>
+<div class="article-table" tabindex="0" data-copy-image="../assets/2026_11_12_corr_table06.png" data-copy-alt="表: アカウント / 見つかったこと / 直したこと"><table><thead><tr><th>アカウント</th><th>見つかったこと</th><th>直したこと</th></tr></thead><tbody><tr><td>AI</td><td>固定ポストが3週間以上前のまま・数字が古い・中身と価格がない</td><td>固定ポストを作り直した・自己紹介の最後に1行足した</td></tr><tr><td>2つめ</td><td>固定ポストの価格が古いまま</td><td>価格と日付を直して出し直した</td></tr><tr><td>3つめ</td><td>5つの条件どおり</td><td>そのまま</td></tr></tbody></table></div>
+<p>いちばん直すところが多かったのは、このAIのアカウントでした。</p>
+<p>前の固定ポストは、販売ページへのリンクが「もっと見る」の下にありました。</p>
+<p>見えている部分の最後は、発売の告知ポストの引用です。</p>
+<p>そこから販売ページへ来た人は、0人でした。</p>
+<p>作り直した固定ポストが、これです。</p>
+<blockquote class="twitter-tweet" data-conversation="none" data-dnt="true" data-lang="ja"><a href="https://x.com/kikurin_ai/status/2120615469501854198">https://x.com/kikurin_ai/status/2120615469501854198</a></blockquote>
+<p>固定ポストは、作った日が古くなるほど、中身と価格がずれていきます。</p>
+<p>あなたも、最後に直した日を見てみてください。</p>
+<p>結果は、1週間後にまた数えます。</p>
+<hr/>
+<h2>7. この調査で分からないこと</h2>
+<div class="article-table" tabindex="0" data-copy-image="../assets/2026_11_12_corr_table07.png" data-copy-alt="表: 分からないこと / 理由"><table><thead><tr><th>分からないこと</th><th>理由</th></tr></thead><tbody><tr><td>noteのページビュー</td><td>ログインしないと見られない</td></tr><tr><td>noteとBrainで買った人がどこから来たか</td><td>販売サイトの仕組みで取れない</td></tr><tr><td>Instagram・TikTokの再生</td><td>記録していなかった</td></tr></tbody></table></div>
+<p>45日・教材41部分の数字です。</p>
+<p>弱い相関は、「ある」とも「ない」とも言い切れません。</p>
+<p>はっきり言えるのは、インプは同じ時期の中で売上と一緒に動いていなかったことと、プロフの閲覧は動いていたことです。</p>
+<p>前に、Xで伸びるポストを1,302本調べた記事も書きました。</p>
+<p>インプを取るのは、こちらの話です。</p>
+<div class="link-card-wrap"><a class="link-card" href="https://rental-space.net/articles/2026-11-05-x-buzz-statistics-1300.html"><span class="lc-body"><span class="lc-title">【統計分析】Xのバズらせ方｜AIリサーチャーに1300本調べさせた結果</span><span class="lc-desc">Xのポスト1,302本をAIに集めさせ、統計で比べました。バズったポストの61%は画像・動画・引用のどれかを付けていて、いいね0側は18%。フォロワー数をそろえ…</span><span class="lc-site">rental-space.net</span></span><span class="lc-thumb"><img src="/assets/2026_11_05_xbuzz_hero.png" alt="" loading="lazy"></span></a></div>
+<hr/>
+<h2>まとめ</h2>
+<div class="article-image"><a href="../assets/2026_11_12_corr_summary.webp"><img alt="まとめ: インプを追わない/プロフに呼ぶ/固定ポストで売る" decoding="async" height="1024" loading="lazy" src="../assets/2026_11_12_corr_summary.webp" style="display:block;width:100%;height:auto" width="1536"/></a></div>
+<p>コンテンツ販売の45日分の売上を、AIに調べさせて分かったことは3つです。</p>
+<ol>
+<li><strong>インプ・いいね・保存を追いかけない</strong>(同じ時期の中では、売上と一緒に動いていなかった)</li>
+<li><strong>「この人、何者？」と思わせて、プロフに呼ぶ</strong>(プロフの閲覧が多い日は4.5倍売れた)</li>
+<li><strong>固定ポストで、中身を見せて直接売る</strong>(プロフから売れたのは固定ポストだけ)</li>
+</ol>
+<p>インプが増えても売れない日は、来た人が次に読むものを見直すところです。</p>
+<p>あなたの固定ポスト、最後に直したのはいつですか？</p>
+<hr/>
+<!-- kyokasho-promo start -->
+<p>▼ネタの作り方から、AIで教材にまとめて売るまで、やったことを1冊にまとめてあります</p>
+<p>フォロワーゼロから利益95.8万円まで、54日間の数字と失敗と手順を、全部書いた教科書です。</p>
+<p>録音から記事、教材、販売ページ、売れたあとの台帳まで。うちで毎日使っているツールも付録に入れました。</p>
+<p>『noteから始める「AI×◯◯」コンテンツ販売の教科書｜フォロワーゼロから利益95.8万円』</p>
+<div class="link-card-wrap"><a class="link-card" href="https://rental-space.net/kyokasho/ai-contents/?utm_source=blog&amp;utm_medium=article&amp;utm_campaign=sales-correlation-45days"><span class="lc-body"><span class="lc-title">noteから始める「AI×◯◯」コンテンツ販売の教科書｜フォロワーゼロから利益95.8万円</span><span class="lc-desc">AIでやったことを、AIで教材にして売る。フォロワーゼロから発売54日で利益95.8万円。最初の章(第0部)は全部無料で読めます。</span><span class="lc-site">rental-space.net</span></span><span class="lc-thumb"><img src="/kyokasho/ai-contents/img/ogp.jpg" alt="" loading="lazy"></span></a></div>
+<p>販売価格は3部売れるごとに2,000円ずつ値上がりします（上限あり）。内容・最新価格は販売ページをご確認ください。</p>
+<!-- kyokasho-promo end -->
+</div>
+<!-- kyokasho-banner-ai start -->
+<aside class="kyokasho-banner kb-ai">
+    <a href="/kyokasho/ai-contents/" class="kb-thumb">
+        <img src="/kyokasho/ai-contents/img/ogp.jpg" alt="noteから始める「AI×◯◯」コンテンツ販売の教科書｜フォロワーゼロから利益95.8万円" loading="lazy" width="640" height="335">
+    </a>
+    <div class="kb-body">
+        <p class="kb-title">noteから始める「AI×◯◯」コンテンツ販売の教科書</p>
+        <p class="kb-sub">フォロワーゼロから利益95.8万円まで、54日間の数字と失敗と手順を全部書きました。録音から記事・教材・販売ページ・売れたあとの台帳まで。付録24点つき。販売価格は3部売れるごとに2,000円ずつ値上がりします（上限あり）。内容・最新価格は販売ページをご確認ください。</p>
+        <div class="kb-actions">
+            <a href="/kyokasho/ai-contents/" class="kb-btn kb-btn-ebay">くわしく見る・買う</a>
+        </div>
+    </div>
+</aside>
+<!-- kyokasho-banner-ai end -->
+<a href="../index.html" class="btn-back">トップページへ戻る</a>
+</article></main>
+<footer class="main-footer"><p>&copy; 2026 きくりんのノウハウ垂れ流し. All rights reserved.</p><!-- site-home-link start -->
+<nav class="site-home-nav" aria-label="サイトトップ"><a href="/">きくりんのノウハウ垂れ流し TOP</a></nav>
+<!-- site-home-link end -->
+</footer>
+<script src="../script.js"></script><script src="../track.js"></script>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</body>
+</html>
