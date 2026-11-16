@@ -6,8 +6,18 @@
 <meta name="robots" content="noindex">
 <title>移動しています</title>
 <!-- Xのプロフィールのリンク欄はこのURLのまま。行き先はここだけ書きかえる(設計_無料特典とリスト_20261019.md §3-1b)。2026-10-30 大介さん「もとに戻して」で10/19より前のnoteのトップに戻した(LINEの受け取りページ /line/ebay/ はそのまま公開) -->
-<meta http-equiv="refresh" content="0; url=https://note.com/cham_ebay">
-<script>location.replace('https://note.com/cham_ebay');</script>
+<!-- 2026-11-16 大介さん「回数を記録する直し、進めて」: すぐ飛ぶとGA4に記録されなかったので、記録してから飛ぶ(最大0.8秒)。JSが動かないときの予備で2秒後にも飛ぶ -->
+<meta http-equiv="refresh" content="2; url=https://note.com/cham_ebay">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CHWF6QKRJ6"></script>
+<script>
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());
+gtag('config','G-CHWF6QKRJ6',{send_page_view:false});
+(function(){var done=false;var go=function(){if(done)return;done=true;location.replace('https://note.com/cham_ebay');};
+gtag('event','page_view',{page_title:'X profile link cham',page_location:location.href,transport_type:'beacon'});
+gtag('event','x_profile_link',{account:'cham',dest:'note',transport_type:'beacon',event_callback:go});
+setTimeout(go,800);})();
+</script>
 <link rel="stylesheet" href="/assets/site-footer.css?v=20260919">
 </head>
 <body style="font-family:sans-serif;padding:24px 16px">
