@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>レンタルスペース 収支と回収のシミュレーション表｜きくりん</title>
+<meta name="description" content="レンタルスペースの初期費用・毎月のランニングコスト・想定利益・回収期間の見込みを1枚の表にする無料のシミュレーター。家族に見せる表としてコピーもできます。累計23店舗の実額にもとづく目安です。">
+<link rel="canonical" href="https://rental-space.net/tools/shushi-check/">
+<meta property="og:title" content="レンタルスペース 収支と回収のシミュレーション表">
+<meta property="og:description" content="初期費用・月の費用・想定利益・回収の見込みを1枚の表に。家族に見せる表としてコピーできる無料のシミュレーター。">
+<meta property="og:url" content="https://rental-space.net/tools/shushi-check/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://rental-space.net/assets/tool_shushi_check_og_20261117.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://rental-space.net/assets/tool_shushi_check_og_20261117.png">
+<link rel="icon" href="/assets/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Inter:wght@700;800&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CHWF6QKRJ6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CHWF6QKRJ6');</script>
+<style>
+/* 世界観: ブログ「きくりんのノウハウ垂れ流し」と同じ オレンジ×黄の地+紺の文字+金のノウハウ */
+:root{
+  --orange:#FF8A00; --yellow:#FFC93C; --navy:#1B2A4A; --ink:#222; --muted:#6F665B;
+  --paper:#FFF8EC; --line:#F1E3C8; --ok:#1E8E5A; --okbg:#E8F6EE; --ng:#D64545; --ngbg:#FDECEC;
+  --r:16px; --rs:10px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--ink);font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,'Hiragino Sans',sans-serif;font-size:16px;line-height:1.75;-webkit-text-size-adjust:100%}
+.num{font-family:'Inter','Noto Sans JP',sans-serif;font-variant-numeric:tabular-nums}
+header{background:linear-gradient(135deg,var(--yellow),var(--orange));padding:26px 16px 22px;text-align:center;color:var(--navy)}
+header .tag{display:inline-block;background:var(--navy);color:#fff;font-size:13px;font-weight:700;border-radius:999px;padding:2px 14px;margin-bottom:8px}
+header h1{margin:0;font-size:clamp(22px,5.4vw,32px);font-weight:900;line-height:1.35;word-break:auto-phrase}
+header p{margin:6px 0 0;font-size:14px;font-weight:700}
+.wrap{max-width:1040px;margin:0 auto;padding:18px 16px 56px}
+.grid{display:grid;gap:18px}
+@media(min-width:880px){.grid{grid-template-columns:1fr 1fr;align-items:start}.result{position:sticky;top:16px}}
+.card{background:#fff;border:2px solid var(--line);border-radius:var(--r);padding:18px 16px}
+.step{display:flex;align-items:center;gap:10px;margin:0 0 10px;font-size:17px;font-weight:900;color:var(--navy)}
+.step .n{flex:0 0 auto;width:30px;height:30px;border-radius:999px;background:var(--orange);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:15px}
+.block+.block{margin-top:22px;padding-top:18px;border-top:1px dashed var(--line)}
+.hint{font-size:13px;color:var(--muted);margin:4px 0 0}
+.money{display:flex;align-items:center;gap:8px}
+.grid>*{min-width:0}
+.money input{flex:1;min-width:0;width:100%;font:inherit;font-family:'Inter','Noto Sans JP',sans-serif;font-weight:800;font-size:24px;padding:10px 14px;border:2px solid var(--line);border-radius:var(--rs);color:var(--navy);background:var(--paper)}
+.money input:focus,.small input:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(255,138,0,.2)}
+.money span{font-weight:700;color:var(--navy)}
+.seg{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.seg.three{grid-template-columns:repeat(3,1fr)}
+.seg button{min-width:0;font:inherit;font-size:14px;font-weight:700;border:2px solid var(--line);background:#fff;color:var(--navy);border-radius:var(--rs);padding:10px 6px;cursor:pointer;line-height:1.35}
+.seg button small{display:block;font-weight:400;font-size:12px;color:var(--muted)}
+.seg button[aria-pressed=true]{background:var(--navy);border-color:var(--navy);color:#fff}
+.seg button[aria-pressed=true] small{color:#dfe5f1}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.chips button{font:inherit;font-size:13px;font-weight:700;border:1px solid var(--line);background:var(--paper);color:var(--navy);border-radius:999px;padding:4px 12px;cursor:pointer}
+details{margin-top:14px;background:var(--paper);border-radius:var(--rs);padding:10px 14px}
+details summary{cursor:pointer;font-weight:700;color:var(--navy);font-size:14px}
+.small{display:grid;grid-template-columns:1fr auto;gap:8px 10px;align-items:center;margin-top:10px;font-size:14px}
+.small input{width:96px;font:inherit;font-family:'Inter','Noto Sans JP',sans-serif;font-weight:700;padding:6px 8px;border:1px solid var(--line);border-radius:8px;text-align:right}
+#mirrorBox[hidden]{display:none}
+
+.verdict{border-radius:var(--r);padding:18px 16px;text-align:center}
+.verdict.ok{background:var(--okbg);border:2px solid var(--ok)}
+.verdict.ng{background:var(--ngbg);border:2px solid var(--ng)}
+.verdict .big{font-size:clamp(21px,5vw,26px);font-weight:900;line-height:1.4;margin:0}
+.verdict.ok .big{color:var(--ok)} .verdict.ng .big{color:var(--ng)}
+.verdict p{margin:6px 0 0;font-size:15px}
+.need{display:flex;justify-content:space-between;align-items:baseline;margin:18px 0 6px;color:var(--navy);font-weight:900}
+.need .v{font-size:34px}
+.need small{font-size:15px}
+.gauge{position:relative;height:18px;background:#F4EEE3;border-radius:999px;overflow:visible;margin:4px 0 26px}
+.gauge .bar{display:flex;height:100%;border-radius:999px;overflow:hidden}
+.gauge .bar i{display:block;height:100%}
+.c1{background:var(--navy)} .c2{background:#5E7BB5} .c3{background:var(--orange)} .c4{background:var(--yellow)}
+.gauge .cap{position:absolute;top:-6px;bottom:-6px;width:3px;background:var(--ng);border-radius:2px}
+.gauge .cap b{position:absolute;top:30px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:12px;color:var(--ng)}
+table.bd{width:100%;border-collapse:collapse;font-size:15px}
+table.bd td{padding:8px 4px;border-bottom:1px solid var(--line)}
+table.bd td.v{white-space:nowrap;text-align:right;font-weight:800;color:var(--navy)}
+table.bd .dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:8px;vertical-align:middle}
+table.bd tr.sum td{font-weight:900;border-bottom:0;color:var(--navy)}
+.ways{margin:16px 0 0;padding:14px;border-radius:var(--rs);background:var(--paper)}
+.ways h3{margin:0 0 6px;font-size:15px;color:var(--navy)}
+.ways ol{margin:0;padding-left:1.4em;font-size:14px}
+.ways li{margin:4px 0}
+.ways li b{color:var(--ok)}
+.real{margin-top:18px}
+.real h3{margin:0 0 6px;font-size:15px;color:var(--navy)}
+.real ul{list-style:none;margin:0;padding:0;font-size:14px}
+.real li{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line)}
+.real li span:last-child{font-weight:800;color:var(--navy)}
+.note{font-size:12px;color:var(--muted);margin:14px 0 0}
+.back{display:block;text-align:center;margin:22px auto 0;max-width:420px;background:var(--navy);color:#fff;text-decoration:none;font-weight:700;border-radius:var(--rs);padding:12px 16px}
+footer{text-align:center;font-size:12px;color:var(--muted);padding:0 16px 24px}
+footer a{color:var(--muted)}
+
+.row2{display:grid;grid-template-columns:1fr auto;gap:8px 10px;align-items:center;font-size:15px}
+.row2 label{font-weight:700;color:var(--navy)}
+.row2 label small{display:block;font-weight:400;font-size:12px;color:var(--muted)}
+.row2 .in{display:flex;align-items:center;gap:6px}
+.row2 input{width:104px;font:inherit;font-family:'Inter','Noto Sans JP',sans-serif;font-weight:800;font-size:18px;padding:6px 10px;border:2px solid var(--line);border-radius:8px;text-align:right;color:var(--navy);background:var(--paper)}
+.row2 input:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(255,138,0,.2)}
+.row2 span.u{font-size:13px;color:var(--muted);min-width:2.6em}
+table.sheet{width:100%;border-collapse:collapse;font-size:15px}
+table.sheet th{background:var(--navy);color:#fff;text-align:left;padding:7px 10px;font-size:14px}
+table.sheet td{padding:7px 10px;border-bottom:1px solid var(--line)}
+table.sheet td.v{text-align:right;font-weight:800;color:var(--navy);white-space:nowrap}
+table.sheet tr.sub td{font-size:13px;color:var(--muted);padding-top:3px;padding-bottom:3px}
+table.sheet tr.sub td.v{font-weight:700;color:var(--muted)}
+table.sheet tr.key td{background:var(--paper);font-weight:900}
+table.sheet tr.key td.v{font-size:18px}
+.copy{display:block;width:100%;margin-top:14px;font:inherit;font-weight:700;font-size:16px;background:var(--orange);color:#fff;border:0;border-radius:var(--rs);padding:12px;cursor:pointer}
+.copied{font-size:13px;color:var(--ok);text-align:center;min-height:1.2em;margin:6px 0 0}
+.ramp{font-size:13px;color:var(--muted);margin:8px 0 0}
+</style>
+</head>
+<body>
+<header>
+  <span class="tag">7日で決める・6日目</span>
+  <h1>収支と回収のシミュレーション表</h1>
+  <p>家族に見せる1枚を、1分でつくる</p>
+</header>
+
+<main class="wrap">
+<div class="grid">
+<section class="card" aria-label="入力">
+  <div class="block">
+    <p class="step"><span class="n">1</span>初期費用</p>
+    <div class="row2">
+      <label for="k">契約のとき<small>敷金・礼金・仲介・保証・保険・鍵</small></label><div class="in"><input id="k" type="number" inputmode="decimal" step="1" value="36"><span class="u">万円</span></div>
+      <label for="n">内装<small>床・壁紙・照明など</small></label><div class="in"><input id="n" type="number" inputmode="decimal" step="1" value="0"><span class="u">万円</span></div>
+      <label for="b">家具・備品<small>ジャンルで大きく変わる</small></label><div class="in"><input id="b" type="number" inputmode="decimal" step="1" value="16"><span class="u">万円</span></div>
+    </div>
+    <p class="hint">2日目の<a href="/tools/jougen-check/">初期費用の上限チェック</a>から来ると、数字が入った状態で始まります。</p>
+  </div>
+
+  <div class="block">
+    <p class="step"><span class="n">2</span>ランニングコスト(毎月)</p>
+    <div class="row2">
+      <label for="rent">家賃</label><div class="in"><input id="rent" type="number" inputmode="decimal" step="0.5" value="8"><span class="u">万円</span></div>
+      <label for="kou">水道光熱費<small>目安 1万〜2万円</small></label><div class="in"><input id="kou" type="number" inputmode="decimal" step="0.1" value="1.5"><span class="u">万円</span></div>
+      <label for="wifi">Wi-Fi<small>目安 5,000円前後</small></label><div class="in"><input id="wifi" type="number" inputmode="decimal" step="0.1" value="0.5"><span class="u">万円</span></div>
+      <label for="sou">清掃の外注費<small>目安 週1回1,300円×4回</small></label><div class="in"><input id="sou" type="number" inputmode="decimal" step="0.1" value="0.52"><span class="u">万円</span></div>
+      <label for="sho">消耗品費<small>目安 数千円</small></label><div class="in"><input id="sho" type="number" inputmode="decimal" step="0.1" value="0.3"><span class="u">万円</span></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <p class="step"><span class="n">3</span>毎月の想定利益(競合調査から)</p>
+    <div class="row2">
+      <label for="tanka">1時間の価格<small>1日目の人気店の価格</small></label><div class="in"><input id="tanka" type="number" inputmode="numeric" step="100" value="1500"><span class="u">円</span></div>
+      <label for="hours">1日の稼働時間<small>人気店のカレンダーで見た時間</small></label><div class="in"><input id="hours" type="number" inputmode="decimal" step="0.5" value="5"><span class="u">時間</span></div>
+      <label for="fee">ポータルサイトの手数料</label><div class="in"><input id="fee" type="number" inputmode="numeric" step="1" value="30"><span class="u">%</span></div>
+    </div>
+    <p class="hint">稼働時間は、人気店の1週間の予約カレンダーで埋まっていた時間÷7。始めは人気店より少なめに入れるのが安全です。</p>
+  </div>
+</section>
+
+<section class="card result" aria-live="polite" aria-label="結果">
+  <div class="verdict ok" id="verdict"><p class="big" id="vBig">—</p><p id="vSub"></p></div>
+  <table class="sheet" id="sheet" style="margin-top:16px">
+    <tr><th colspan="2">初期費用</th></tr>
+    <tr class="sub"><td>契約のとき</td><td class="v num" id="o_k"></td></tr>
+    <tr class="sub"><td>内装</td><td class="v num" id="o_n"></td></tr>
+    <tr class="sub"><td>家具・備品</td><td class="v num" id="o_b"></td></tr>
+    <tr class="key"><td>初期費用の合計</td><td class="v num" id="o_init"></td></tr>
+    <tr><th colspan="2">毎月の収支</th></tr>
+    <tr><td>売上(価格×稼働時間×30日)</td><td class="v num" id="o_sales"></td></tr>
+    <tr><td>ポータルサイトの手数料</td><td class="v num" id="o_fee"></td></tr>
+    <tr><td>ランニングコスト</td><td class="v num" id="o_run"></td></tr>
+    <tr class="sub"><td>家賃/水道光熱/Wi-Fi/清掃/消耗品</td><td class="v num" id="o_runD"></td></tr>
+    <tr class="key"><td>毎月の想定利益</td><td class="v num" id="o_profit"></td></tr>
+    <tr><td>黒字に必要な稼働(1日)</td><td class="v num" id="o_be"></td></tr>
+    <tr><th colspan="2">回収期間の見込み</th></tr>
+    <tr><td>軌道に乗った利益で計算</td><td class="v num" id="o_pb1"></td></tr>
+    <tr class="key"><td>立ち上がりの時期も入れて計算</td><td class="v num" id="o_pb2"></td></tr>
+  </table>
+  <p class="ramp">※「立ち上がりの時期も入れて計算」は、ぼくの店の実績(開業1〜3か月目は軌道に乗った月の約3割、4〜6か月目は約6割の利益)で計算しています。</p>
+  <button class="copy" id="copy" type="button">この表をコピーする(LINEやメモに貼れます)</button>
+  <p class="copied" id="copied"></p>
+
+  <div class="real">
+    <h3>回収期間の目安(ぼくの基準)</h3>
+    <ul>
+      <li><span>1年半まで</span><span>進めてよい</span></li>
+      <li><span>2年前後</span><span>条件を見直して計算し直す</span></li>
+      <li><span>3年以上</span><span>見送る</span></li>
+    </ul>
+  </div>
+  <p class="note">※累計23店舗の実額にもとづく目安です。ぼくの店では、回収が終わった部屋の真ん中で11か月、早い部屋で7か月でした。広告費・税金・初期費用の借入れの返済は入れていません。</p>
+</section>
+</div>
+
+<a class="back" href="/articles/2026-11-17-rental-space-saisho-7ka.html#day6">記事に戻る(7日目へ)</a>
+</main>
+<footer>© 2026 <a href="/">きくりんのノウハウ垂れ流し</a></footer>
+
+<script>
+(()=>{
+  const $=id=>document.getElementById(id);
+  const q=new URLSearchParams(location.search);
+  ['k','n','b','rent'].forEach(k=>{if(q.has(k)&&!isNaN(+q.get(k)))$(k).value=q.get(k);});
+  document.querySelectorAll('input').forEach(i=>i.addEventListener('input',calc));
+  const man=y=>{const m=y/10000;const r=Math.abs(m)<100?Math.round(m*10)/10:Math.round(m);return r.toLocaleString('ja-JP')+'万円';};
+  const RAMP=[0.32,0.32,0.32,0.57,0.57,0.57]; // 開業1〜3か月目・4〜6か月目の利益の割合(23部屋の実績から)
+  let text='';
+  function calc(){
+    const v=id=>Math.max(0,+$(id).value||0);
+    const init=(v('k')+v('n')+v('b'))*10000;
+    const runs=[v('rent'),v('kou'),v('wifi'),v('sou'),v('sho')].map(x=>x*10000), run=runs.reduce((a,b)=>a+b,0);
+    const sales=v('tanka')*v('hours')*30, fee=sales*v('fee')/100, profit=sales-fee-run;
+    const net=v('tanka')*(1-v('fee')/100), be=net>0?run/net/30:0;
+    let pb2='—';
+    if(profit>0){let s=0,m=0;while(s<init&&m<240){s+=profit*(m<6?RAMP[m]:1);m++;} pb2=m>=240?'20年以上':m+'か月';}
+    const pb1=profit>0?Math.ceil(init/profit)+'か月':'—';
+    const put=(id,t)=>$(id).textContent=t;
+    put('o_k',man(v('k')*10000));put('o_n',man(v('n')*10000));put('o_b',man(v('b')*10000));put('o_init',man(init));
+    put('o_sales',man(sales));put('o_fee','−'+man(fee));put('o_run','−'+man(run));
+    put('o_runD',runs.map(x=>(Math.round(x/1000)/10)).join('/')+'万円');
+    put('o_profit',man(profit));put('o_be',be?be.toFixed(1)+'時間':'—');put('o_pb1',pb1);put('o_pb2',pb2);
+    const vd=$('verdict');
+    const months=profit>0?(()=>{let s=0,m=0;while(s<init&&m<240){s+=profit*(m<6?RAMP[m]:1);m++;}return m;})():Infinity;
+    if(profit<=0){vd.className='verdict ng';put('vBig','毎月 '+man(-profit)+' の赤字');$('vSub').textContent='この条件では始めない方が安全です。家賃・価格・稼働時間を見直しましょう。';}
+    else if(months<=18){vd.className='verdict ok';put('vBig','✓ 約'+months+'か月で回収の見込み');$('vSub').textContent='1年半までに回収できる計算です。';}
+    else if(months<=30){vd.className='verdict ng';vd.style.borderColor='#E0A100';vd.style.background='#FFF6DD';$('vBig').style.color='#9A6B00';put('vBig','約'+months+'か月で回収の見込み');$('vSub').textContent='2年前後。家賃や初期費用を見直して、計算し直しましょう。';}
+    else{vd.className='verdict ng';put('vBig','回収まで約'+(months>=240?'20年以上':months+'か月'));$('vSub').textContent='3年以上かかる計算です。この条件なら見送るのが安全です。';}
+    if(months<=18||profit<=0||months>30){vd.style.borderColor='';vd.style.background='';$('vBig').style.color='';}
+    text=['【レンタルスペースの収支シミュレーション】',
+      '■初期費用 '+man(init)+'(契約 '+man(v('k')*10000)+'・内装 '+man(v('n')*10000)+'・家具備品 '+man(v('b')*10000)+')',
+      '■毎月の売上 '+man(sales)+'(1時間'+v('tanka').toLocaleString('ja-JP')+'円×1日'+v('hours')+'時間×30日)',
+      '■手数料 −'+man(fee)+'(ポータルサイト '+v('fee')+'%)',
+      '■ランニングコスト −'+man(run)+'(家賃・水道光熱・Wi-Fi・清掃・消耗品)',
+      '■毎月の想定利益 '+man(profit),
+      '■黒字に必要な稼働 1日'+(be?be.toFixed(1):'—')+'時間',
+      '■回収期間の見込み '+pb2+'(立ち上がりの時期も入れて計算)',
+      '(rental-space.net/tools/shushi-check/ で計算)'].join('\n');
+  }
+  $('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(text);$('copied').textContent='コピーしました';}catch(e){$('copied').textContent='コピーできませんでした。長押しで選んでください';}setTimeout(()=>$('copied').textContent='',2500);});
+  calc();
+})();
+</script>
+</body>
+</html>

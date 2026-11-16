@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>レンタルスペース 初期費用の上限チェック｜きくりん</title>
+<meta name="description" content="失ってもいい金額の上限に、レンタルスペースの初期費用と家賃3か月分が入るかを1分で確かめる無料のシミュレーター。ジャンルと家賃を選ぶだけ。累計23店舗の実額にもとづく目安です。">
+<link rel="canonical" href="https://rental-space.net/tools/jougen-check/">
+<meta property="og:title" content="レンタルスペース 初期費用の上限チェック">
+<meta property="og:description" content="初期費用+家賃3か月分は、あなたの上限に入る?ジャンルと家賃を選ぶだけの無料シミュレーター。">
+<meta property="og:url" content="https://rental-space.net/tools/jougen-check/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://rental-space.net/assets/tool_jougen_check_og_20261117.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://rental-space.net/assets/tool_jougen_check_og_20261117.png">
+<link rel="icon" href="/assets/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Inter:wght@700;800&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CHWF6QKRJ6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CHWF6QKRJ6');</script>
+<style>
+/* 世界観: ブログ「きくりんのノウハウ垂れ流し」と同じ オレンジ×黄の地+紺の文字+金のノウハウ */
+:root{
+  --orange:#FF8A00; --yellow:#FFC93C; --navy:#1B2A4A; --ink:#222; --muted:#6F665B;
+  --paper:#FFF8EC; --line:#F1E3C8; --ok:#1E8E5A; --okbg:#E8F6EE; --ng:#D64545; --ngbg:#FDECEC;
+  --r:16px; --rs:10px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--ink);font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,'Hiragino Sans',sans-serif;font-size:16px;line-height:1.75;-webkit-text-size-adjust:100%}
+.num{font-family:'Inter','Noto Sans JP',sans-serif;font-variant-numeric:tabular-nums}
+header{background:linear-gradient(135deg,var(--yellow),var(--orange));padding:26px 16px 22px;text-align:center;color:var(--navy)}
+header .tag{display:inline-block;background:var(--navy);color:#fff;font-size:13px;font-weight:700;border-radius:999px;padding:2px 14px;margin-bottom:8px}
+header h1{margin:0;font-size:clamp(22px,5.4vw,32px);font-weight:900;line-height:1.35;word-break:auto-phrase}
+header p{margin:6px 0 0;font-size:14px;font-weight:700}
+.wrap{max-width:1040px;margin:0 auto;padding:18px 16px 56px}
+.grid{display:grid;gap:18px}
+@media(min-width:880px){.grid{grid-template-columns:1fr 1fr;align-items:start}.result{position:sticky;top:16px}}
+.card{background:#fff;border:2px solid var(--line);border-radius:var(--r);padding:18px 16px}
+.step{display:flex;align-items:center;gap:10px;margin:0 0 10px;font-size:17px;font-weight:900;color:var(--navy)}
+.step .n{flex:0 0 auto;width:30px;height:30px;border-radius:999px;background:var(--orange);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:15px}
+.block+.block{margin-top:22px;padding-top:18px;border-top:1px dashed var(--line)}
+.hint{font-size:13px;color:var(--muted);margin:4px 0 0}
+.money{display:flex;align-items:center;gap:8px}
+.grid>*{min-width:0}
+.money input{flex:1;min-width:0;width:100%;font:inherit;font-family:'Inter','Noto Sans JP',sans-serif;font-weight:800;font-size:24px;padding:10px 14px;border:2px solid var(--line);border-radius:var(--rs);color:var(--navy);background:var(--paper)}
+.money input:focus,.small input:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(255,138,0,.2)}
+.money span{font-weight:700;color:var(--navy)}
+.seg{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.seg.three{grid-template-columns:repeat(3,1fr)}
+.seg button{min-width:0;font:inherit;font-size:14px;font-weight:700;border:2px solid var(--line);background:#fff;color:var(--navy);border-radius:var(--rs);padding:10px 6px;cursor:pointer;line-height:1.35}
+.seg button small{display:block;font-weight:400;font-size:12px;color:var(--muted)}
+.seg button[aria-pressed=true]{background:var(--navy);border-color:var(--navy);color:#fff}
+.seg button[aria-pressed=true] small{color:#dfe5f1}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.chips button{font:inherit;font-size:13px;font-weight:700;border:1px solid var(--line);background:var(--paper);color:var(--navy);border-radius:999px;padding:4px 12px;cursor:pointer}
+details{margin-top:14px;background:var(--paper);border-radius:var(--rs);padding:10px 14px}
+details summary{cursor:pointer;font-weight:700;color:var(--navy);font-size:14px}
+.small{display:grid;grid-template-columns:1fr auto;gap:8px 10px;align-items:center;margin-top:10px;font-size:14px}
+.small input{width:96px;font:inherit;font-family:'Inter','Noto Sans JP',sans-serif;font-weight:700;padding:6px 8px;border:1px solid var(--line);border-radius:8px;text-align:right}
+#mirrorBox[hidden]{display:none}
+
+.verdict{border-radius:var(--r);padding:18px 16px;text-align:center}
+.verdict.ok{background:var(--okbg);border:2px solid var(--ok)}
+.verdict.ng{background:var(--ngbg);border:2px solid var(--ng)}
+.verdict .big{font-size:clamp(21px,5vw,26px);font-weight:900;line-height:1.4;margin:0}
+.verdict.ok .big{color:var(--ok)} .verdict.ng .big{color:var(--ng)}
+.verdict p{margin:6px 0 0;font-size:15px}
+.need{display:flex;justify-content:space-between;align-items:baseline;margin:18px 0 6px;color:var(--navy);font-weight:900}
+.need .v{font-size:34px}
+.need small{font-size:15px}
+.gauge{position:relative;height:18px;background:#F4EEE3;border-radius:999px;overflow:visible;margin:4px 0 26px}
+.gauge .bar{display:flex;height:100%;border-radius:999px;overflow:hidden}
+.gauge .bar i{display:block;height:100%}
+.c1{background:var(--navy)} .c2{background:#5E7BB5} .c3{background:var(--orange)} .c4{background:var(--yellow)}
+.gauge .cap{position:absolute;top:-6px;bottom:-6px;width:3px;background:var(--ng);border-radius:2px}
+.gauge .cap b{position:absolute;top:30px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:12px;color:var(--ng)}
+table.bd{width:100%;border-collapse:collapse;font-size:15px}
+table.bd td{padding:8px 4px;border-bottom:1px solid var(--line)}
+table.bd td.v{white-space:nowrap;text-align:right;font-weight:800;color:var(--navy)}
+table.bd .dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:8px;vertical-align:middle}
+table.bd tr.sum td{font-weight:900;border-bottom:0;color:var(--navy)}
+.ways{margin:16px 0 0;padding:14px;border-radius:var(--rs);background:var(--paper)}
+.ways h3{margin:0 0 6px;font-size:15px;color:var(--navy)}
+.ways ol{margin:0;padding-left:1.4em;font-size:14px}
+.ways li{margin:4px 0}
+.ways li b{color:var(--ok)}
+.real{margin-top:18px}
+.real h3{margin:0 0 6px;font-size:15px;color:var(--navy)}
+.real ul{list-style:none;margin:0;padding:0;font-size:14px}
+.real li{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line)}
+.real li span:last-child{font-weight:800;color:var(--navy)}
+.note{font-size:12px;color:var(--muted);margin:14px 0 0}
+.back{display:block;text-align:center;margin:22px auto 0;max-width:420px;background:var(--navy);color:#fff;text-decoration:none;font-weight:700;border-radius:var(--rs);padding:12px 16px}
+footer{text-align:center;font-size:12px;color:var(--muted);padding:0 16px 24px}
+footer a{color:var(--muted)}
+</style>
+</head>
+<body>
+<header>
+  <span class="tag">7日で決める・2日目</span>
+  <h1>初期費用の上限チェック</h1>
+  <p>初期費用+家賃3か月分は、あなたの上限に入る?</p>
+</header>
+
+<main class="wrap">
+<div class="grid">
+<section class="card" aria-label="入力">
+  <div class="block">
+    <p class="step"><span class="n">1</span>失ってもいい金額の上限</p>
+    <div class="money"><input id="cap" type="number" inputmode="numeric" value="100" min="0" step="10" aria-label="上限(万円)"><span>万円</span></div>
+    <p class="hint">全部なくなっても、生活が変わらない金額です。</p>
+  </div>
+
+  <div class="block">
+    <p class="step"><span class="n">2</span>ジャンル</p>
+    <div class="seg" id="genre">
+      <button type="button" data-v="meeting" aria-pressed="true">貸し会議室<small>机・いす・モニター</small></button>
+      <button type="button" data-v="party" aria-pressed="false">パーティー<small>テレビ・ソファ・冷蔵庫</small></button>
+      <button type="button" data-v="photo" aria-pressed="false">撮影スタジオ<small>照明・背景・小道具</small></button>
+      <button type="button" data-v="dance" aria-pressed="false">ダンス・ヨガ<small>音響・鏡・マット</small></button>
+    </div>
+  </div>
+
+  <div class="block">
+    <p class="step"><span class="n">3</span>家賃(月)と広さ</p>
+    <div class="money"><input id="rent" type="number" inputmode="numeric" value="8" min="0" step="0.5" aria-label="家賃(万円)"><span>万円</span></div>
+    <div class="chips" id="rentChips"><button type="button" data-v="5">5万</button><button type="button" data-v="8">8万</button><button type="button" data-v="10">10万</button><button type="button" data-v="15">15万</button><button type="button" data-v="20">20万</button></div>
+    <div class="money" style="margin-top:12px"><input id="size" type="number" inputmode="numeric" value="20" min="0" step="1" aria-label="広さ(平米)"><span>㎡</span></div>
+  </div>
+
+  <div class="block">
+    <p class="step"><span class="n">4</span>内装</p>
+    <div class="seg three" id="naiso">
+      <button type="button" data-v="none" aria-pressed="true">そのまま<small>0円</small></button>
+      <button type="button" data-v="floor" aria-pressed="false">床だけ<small>張り替え</small></button>
+      <button type="button" data-v="full" aria-pressed="false">床と壁紙<small>張り替え</small></button>
+    </div>
+    <div id="mirrorBox" hidden>
+      <p class="hint" style="margin:12px 0 6px;font-weight:700;color:var(--navy)">ダンスの鏡(幅6.5mで計算)</p>
+      <div class="seg three" id="mirror">
+        <button type="button" data-v="0" aria-pressed="true">付いている<small>0円</small></button>
+        <button type="button" data-v="33000" aria-pressed="false">自分で<small>パネルミラー</small></button>
+        <button type="button" data-v="82000" aria-pressed="false">業者に<small>壁一面</small></button>
+      </div>
+    </div>
+    <details>
+      <summary>契約の条件を変える(敷金・礼金など)</summary>
+      <div class="small">
+        <label for="shiki">敷金(か月)</label><input id="shiki" type="number" value="1" min="0" step="0.5">
+        <label for="rei">礼金(か月)</label><input id="rei" type="number" value="1" min="0" step="0.5">
+        <label for="chukai">仲介手数料(か月)</label><input id="chukai" type="number" value="1" min="0" step="0.5">
+        <label for="hosho">保証会社(か月)</label><input id="hosho" type="number" value="1" min="0" step="0.5">
+        <label for="kasai">火災保険(万円)</label><input id="kasai" type="number" value="2" min="0" step="0.5">
+        <label for="kagi">鍵交換(万円)</label><input id="kagi" type="number" value="2" min="0" step="0.5">
+      </div>
+    </details>
+  </div>
+</section>
+
+<section class="card result" aria-live="polite" aria-label="結果">
+  <div class="verdict ok" id="verdict"><p class="big" id="vBig">—</p><p id="vSub"></p></div>
+  <div class="need"><span>用意するお金</span><span><span class="v num" id="need">—</span><small> 万円</small></span></div>
+  <div class="gauge"><div class="bar" id="bar"><i class="c1"></i><i class="c2"></i><i class="c3"></i><i class="c4"></i></div><div class="cap" id="capLine"><b>上限</b></div></div>
+  <table class="bd">
+    <tr><td><span class="dot c1"></span>契約のとき</td><td class="v num" id="b1">—</td></tr>
+    <tr><td><span class="dot c2"></span>内装</td><td class="v num" id="b2">—</td></tr>
+    <tr><td><span class="dot c3"></span>家具・備品</td><td class="v num" id="b3">—</td></tr>
+    <tr><td><span class="dot c4"></span>家賃3か月分<small style="display:block;font-size:12px;color:var(--muted);padding-left:18px">オープン直後、予約が少ない時期のぶん</small></td><td class="v num" id="b4">—</td></tr>
+    <tr class="sum"><td>合計</td><td class="v num" id="b5">—</td></tr>
+  </table>
+
+  <div class="ways" id="ways" hidden>
+    <h3>上限に入れるなら、ここを見直す</h3>
+    <ol id="waysList"></ol>
+  </div>
+
+  <a class="back" id="toShushi" href="/tools/shushi-check/" style="margin:16px 0 0;max-width:none;background:var(--orange)">この初期費用で、毎月の収支と回収を見る →</a>
+
+  <div class="real">
+    <h3>ぼくの店の初期費用(実例)</h3>
+    <ul>
+      <li><span>小さな貸し会議室</span><span class="num">約27万円</span></li>
+      <li><span>パーティースペース</span><span class="num">約88万円</span></li>
+      <li><span>ダンススタジオ(1号店)</span><span class="num">約90万円</span></li>
+      <li><span>ダンススタジオ(鏡と工事あり)</span><span class="num">約214万円</span></li>
+    </ul>
+  </div>
+  <p class="note">※累計23店舗の実額をもとにした、1万円単位の目安です。家具・備品はジャンルごとの標準的なそろえ方で計算しています。実際の金額は見積書で確かめてください。家賃3か月分は、オープンしてすぐ予約が少ない時期の家賃です。</p>
+</section>
+</div>
+
+<a class="back" href="/articles/2026-11-17-rental-space-saisho-7ka.html#day2">記事に戻る(3日目へ)</a>
+</main>
+<footer>© 2026 <a href="/">きくりんのノウハウ垂れ流し</a></footer>
+
+<script>
+(()=>{
+  const $=id=>document.getElementById(id);
+  // 家具・備品のジャンル別の標準(万円)= 初期費用シミュレーター(特典版)の標準のそろえ方の合計と同じ
+  const BIHIN={meeting:15.9,party:31.1,photo:43.6,dance:25.9};
+  const FLOOR=3000, WALL=1300, WALL_R=2.7, MIRROR_W=6.5; // 円/㎡・壁の面積=床×2.7・鏡の幅m
+  const st={genre:'meeting',naiso:'none',mirror:0};
+  const seg=(id,key,num)=>$(id).querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+    $(id).querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+    st[key]=num?+b.dataset.v:b.dataset.v; calc();
+  }));
+  seg('genre','genre'); seg('naiso','naiso'); seg('mirror','mirror',true);
+  $('rentChips').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{$('rent').value=b.dataset.v;calc();}));
+  document.querySelectorAll('input').forEach(i=>i.addEventListener('input',calc));
+  const man=y=>{const m=y/10000;return m<10?(Math.round(m*2)/2).toString():Math.round(m).toString();};
+  function calc(){
+    const v=id=>Math.max(0,+$(id).value||0);
+    const rent=v('rent')*10000, size=v('size'), cap=v('cap')*10000;
+    const keiyaku=rent*(v('shiki')+v('rei')+v('chukai')+v('hosho'))+(v('kasai')+v('kagi'))*10000;
+    let naiso=0; if(st.naiso==='floor')naiso=size*FLOOR; if(st.naiso==='full')naiso=size*FLOOR+size*WALL_R*WALL;
+    $('mirrorBox').hidden=st.genre!=='dance';
+    const mirror=st.genre==='dance'?st.mirror*MIRROR_W:0;
+    const bihin=BIHIN[st.genre]*10000+mirror;
+    const unten=rent*3;
+    const parts=[keiyaku,naiso,bihin,unten], total=parts.reduce((a,b)=>a+b,0);
+    ['b1','b2','b3','b4'].forEach((k,i)=>$(k).textContent=man(parts[i])+'万円');
+    $('b5').textContent=man(total)+'万円'; $('need').textContent=man(total);
+    const scale=Math.max(total,cap,1);
+    $('bar').style.width=(total/scale*100)+'%';
+    $('bar').querySelectorAll('i').forEach((el,i)=>el.style.width=(total?parts[i]/total*100:0)+'%');
+    $('capLine').style.left=Math.min(cap/scale*100,99.5)+'%'; $('capLine').hidden=!cap;
+    const vd=$('verdict'), diff=cap-total;
+    if(!cap){vd.className='verdict ng';$('vBig').textContent='まず上限を決めましょう';$('vSub').textContent='上限が決まらないうちは、物件を見に行かないのが安全です。';}
+    else if(diff>=0){vd.className='verdict ok';$('vBig').textContent='✓ 上限の中に入っています';$('vSub').innerHTML='あと <b class="num">'+man(diff)+'万円</b> の余裕があります。';}
+    else{vd.className='verdict ng';$('vBig').textContent='上限を '+man(-diff)+'万円 こえています';$('vSub').textContent='このままでは始めない方が安全です。下げ方を見てみましょう。';}
+    const ways=[];
+    if(rent*(v('shiki')+v('rei'))>0) ways.push(['敷金・礼金のない物件にする',rent*(v('shiki')+v('rei'))]);
+    if(naiso>0) ways.push(['内装はそのまま使う',naiso]);
+    if(mirror>0) ways.push(['最初から鏡が付いている物件にする',mirror]);
+    if(rent>=30000) ways.push(['家賃が2万円安い物件にする',20000*(v('shiki')+v('rei')+v('chukai')+v('hosho')+3)]);
+    $('toShushi').href='/tools/shushi-check/?k='+Math.round(keiyaku/10000)+'&n='+Math.round(naiso/10000)+'&b='+Math.round(bihin/10000)+'&rent='+v('rent');
+    ways.sort((a,b)=>b[1]-a[1]);
+    $('ways').hidden=!(cap&&diff<0);
+    $('waysList').innerHTML=ways.slice(0,3).map(w=>'<li>'+w[0]+' → <b class="num">約'+man(w[1])+'万円</b> 下がる</li>').join('');
+  }
+  calc();
+})();
+</script>
+</body>
+</html>
